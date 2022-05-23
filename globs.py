@@ -17,9 +17,18 @@ COLUMN_COUNT = 8
 # YELLOW_SPRITE = pygame.image.load(os.path.join("images", "yellow.png")).convert_alpha()
 
 
+# itemTypes = [
+#     "mushroom",
+#     "potion",
+#     "blue",
+#     "orange",
+#     "purple",
+#     "yellow"
+# ]
+
 itemTypes = [
-    "mushroom",
-    "potion",
+    "red",
+    "green",
     "blue",
     "orange",
     "purple",

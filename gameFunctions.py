@@ -97,22 +97,39 @@ def deleteItems(columnDict, rowDict, board):
 #     # deleteItems(columnDict, rowDict, board)
 
 
-def itemCollect(board, itemTypes):
+def checkBoard(board, columnDict, rowDict):
+
+    i = 0
+    j = 1
+
+
+    #See if there are multiple matches in a column
+    
+    
+    print(columnDict)
+    print("columns")
+
+    print(" ")
+    print(rowDict)
+    print("rows")
+    # deleteItems(columnDict, rowDict)
+
+
+def itemCollectHorizontal(board, itemTypes):
     # itemTypes: the different colors available
 
     # Check horizontal locations for 3-in-a-row items
     comboColumns = []
-    comboRows = []
-    rowMarker = 0
     columnMarker = 0
-
     rowComboDict = {}
-    columnComboDict = {}
+    
 
     # HORIZONTAL MATCHES
+    print(itemTypes)
     for item in itemTypes:
         for r in range(globs.ROW_COUNT):
             while columnMarker < globs.COLUMN_COUNT-2:
+
                 if board[r][columnMarker] == item and board[r][columnMarker+1] == item and board[r][columnMarker+2] == item:
                     comboColumns.extend([columnMarker, columnMarker+1, columnMarker+2])
                     columnMarker += 2
@@ -138,8 +155,52 @@ def itemCollect(board, itemTypes):
             comboColumns = []
             columnMarker = 0
             
+    for rowKey in rowComboDict:
+        rowLen = len(rowComboDict[rowKey][1])
+        
+        i = 0
+        j = 1
+        firstRow = []
+        secondRow = []
+        splitRow = False
+        while j<rowLen and splitRow != True:
 
-        # VERTICAL MATCHES
+            if rowComboDict[rowKey][1][i] + 1 != rowComboDict[rowKey][1][j]:
+                rowCount = 0
+                firstRow = []
+                secondRow = []
+
+                while rowCount < j:
+                    firstRow.append(rowComboDict[rowKey][1][rowCount])
+                    rowCount += 1
+
+                rowCount = j
+                    
+                while rowCount < len(rowComboDict[rowKey][1]):
+                    secondRow.append(rowComboDict[rowKey][1][rowCount])
+                    rowCount += 1
+
+                rowComboDict[rowKey][1] = []
+                rowComboDict[rowKey][1].append(firstRow)
+                rowComboDict[rowKey][1].append(secondRow) #####
+                splitRow = True
+
+            i+=1
+            j+=1
+
+    # this one is rowComboDict
+    return(rowComboDict)
+    # checkBoard(board, columnComboDict, rowComboDict)
+
+
+
+def itemCollectVertical(board, itemTypes):
+    rowMarker = 0
+    comboRows = []
+    columnComboDict = {}
+
+    # VERTICAL MATCHES
+    for item in itemTypes:
         for c in range(globs.COLUMN_COUNT):
             while rowMarker < globs.ROW_COUNT-2:
 
@@ -168,13 +229,7 @@ def itemCollect(board, itemTypes):
             comboRows = []
             rowMarker = 0
 
-
-
-    # CHECKBOARD HERE
-    i = 0
-    j = 1
-        
-    #See if there are multiple matches in a row
+     #See if there are multiple matches in a row
     for colKey in columnComboDict:
         colLen = len(columnComboDict[colKey][1])
         
@@ -209,45 +264,6 @@ def itemCollect(board, itemTypes):
             i+=1
             j+=1
 
+    return(columnComboDict)
+    # this one is columnComboDict
 
-    #See if there are multiple matches in a column
-    for rowKey in rowComboDict:
-
-        rowLen = len(rowComboDict[rowKey][1])
-        
-        i = 0
-        j = 1
-        firstRow = []
-        secondRow = []
-        splitRow = False
-        while j<rowLen and splitRow != True:
-
-            if rowComboDict[rowKey][1][i] + 1 != rowComboDict[rowKey][1][j]:
-                rowCount = 0
-                firstRow = []
-                secondRow = []
-
-                while rowCount < j:
-                    firstRow.append(rowComboDict[rowKey][1][rowCount])
-                    rowCount += 1
-
-                rowCount = j
-                    
-                while rowCount < len(rowComboDict[rowKey][1]):
-                    secondRow.append(rowComboDict[rowKey][1][rowCount])
-                    rowCount += 1
-
-                rowComboDict[rowKey][1] = []
-                rowComboDict[rowKey][1].append(firstRow)
-                rowComboDict[rowKey][1].append(secondRow) #####
-                splitRow = True
-
-            i+=1
-            j+=1
-    
-    # print("hi")
-    # print(rowComboDict, columnComboDict)
-    return([rowComboDict, columnComboDict])
-
-
-    # checkBoard(board, columnComboDict, rowComboDict)
