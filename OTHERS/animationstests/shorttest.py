@@ -15,7 +15,15 @@ right = 0
 up = 0
 down = 0
 
+count = 0
 while True:
+
+    while count < 1200:
+        print("HI")
+        h += 1
+        
+        # screen.blit(square, (w, h))
+
     if left:
         w += 1
         screen.fill(0)
@@ -61,5 +69,6 @@ while True:
         
     clock.tick(60)
     pygame.display.update()
+    count += 1
 
 pygame.quit()

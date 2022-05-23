@@ -18,7 +18,6 @@ IMAGE1 = 'an_image.png'
 totalItems = 64
 i = 0
 while i < totalItems:
-    
     i = i + 1
 
 class Item(pygame.sprite.Sprite):
