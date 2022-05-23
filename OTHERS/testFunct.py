@@ -6,15 +6,14 @@ import numpy as np
 from os import system
 import time
 import globs
-import sampleBoards
+
 
 game_over = False
 turn = 0
 
 
-while not game_over:
 
-    
+while not game_over:
 
     if down:
         h += 1

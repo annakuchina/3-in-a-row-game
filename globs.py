@@ -5,6 +5,8 @@ import sys
 import itertools
 
 SCREEN = pygame.display.set_mode((800, 800))
+ROW_COUNT = 8
+COLUMN_COUNT = 8
 
 # MUSHROOM_SPRITE = pygame.image.load(os.path.join("sprites", "mushroom.png")).convert_alpha()
 # POTION_SPRITE = pygame.image.load(os.path.join("sprites", "potion.png")).convert_alpha()
