@@ -97,22 +97,6 @@ def deleteItems(columnDict, rowDict, board):
 #     # deleteItems(columnDict, rowDict, board)
 
 
-def checkBoard(board, columnDict, rowDict):
-
-    i = 0
-    j = 1
-
-
-    #See if there are multiple matches in a column
-    
-    
-    print(columnDict)
-    print("columns")
-
-    print(" ")
-    print(rowDict)
-    print("rows")
-    # deleteItems(columnDict, rowDict)
 
 
 def itemCollectHorizontal(board, itemTypes):
@@ -125,7 +109,6 @@ def itemCollectHorizontal(board, itemTypes):
     
 
     # HORIZONTAL MATCHES
-    print(itemTypes)
     for item in itemTypes:
         for r in range(globs.ROW_COUNT):
             while columnMarker < globs.COLUMN_COUNT-2:
