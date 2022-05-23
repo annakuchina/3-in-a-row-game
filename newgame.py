@@ -16,16 +16,18 @@ FPS = 60
 clock = pygame.time.Clock()
 pygame.init()
 
+itemTypes = globs.itemTypes
+
 # Load all images
 
-itemTypes = [
-    "red",
-    "yellow",
-    "orange",
-    "purple",
-    "green",
-    "blue"
-]
+# itemTypes = [
+#     "red",
+#     "yellow",
+#     "orange",
+#     "purple",
+#     "green",
+#     "blue"
+# ]
 
 SQUARESIZE = 10
 
@@ -59,8 +61,13 @@ class Item(pygame.sprite.Sprite):
     def __init__(self, picture_path, pos, itemSize):
         super().__init__()
 
+        # com
         completeImgPath = os.path.join("images", (str(picture_path) + ".png"))
-        #add checking here later
+        # add checking here later
+
+        # print(picture_path)
+        # print(pos)
+        # print("   hi")
 
         self.image = pygame.image.load(completeImgPath)
         self.rect = self.image.get_rect()
@@ -73,7 +80,16 @@ class Item(pygame.sprite.Sprite):
         # the picture, and the rectangle around the picture
 
         # animateRemove(board[currentRow][colSplitCount])
-        # animateMoveDown(board[currentRow][colSplitCount])
+
+        def animateMoveDown(item):
+            pygame.time.get_ticks(60)
+            iterations = 60
+            
+            self.rect.y -= 1
+            board[currentRow][colSplitCount]
+            pass
+            
+
 
     def removeItem():
         globs.SCREEN.blit(self.image, (self.x - 16, self.y - 11))
@@ -110,7 +126,7 @@ itemCount = 0
 # 2 HORIZONTAL 4 in a row
 # board = {0: ['purple', 'purple', 'green', 'yellow', 'green', 'purple', 'red', 'yellow'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'blue', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'orange', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'red', 'red'], 4: ['blue', 'blue', 'red', 'green', 'purple', 'blue', 'purple', 'orange'], 5: ['purple', 'green', 'green', 'yellow', 'blue', 'purple', 'green', 'green'], 6: ['yellow', 'green', 'green', 'green', 'green', 'purple', 'orange', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
-board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
 # board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
@@ -343,8 +359,7 @@ def checkBoard(board, columnDict, rowDict):
             i+=1
             j+=1
     
-    deleteItems(columnDict, rowDict)
-
+    # deleteItems(columnDict, rowDict)
 
 
 def itemCollect(board, itemTypes):
@@ -431,8 +446,6 @@ itemCollect(board, itemTypes)
 
 
 
-
-
 # Starting game
 # board = create_board()
 # draw_board(board)
@@ -485,7 +498,7 @@ while not game_over:
         
 
     pygame.display.update()
-    clock.tick(FPS)
+    dt = clock.tick(FPS)
     itemGroup.draw(globs.SCREEN)
 
 pygame.quit()
