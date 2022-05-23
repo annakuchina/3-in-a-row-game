@@ -8,7 +8,8 @@ import time
 import globs
 # from newgame import ROW_COUNT, COLUMN_COUNT, itemTypes
 
-def deleteItems(columnDict, rowDict):
+
+def deleteItems(columnDict, rowDict, board):
     print("rows here")
     print(rowDict)
 
@@ -88,83 +89,12 @@ def deleteItems(columnDict, rowDict):
 
 
 
-def checkBoard(board, columnDict, rowDict):
-
-    i = 0
-    j = 1
-        
-    #See if there are multiple matches in a row
-    for colKey in columnDict:
-        colLen = len(columnDict[colKey][1])
-        
-        i = 0
-        j = 1
-        firstCol = []
-        secondCol = []
-        splitCol = False
-        while j<colLen and splitCol != True:
-
-            if columnDict[colKey][1][i] + 1 != columnDict[colKey][1][j]:
-                colCount = 0
-                firstCol = []
-                secondCol = []
-
-                while colCount < j:
-                    firstCol.append(columnDict[colKey][1][colCount])
-                    colCount += 1
-                
-                colCount = j
-                    
-                while colCount < len(columnDict[colKey][1]):
-                    secondCol.append(columnDict[colKey][1][colCount])
-                    colCount += 1
-
-                columnDict[colKey][1] = []
-                columnDict[colKey][1].append(firstCol)
-                columnDict[colKey][1].append(secondCol) #####
-
-                splitCol = True
-
-            i+=1
-            j+=1
-
-
-    #See if there are multiple matches in a column
-    for rowKey in rowDict:
-
-        rowLen = len(rowDict[rowKey][1])
-        
-        i = 0
-        j = 1
-        firstRow = []
-        secondRow = []
-        splitRow = False
-        while j<rowLen and splitRow != True:
-
-            if rowDict[rowKey][1][i] + 1 != rowDict[rowKey][1][j]:
-                rowCount = 0
-                firstRow = []
-                secondRow = []
-
-                while rowCount < j:
-                    firstRow.append(rowDict[rowKey][1][rowCount])
-                    rowCount += 1
-
-                rowCount = j
-                    
-                while rowCount < len(rowDict[rowKey][1]):
-                    secondRow.append(rowDict[rowKey][1][rowCount])
-                    rowCount += 1
-
-                rowDict[rowKey][1] = []
-                rowDict[rowKey][1].append(firstRow)
-                rowDict[rowKey][1].append(secondRow) #####
-                splitRow = True
-
-            i+=1
-            j+=1
+# def checkBoard(board, columnDict, rowDict):
     
-    # deleteItems(columnDict, rowDict)
+    
+#     # print(columnDict, rowDict)
+    
+#     # deleteItems(columnDict, rowDict, board)
 
 
 def itemCollect(board, itemTypes):
@@ -238,4 +168,86 @@ def itemCollect(board, itemTypes):
             comboRows = []
             rowMarker = 0
 
-    checkBoard(board, columnComboDict, rowComboDict)
+
+
+    # CHECKBOARD HERE
+    i = 0
+    j = 1
+        
+    #See if there are multiple matches in a row
+    for colKey in columnComboDict:
+        colLen = len(columnComboDict[colKey][1])
+        
+        i = 0
+        j = 1
+        firstCol = []
+        secondCol = []
+        splitCol = False
+        while j<colLen and splitCol != True:
+
+            if columnComboDict[colKey][1][i] + 1 != columnComboDict[colKey][1][j]:
+                colCount = 0
+                firstCol = []
+                secondCol = []
+
+                while colCount < j:
+                    firstCol.append(columnComboDict[colKey][1][colCount])
+                    colCount += 1
+                
+                colCount = j
+                    
+                while colCount < len(columnComboDict[colKey][1]):
+                    secondCol.append(columnComboDict[colKey][1][colCount])
+                    colCount += 1
+
+                columnComboDict[colKey][1] = []
+                columnComboDict[colKey][1].append(firstCol)
+                columnComboDict[colKey][1].append(secondCol) #####
+
+                splitCol = True
+
+            i+=1
+            j+=1
+
+
+    #See if there are multiple matches in a column
+    for rowKey in rowComboDict:
+
+        rowLen = len(rowComboDict[rowKey][1])
+        
+        i = 0
+        j = 1
+        firstRow = []
+        secondRow = []
+        splitRow = False
+        while j<rowLen and splitRow != True:
+
+            if rowComboDict[rowKey][1][i] + 1 != rowComboDict[rowKey][1][j]:
+                rowCount = 0
+                firstRow = []
+                secondRow = []
+
+                while rowCount < j:
+                    firstRow.append(rowComboDict[rowKey][1][rowCount])
+                    rowCount += 1
+
+                rowCount = j
+                    
+                while rowCount < len(rowComboDict[rowKey][1]):
+                    secondRow.append(rowComboDict[rowKey][1][rowCount])
+                    rowCount += 1
+
+                rowComboDict[rowKey][1] = []
+                rowComboDict[rowKey][1].append(firstRow)
+                rowComboDict[rowKey][1].append(secondRow) #####
+                splitRow = True
+
+            i+=1
+            j+=1
+    
+    # print("hi")
+    # print(rowComboDict, columnComboDict)
+    return([rowComboDict, columnComboDict])
+
+
+    # checkBoard(board, columnComboDict, rowComboDict)
