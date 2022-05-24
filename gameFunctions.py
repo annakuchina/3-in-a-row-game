@@ -98,41 +98,119 @@ def itemCollectVertical(board, itemTypes):
     # itemTypes: the different colors available
 
     # Check horizontal locations for 3-in-a-row items
-    comboColumns = []
-    columnMarker = 0
-    rowComboDict = {}
+    comboCols1 = []
+    rowMarker = 0
+    colComboDict = {}
     
 
     # HORIZONTAL MATCHES
     for item in itemTypes:
-        for r in range(globs.ROW_COUNT):
-            while columnMarker < globs.COLUMN_COUNT-2:
+        for c in range(globs.COLUMN_COUNT):
+            while rowMarker < globs.ROW_COUNT-2:
 
-                if board[r][columnMarker] == item and board[r][columnMarker+1] == item and board[r][columnMarker+2] == item:
-                    comboColumns.extend([columnMarker, columnMarker+1, columnMarker+2])
-                    columnMarker += 2
+                if board[c][rowMarker] == item and board[c][rowMarker+1] == item and board[c][rowMarker+2] == item:
+                    comboCols1.extend([rowMarker, rowMarker+1, rowMarker+2])
+                    rowMarker += 2
 
-                    while columnMarker+1 < globs.COLUMN_COUNT:
+                    while rowMarker+1 < globs.ROW_COUNT:
                         # Checking if it is longer than 3 in a row
 
-                        if board[r][columnMarker+1] == item:
-                            comboColumns.append(columnMarker + 1)
+                        if board[c][rowMarker+1] == item:
+                            comboCols1.append(rowMarker + 1)
                             
                         else:
                             break
 
-                        columnMarker += 1
+                        rowMarker += 1
 
                 # GAP between them - see later
                 else:
-                    columnMarker += 1
+                    rowMarker += 1
 
-            if len(comboColumns) > 0:
-                rowComboDict[r] = [item, comboColumns]
+            if len(comboCols1) > 0:
+                colComboDict[c] = [item, comboCols1]
 
-            comboColumns = []
-            columnMarker = 0
+            comboCols1 = []
+            rowMarker = 0
             
+    for colKey in colComboDict:
+        colLen = len(colComboDict[colKey][1])
+        
+        i = 0
+        j = 1
+        firstCol = []
+        secondCol = []
+        splitCol = False
+        while j<colLen and splitCol != True:
+
+            if colComboDict[colKey][1][i] + 1 != colComboDict[colKey][1][j]:
+                colCount = 0
+                firstCol = []
+                secondCol = []
+
+                while colCount < j:
+                    firstCol.append(colComboDict[colKey][1][colCount])
+                    
+                    colCount += 1
+
+                colCount = j
+                    
+                while colCount < len(colComboDict[colKey][1]):
+                    secondCol.append(colComboDict[colKey][1][colCount])
+                    colCount += 1
+
+                colComboDict[colKey].pop()
+                colComboDict[colKey].append(firstCol)
+                colComboDict[colKey].append(secondCol) #####
+                splitCol = True
+
+            i+=1
+            j+=1
+
+    # this one is rowComboDict
+        
+
+    return(colComboDict)
+    # checkBoard(board, columnComboDict, rowComboDict)
+
+
+
+def itemCollectHorizontal(board, itemTypes):
+    colMarker = 0
+    comboRows = []
+    rowComboDict = {}
+
+    # VERTICAL MATCHES
+    for item in itemTypes:
+        for r in range(globs.ROW_COUNT):
+            while colMarker < globs.COLUMN_COUNT-2:
+
+                if board[colMarker][r] == item and board[colMarker + 1][r] == item and board[colMarker + 2][r] == item:
+                    comboRows.extend([colMarker, colMarker+1, colMarker+2])
+                    colMarker += 2
+
+                    while colMarker+1 < globs.COLUMN_COUNT:
+                        # Checking if it is longer than 3 in a column
+
+                        if board[colMarker + 1][r] == item:
+                            comboRows.append(colMarker + 1)
+                            
+                        else:
+                            break
+
+                        colMarker += 1
+
+                # GAP between them - see later
+                else:
+                    colMarker += 1
+
+            if len(comboRows) > 0:
+                rowComboDict[r] = [item, comboRows]
+
+            comboRows = []
+            colMarker = 0
+
+     #See if there are multiple matches in a row
     for rowKey in rowComboDict:
         rowLen = len(rowComboDict[rowKey][1])
         
@@ -150,9 +228,8 @@ def itemCollectVertical(board, itemTypes):
 
                 while rowCount < j:
                     firstRow.append(rowComboDict[rowKey][1][rowCount])
-                    
                     rowCount += 1
-
+                
                 rowCount = j
                     
                 while rowCount < len(rowComboDict[rowKey][1]):
@@ -161,90 +238,13 @@ def itemCollectVertical(board, itemTypes):
 
                 rowComboDict[rowKey].pop()
                 rowComboDict[rowKey].append(firstRow)
-                rowComboDict[rowKey].append(secondRow) #####
+                rowComboDict[rowKey].append(secondRow)
+
                 splitRow = True
 
             i+=1
             j+=1
 
-    # this one is rowComboDict
-        
-
     return(rowComboDict)
-    # checkBoard(board, columnComboDict, rowComboDict)
-
-
-
-def itemCollectHorizontal(board, itemTypes):
-    rowMarker = 0
-    comboRows = []
-    columnComboDict = {}
-
-    # VERTICAL MATCHES
-    for item in itemTypes:
-        for c in range(globs.COLUMN_COUNT):
-            while rowMarker < globs.ROW_COUNT-2:
-
-                if board[rowMarker][c] == item and board[rowMarker + 1][c] == item and board[rowMarker + 2][c] == item:
-                    comboRows.extend([rowMarker, rowMarker+1, rowMarker+2])
-                    rowMarker += 2
-
-                    while rowMarker+1 < globs.ROW_COUNT:
-                        # Checking if it is longer than 3 in a column
-
-                        if board[rowMarker + 1][c] == item:
-                            comboRows.append(rowMarker + 1)
-                            
-                        else:
-                            break
-
-                        rowMarker += 1
-
-                # GAP between them - see later
-                else:
-                    rowMarker += 1
-
-            if len(comboRows) > 0:
-                columnComboDict[c] = [item, comboRows]
-
-            comboRows = []
-            rowMarker = 0
-
-     #See if there are multiple matches in a row
-    for colKey in columnComboDict:
-        colLen = len(columnComboDict[colKey][1])
-        
-        i = 0
-        j = 1
-        firstCol = []
-        secondCol = []
-        splitCol = False
-        while j<colLen and splitCol != True:
-
-            if columnComboDict[colKey][1][i] + 1 != columnComboDict[colKey][1][j]:
-                colCount = 0
-                firstCol = []
-                secondCol = []
-
-                while colCount < j:
-                    firstCol.append(columnComboDict[colKey][1][colCount])
-                    colCount += 1
-                
-                colCount = j
-                    
-                while colCount < len(columnComboDict[colKey][1]):
-                    secondCol.append(columnComboDict[colKey][1][colCount])
-                    colCount += 1
-
-                columnComboDict[colKey].pop()
-                columnComboDict[colKey].append(firstCol)
-                columnComboDict[colKey].append(secondCol)
-
-                splitCol = True
-
-            i+=1
-            j+=1
-
-    return(columnComboDict)
     # this one is columnComboDict
 

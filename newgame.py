@@ -63,7 +63,7 @@ down = 0
 # 2 HORIZONTAL 4 in a row
 # board = {0: ['purple', 'purple', 'green', 'yellow', 'green', 'purple', 'red', 'yellow'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'blue', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'orange', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'red', 'red'], 4: ['blue', 'blue', 'red', 'green', 'purple', 'blue', 'purple', 'orange'], 5: ['purple', 'green', 'green', 'yellow', 'blue', 'purple', 'green', 'green'], 6: ['yellow', 'green', 'green', 'green', 'green', 'purple', 'orange', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
-board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
 # board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
@@ -133,22 +133,24 @@ class Item(pygame.sprite.Sprite):
 
 
 
-def drawItem(chosenItem, rowNo, columnNo, itemSize):
-    itemPosition = [(columnNo*itemSize + innerSpacing*columnNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
+def drawItem(chosenItem, rowNo, colNo, itemSize):
+    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
     itemSprite = Item(chosenItem, itemPosition, itemSize)
     itemGroup.add(itemSprite)
 
 
 def makeBoard(board):
     c = 0
-    for c, rowArray in board.items():
+    print(board)
+    print("   ")
+    for c, colArray in board.items():
                 
         r = 0
-        for chosenItem in rowArray:
+        for chosenItem in colArray:
             drawItem(chosenItem, r, c, itemSize)
             r+=1
 
-        c += 1
+
 
 if len(board) > 0:
     testDict = True
@@ -170,7 +172,7 @@ else:
             chosenItem = itemTypes[random.randint(0, itemLen-1)]
             colArray.append(chosenItem)
 
-            drawItem(chosenItem, c, r, itemSize)
+            drawItem(chosenItem, r, c, itemSize)
 
             #maybe add it after calculations
         
@@ -231,8 +233,8 @@ def redrawGameWindow():
         for key in verticalDict:
             for item in verticalDict[key]:
                 if isinstance(item, list):
-                    for colNo in item:
-                        drawItem(globs.deleteOrange[verticalRemoveCount//3], colNo, key, itemSize)
+                    for rowNo in item:
+                        drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, itemSize)
                             
                         # drawItem("white", colNo, key, 80)
         verticalRemoveCount += 1
@@ -248,8 +250,8 @@ def redrawGameWindow():
         for key in horizontalDict:
             for item in horizontalDict[key]:
                 if isinstance(item, list):
-                    for rowNo in item:
-                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, rowNo, itemSize)
+                    for colNo in item:
+                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, itemSize)
 
         horizontalRemoveCount += 1
 
@@ -266,7 +268,7 @@ removeHorizontal = False
 removeVertical = False
 
 
-# var1 = True
+var1 = True
 
 while not gameOver:
     clock.tick(FPS)
@@ -281,11 +283,15 @@ while not gameOver:
         if len(verticalDict) > 0:
             removeVertical = True
 
+            print(board)
+            print("  ")
+            print(verticalDict)
+            print("   ")
             for key in verticalDict:
                 for item in verticalDict[key]:
                     if isinstance(item, list):
                         for rowNo in item:
-                            board[rowNo][key] = "BLANK"
+                            board[key][rowNo] = "BLANK"
 
         else:
             removeVertical = False
@@ -300,7 +306,7 @@ while not gameOver:
                 for item in horizontalDict[key]:
                     if isinstance(item, list):
                         for colNo in item:
-                            board[key][colNo] = "BLANK"
+                            board[colNo][key] = "BLANK"
 
         else:
             removeHorizontal = False
@@ -341,9 +347,9 @@ while not gameOver:
     # ONLY draw things in here
     redrawGameWindow()
     
-    # if var1 == True:
-    #     print(board)
-    #     var1 = False
+    if var1 == True:
+        print(board)
+        var1 = False
     
 
 pygame.quit()
