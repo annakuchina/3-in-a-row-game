@@ -155,6 +155,9 @@ def itemCollectHorizontal(board, itemTypes):
 
                 while rowCount < j:
                     firstRow.append(rowComboDict[rowKey][1][rowCount])
+                    
+                    print("here is board")
+                    print(board)
                     rowCount += 1
 
                 rowCount = j
@@ -172,6 +175,8 @@ def itemCollectHorizontal(board, itemTypes):
             j+=1
 
     # this one is rowComboDict
+        
+
     return(rowComboDict)
     # checkBoard(board, columnComboDict, rowComboDict)
 
