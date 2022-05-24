@@ -63,9 +63,9 @@ down = 0
 # 2 HORIZONTAL 4 in a row
 # board = {0: ['purple', 'purple', 'green', 'yellow', 'green', 'purple', 'red', 'yellow'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'blue', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'orange', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'red', 'red'], 4: ['blue', 'blue', 'red', 'green', 'purple', 'blue', 'purple', 'orange'], 5: ['purple', 'green', 'green', 'yellow', 'blue', 'purple', 'green', 'green'], 6: ['yellow', 'green', 'green', 'green', 'green', 'purple', 'orange', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
-board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
-# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
 # MULTIPLES
 # board = {0: ['green', 'green', 'purple', 'green', 'yellow', 'yellow', 'purple', 'red'], 1: ['green', 'yellow', 'green', 'green', 'yellow', 'blue', 'blue', 'orange'], 2: ['green', 'red', 'yellow', 'purple', 'green', 'orange', 'yellow', 'blue'], 3: ['blue', 'blue', 'blue', 'purple', 'green', 'green', 'blue', 'green'], 4: ['purple', 'purple', 'red', 'yellow', 'yellow', 'green', 'green', 'blue'], 5: ['purple', 'blue', 'yellow', 'red', 'purple', 'blue', 'red', 'yellow'], 6: ['red', 'purple', 'yellow', 'blue', 'blue', 'green', 'yellow', 'purple'], 7: ['orange', 'red', 'yellow', 'green', 'blue', 'blue', 'yellow', 'red']}
@@ -178,6 +178,7 @@ else:
     #INCLUDE THIS in the function somehow
 
 
+# def replaceBlank:
 
 
 
@@ -265,9 +266,8 @@ removeVertical = False
 
 while not gameOver:
     clock.tick(FPS)
-
-
     
+    # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
     if gameChanged == True:
         verticalDict = itemCollectVertical(board, itemTypes)
         horizontalDict = itemCollectHorizontal(board, itemTypes)
@@ -278,11 +278,9 @@ while not gameOver:
             for key in verticalDict:
                 for item in verticalDict[key]:
                     if isinstance(item, list):
-                        print(verticalDict)
                         for rowNo in item:
                             board[rowNo][key] = "BLANK"
 
-        
         else:
             removeVertical = False
             removeCount = 0
@@ -297,8 +295,6 @@ while not gameOver:
                     if isinstance(item, list):
                         for colNo in item:
                             board[key][colNo] = "BLANK"
-
-
 
         else:
             removeHorizontal = False

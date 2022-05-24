@@ -10,15 +10,11 @@ import globs
 
 
 def deleteItems(columnDict, rowDict, board):
-    print("rows here")
-    print(rowDict)
 
     currentRow = globs.ROW_COUNT-1
 
     while currentRow >= 0:
         if currentRow in rowDict:
-            print("it is in")
-            print(currentRow)
 
             for colCount in rowDict[currentRow][1]:
 
@@ -39,7 +35,6 @@ def deleteItems(columnDict, rowDict, board):
                             
                         else:
                             chosenItem = itemTypes[random.randint(0, itemLen-1)]
-                            print(board[colSplitCount])
                             board[currentRow][colSplitCount] = chosenItem
 
 
@@ -156,8 +151,6 @@ def itemCollectHorizontal(board, itemTypes):
                 while rowCount < j:
                     firstRow.append(rowComboDict[rowKey][1][rowCount])
                     
-                    print("here is board")
-                    print(board)
                     rowCount += 1
 
                 rowCount = j
@@ -166,9 +159,9 @@ def itemCollectHorizontal(board, itemTypes):
                     secondRow.append(rowComboDict[rowKey][1][rowCount])
                     rowCount += 1
 
-                rowComboDict[rowKey][1] = []
-                rowComboDict[rowKey][1].append(firstRow)
-                rowComboDict[rowKey][1].append(secondRow) #####
+                rowComboDict[rowKey].pop()
+                rowComboDict[rowKey].append(firstRow)
+                rowComboDict[rowKey].append(secondRow) #####
                 splitRow = True
 
             i+=1
@@ -243,9 +236,9 @@ def itemCollectVertical(board, itemTypes):
                     secondCol.append(columnComboDict[colKey][1][colCount])
                     colCount += 1
 
-                columnComboDict[colKey][1] = []
-                columnComboDict[colKey][1].append(firstCol)
-                columnComboDict[colKey][1].append(secondCol) #####
+                columnComboDict[colKey].pop()
+                columnComboDict[colKey].append(firstCol)
+                columnComboDict[colKey].append(secondCol)
 
                 splitCol = True
 
