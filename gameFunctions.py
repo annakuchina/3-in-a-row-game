@@ -94,34 +94,43 @@ def deleteItems(columnDict, rowDict, board):
 
 
 def shiftDown(col):
-    col.reverse()
+    # print("start col:")
+    # col =  ['blue', 'yellow', 'BLANK', 'BLANK', 'BLANK', 'green', 'red', 'purple']
+    # col =  ['BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK']
+    # print(col)
+    # print(" ")
 
+
+    col.reverse()
     itemNo = 0
+
     for item in col:
         
         if item == "BLANK":
             # blankPosNum = (globs.ROW_COUNT-1) - itemNo
             blankPosNum = itemNo
 
+            unchangedCol = col[:itemNo]
             col.pop(itemNo)
             newItem = globs.itemTypes[random.randint(0, globs.itemLen-1)]
             col.append(newItem)
 
             # print(col)
             col.reverse()
-            
-            print(col)
+            unchangedCol.reverse()
+
+            # print("newcol ")
+            # print(unchangedCol)
+            # print(" ")
+            # print(col)
 
             
 
-            print("HEERE")
-            print(blankPosNum)
-            return blankPosNum, col
+            # print("HEERE")
+            # print(blankPosNum)
+            return unchangedCol, col
 
         itemNo+=1
-
-
-
 
 
 

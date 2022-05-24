@@ -183,6 +183,7 @@ else:
 
 horizontalRemoveCount = 0
 verticalRemoveCount = 0
+shiftDownCount = 0
 
 
 def redrawGameWindow():
@@ -197,6 +198,9 @@ def redrawGameWindow():
 
     global horizontalRemoveCount
     global removeHorizontal
+
+    global shiftDownCount
+    global shiftItemsDown
 
     global board
 
@@ -218,8 +222,11 @@ def redrawGameWindow():
         horizontalRemoveCount = 0
         removeHorizontal = False
 
-    if removeVertical:
+    if shiftDownCount + 1 >= 12:
+        shiftDownCount = 0
+        shiftItemsDown = False
 
+    if removeVertical:
         for key in verticalDict:
             for item in verticalDict[key]:
                 if isinstance(item, list):
@@ -331,20 +338,53 @@ while not gameOver:
         gameChanged = False
 
     # if var1:
-    if removeVertical == False & removeHorizontal == False:
+    
+    print(removeVertical)
+    print(removeHorizontal)
+    print(shiftItemsDown)
+    # print(var1)
+    print(" ")
+    if removeVertical == False & removeHorizontal == False & shiftItemsDown == False:
+        notBlankCount = 0
+        shiftedDict = {}
+        print("gdfgfd")
         for key in board:
             if "BLANK" in board[key]:
-                shiftItemsDown = True
-                shiftedColCount, shiftedCol = shiftDown(board[key])
+                
+                # shiftItemsDown = True
+                unchangedCol, shiftedCol = shiftDown(board[key])
 
-                shiftedDict[key] = [shiftedColCount, shiftedCol]
+
+                colLen = len(unchangedCol)
+
+                if colLen < globs.COLUMN_COUNT:
+                    #put in blanks, append the final col's****
+                    pass
+
+                shiftedDict[key] = unchangedCol
+                #OUTPUT BLANK for a second -> replace items with blank where they would fall down
+
+                board[key] = unchangedCol
+
+                while len(board[key]) < globs.COLUMN_COUNT-1:
+                    board[key].append("BLANK")
+
+
+                # while columnMarker <= globs.COLUMN_COUNT:
+                #     board[key][shiftedCol]
 
                 print("   ")
-                print(shiftedDict)
+                print(board)
                     # print(newCol)
                     # print(changedColArray)
 
-            # var1 = False
+                if "BLANK" not in board[key]:
+                    notBlankCount += 1
+        
+        if notBlankCount == globs.COLUMN_COUNT:
+            shiftItemsDown = False
+
+        var1 = False
                 # PUT SOMETHING HERE
 
 
