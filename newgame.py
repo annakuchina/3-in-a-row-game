@@ -231,27 +231,27 @@ def redrawGameWindow():
         for key in verticalDict:
             for item in verticalDict[key]:
                 if isinstance(item, list):
-                    for rowNo in item:
-                        drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, itemSize)
+                    for colNo in item:
+                        drawItem(globs.deleteOrange[verticalRemoveCount//3], colNo, key, itemSize)
                             
                         # drawItem("white", colNo, key, 80)
+        verticalRemoveCount += 1
 
             # redraw(verticalDict, "vertical")
 
         # globs.SCREEN.blit(globs.deleteOrange[verticalRemoveCount//3], (x, y))
 
         # drawItem(globs.deleteOrange, rowNo, columnNo, itemSize)
-        verticalRemoveCount += 1
+        
     
     if removeHorizontal:
         for key in horizontalDict:
             for item in horizontalDict[key]:
                 if isinstance(item, list):
-                    for colNo in item:
-                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, itemSize)
+                    for rowNo in item:
+                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, rowNo, itemSize)
 
         horizontalRemoveCount += 1
-    
 
 
     pygame.display.update()
@@ -272,6 +272,7 @@ while not gameOver:
     clock.tick(FPS)
     
     # gameChanged = False
+
     # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
     if gameChanged == True:
         verticalDict = itemCollectVertical(board, itemTypes)
