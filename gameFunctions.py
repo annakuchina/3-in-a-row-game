@@ -100,7 +100,8 @@ def shiftDown(col):
     for item in col:
         
         if item == "BLANK":
-            blankPosNum = (globs.ROW_COUNT-1) - itemNo
+            # blankPosNum = (globs.ROW_COUNT-1) - itemNo
+            blankPosNum = itemNo
 
             col.pop(itemNo)
             newItem = globs.itemTypes[random.randint(0, globs.itemLen-1)]

@@ -237,10 +237,30 @@ def redrawGameWindow():
 
 
     if shiftItemsDown:
+
         print(shiftedDict)
+        colCount = 0
+        for colKey in shiftedDict:
+            targetRow = shiftedDict[colKey][0]
+            
+            rowCount = 0
+
+            # FOR ITEM IN THIS LIST ***
+
+            while rowCount <= targetRow:
+                #do the same as with verticalcount
+
+                selectedItem = shiftedDict[colKey][1][rowCount]
+
+                print(shiftedDict)
+                print(" ")
+                drawItem(selectedItem, rowCount, colCount, itemSize)
+
+                rowCount += 1
+            colCount += 1
         # DO the shifted down things
         pass
-
+        
         # for key in board:
         #     if "BLANK" in board[key]:
         #         pass
@@ -270,6 +290,7 @@ var1 = True
 while not gameOver:
     clock.tick(FPS)
     
+    shiftItemsDown = False
     # gameChanged = False
 
     # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
@@ -309,7 +330,8 @@ while not gameOver:
 
         gameChanged = False
 
-    if var1:
+    # if var1:
+    if removeVertical == False & removeHorizontal == False:
         for key in board:
             if "BLANK" in board[key]:
                 shiftItemsDown = True
@@ -317,12 +339,13 @@ while not gameOver:
 
                 shiftedDict[key] = [shiftedColCount, shiftedCol]
 
-                # print("   ")
-                # print(newCol)
-                # print(changedColArray)
+                print("   ")
+                print(shiftedDict)
+                    # print(newCol)
+                    # print(changedColArray)
 
-        var1 = False
-            # PUT SOMETHING HERE
+            # var1 = False
+                # PUT SOMETHING HERE
 
 
     for event in pygame.event.get():
