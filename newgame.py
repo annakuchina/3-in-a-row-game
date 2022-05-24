@@ -6,7 +6,7 @@ import numpy as np
 from os import system
 import time
 import globs
-from gameFunctions import itemCollectHorizontal, itemCollectVertical
+from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 
 # myFont = pygame.font.SysFont("monospace", 60)
 
@@ -58,7 +58,7 @@ down = 0
 # board = {0: ['blue', 'yellow', 'purple', 'purple', 'green', 'red', 'green', 'purple'], 1: ['blue', 'red', 'green', 'green', 'blue', 'orange', 'orange', 'orange'], 2: ['green', 'blue', 'red', 'orange', 'green', 'green', 'red', 'red'], 3: ['green', 'purple', 'purple', 'orange', 'red', 'blue', 'red', 'yellow'], 4: ['orange', 'purple', 'orange', 'blue', 'red', 'yellow', 'blue', 'blue'], 5: ['green', 'orange', 'purple', 'blue', 'red', 'blue', 'yellow', 'green'], 6: ['green', 'green', 'purple', 'orange', 'red', 'purple', 'yellow', 'orange'], 7: ['orange', 'green', 'red', 'blue', 'orange', 'yellow', 'blue', 'blue']}
 
 # HORIZONTAL 3 in a row
-# board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'green'], 1: ['yellow', 'blue', 'red', 'orange', 'blue', 'purple', 'green', 'green'], 2: ['yellow', 'purple', 'purple', 'purple', 'green', 'red', 'purple', 'green'], 3: ['red', 'blue', 'red', 'green', 'blue', 'blue', 'purple', 'blue'], 4: ['green', 'yellow', 'orange', 'orange', 'red', 'blue', 'green', 'yellow'], 5: ['green', 'blue', 'purple', 'green', 'green', 'green', 'blue', 'green'], 6: ['blue', 'blue', 'red', 'red', 'blue', 'blue', 'purple', 'green'], 7: ['purple', 'yellow', 'yellow', 'blue', 'red', 'yellow', 'yellow', 'blue']}
+board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'green'], 1: ['yellow', 'blue', 'red', 'orange', 'blue', 'purple', 'green', 'green'], 2: ['yellow', 'purple', 'purple', 'purple', 'green', 'red', 'purple', 'green'], 3: ['red', 'blue', 'red', 'green', 'blue', 'blue', 'purple', 'blue'], 4: ['green', 'yellow', 'orange', 'orange', 'red', 'blue', 'green', 'yellow'], 5: ['green', 'blue', 'purple', 'green', 'green', 'green', 'blue', 'green'], 6: ['blue', 'blue', 'red', 'red', 'blue', 'blue', 'purple', 'green'], 7: ['purple', 'yellow', 'yellow', 'blue', 'red', 'yellow', 'yellow', 'blue']}
 
 # 2 HORIZONTAL 4 in a row
 # board = {0: ['purple', 'purple', 'green', 'yellow', 'green', 'purple', 'red', 'yellow'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'blue', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'orange', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'red', 'red'], 4: ['blue', 'blue', 'red', 'green', 'purple', 'blue', 'purple', 'orange'], 5: ['purple', 'green', 'green', 'yellow', 'blue', 'purple', 'green', 'green'], 6: ['yellow', 'green', 'green', 'green', 'green', 'purple', 'orange', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
@@ -141,15 +141,11 @@ def drawItem(chosenItem, rowNo, colNo, itemSize):
 
 def makeBoard(board):
     c = 0
-    print(board)
-    print("   ")
     for c, colArray in board.items():
-                
         r = 0
         for chosenItem in colArray:
             drawItem(chosenItem, r, c, itemSize)
             r+=1
-
 
 
 if len(board) > 0:
@@ -169,31 +165,21 @@ else:
         for r in range(globs.ROW_COUNT):
             itemCount = itemCount + 1
 
-            chosenItem = itemTypes[random.randint(0, itemLen-1)]
+            chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
             colArray.append(chosenItem)
 
             drawItem(chosenItem, r, c, itemSize)
 
-            #maybe add it after calculations
         
         board[c] = colArray
 
-    #INCLUDE THIS in the function somehow
 
 
 # def replaceBlank:
 
 
 
-# def removeAnimation(selectedDict):
-#     global item_speed_x, item_speed_y
-#     for key in selectedDict:
-#         #adjust so that it fits 2 as well later
-#         # for item in key:
 
-#     # ball.x += ball_speed_x
-#     # ball.y += ball_speed_y
-#     pass
 
 horizontalRemoveCount = 0
 verticalRemoveCount = 0
@@ -201,6 +187,10 @@ verticalRemoveCount = 0
 
 def redrawGameWindow():
     global firstGo
+    global shiftedDict
+
+    # global shiftedColCount
+    # global shiftedCol
 
     global verticalRemoveCount
     global removeVertical
@@ -235,25 +225,30 @@ def redrawGameWindow():
                 if isinstance(item, list):
                     for rowNo in item:
                         drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, itemSize)
-                            
-                        # drawItem("white", colNo, key, 80)
         verticalRemoveCount += 1
-
-            # redraw(verticalDict, "vertical")
-
-        # globs.SCREEN.blit(globs.deleteOrange[verticalRemoveCount//3], (x, y))
-
-        # drawItem(globs.deleteOrange, rowNo, columnNo, itemSize)
         
-    
     if removeHorizontal:
         for key in horizontalDict:
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
                         drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, itemSize)
-
         horizontalRemoveCount += 1
+
+
+    if shiftItemsDown:
+        print(shiftedDict)
+        # DO the shifted down things
+        pass
+
+        # for key in board:
+        #     if "BLANK" in board[key]:
+        #         pass
+        #         #PUT IT ALL HERE
+        #         # newCol = shiftDown(key)
+
+
+                
 
 
     pygame.display.update()
@@ -264,9 +259,11 @@ gameChanged = True
 gameOver = False
 turn = 0
 
+shiftedDict = {}
+
 removeHorizontal = False
 removeVertical = False
-
+shiftItemsDown = False
 
 var1 = True
 
@@ -283,10 +280,7 @@ while not gameOver:
         if len(verticalDict) > 0:
             removeVertical = True
 
-            print(board)
-            print("  ")
-            print(verticalDict)
-            print("   ")
+            # print(board)
             for key in verticalDict:
                 for item in verticalDict[key]:
                     if isinstance(item, list):
@@ -315,6 +309,20 @@ while not gameOver:
 
         gameChanged = False
 
+    if var1:
+        for key in board:
+            if "BLANK" in board[key]:
+                shiftItemsDown = True
+                shiftedColCount, shiftedCol = shiftDown(board[key])
+
+                shiftedDict[key] = [shiftedColCount, shiftedCol]
+
+                # print("   ")
+                # print(newCol)
+                # print(changedColArray)
+
+        var1 = False
+            # PUT SOMETHING HERE
 
 
     for event in pygame.event.get():
@@ -347,9 +355,9 @@ while not gameOver:
     # ONLY draw things in here
     redrawGameWindow()
     
-    if var1 == True:
-        print(board)
-        var1 = False
+    # if var1 == True:
+    #     print(board)
+    #     var1 = False
     
 
 pygame.quit()

@@ -35,6 +35,8 @@ itemTypes = [
     "yellow"
 ]
 
+itemLen = len(itemTypes)
+
 #do the loading inside of the game maybe, or convert.alpha
 deleteOrange = ["orange", "orange-small", "orange-smaller", "BLANK"]
 

@@ -93,6 +93,36 @@ def deleteItems(columnDict, rowDict, board):
 
 
 
+def shiftDown(col):
+    col.reverse()
+
+    itemNo = 0
+    for item in col:
+        
+        if item == "BLANK":
+            blankPosNum = (globs.ROW_COUNT-1) - itemNo
+
+            col.pop(itemNo)
+            newItem = globs.itemTypes[random.randint(0, globs.itemLen-1)]
+            col.append(newItem)
+
+            # print(col)
+            col.reverse()
+            
+            print(col)
+
+            
+
+            print("HEERE")
+            print(blankPosNum)
+            return blankPosNum, col
+
+        itemNo+=1
+
+
+
+
+
 
 def itemCollectVertical(board, itemTypes):
     # itemTypes: the different colors available
