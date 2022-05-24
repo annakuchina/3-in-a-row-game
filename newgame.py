@@ -10,9 +10,10 @@ from gameFunctions import itemCollectHorizontal, itemCollectVertical
 
 # myFont = pygame.font.SysFont("monospace", 60)
 
-
-FPS = 60
 clock = pygame.time.Clock()
+FPS = 12
+dt = clock.tick(FPS)
+
 pygame.init()
 
 globs.SCREEN.fill((255, 255, 255))
@@ -31,7 +32,7 @@ itemTypes = globs.itemTypes
 # ]
 
 
-SQUARESIZE = 10
+SQUARESIZE = 8
 width = globs.COLUMN_COUNT * SQUARESIZE
 height = (globs.ROW_COUNT+1) * SQUARESIZE
 
@@ -85,6 +86,13 @@ rectangle = pygame.rect.Rect(176, 134, 17, 17)
 
 image = ""
 
+itemGroup = pygame.sprite.Group()
+itemSize = 80
+innerSpacing = 12
+outerTopMargin = 40
+outerLeftMargin = 40
+itemCount = 0
+
 
 
 class Item(pygame.sprite.Sprite):
@@ -92,6 +100,9 @@ class Item(pygame.sprite.Sprite):
         super().__init__()
 
         # com
+
+        print(picture_path)
+
         completeImgPath = os.path.join("images", (str(picture_path) + ".png"))
         # add checking here later
 
@@ -128,13 +139,6 @@ class Item(pygame.sprite.Sprite):
     #     pass
 
 
-itemGroup = pygame.sprite.Group()
-itemSize = 80
-innerSpacing = 5
-outerTopMargin = 100
-outerLeftMargin = 60
-
-itemCount = 0
 
 def drawItem(chosenItem, rowNo, columnNo, itemSize):
     itemPosition = [(columnNo*itemSize + innerSpacing*columnNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
@@ -194,86 +198,124 @@ else:
 #     # ball.y += ball_speed_y
 #     pass
 
+horizontalRemoveCount = 0
+verticalRemoveCount = 0
 
 
-def redraw(selectedDict, direction):
+def redrawGameWindow():
+    global verticalRemoveCount
+    global removeVertical
 
-    if direction == "horizontal":
-        rowCount = 0
-        colCount = 0
-        
-        
-        for key in selectedDict:
-            for r in range(globs.ROW_COUNT):
-                correctRow = False
+    global horizontalRemoveCount
+    global removeHorizontal
 
-                if key == r:
-                    correctRow = True
+    # globs.SCREEN.fill((255, 255, 255))
+    #PUT BACKGROUND HERE LATER
 
-                for c in range(globs.COLUMN_COUNT):
-                    pickedItem = False
+    #THIS IS HOW THEY ARE DRAWN - the background images
+    itemGroup.draw(globs.SCREEN)
+    # IN the array, change the spaces to white
+    #draw them again here
 
-                    if correctRow == True:
-                        if c in selectedDict[key][1]:
-                            pickedItem = True
+    if verticalRemoveCount + 1 >= 12:
+        #3 sprites, display each for 3 frames = 9 total frames
+        verticalRemoveCount = 0
+        removeVertical = False
 
-                            itemPosition = [(c*itemSize + innerSpacing*c + outerLeftMargin), (r*itemSize + innerSpacing*r + outerTopMargin)]
-                            itemSprite = Item(selectedDict[key][0], itemPosition, itemSize)
+    if horizontalRemoveCount + 1 >= 12:
+        horizontalRemoveCount = 0
+        removeHorizontal = False
 
-                            # print("HERE")
-                            # DRAW IT DIFFERENTLY HERE
-                            # CALL DIFF FUNCT.
-                            # print(c)
+    if removeVertical:
 
+        print(verticalDict)
+        # print("jskjks")
 
-                    if pickedItem == False:
-                        pass
-                        
-                        # draw normally
+        # draw it to the desired location
 
+        for key in verticalDict:
+            for item in verticalDict[key]:
+                if isinstance(item, list):
+                    for colNo in item:
+                        # print(key)
+                        drawItem(globs.deleteOrange[verticalRemoveCount//3], colNo, key, itemSize)
+                        # drawItem("white", colNo, key, 80)
 
-                    # if ROW_COUNT == selectedDict[]
+            # redraw(verticalDict, "vertical")
 
-                    pass
+        # globs.SCREEN.blit(globs.deleteOrange[verticalRemoveCount//3], (x, y))
 
-                    colCount +=1
+        # drawItem(globs.deleteOrange, rowNo, columnNo, itemSize)
+        verticalRemoveCount += 1
+    
+    if removeHorizontal:
+        for key in horizontalDict:
+            for item in horizontalDict[key]:
+                if isinstance(item, list):
+                    for rowNo in item:
+                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, rowNo, itemSize)
 
-                rowCount +=1
-
-    # elif direction == "vertical":
-    #     rowCount = 0
-    #     colCount = 0
-    #     for c in range(globs.COLUMN_COUNT):
-            
-    #         for r in range(globs.ROW_COUNT):
-    #             rowCount += 1
-    #             pass
-
-    #         colCount +=1
- 
-        # r += 1
+            horizontalRemoveCount += 1
 
 
+    pygame.display.update()
+
+   
 
 
 gameChanged = True
 gameOver = False
 turn = 0
 
-while not gameOver:
+removeHorizontal = False
+removeVertical = False
 
-    def removeAnimation():
-        pass
+
+
+
+while not gameOver:
+    clock.tick(FPS)
+    # print("hi")
+    # The clock is used to limit the frame rate
+    # and returns the time since last tick.
+    
+    # timer = 2  # Decrease this to count down.
+    # dt = 0  # Delta time (time since last tick).
+
+    # done = False
+    # while not done:
+    #     timer -= dt
+    #     if timer <= 0:
+    #         timer = 2  # Reset it to 10 or do something else.
+
+
+        # print(str(round(timer, 2)))
+
+    #**-----------------
+
     
     if gameChanged == True:
         verticalDict = itemCollectVertical(board, itemTypes)
         horizontalDict = itemCollectHorizontal(board, itemTypes)
-
+        
         if len(verticalDict) > 0:
-            redraw(verticalDict, "vertical")
+            removeVertical = True
+            print("vert true")
+        
+        else:
+            removeVertical = False
+            removeCount = 0
+            verticalRemoveCount = 0
+            
 
         if len(horizontalDict) > 0:
-            redraw(horizontalDict, "horizontal")
+            removeHorizontal = True
+            print("horiz true")
+
+        else:
+            removeHorizontal = False
+            removeCount = 0
+            horizontalRemoveCount = 0
 
         gameChanged = False
 
@@ -319,8 +361,9 @@ while not gameOver:
                 rectangle.y = mouse_y + offset_y   
 
 
-    pygame.display.update()
-    dt = clock.tick(FPS)
-    itemGroup.draw(globs.SCREEN)
+    # ONLY draw things in here
+    redrawGameWindow()
+    
+    
 
 pygame.quit()
