@@ -94,7 +94,7 @@ def deleteItems(columnDict, rowDict, board):
 
 
 
-def itemCollectHorizontal(board, itemTypes):
+def itemCollectVertical(board, itemTypes):
     # itemTypes: the different colors available
 
     # Check horizontal locations for 3-in-a-row items
@@ -175,7 +175,7 @@ def itemCollectHorizontal(board, itemTypes):
 
 
 
-def itemCollectVertical(board, itemTypes):
+def itemCollectHorizontal(board, itemTypes):
     rowMarker = 0
     comboRows = []
     columnComboDict = {}

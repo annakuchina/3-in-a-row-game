@@ -63,9 +63,9 @@ down = 0
 # 2 HORIZONTAL 4 in a row
 # board = {0: ['purple', 'purple', 'green', 'yellow', 'green', 'purple', 'red', 'yellow'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'blue', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'orange', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'red', 'red'], 4: ['blue', 'blue', 'red', 'green', 'purple', 'blue', 'purple', 'orange'], 5: ['purple', 'green', 'green', 'yellow', 'blue', 'purple', 'green', 'green'], 6: ['yellow', 'green', 'green', 'green', 'green', 'purple', 'orange', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
-# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
-board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
 # MULTIPLES
 # board = {0: ['green', 'green', 'purple', 'green', 'yellow', 'yellow', 'purple', 'red'], 1: ['green', 'yellow', 'green', 'green', 'yellow', 'blue', 'blue', 'orange'], 2: ['green', 'red', 'yellow', 'purple', 'green', 'orange', 'yellow', 'blue'], 3: ['blue', 'blue', 'blue', 'purple', 'green', 'green', 'blue', 'green'], 4: ['purple', 'purple', 'red', 'yellow', 'yellow', 'green', 'green', 'blue'], 5: ['purple', 'blue', 'yellow', 'red', 'purple', 'blue', 'red', 'yellow'], 6: ['red', 'purple', 'yellow', 'blue', 'blue', 'green', 'yellow', 'purple'], 7: ['orange', 'red', 'yellow', 'green', 'blue', 'blue', 'yellow', 'red']}
@@ -140,15 +140,15 @@ def drawItem(chosenItem, rowNo, columnNo, itemSize):
 
 
 def makeBoard(board):
-    r = 0
-    for r, columnArray in board.items():
+    c = 0
+    for c, rowArray in board.items():
                 
-        c = 0
-        for chosenItem in columnArray:
+        r = 0
+        for chosenItem in rowArray:
             drawItem(chosenItem, r, c, itemSize)
-            c+=1
+            r+=1
 
-        r += 1
+        c += 1
 
 if len(board) > 0:
     testDict = True
@@ -160,20 +160,21 @@ if testDict == True:
     makeBoard(board)
 
 else:
-    for r in range(globs.ROW_COUNT):
-        rowArray = []
+    #Generate the board randomly
+    for c in range(globs.COLUMN_COUNT):
+        colArray = []
 
-        for c in range(globs.COLUMN_COUNT):
+        for r in range(globs.ROW_COUNT):
             itemCount = itemCount + 1
 
             chosenItem = itemTypes[random.randint(0, itemLen-1)]
-            rowArray.append(chosenItem)
+            colArray.append(chosenItem)
 
-            drawItem(chosenItem, r, c, itemSize)
+            drawItem(chosenItem, c, r, itemSize)
 
             #maybe add it after calculations
         
-        board[r] = rowArray
+        board[c] = colArray
 
     #INCLUDE THIS in the function somehow
 
@@ -197,6 +198,8 @@ verticalRemoveCount = 0
 
 
 def redrawGameWindow():
+    global firstGo
+
     global verticalRemoveCount
     global removeVertical
 
@@ -210,6 +213,7 @@ def redrawGameWindow():
 
     #THIS IS HOW THEY ARE DRAWN - the background images
     itemGroup.draw(globs.SCREEN)
+
     # IN the array, change the spaces to white
     #draw them again here
 
@@ -267,6 +271,7 @@ removeVertical = False
 while not gameOver:
     clock.tick(FPS)
     
+    # gameChanged = False
     # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
     if gameChanged == True:
         verticalDict = itemCollectVertical(board, itemTypes)
