@@ -59,8 +59,14 @@ down = 0
 # VERTICAL 4 in a row
 # board = {0: ['blue', 'yellow', 'purple', 'purple', 'green', 'red', 'green', 'purple'], 1: ['blue', 'red', 'green', 'green', 'blue', 'orange', 'orange', 'orange'], 2: ['green', 'blue', 'red', 'orange', 'green', 'green', 'red', 'red'], 3: ['green', 'purple', 'purple', 'orange', 'red', 'blue', 'red', 'yellow'], 4: ['orange', 'purple', 'orange', 'blue', 'red', 'yellow', 'blue', 'blue'], 5: ['green', 'orange', 'purple', 'blue', 'red', 'blue', 'yellow', 'green'], 6: ['green', 'green', 'purple', 'orange', 'red', 'purple', 'yellow', 'orange'], 7: ['orange', 'green', 'red', 'blue', 'orange', 'yellow', 'blue', 'blue']}
 
+# board = {0: ['red', 'blue', 'red', 'orange', 'orange', 'orange', 'green', 'green'], 1: ['red', 'blue', 'green', 'green', 'blue', 'green', 'orange', 'red'], 2: ['blue', 'green', 'blue', 'yellow', 'blue', 'orange', 'blue', 'orange'], 3: ['purple', 'purple', 'red', 'purple', 'yellow', 'orange', 'purple', 'yellow'], 4: ['green', 'green', 'blue', 'purple', 'green', 'blue', 'red', 'orange'], 5: ['blue', 'purple', 'green', 'yellow', 'yellow', 'orange', 'yellow', 'green'], 6: ['yellow', 'orange', 'blue', 'orange', 'green', 'purple', 'orange', 'green'], 7: ['purple', 'green', 'blue', 'yellow', 'purple', 'purple', 'red', 'blue']}
+
+
 # HORIZONTAL 3 in a row
-board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'green'], 1: ['yellow', 'blue', 'red', 'orange', 'blue', 'purple', 'green', 'green'], 2: ['yellow', 'purple', 'purple', 'purple', 'green', 'red', 'purple', 'green'], 3: ['red', 'blue', 'red', 'green', 'blue', 'blue', 'purple', 'blue'], 4: ['green', 'yellow', 'orange', 'orange', 'red', 'blue', 'green', 'yellow'], 5: ['green', 'blue', 'purple', 'green', 'green', 'green', 'blue', 'green'], 6: ['blue', 'blue', 'red', 'red', 'blue', 'blue', 'purple', 'green'], 7: ['purple', 'yellow', 'yellow', 'blue', 'red', 'yellow', 'yellow', 'blue']}
+# board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'green'], 1: ['yellow', 'blue', 'red', 'orange', 'blue', 'purple', 'green', 'green'], 2: ['yellow', 'purple', 'purple', 'purple', 'green', 'red', 'purple', 'green'], 3: ['red', 'blue', 'red', 'green', 'blue', 'blue', 'purple', 'blue'], 4: ['green', 'yellow', 'orange', 'orange', 'red', 'blue', 'green', 'yellow'], 5: ['green', 'blue', 'purple', 'green', 'green', 'green', 'blue', 'green'], 6: ['blue', 'blue', 'red', 'red', 'blue', 'blue', 'purple', 'green'], 7: ['purple', 'yellow', 'yellow', 'blue', 'red', 'yellow', 'yellow', 'blue']}
+
+# board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'green'], 1: ['yellow', 'blue', 'red', 'orange', 'blue', 'purple', 'green', 'green'], 2: ['yellow', 'purple', 'purple', 'purple', 'green', 'red', 'purple', 'green'], 3: ['red', 'blue', 'red', 'green', 'blue', 'blue', 'purple', 'blue'], 4: ['green', 'yellow', 'orange', 'orange', 'red', 'blue', 'green', 'yellow'], 5: ['green', 'blue', 'purple', 'green', 'green', 'green', 'blue', 'green'], 6: ['blue', 'blue', 'red', 'red', 'blue', 'blue', 'purple', 'green'], 7: ['purple', 'yellow', 'yellow', 'blue', 'red', 'yellow', 'yellow', 'blue']}
+
 
 # 2 HORIZONTAL 4 in a row
 # board = {0: ['purple', 'purple', 'green', 'yellow', 'green', 'purple', 'red', 'yellow'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'blue', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'orange', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'red', 'red'], 4: ['blue', 'blue', 'red', 'green', 'purple', 'blue', 'purple', 'orange'], 5: ['purple', 'green', 'green', 'yellow', 'blue', 'purple', 'green', 'green'], 6: ['yellow', 'green', 'green', 'green', 'green', 'purple', 'orange', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
@@ -68,6 +74,9 @@ board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'gr
 # board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
 # board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+
+board = {0: ['purple', 'green', 'green', 'green', 'green', 'green', 'green', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+
 
 # MULTIPLES
 # board = {0: ['green', 'green', 'purple', 'green', 'yellow', 'yellow', 'purple', 'red'], 1: ['green', 'yellow', 'green', 'green', 'yellow', 'blue', 'blue', 'orange'], 2: ['green', 'red', 'yellow', 'purple', 'green', 'orange', 'yellow', 'blue'], 3: ['blue', 'blue', 'blue', 'purple', 'green', 'green', 'blue', 'green'], 4: ['purple', 'purple', 'red', 'yellow', 'yellow', 'green', 'green', 'blue'], 5: ['purple', 'blue', 'yellow', 'red', 'purple', 'blue', 'red', 'yellow'], 6: ['red', 'purple', 'yellow', 'blue', 'blue', 'green', 'yellow', 'purple'], 7: ['orange', 'red', 'yellow', 'green', 'blue', 'blue', 'yellow', 'red']}
@@ -144,9 +153,9 @@ def drawItem(chosenItem, rowNo, colNo, itemSize):
 # def positionGenerator()
 
 
-def makeBoard(board):
+def makeBoard(givenBoard):
     c = 0
-    for c, colArray in board.items():
+    for c, colArray in givenBoard.items():
         r = 0
         for chosenItem in colArray:
             drawItem(chosenItem, r, c, itemSize)
@@ -179,7 +188,6 @@ else:
         board[c] = colArray
 
 
-
 # def replaceBlank:
 
 
@@ -206,6 +214,8 @@ def redrawGameWindow():
 
     global shiftDownCount
     global shiftItemsDown
+
+    global previousBoard
 
     global board
 
@@ -249,80 +259,50 @@ def redrawGameWindow():
 
 
     if shiftItemsDown:
-
+        # print(" ")
+        # print(" ")
+        # print(board)
+        # print(" ")
+        # print(previousBoard)
+        
+        # print(board)
+        # print(" ")
+        # print(shiftedBoard)
+        # print(" ")
+        # print(" ")
         # items
         colCount = 0
-        for key in board:
-            rowCount = 0
-            
-
-            for key in shiftedBoard:
-                itemCount = 0
-                for item in shiftedBoard[key]:
-                    if item == board[key][itemCount]:
-                        # print("not shifted")
-                        pass
-                    
-                    else:
-                        # print("SHIFTED")
-                        pass
-
-                    itemCount += 1
-
-
-            # print(board[key])
-            # for rowItem in board[key]:
-            #     print(rowItem)
-            #     print(shiftedBoard)
-            #     print(shiftedBoard[colCount][rowCount])
-            #     if shiftedBoard[colCount][rowCount] == rowItem:
-            #         # print("NOT SHIFTED")
-            #         pass
-                
-            #     else:
-            #         pass
-            #         # print("SHIFTED")
-
-            #     rowCount += 1
-            # for shiftedKey in board:
-
-            colCount +=1
-
-        # print()
-
-        print("hey")
-        print(shiftedBoard)
-
-        makeBoard(shiftedBoard)
-
-        # print(shiftedDict)
-        # colCount = 0
-        # for colKey in shiftedDict:
-        #     targetRow = shiftedDict[colKey][0]
-            
-        #     rowCount = 0
-
-        #     # FOR ITEM IN THIS LIST ***
-
-        #     while rowCount <= targetRow:
-        #         #do the same as with verticalcount
-
-        #         selectedItem = shiftedDict[colKey][1][rowCount]
-
-        #         print(shiftedDict)
-        #         # print(" ")
-        #         drawItem(selectedItem, rowCount, colCount, itemSize)
-
-        #         rowCount += 1
-        #     colCount += 1
-        # # DO the shifted down things
-        # pass
-        
         # for key in board:
-        #     if "BLANK" in board[key]:
-        #         pass
-        #         #PUT IT ALL HERE
-        #         # newCol = shiftDown(key)
+        #     rowCount = 0
+            
+        #     print(shiftedBoard)
+        #     print(board)
+        #     print(" ")
+        #     for key in shiftedBoard:
+        #         itemCount = 0
+        #         for item in shiftedBoard[key]:
+        #             if item == board[key][itemCount]:
+        #                 # print(" ")
+        #                 # print(item)
+        #                 # print(key)
+        #                 # print("not shifted")
+        #                 pass
+                    
+        #             else:
+        #                 print("SHIFTED")
+        #                 pass
+
+        #             itemCount += 1
+
+        #     colCount +=1
+
+        # print("hey")
+        # print(shiftedBoard)
+        
+        # print(shiftedBoard)
+        # print(" ")
+        print(board)
+        # makeBoard(unchangedBoard)
 
 
                 
@@ -340,6 +320,9 @@ shiftedDict = {}
 removeHorizontal = False
 removeVertical = False
 shiftItemsDown = False
+
+shiftedBoard = {}
+droppedItemsDict = {}
 
 var1 = True
 
@@ -395,73 +378,25 @@ while not gameOver:
     # print(" ")
     if removeVertical == False & removeHorizontal == False & shiftItemsDown == False:
         notBlankCount = 0
-        shiftedBoard = {}
-        # print("gdfgfd")
-        # print(var1)
+
+        # shiftedBoard = {}
+
         if var1 == True:
+            previousBoard = board
             for key in board:
                 if "BLANK" in board[key]:
 
                         shiftItemsDown = True
-                        unchangedCol, shiftedCol = shiftDown(board[key])
-                        # if completed
-                        
-                        # print(key)
-                        # print("  ")
+                        modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
+                        # print(shiftedCol)
+                        # print(unchangedCol)
+                        # print(modifiedItems)
+                        # print(" ")
 
-                        shiftedBoard[key] = shiftedCol
-                        # print(shiftedBoard)
+                        board[key] = unchangedCol
                         # print(" ")
                         # print(board)
-
-            
                         # print(" ")
-
-
-
-
-
-                        # print(shiftedCol1)
-                        # print(" ajksdf")
-
-                        # colLen = len(unchangedCol)
-
-                        # if colLen < globs.COLUMN_COUNT:
-                        #     #put in blanks, append the final col's****
-                        #     pass
-
-                        # shiftedDict[key] = unchangedCol
-                        # #OUTPUT BLANK for a second -> replace items with blank where they would fall down
-                        # #IN A DIFFERENT FUNCTION ***
-
-                        # # board[key] = unchangedCol
-
-                        # whitespaceCount = len(unchangedCol)
-
-                        # # print(unchangedCol)
-                        # print("28998243")
-
-                        # i = 0
-                        # while i< whitespaceCount:
-                        #     board[key].append("BLANK")
-                        #     i+=1
-                        
-                        # for item in unchangedCol:
-                        #     board[key].append(unchangedCol)
-
-
-                        # if "BLANK" not in board[key]:
-                        #     notBlankCount += 1
-
-
-            
-            # print(" ")
-            # print("ended")
-
-
-            # var1 = False
-
-            # print(board)
 
 
         if notBlankCount == globs.COLUMN_COUNT:

@@ -5,6 +5,9 @@ from unicodedata import name
 import numpy as np
 from os import system
 import time
+# from connect_four_game.globs import COLUMN_COUNT
+# from connect_four_game.globs import COLUMN_COUNT
+# from connect_four_game.globs import COLUMN_COUNT
 import globs
 # from newgame import ROW_COUNT, COLUMN_COUNT, itemTypes
 
@@ -95,22 +98,30 @@ def deleteItems(columnDict, rowDict, board):
 
 def shiftDown(col):
     # print("start col:")
-    # col =  ['blue', 'yellow', 'BLANK', 'BLANK', 'BLANK', 'green', 'red', 'purple']
-    # col =  ['BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK', 'BLANK']
+    # # col =  ['blue', 'yellow', 'BLANK', 'BLANK', 'BLANK', 'green', 'red', 'purple']
+    # col =  ['BLANK', 'purple', 'purple', 'BLANK', 'green', 'BLANK', 'blue', 'green']
     # print(col)
     # print(" ")
 
 
     col.reverse()
     itemNo = 0
-
+    blankPosNum = 0
     for item in col:
         
         if item == "BLANK":
             # blankPosNum = (globs.ROW_COUNT-1) - itemNo
-            blankPosNum = itemNo
+            
 
             unchangedCol = col[:itemNo]
+
+            unchangedLen = len(unchangedCol)
+            while unchangedLen < globs.COLUMN_COUNT:
+                unchangedCol.append("BLANK")
+                unchangedLen += 1
+
+
+
             col.pop(itemNo)
             newItem = globs.itemTypes[random.randint(0, globs.itemLen-1)]
             col.append(newItem)
@@ -119,19 +130,45 @@ def shiftDown(col):
             col.reverse()
             unchangedCol.reverse()
 
+            newCol = []
+
+            reversedItemNo = globs.COLUMN_COUNT-1 - itemNo
+            
+            i = 0
+            while i<= reversedItemNo:
+                if col[i] != "BLANK":
+                    newCol.append(i)
+                i += 1
+
+            
             # print("newcol ")
             # print(unchangedCol)
             # print(" ")
             # print(col)
 
-            
 
             # print("HEERE")
-            # print(blankPosNum)
-            return unchangedCol, col
+
+            modifiedItems = []
+
+            
+            
+            # while blankPosNum <= (globs.COLUMN_COUNT-1)-itemNo:
+            #     for item in col:
+            #         if item != "BLANK":
+            #             modifiedItems.append(blankPosNum)
+            #         blankPosNum += 1
+            
+            # print(newCol)
+            # print(" ")
+            # print(unchangedCol)
+            # print(" ")
+            # print(col)
+            return modifiedItems, unchangedCol, col
 
         itemNo+=1
 
+# shiftDown("col")
 
 
 def itemCollectVertical(board, itemTypes):
