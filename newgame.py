@@ -40,6 +40,7 @@ height = (globs.ROW_COUNT+1) * SQUARESIZE
 size = (width, height)
 
 board = {}
+shiftedBoard = {}
 
 
 left = 0
@@ -138,6 +139,9 @@ def drawItem(chosenItem, rowNo, colNo, itemSize):
     itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
     itemSprite = Item(chosenItem, itemPosition, itemSize)
     itemGroup.add(itemSprite)
+
+
+# def positionGenerator()
 
 
 def makeBoard(board):
@@ -245,28 +249,74 @@ def redrawGameWindow():
 
 
     if shiftItemsDown:
-        print(shiftedDict)
+
+        # items
         colCount = 0
-        for colKey in shiftedDict:
-            targetRow = shiftedDict[colKey][0]
-            
+        for key in board:
             rowCount = 0
+            
 
-            # FOR ITEM IN THIS LIST ***
+            for key in shiftedBoard:
+                itemCount = 0
+                for item in shiftedBoard[key]:
+                    if item == board[key][itemCount]:
+                        # print("not shifted")
+                        pass
+                    
+                    else:
+                        # print("SHIFTED")
+                        pass
 
-            while rowCount <= targetRow:
-                #do the same as with verticalcount
+                    itemCount += 1
 
-                selectedItem = shiftedDict[colKey][1][rowCount]
 
-                print(shiftedDict)
-                # print(" ")
-                drawItem(selectedItem, rowCount, colCount, itemSize)
+            # print(board[key])
+            # for rowItem in board[key]:
+            #     print(rowItem)
+            #     print(shiftedBoard)
+            #     print(shiftedBoard[colCount][rowCount])
+            #     if shiftedBoard[colCount][rowCount] == rowItem:
+            #         # print("NOT SHIFTED")
+            #         pass
+                
+            #     else:
+            #         pass
+            #         # print("SHIFTED")
 
-                rowCount += 1
-            colCount += 1
-        # DO the shifted down things
-        pass
+            #     rowCount += 1
+            # for shiftedKey in board:
+
+            colCount +=1
+
+        # print()
+
+        print("hey")
+        print(shiftedBoard)
+
+        makeBoard(shiftedBoard)
+
+        # print(shiftedDict)
+        # colCount = 0
+        # for colKey in shiftedDict:
+        #     targetRow = shiftedDict[colKey][0]
+            
+        #     rowCount = 0
+
+        #     # FOR ITEM IN THIS LIST ***
+
+        #     while rowCount <= targetRow:
+        #         #do the same as with verticalcount
+
+        #         selectedItem = shiftedDict[colKey][1][rowCount]
+
+        #         print(shiftedDict)
+        #         # print(" ")
+        #         drawItem(selectedItem, rowCount, colCount, itemSize)
+
+        #         rowCount += 1
+        #     colCount += 1
+        # # DO the shifted down things
+        # pass
         
         # for key in board:
         #     if "BLANK" in board[key]:
@@ -276,7 +326,6 @@ def redrawGameWindow():
 
 
                 
-
 
     pygame.display.update()
 
@@ -346,21 +395,26 @@ while not gameOver:
     # print(" ")
     if removeVertical == False & removeHorizontal == False & shiftItemsDown == False:
         notBlankCount = 0
-        shiftedDict = {}
+        shiftedBoard = {}
         # print("gdfgfd")
         # print(var1)
         if var1 == True:
-            print("hihi")
             for key in board:
                 if "BLANK" in board[key]:
-                    
-                        # shiftItemsDown = True
+
+                        shiftItemsDown = True
                         unchangedCol, shiftedCol = shiftDown(board[key])
                         # if completed
-                        board[key] = shiftedCol
-                        print(board)
+                        
+                        # print(key)
+                        # print("  ")
 
-            makeBoard(board)
+                        shiftedBoard[key] = shiftedCol
+                        # print(shiftedBoard)
+                        # print(" ")
+                        # print(board)
+
+            
                         # print(" ")
 
 
@@ -401,13 +455,13 @@ while not gameOver:
 
 
             
-            print(" ")
-            print("ended")
+            # print(" ")
+            # print("ended")
 
 
-            var1 = False
+            # var1 = False
 
-            print(board)
+            # print(board)
 
 
         if notBlankCount == globs.COLUMN_COUNT:
