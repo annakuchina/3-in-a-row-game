@@ -1,6 +1,7 @@
 from operator import ne
 from optparse import Values
 import os, pygame, random, sys, math
+from string import whitespace
 from unicodedata import name
 import numpy as np
 from os import system
@@ -244,7 +245,6 @@ def redrawGameWindow():
 
 
     if shiftItemsDown:
-
         print(shiftedDict)
         colCount = 0
         for colKey in shiftedDict:
@@ -260,7 +260,7 @@ def redrawGameWindow():
                 selectedItem = shiftedDict[colKey][1][rowCount]
 
                 print(shiftedDict)
-                print(" ")
+                # print(" ")
                 drawItem(selectedItem, rowCount, colCount, itemSize)
 
                 rowCount += 1
@@ -339,52 +339,81 @@ while not gameOver:
 
     # if var1:
     
-    print(removeVertical)
-    print(removeHorizontal)
-    print(shiftItemsDown)
+    # print(removeVertical)
+    # print(removeHorizontal)
+    # print(shiftItemsDown)
     # print(var1)
-    print(" ")
+    # print(" ")
     if removeVertical == False & removeHorizontal == False & shiftItemsDown == False:
         notBlankCount = 0
         shiftedDict = {}
-        print("gdfgfd")
-        for key in board:
-            if "BLANK" in board[key]:
-                
-                # shiftItemsDown = True
-                unchangedCol, shiftedCol = shiftDown(board[key])
+        # print("gdfgfd")
+        # print(var1)
+        if var1 == True:
+            print("hihi")
+            for key in board:
+                if "BLANK" in board[key]:
+                    
+                        # shiftItemsDown = True
+                        unchangedCol, shiftedCol = shiftDown(board[key])
+                        # if completed
+                        board[key] = shiftedCol
+                        print(board)
+
+            makeBoard(board)
+                        # print(" ")
 
 
-                colLen = len(unchangedCol)
-
-                if colLen < globs.COLUMN_COUNT:
-                    #put in blanks, append the final col's****
-                    pass
-
-                shiftedDict[key] = unchangedCol
-                #OUTPUT BLANK for a second -> replace items with blank where they would fall down
-
-                board[key] = unchangedCol
-
-                while len(board[key]) < globs.COLUMN_COUNT-1:
-                    board[key].append("BLANK")
 
 
-                # while columnMarker <= globs.COLUMN_COUNT:
-                #     board[key][shiftedCol]
 
-                print("   ")
-                print(board)
-                    # print(newCol)
-                    # print(changedColArray)
+                        # print(shiftedCol1)
+                        # print(" ajksdf")
 
-                if "BLANK" not in board[key]:
-                    notBlankCount += 1
-        
+                        # colLen = len(unchangedCol)
+
+                        # if colLen < globs.COLUMN_COUNT:
+                        #     #put in blanks, append the final col's****
+                        #     pass
+
+                        # shiftedDict[key] = unchangedCol
+                        # #OUTPUT BLANK for a second -> replace items with blank where they would fall down
+                        # #IN A DIFFERENT FUNCTION ***
+
+                        # # board[key] = unchangedCol
+
+                        # whitespaceCount = len(unchangedCol)
+
+                        # # print(unchangedCol)
+                        # print("28998243")
+
+                        # i = 0
+                        # while i< whitespaceCount:
+                        #     board[key].append("BLANK")
+                        #     i+=1
+                        
+                        # for item in unchangedCol:
+                        #     board[key].append(unchangedCol)
+
+
+                        # if "BLANK" not in board[key]:
+                        #     notBlankCount += 1
+
+
+            
+            print(" ")
+            print("ended")
+
+
+            var1 = False
+
+            print(board)
+
+
         if notBlankCount == globs.COLUMN_COUNT:
             shiftItemsDown = False
 
-        var1 = False
+            
                 # PUT SOMETHING HERE
 
 
