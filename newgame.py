@@ -6,6 +6,7 @@ from unicodedata import name
 import numpy as np
 from os import system
 import time
+# from connect_four_game.globs import COLUMN_COUNT
 import globs
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 
@@ -112,7 +113,7 @@ outerTopMargin = 40
 outerLeftMargin = 40
 itemCount = 0
 
-spacingArray = [0.25, 0.5, 0.75, 1]
+spacingArray = [1, 1.33333, 1.66666, 2]
 
 class Item(pygame.sprite.Sprite):
     def __init__(self, picture_path, pos, itemSize):
@@ -125,7 +126,7 @@ class Item(pygame.sprite.Sprite):
         self.image = pygame.image.load(completeImgPath)
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]  #put x coord here
-        self.rect.y = pos[1] # put y coord here
+        self.rect.y = pos[1]  #put y coord here
         self.width = itemSize
         self.height = itemSize
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
@@ -152,9 +153,10 @@ class Item(pygame.sprite.Sprite):
 
 
 
-def drawItem(chosenItem, rowNo, colNo, topSpacing, itemSize):
-
-    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + ((itemSize+innerSpacing)*topSpacing) + innerSpacing*rowNo + outerTopMargin)]
+def drawItem(chosenItem, rowNo, colNo, itemSize):
+    
+    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
+    
     itemSprite = Item(chosenItem, itemPosition, itemSize)
     itemGroup.add(itemSprite)
 
@@ -167,7 +169,7 @@ def makeBoard(givenBoard):
     for c, colArray in givenBoard.items():
         r = 0
         for chosenItem in colArray:
-            drawItem(chosenItem, r, c, 0, itemSize)
+            drawItem(chosenItem, r, c, itemSize)
             r+=1
 
 
@@ -191,7 +193,7 @@ else:
             chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
             colArray.append(chosenItem)
 
-            drawItem(chosenItem, r, c, 0, itemSize)
+            drawItem(chosenItem, r, c, itemSize)
 
         
         board[c] = colArray
@@ -199,6 +201,15 @@ else:
 
 # def replaceBlank:
 
+
+def drawItemDown(chosenItem, rowNo, colNo, itemSize, rowMultiplier):
+    
+    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), ((rowNo+rowMultiplier)*itemSize + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin)]
+    
+    #X, Y position
+
+    itemSprite = Item(chosenItem, itemPosition, itemSize)
+    itemGroup.add(itemSprite)
 
 
 
@@ -253,6 +264,8 @@ def redrawGameWindow():
     if shiftDownCount + 1 >= 12:
         shiftDownCount = 0
         shiftItemsDown = False
+        print("FALSE")
+        print(" ")
 
     if removeVertical:
         for key in verticalDict:
@@ -260,7 +273,7 @@ def redrawGameWindow():
                 if isinstance(item, list):
                     for rowNo in item:
                         # print(verticalRemoveCount//3)
-                        drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, 0, itemSize)
+                        drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, itemSize)
         verticalRemoveCount += 1
         
     if removeHorizontal:
@@ -268,7 +281,7 @@ def redrawGameWindow():
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
-                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, 0, itemSize)
+                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, itemSize)
         horizontalRemoveCount += 1
 
 
@@ -278,22 +291,46 @@ def redrawGameWindow():
         # print("SHIFTED")
         # print(" ")
         # # print(board)
-        # print(" ")
-
+        print("1 ")
+        print(movedItemsBoard)
+        print(unmovedBoard)
         makeBoard(unmovedBoard)
+        # pygame.display.update()
 
         # print(shiftDownCount)
 
+        done = False
         for key in movedItemsBoard:
-            for movedItem in movedItemsBoard[key]:
-                selectedItem = board[key][movedItem]
+            # makeBoard(unmovedBoard)
 
-                #HERE you add the new location
-                # print(spacingArray[shiftDownCount//3])
-                drawItem(selectedItem, movedItem, key, spacingArray[shiftDownCount//3], itemSize)
+            if done == False:
+                for movedItem in movedItemsBoard[key]:
+                    selectedItem = board[key][movedItem]
+
+                    #top one
+                    if movedItem == 0 and 1 not in movedItemsBoard[key]:
+                        drawItem(selectedItem, movedItem, key, itemSize)
+                    
+                    #bottom one
+                    elif movedItem == globs.COLUMN_COUNT-1:
+                        pass
+                    
+                    #in the middle
+                    else:
+                        selectedItem = board[key][movedItem]
+                        done = True
+
+                        print(spacingArray[shiftDownCount//3])
+                        print(" ")
+
+                        drawItemDown(selectedItem, movedItem-1, key-1, itemSize, spacingArray[shiftDownCount//3])
+
+                        #HERE you add the new location
+                        # print(spacingArray[shiftDownCount//3])
+                        # print(board[movedItem])
 
         shiftDownCount += 1
-           
+        # shiftItemsDown = False
     
     pygame.display.update()
 
