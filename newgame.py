@@ -40,13 +40,16 @@ height = (globs.ROW_COUNT+1) * SQUARESIZE
 size = (width, height)
 
 board = {}
-shiftedBoard = {}
+unmovedBoard = {}
 
 
 left = 0
 right = 0
 up = 0
 down = 0
+
+
+shiftItemsDown = False
 
 #-----------------
 #SAMPLE BOARDS
@@ -75,7 +78,12 @@ down = 0
 
 # board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
-board = {0: ['purple', 'green', 'green', 'green', 'green', 'green', 'green', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+# board = {0: ['purple', 'green', 'green', 'green', 'green', 'green', 'green', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+
+# board = {0: ['purple', 'green', 'green', 'green', 'green', 'green', 'green', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'green', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+
+board = {0: ['purple', 'green', 'green', 'green', 'purple', 'green', 'green', 'green'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'green', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
+
 
 
 # MULTIPLES
@@ -104,7 +112,7 @@ outerTopMargin = 40
 outerLeftMargin = 40
 itemCount = 0
 
-
+spacingArray = [0.25, 0.5, 0.75, 1]
 
 class Item(pygame.sprite.Sprite):
     def __init__(self, picture_path, pos, itemSize):
@@ -144,8 +152,9 @@ class Item(pygame.sprite.Sprite):
 
 
 
-def drawItem(chosenItem, rowNo, colNo, itemSize):
-    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
+def drawItem(chosenItem, rowNo, colNo, topSpacing, itemSize):
+
+    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + ((itemSize+innerSpacing)*topSpacing) + innerSpacing*rowNo + outerTopMargin)]
     itemSprite = Item(chosenItem, itemPosition, itemSize)
     itemGroup.add(itemSprite)
 
@@ -158,7 +167,7 @@ def makeBoard(givenBoard):
     for c, colArray in givenBoard.items():
         r = 0
         for chosenItem in colArray:
-            drawItem(chosenItem, r, c, itemSize)
+            drawItem(chosenItem, r, c, 0, itemSize)
             r+=1
 
 
@@ -182,7 +191,7 @@ else:
             chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
             colArray.append(chosenItem)
 
-            drawItem(chosenItem, r, c, itemSize)
+            drawItem(chosenItem, r, c, 0, itemSize)
 
         
         board[c] = colArray
@@ -214,6 +223,9 @@ def redrawGameWindow():
 
     global shiftDownCount
     global shiftItemsDown
+    global unmovedBoard
+    global modifiedItems
+    global movedItemsBoard
 
     global previousBoard
 
@@ -222,14 +234,15 @@ def redrawGameWindow():
     # globs.SCREEN.fill((255, 255, 255))
     #PUT BACKGROUND HERE LATER
 
-    #THIS IS HOW THEY ARE DRAWN - the background images
     itemGroup.draw(globs.SCREEN)
+
+    #THIS IS HOW THEY ARE DRAWN - the background images
 
     # IN the array, change the spaces to white
     #draw them again here
 
     if verticalRemoveCount + 1 >= 12:
-        #3 sprites, display each for 3 frames = 9 total frames
+        #4 sprites, display each for 3 frames = 12 total frames
         verticalRemoveCount = 0
         removeVertical = False
 
@@ -246,7 +259,8 @@ def redrawGameWindow():
             for item in verticalDict[key]:
                 if isinstance(item, list):
                     for rowNo in item:
-                        drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, itemSize)
+                        # print(verticalRemoveCount//3)
+                        drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, 0, itemSize)
         verticalRemoveCount += 1
         
     if removeHorizontal:
@@ -254,59 +268,33 @@ def redrawGameWindow():
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
-                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, itemSize)
+                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, 0, itemSize)
         horizontalRemoveCount += 1
 
 
     if shiftItemsDown:
+        # print(shiftItemsDown)
+        # print("hi")
+        # print("SHIFTED")
         # print(" ")
+        # # print(board)
         # print(" ")
-        # print(board)
-        # print(" ")
-        # print(previousBoard)
-        
-        # print(board)
-        # print(" ")
-        # print(shiftedBoard)
-        # print(" ")
-        # print(" ")
-        # items
-        colCount = 0
-        # for key in board:
-        #     rowCount = 0
-            
-        #     print(shiftedBoard)
-        #     print(board)
-        #     print(" ")
-        #     for key in shiftedBoard:
-        #         itemCount = 0
-        #         for item in shiftedBoard[key]:
-        #             if item == board[key][itemCount]:
-        #                 # print(" ")
-        #                 # print(item)
-        #                 # print(key)
-        #                 # print("not shifted")
-        #                 pass
-                    
-        #             else:
-        #                 print("SHIFTED")
-        #                 pass
 
-        #             itemCount += 1
+        makeBoard(unmovedBoard)
 
-        #     colCount +=1
+        # print(shiftDownCount)
 
-        # print("hey")
-        # print(shiftedBoard)
-        
-        # print(shiftedBoard)
-        # print(" ")
-        print(board)
-        # makeBoard(unchangedBoard)
+        for key in movedItemsBoard:
+            for movedItem in movedItemsBoard[key]:
+                selectedItem = board[key][movedItem]
 
+                #HERE you add the new location
+                # print(spacingArray[shiftDownCount//3])
+                drawItem(selectedItem, movedItem, key, spacingArray[shiftDownCount//3], itemSize)
 
-                
-
+        shiftDownCount += 1
+           
+    
     pygame.display.update()
 
 
@@ -319,17 +307,17 @@ shiftedDict = {}
 
 removeHorizontal = False
 removeVertical = False
-shiftItemsDown = False
+
 
 shiftedBoard = {}
 droppedItemsDict = {}
 
 var1 = True
 
+
 while not gameOver:
     clock.tick(FPS)
-    
-    shiftItemsDown = False
+
     # gameChanged = False
 
     # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
@@ -375,35 +363,27 @@ while not gameOver:
     # print(removeHorizontal)
     # print(shiftItemsDown)
     # print(var1)
-    # print(" ")
-    if removeVertical == False & removeHorizontal == False & shiftItemsDown == False:
-        notBlankCount = 0
+    # print("adfsafds ")
+    if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
+        blankCount = 0
 
-        # shiftedBoard = {}
+        unmovedBoard = {}
+        movedItemsBoard = {}
 
         if var1 == True:
-            previousBoard = board
             for key in board:
                 if "BLANK" in board[key]:
+                    shiftItemsDown = True
+                    blankCount += 1
 
-                        shiftItemsDown = True
-                        modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
-                        # print(shiftedCol)
-                        # print(unchangedCol)
-                        # print(modifiedItems)
-                        # print(" ")
+                    modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
+                    movedItemsBoard[key] = modifiedItems
+                    board[key] = shiftedCol
+                    unmovedBoard[key] = unchangedCol
 
-                        board[key] = unchangedCol
-                        # print(" ")
-                        # print(board)
-                        # print(" ")
-
-
-        if notBlankCount == globs.COLUMN_COUNT:
+        if blankCount == 0:
             shiftItemsDown = False
 
-            
-                # PUT SOMETHING HERE
 
 
     for event in pygame.event.get():

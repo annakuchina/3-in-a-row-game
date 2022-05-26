@@ -107,6 +107,9 @@ def shiftDown(col):
     col.reverse()
     itemNo = 0
     blankPosNum = 0
+    
+    modifiedItems = []
+    
     for item in col:
         
         if item == "BLANK":
@@ -116,6 +119,8 @@ def shiftDown(col):
             unchangedCol = col[:itemNo]
 
             unchangedLen = len(unchangedCol)
+            # print(unchangedLen)
+            
             while unchangedLen < globs.COLUMN_COUNT:
                 unchangedCol.append("BLANK")
                 unchangedLen += 1
@@ -126,46 +131,27 @@ def shiftDown(col):
             newItem = globs.itemTypes[random.randint(0, globs.itemLen-1)]
             col.append(newItem)
 
-            # print(col)
             col.reverse()
             unchangedCol.reverse()
 
-            newCol = []
+
 
             reversedItemNo = globs.COLUMN_COUNT-1 - itemNo
             
             i = 0
             while i<= reversedItemNo:
                 if col[i] != "BLANK":
-                    newCol.append(i)
+                    modifiedItems.append(i)
                 i += 1
 
-            
-            # print("newcol ")
-            # print(unchangedCol)
-            # print(" ")
             # print(col)
-
-
-            # print("HEERE")
-
-            modifiedItems = []
+            # print(modifiedItems)
 
             
             
-            # while blankPosNum <= (globs.COLUMN_COUNT-1)-itemNo:
-            #     for item in col:
-            #         if item != "BLANK":
-            #             modifiedItems.append(blankPosNum)
-            #         blankPosNum += 1
-            
-            # print(newCol)
-            # print(" ")
-            # print(unchangedCol)
-            # print(" ")
-            # print(col)
             return modifiedItems, unchangedCol, col
 
+        
         itemNo+=1
 
 # shiftDown("col")
