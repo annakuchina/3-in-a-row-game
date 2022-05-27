@@ -14,7 +14,7 @@ from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 # myFont = pygame.font.SysFont("monospace", 60)
 
 clock = pygame.time.Clock()
-FPS = 12
+FPS = 8
 dt = clock.tick(FPS)
 
 pygame.init()
@@ -116,7 +116,8 @@ itemCount = 0
 
 # spacingArray = [0, 0.2, 0.4, 0.6, 0.8, 1]
 
-spacingArray = [0, 0.5, 1]
+
+spacingArray = [0, 0.33333333, 0.66666666, 1]
 
 # spacingArray = [1.33333, 1.33333, 1.66666, 1.66666]
 
@@ -281,17 +282,17 @@ def redrawGameWindow():
     # IN the array, change the spaces to white
     #draw them again here
 
-    if verticalRemoveCount + 1 >= 12:
-        #4 sprites, display each for 3 frames = 12 total frames
+    if verticalRemoveCount + 1 >= 8:
+        #4 sprites, display each for 2 frames = 8 total frames
         verticalRemoveCount = 0
         removeVertical = False
 
-    if horizontalRemoveCount + 1 >= 12:
+    if horizontalRemoveCount + 1 >= 8:
         horizontalRemoveCount = 0
         removeHorizontal = False
 
-    if shiftDownCount + 1 >= 4:
-        #Display 3 positions for 1 frames each = 3 frames
+    if shiftDownCount + 1 >= 5:
+        #Display 4 positions for 1 frames each = 4 frames
         shiftDownCount = 0
         shiftItemsDown = False
         # print("FALSE")
@@ -303,7 +304,7 @@ def redrawGameWindow():
                 if isinstance(item, list):
                     for rowNo in item:
                         # print(verticalRemoveCount//3)
-                        drawItem(globs.deleteOrange[verticalRemoveCount//3], rowNo, key, itemSize)
+                        drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
         verticalRemoveCount += 1
         
     if removeHorizontal:
@@ -311,14 +312,14 @@ def redrawGameWindow():
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
-                        drawItem(globs.deleteOrange[horizontalRemoveCount//3], key, colNo, itemSize)
+                        drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
         horizontalRemoveCount += 1
 
 
     if shiftItemsDown:
         # print(" ")
-        # # # print(board)
-        # # print("1 ")
+        # # print(board)
+        # print("1 ")
         # print(movedItemsBoard)
         # print(unmovedBoard)
         # print(board)
@@ -334,12 +335,49 @@ def redrawGameWindow():
 
         # for items in unmovedBoard
 
-        # if moveI
 
-        itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
+
+
+        # itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
 
 
         for key in movedItemsBoard:
+
+            # unmovedBoard
+            # find the first non blank item
+            drawItem("red", 0, 0, [itemSize[1], 7*itemSize[0] + (7)*innerSpacing])
+            # if (max(movedItemsBoard[key])+1) <= globs.ROW_COUNT-1:
+            #     unmovedRow = max(movedItemsBoard[key])+1
+
+
+            #     # drawItem("red", unmovedRow, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
+            #     # print(key)
+            #     # drawItem("red", 0, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
+
+            #     # print(" ")
+
+            #     # print(str(itemSize[1]))
+
+            #     # print(str(unmovedRow*itemSize[0]+(unmovedRow-1)*innerSpacing))
+
+            #     # print(itemSize[1])
+            #     # newthing = str(unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
+
+            #     # print(newthing)
+
+            #     drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
+
+            #     # itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
+
+            # else:
+            #     drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
+            #     print(max(movedItemsBoard[key])+1)
+            #     print(movedItemsBoard[key])
+            #     print("NOT RUNNING")
+
+                # print(unmovedRow)
+                # print(" ")
+
             # makeBoard(unmovedBoard)
             
             if done == False:
@@ -351,20 +389,23 @@ def redrawGameWindow():
                     # lowestMovedRow = max(movedItemsBoard[key])
 
                     if movedItem == 0:
-                        print('1')
+                        # print('1')
                         if "BLANK" not in board[key] and shiftDownCount==3:
                             # print("USED")
-                            drawItem(selectedItem, movedItem, key, itemSize)
-                            pygame.display.update()
+                            #ENABLE
+                            
+                            # drawItem(selectedItem, movedItem, key, itemSize)
+                            pass
                             # if
 
                             
                     
                     else:
-                        print(' ')
-                        print(shiftDownCount//1)
-                        drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
-                        pygame.display.update()
+                        # print(' ')
+                        # print(shiftDownCount//1)
+                        #ENABLE
+                        # drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                        pass
 
 
         shiftDownCount += 1
