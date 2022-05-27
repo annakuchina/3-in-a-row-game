@@ -108,8 +108,8 @@ rectangle = pygame.rect.Rect(176, 134, 17, 17)
 image = ""
 
 itemGroup = pygame.sprite.Group()
-itemSize = [80, 80]
-innerSpacing = 12
+itemSize = [60, 60]
+innerSpacing = 25
 outerTopMargin = 40
 outerLeftMargin = 40
 itemCount = 0
@@ -120,6 +120,10 @@ itemCount = 0
 spacingArray = [0, 0.33333333, 0.66666666, 1]
 
 # spacingArray = [1.33333, 1.33333, 1.66666, 1.66666]
+
+
+pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png")))
+pygame.display.set_icon(pygame_icon)
 
 
 class Item(pygame.sprite.Sprite):
@@ -242,8 +246,6 @@ horizontalRemoveCount = 0
 verticalRemoveCount = 0
 shiftDownCount = 0
 
-done = False
-
 
 
 
@@ -253,8 +255,6 @@ def redrawGameWindow():
 
     # global shiftedColCount
     # global shiftedCol
-
-    global done
 
     global verticalRemoveCount
     global removeVertical
@@ -272,15 +272,8 @@ def redrawGameWindow():
 
     global board
 
-    # globs.SCREEN.fill((255, 255, 255))
-    #PUT BACKGROUND HERE LATER
 
     itemGroup.draw(globs.SCREEN)
-
-    #THIS IS HOW THEY ARE DRAWN - the background images
-
-    # IN the array, change the spaces to white
-    #draw them again here
 
     if verticalRemoveCount + 1 >= 8:
         #4 sprites, display each for 2 frames = 8 total frames
@@ -315,102 +308,31 @@ def redrawGameWindow():
                         drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
         horizontalRemoveCount += 1
 
-
     if shiftItemsDown:
-        # print(" ")
-        # # print(board)
-        # print("1 ")
-        # print(movedItemsBoard)
-        # print(unmovedBoard)
-        # print(board)
-
-        # print(" made unmoved board")
-        
-        # itemGroup.add(Item("red", [0, 0], [1000, 1000]))
         makeBoard(unmovedBoard)
-        
-        # pygame.display.update()
-
-        # print(shiftDownCount)
-
-        # for items in unmovedBoard
-
-
-
-
-        # itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
-
 
         for key in movedItemsBoard:
-
-            # unmovedBoard
-            # find the first non blank item
-
-
             unmovedRow = 0
             for item in unmovedBoard[key]:
                 if item != "BLANK":
                     break
 
                 unmovedRow +=1
-            
-            
-
-
-            # itemIndex = nonzero(unmovedBoard[key]!="BLANK")
-            # itemIndex = next((i for i in r))
-
-            # print(itemIndex)
-            # ****
 
             drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing])
-
-
-            # if unmovedRow <= globs.ROW_COUNT-1:
-
-                # drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
-
-                # itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
-
-            # else:
-                # drawItem("blue", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
-                # print(" ")
-
-            # makeBoard(unmovedBoard)
             
-            if done == False:
-                for movedItem in movedItemsBoard[key]:
+            for movedItem in movedItemsBoard[key]:
+                selectedItem = board[key][movedItem]
 
-                    selectedItem = board[key][movedItem]
+                if movedItem == 0:
+                    if "BLANK" not in board[key] and shiftDownCount==3:                
+                        drawItem(selectedItem, movedItem, key, itemSize)
                     
-                    # The lowermost row that is moved
-                    # lowestMovedRow = max(movedItemsBoard[key])
-
-                    if movedItem == 0:
-                        # print('1')
-                        if "BLANK" not in board[key] and shiftDownCount==3:
-                            # print("USED")
-                            #ENABLE
-                            
-                            drawItem(selectedItem, movedItem, key, itemSize)
-                            # pass
-                            # if
-
-                            
-                    
-                    else:
-                        # print(' ')
-                        # print(shiftDownCount//1)
-                        #ENABLE
-                        drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
-                        # pass
+                else:
+                    drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
 
 
         shiftDownCount += 1
-        # print(shiftDownCount)
-        # shiftItemsDown = False
-
-        # makeBoard(board)
     
     
     pygame.display.update()
@@ -488,7 +410,7 @@ while not gameOver:
     # print(shiftItemsDown)
     # print(var1)
     # print("adfsafds ")
-    if removeVertical == False and removeHorizontal == False and shiftItemsDown == False and done==False:
+    if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
         blankCount = 0
 
         unmovedBoard = {}

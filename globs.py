@@ -27,13 +27,22 @@ COLUMN_COUNT = 8
 # ]
 
 itemTypes = [
-    "red",
-    "green",
-    "blue",
-    "orange",
-    "purple",
-    "yellow"
+    "mushroom",
+    "potion",
+    "snake",
+    "tree",
+    "eye",
+    "moon"
 ]
+
+# itemTypes = [
+#     "red",
+#     "green",
+#     "blue",
+#     "orange",
+#     "purple",
+#     "yellow"
+# ]
 
 itemLen = len(itemTypes)
 
