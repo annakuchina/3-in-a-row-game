@@ -345,35 +345,43 @@ def redrawGameWindow():
 
             # unmovedBoard
             # find the first non blank item
-            drawItem("red", 0, 0, [itemSize[1], 7*itemSize[0] + (7)*innerSpacing])
-            # if (max(movedItemsBoard[key])+1) <= globs.ROW_COUNT-1:
-            #     unmovedRow = max(movedItemsBoard[key])+1
 
+            unmovedRow = max(movedItemsBoard[key])+1
+            if (max(movedItemsBoard[key])+1) <= globs.ROW_COUNT-1:
+                # unmovedRow = max(movedItemsBoard[key])+1
 
-            #     # drawItem("red", unmovedRow, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
-            #     # print(key)
-            #     # drawItem("red", 0, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
+                # drawItem("red", 0, 0, [itemSize[1], 7*itemSize[0] + (7)*innerSpacing])
 
-            #     # print(" ")
+                # drawItem("red", unmovedRow, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
+                # print(key)
+                # drawItem("red", 0, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
 
-            #     # print(str(itemSize[1]))
+                # print(" ")
 
-            #     # print(str(unmovedRow*itemSize[0]+(unmovedRow-1)*innerSpacing))
+                # print(str(itemSize[1]))
 
-            #     # print(itemSize[1])
-            #     # newthing = str(unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
+                # print(str(unmovedRow*itemSize[0]+(unmovedRow-1)*innerSpacing))
 
-            #     # print(newthing)
+                # print(itemSize[1])
+                # newthing = str(unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
 
-            #     drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
+                # print(newthing)
+                
+                print(" ")
+                print(movedItemsBoard)
+                print(unmovedBoard)
+                print(unmovedRow)
+                print(board)
 
-            #     # itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
+                drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
 
-            # else:
-            #     drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
-            #     print(max(movedItemsBoard[key])+1)
-            #     print(movedItemsBoard[key])
-            #     print("NOT RUNNING")
+                # itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
+
+            else:
+                drawItem("blue", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
+                # print(max(movedItemsBoard[key])+1)
+                # print(movedItemsBoard[key])
+                # print("NOT RUNNING")
 
                 # print(unmovedRow)
                 # print(" ")
