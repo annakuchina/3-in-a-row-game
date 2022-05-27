@@ -314,15 +314,12 @@ def redrawGameWindow():
 
 
     if shiftItemsDown:
-        # print(shiftItemsDown)
-        # print("hi")
-        # print("SHIFTED")
-        # print(" ")
+        print(" ")
         # # print(board)
         # print("1 ")
-        # print(movedItemsBoard)
-        # print(unmovedBoard)
-        # print(board)
+        print(movedItemsBoard)
+        print(unmovedBoard)
+        print(board)
         # print(" made unmoved board")
         
         # itemGroup.add(Item("red", [0, 0], [1000, 1000]))
@@ -347,45 +344,12 @@ def redrawGameWindow():
                     # The lowermost row that is moved
                     # lowestMovedRow = max(movedItemsBoard[key])
 
-                    drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
-
-                    # if 
-
-                    #top one
-                    # if movedItem == 0 and 1 not in movedItemsBoard[key]:
-
-                    #     drawItem(selectedItem, movedItem, key, itemSize)
-                    
-                    # #bottom one
-
-                    # # if lowestMoved
-
-
-                    # elif movedItem == globs.COLUMN_COUNT -1:
+                    # if movedItem == globs.COLUMN_COUNT -1:
                     #     pass
-
-                    # # elif lowestMovedRow <= globs.COLUMN_COUNT-1 and board[key][lowestMovedRow-1] == "BLANK":
-                    # #     print("hi")
-                    # #     pass
-                        
-
-                    # # elif selectedItem == "BLANK" and 6 in movedItem-7:
-                        
                     
-                    # #in the middle
                     # else:
-                        
+                    drawItemDown(selectedItem, movedItem-2, key, itemSize, spacingArray[shiftDownCount//2])
 
-                        # print(spacingArray[shiftDownCount//3])
-                        # print(" ")
-
-                        
-
-                        #HERE you add the new location
-                        # print(spacingArray[shiftDownCount//3])
-                        # print(board[movedItem])
-
-                # done = True
 
         shiftDownCount += 1
         # shiftItemsDown = False
