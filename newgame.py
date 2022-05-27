@@ -114,7 +114,9 @@ outerTopMargin = 40
 outerLeftMargin = 40
 itemCount = 0
 
-spacingArray = [1, 1.33333, 1.66666, 2]
+# spacingArray = [0, 0.2, 0.4, 0.6, 0.8, 1]
+
+spacingArray = [0, 0.5, 1]
 
 # spacingArray = [1.33333, 1.33333, 1.66666, 1.66666]
 
@@ -288,8 +290,8 @@ def redrawGameWindow():
         horizontalRemoveCount = 0
         removeHorizontal = False
 
-    if shiftDownCount + 1 >= 8:
-        #Display 4 positions for 2 frames each
+    if shiftDownCount + 1 >= 4:
+        #Display 3 positions for 1 frames each = 3 frames
         shiftDownCount = 0
         shiftItemsDown = False
         # print("FALSE")
@@ -314,12 +316,13 @@ def redrawGameWindow():
 
 
     if shiftItemsDown:
-        print(" ")
-        # # print(board)
-        # print("1 ")
-        print(movedItemsBoard)
-        print(unmovedBoard)
-        print(board)
+        # print(" ")
+        # # # print(board)
+        # # print("1 ")
+        # print(movedItemsBoard)
+        # print(unmovedBoard)
+        # print(board)
+
         # print(" made unmoved board")
         
         # itemGroup.add(Item("red", [0, 0], [1000, 1000]))
@@ -331,7 +334,10 @@ def redrawGameWindow():
 
         # for items in unmovedBoard
 
+        # if moveI
+
         itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
+
 
         for key in movedItemsBoard:
             # makeBoard(unmovedBoard)
@@ -344,14 +350,25 @@ def redrawGameWindow():
                     # The lowermost row that is moved
                     # lowestMovedRow = max(movedItemsBoard[key])
 
-                    # if movedItem == globs.COLUMN_COUNT -1:
-                    #     pass
+                    if movedItem == 0:
+                        print('1')
+                        if "BLANK" not in board[key] and shiftDownCount==3:
+                            # print("USED")
+                            drawItem(selectedItem, movedItem, key, itemSize)
+                            pygame.display.update()
+                            # if
+
+                            
                     
-                    # else:
-                    drawItemDown(selectedItem, movedItem-2, key, itemSize, spacingArray[shiftDownCount//2])
+                    else:
+                        print(' ')
+                        print(shiftDownCount//1)
+                        drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                        pygame.display.update()
 
 
         shiftDownCount += 1
+        # print(shiftDownCount)
         # shiftItemsDown = False
 
         # makeBoard(board)
