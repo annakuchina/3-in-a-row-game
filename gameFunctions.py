@@ -98,7 +98,7 @@ def deleteItems(columnDict, rowDict, board):
 
 def shiftDown(col):
     # print("start col:")
-    # # col =  ['blue', 'yellow', 'BLANK', 'BLANK', 'BLANK', 'green', 'red', 'purple']
+    # col =  ['blue', 'yellow', 'BLANK', 'BLANK', 'BLANK', 'green', 'red', 'purple']
     # col =  ['BLANK', 'purple', 'purple', 'BLANK', 'green', 'BLANK', 'blue', 'green']
     # print(col)
     # print(" ")
@@ -138,6 +138,7 @@ def shiftDown(col):
 
             reversedItemNo = globs.COLUMN_COUNT-1 - itemNo
             
+            #get center things
             i = 0
             while i<= reversedItemNo:
                 if col[i] != "BLANK":
@@ -146,12 +147,9 @@ def shiftDown(col):
 
             # print(col)
             # print(modifiedItems)
-
-            
             
             return modifiedItems, unchangedCol, col
 
-        
         itemNo+=1
 
 # shiftDown("col")

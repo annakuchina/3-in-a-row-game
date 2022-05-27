@@ -7,6 +7,7 @@ import numpy as np
 from os import system
 import time
 # from connect_four_game.globs import COLUMN_COUNT
+# from connect_four_game.globs import COLUMN_COUNT
 import globs
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 
@@ -107,13 +108,16 @@ rectangle = pygame.rect.Rect(176, 134, 17, 17)
 image = ""
 
 itemGroup = pygame.sprite.Group()
-itemSize = 80
+itemSize = [80, 80]
 innerSpacing = 12
 outerTopMargin = 40
 outerLeftMargin = 40
 itemCount = 0
 
 spacingArray = [1, 1.33333, 1.66666, 2]
+
+# spacingArray = [1.33333, 1.33333, 1.66666, 1.66666]
+
 
 class Item(pygame.sprite.Sprite):
     def __init__(self, picture_path, pos, itemSize):
@@ -122,13 +126,15 @@ class Item(pygame.sprite.Sprite):
 
         completeImgPath = os.path.join("images", (str(picture_path) + ".png"))
         # add checking here later
+        # print(" ")
+        # print(pos)
 
         self.image = pygame.image.load(completeImgPath)
         self.rect = self.image.get_rect()
         self.rect.x = pos[0]  #put x coord here
         self.rect.y = pos[1]  #put y coord here
-        self.width = itemSize
-        self.height = itemSize
+        self.width = itemSize[0]
+        self.height = itemSize[1]
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         
         # the picture, and the rectangle around the picture
@@ -152,14 +158,27 @@ class Item(pygame.sprite.Sprite):
     #     pass
 
 
+# def drawCol(rowNo, colNo, itemSize):
+#     itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
+
+#     itemSprite = Item("BLANK", rowNo, colNo, itemSize[0])
+
+
+
 
 def drawItem(chosenItem, rowNo, colNo, itemSize):
-    
-    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
-    
+    posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
+    posY = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin
+
+    # itemPosition = [colNo*itemSize + innerSpacing*colNo + outerLeftMargin, ]
+
+    itemPosition = [posX, posY]
     itemSprite = Item(chosenItem, itemPosition, itemSize)
     itemGroup.add(itemSprite)
 
+
+# def wipeBoard():
+#     itemSprite = Item()
 
 # def positionGenerator()
 
@@ -199,12 +218,14 @@ else:
         board[c] = colArray
 
 
-# def replaceBlank:
 
 
 def drawItemDown(chosenItem, rowNo, colNo, itemSize, rowMultiplier):
     
-    itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), ((rowNo+rowMultiplier)*itemSize + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin)]
+    posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
+    posY = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
+
+    itemPosition = [posX, posY]
     
     #X, Y position
 
@@ -218,6 +239,10 @@ horizontalRemoveCount = 0
 verticalRemoveCount = 0
 shiftDownCount = 0
 
+done = False
+
+
+
 
 def redrawGameWindow():
     global firstGo
@@ -225,6 +250,8 @@ def redrawGameWindow():
 
     # global shiftedColCount
     # global shiftedCol
+
+    global done
 
     global verticalRemoveCount
     global removeVertical
@@ -261,11 +288,12 @@ def redrawGameWindow():
         horizontalRemoveCount = 0
         removeHorizontal = False
 
-    if shiftDownCount + 1 >= 12:
+    if shiftDownCount + 1 >= 8:
+        #Display 4 positions for 2 frames each
         shiftDownCount = 0
         shiftItemsDown = False
-        print("FALSE")
-        print(" ")
+        # print("FALSE")
+        # print(" ")
 
     if removeVertical:
         for key in verticalDict:
@@ -291,46 +319,79 @@ def redrawGameWindow():
         # print("SHIFTED")
         # print(" ")
         # # print(board)
-        print("1 ")
-        print(movedItemsBoard)
-        print(unmovedBoard)
+        # print("1 ")
+        # print(movedItemsBoard)
+        # print(unmovedBoard)
+        # print(board)
+        # print(" made unmoved board")
+        
+        # itemGroup.add(Item("red", [0, 0], [1000, 1000]))
         makeBoard(unmovedBoard)
+        
         # pygame.display.update()
 
         # print(shiftDownCount)
 
-        done = False
+        # for items in unmovedBoard
+
+        itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
+
         for key in movedItemsBoard:
             # makeBoard(unmovedBoard)
-
+            
             if done == False:
                 for movedItem in movedItemsBoard[key]:
+
                     selectedItem = board[key][movedItem]
+                    
+                    # The lowermost row that is moved
+                    # lowestMovedRow = max(movedItemsBoard[key])
+
+                    drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
+
+                    # if 
 
                     #top one
-                    if movedItem == 0 and 1 not in movedItemsBoard[key]:
-                        drawItem(selectedItem, movedItem, key, itemSize)
-                    
-                    #bottom one
-                    elif movedItem == globs.COLUMN_COUNT-1:
-                        pass
-                    
-                    #in the middle
-                    else:
-                        selectedItem = board[key][movedItem]
-                        done = True
+                    # if movedItem == 0 and 1 not in movedItemsBoard[key]:
 
-                        print(spacingArray[shiftDownCount//3])
-                        print(" ")
+                    #     drawItem(selectedItem, movedItem, key, itemSize)
+                    
+                    # #bottom one
 
-                        drawItemDown(selectedItem, movedItem-1, key-1, itemSize, spacingArray[shiftDownCount//3])
+                    # # if lowestMoved
+
+
+                    # elif movedItem == globs.COLUMN_COUNT -1:
+                    #     pass
+
+                    # # elif lowestMovedRow <= globs.COLUMN_COUNT-1 and board[key][lowestMovedRow-1] == "BLANK":
+                    # #     print("hi")
+                    # #     pass
+                        
+
+                    # # elif selectedItem == "BLANK" and 6 in movedItem-7:
+                        
+                    
+                    # #in the middle
+                    # else:
+                        
+
+                        # print(spacingArray[shiftDownCount//3])
+                        # print(" ")
+
+                        
 
                         #HERE you add the new location
                         # print(spacingArray[shiftDownCount//3])
                         # print(board[movedItem])
 
+                # done = True
+
         shiftDownCount += 1
         # shiftItemsDown = False
+
+        # makeBoard(board)
+    
     
     pygame.display.update()
 
@@ -353,7 +414,13 @@ var1 = True
 
 
 while not gameOver:
+    # print("     K")
+    
+    
     clock.tick(FPS)
+
+    globs.SCREEN.fill((255, 255, 255))
+    # globs.SCREEN.fill((255, 0, 0))
 
     # gameChanged = False
 
@@ -401,7 +468,7 @@ while not gameOver:
     # print(shiftItemsDown)
     # print(var1)
     # print("adfsafds ")
-    if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
+    if removeVertical == False and removeHorizontal == False and shiftItemsDown == False and done==False:
         blankCount = 0
 
         unmovedBoard = {}
