@@ -3,7 +3,7 @@ from optparse import Values
 import os, pygame, random, sys, math
 from string import whitespace
 from unicodedata import name
-import numpy as np
+import numpy
 from os import system
 import time
 # from connect_four_game.globs import COLUMN_COUNT
@@ -346,44 +346,34 @@ def redrawGameWindow():
             # unmovedBoard
             # find the first non blank item
 
-            unmovedRow = max(movedItemsBoard[key])+1
-            if (max(movedItemsBoard[key])+1) <= globs.ROW_COUNT-1:
-                # unmovedRow = max(movedItemsBoard[key])+1
 
-                # drawItem("red", 0, 0, [itemSize[1], 7*itemSize[0] + (7)*innerSpacing])
+            unmovedRow = 0
+            for item in unmovedBoard[key]:
+                if item != "BLANK":
+                    break
 
-                # drawItem("red", unmovedRow, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
-                # print(key)
-                # drawItem("red", 0, key, [unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing, itemSize[1]])
+                unmovedRow +=1
+            
+            
 
-                # print(" ")
 
-                # print(str(itemSize[1]))
+            # itemIndex = nonzero(unmovedBoard[key]!="BLANK")
+            # itemIndex = next((i for i in r))
 
-                # print(str(unmovedRow*itemSize[0]+(unmovedRow-1)*innerSpacing))
+            # print(itemIndex)
+            # ****
 
-                # print(itemSize[1])
-                # newthing = str(unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
+            drawItem("BLANK", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing])
 
-                # print(newthing)
-                
-                print(" ")
-                print(movedItemsBoard)
-                print(unmovedBoard)
-                print(unmovedRow)
-                print(board)
 
-                drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
+            # if unmovedRow <= globs.ROW_COUNT-1:
+
+                # drawItem("red", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
 
                 # itemGroup.add(Item("BLANK", [0, 0], [150, 900]))
 
-            else:
-                drawItem("blue", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
-                # print(max(movedItemsBoard[key])+1)
-                # print(movedItemsBoard[key])
-                # print("NOT RUNNING")
-
-                # print(unmovedRow)
+            # else:
+                # drawItem("blue", 0, 0, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow)*innerSpacing])
                 # print(" ")
 
             # makeBoard(unmovedBoard)
@@ -402,8 +392,8 @@ def redrawGameWindow():
                             # print("USED")
                             #ENABLE
                             
-                            # drawItem(selectedItem, movedItem, key, itemSize)
-                            pass
+                            drawItem(selectedItem, movedItem, key, itemSize)
+                            # pass
                             # if
 
                             
@@ -412,8 +402,8 @@ def redrawGameWindow():
                         # print(' ')
                         # print(shiftDownCount//1)
                         #ENABLE
-                        # drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
-                        pass
+                        drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                        # pass
 
 
         shiftDownCount += 1
