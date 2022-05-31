@@ -20,6 +20,7 @@ dt = clock.tick(FPS)
 pygame.init()
 
 globs.SCREEN.fill((255, 255, 255))
+# globs.SCREEN.fill((0, 0, 0))
 
 itemTypes = globs.itemTypes
 
@@ -111,7 +112,7 @@ itemGroup = pygame.sprite.Group()
 itemSize = [60, 60]
 innerSpacing = 25
 outerTopMargin = 40
-outerLeftMargin = 40
+outerLeftMargin = 70
 itemCount = 0
 
 # spacingArray = [0, 0.2, 0.4, 0.6, 0.8, 1]
@@ -246,6 +247,7 @@ horizontalRemoveCount = 0
 verticalRemoveCount = 0
 shiftDownCount = 0
 
+itemsModified = False
 
 
 
@@ -261,6 +263,7 @@ def redrawGameWindow():
 
     global horizontalRemoveCount
     global removeHorizontal
+    global itemsModified
 
     global shiftDownCount
     global shiftItemsDown
@@ -271,7 +274,6 @@ def redrawGameWindow():
     global previousBoard
 
     global board
-
 
     itemGroup.draw(globs.SCREEN)
 
@@ -296,7 +298,6 @@ def redrawGameWindow():
             for item in verticalDict[key]:
                 if isinstance(item, list):
                     for rowNo in item:
-                        # print(verticalRemoveCount//3)
                         drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
         verticalRemoveCount += 1
         
@@ -310,6 +311,7 @@ def redrawGameWindow():
 
     if shiftItemsDown:
         makeBoard(unmovedBoard)
+        itemsModified = True
 
         for key in movedItemsBoard:
             unmovedRow = 0
@@ -317,7 +319,7 @@ def redrawGameWindow():
                 if item != "BLANK":
                     break
 
-                unmovedRow +=1
+                unmovedRow += 1
 
             drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing])
             
@@ -334,7 +336,9 @@ def redrawGameWindow():
 
         shiftDownCount += 1
     
-    
+    # redrawGameWindow == False
+
+
     pygame.display.update()
 
 
@@ -355,19 +359,11 @@ droppedItemsDict = {}
 var1 = True
 
 
-while not gameOver:
-    # print("     K")
-    
-    
+while not gameOver:   
     clock.tick(FPS)
 
-    globs.SCREEN.fill((255, 255, 255))
-    # globs.SCREEN.fill((255, 0, 0))
-
-    # gameChanged = False
-
     # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
-    if gameChanged == True:
+    if gameChanged == True and shiftItemsDown == False:
         verticalDict = itemCollectVertical(board, itemTypes)
         horizontalDict = itemCollectHorizontal(board, itemTypes)
         
@@ -403,13 +399,7 @@ while not gameOver:
 
         gameChanged = False
 
-    # if var1:
-    
-    # print(removeVertical)
-    # print(removeHorizontal)
-    # print(shiftItemsDown)
-    # print(var1)
-    # print("adfsafds ")
+
     if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
         blankCount = 0
 
@@ -421,7 +411,6 @@ while not gameOver:
                 if "BLANK" in board[key]:
                     shiftItemsDown = True
                     blankCount += 1
-
                     modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
                     movedItemsBoard[key] = modifiedItems
                     board[key] = shiftedCol
@@ -429,6 +418,11 @@ while not gameOver:
 
         if blankCount == 0:
             shiftItemsDown = False
+
+
+    if itemsModified == True and shiftItemsDown == False:
+        gameChanged = True
+        itemsModified = False
 
 
 
@@ -440,13 +434,12 @@ while not gameOver:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 print("hhh")
-                if rectangle.collidepoint(event.pos):
-                    rectangle_draging = True
-                    mouse_x, mouse_y = event.pos
-                    offset_x = rectangle.x - mouse_x
-                    offset_y = rectangle.y - mouse_y
-                    print(offset_x)
-                    print(offset_y)
+                rectangle_draging = True
+                mouse_x, mouse_y = event.pos
+                offset_x = rectangle.x - mouse_x
+                offset_y = rectangle.y - mouse_y
+                print(offset_x)
+                print(offset_y)
                     
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:            

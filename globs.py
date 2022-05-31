@@ -48,5 +48,6 @@ itemLen = len(itemTypes)
 
 #do the loading inside of the game maybe, or convert.alpha
 deleteOrange = ["orange", "orange-small", "orange-smaller", "BLANK"]
+# deleteOrange = ["snake", "snake1", "snake2", "BLANK"]
 
 # deleteOrange = [os.path.join("images", "orange.png")).convert_alpha(), pygame.image.load(os.path.join("images", "orange-small.png")).convert_alpha(), pygame.image.load(os.path.join("images", "orange-smaller.png")).convert_alpha()]
