@@ -104,12 +104,13 @@ rectangle_draging = False
 itemLen = len(itemTypes)
 itemArray = []
 
-rectangle = pygame.rect.Rect(176, 134, 17, 17)
+# rectangle = pygame.rect.Rect(176, 134, 17, 17)
 
 image = ""
 
 itemGroup = pygame.sprite.Group()
 itemSize = [60, 60]
+outlineSize = [65, 65]
 innerSpacing = 25
 outerTopMargin = 40
 outerLeftMargin = 70
@@ -171,6 +172,10 @@ class Item(pygame.sprite.Sprite):
 
 #     itemSprite = Item("BLANK", rowNo, colNo, itemSize[0])
 
+
+# def drawOutline(rowNo, colNo, itemSize):
+#     posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
+#     posY = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin
 
 
 
@@ -338,9 +343,7 @@ def redrawGameWindow():
     
     # redrawGameWindow == False
 
-
     pygame.display.update()
-
 
 
 gameChanged = True
@@ -351,6 +354,10 @@ shiftedDict = {}
 
 removeHorizontal = False
 removeVertical = False
+
+itemDragging = False
+
+selectedArray = []
 
 
 shiftedBoard = {}
@@ -425,39 +432,126 @@ while not gameOver:
         itemsModified = False
 
 
-
+    # if gameChanged == False:
     for event in pygame.event.get():
 
-        if event.type == pygame.QUIT:
-            sys.exit()
+            if event.type == pygame.QUIT:
+                sys.exit()
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
-                print("hhh")
-                rectangle_draging = True
-                mouse_x, mouse_y = event.pos
-                offset_x = rectangle.x - mouse_x
-                offset_y = rectangle.y - mouse_y
-                print(offset_x)
-                print(offset_y)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    # print("hhh")
+                    itemDragging = True
+                    itemSelected = True
+                    mouse_x, mouse_y = event.pos
+
+                    xLocation = mouse_x - outerLeftMargin
+
+                    yLocation = mouse_y - outerTopMargin
+
+                    # offset_x = mouse_x - outerTopMargin
+
+                    # offset_y = rectangle.y - mouse_y
+
+
+
+                    columnLocation = xLocation // (itemSize[0]+innerSpacing)
+                    rowLocation = yLocation // (itemSize[1]+innerSpacing)
+
+                    if columnLocation >= globs.COLUMN_COUNT or columnLocation < 0:
+                        # print("jknd")
+                        itemSelected = False
                     
-        elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:            
-                rectangle_draging = False
+                    if rowLocation >= globs.ROW_COUNT or rowLocation < 0:
+                        # print("jknd")
+                        itemSelected = False
 
-        elif event.type == pygame.MOUSEMOTION:
-            if rectangle_draging:
-                mouse_x, mouse_y = event.pos
-                rectangle.x = mouse_x + offset_x
-                rectangle.y = mouse_y + offset_y   
+                    print("hi")
+                    if itemSelected != False:
+                        print(selectedArray)
+                        print(len(selectedArray))
+                       
+                        if len(selectedArray) == 0:
+                            selectedArray.append([columnLocation, rowLocation])
+                            drawItem("red-outline", rowLocation, columnLocation, itemSize)
+                        
+                            pygame.display.update()
+                            print("Drawn")
+
+                            print("column " + str(columnLocation))
+                            print("row " + str(rowLocation))
+                            print(" ")
+
+                        elif len(selectedArray) == 1:
+                            # There is 1 item currently selected
+                            
+                            if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
+                                drawItem("white-outline", rowLocation, columnLocation, itemSize)
+                                pygame.display.update()
+                                selectedArray = []
+                            
+                            # elif selectedArray[0][0] == columnLocation
+
+                            # Get range of possible locations
+                            
+                            possibleColumns = []
+                            
 
 
-    # ONLY draw things in here
+                            if selectedArray[0][0] + 1 == columnLocation or selectedArray[0][0] - 1 == columnLocation:
+                                pass
+
+
+
+                    # print(roundedNo)
+
+                    # if xLocation > itemSize[0]:
+
+                    #     print("out of bounds")
+
+                    # print(xLocation)
+                    # print(yLocation)
+
+
+            # See if user has lifted the left mouse button
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    itemDragging = False
+
+                    # See where the user drops the item
+                    mouse_x, mouse_y = event.pos
+
+                    newColumnLocation = (mouse_x-outerLeftMargin) // (itemSize[0]+innerSpacing)
+                    newRowLocation = (mouse_y-outerTopMargin) // (itemSize[0]+innerSpacing)
+
+                    
+                    # See if its in the range of column and rows
+                    
+
+
+            # elif event.type == pygame.MOUSEMOTION:
+            #     if itemDragging:
+            #         mouse_x, mouse_y = event.pos
+
+            #         columnLocation = (mouse_x-outerLeftMargin) // (itemSize[0]+innerSpacing)
+            #         rowLocation = (mouse_y-outerTopMargin) // (itemSize[0]+innerSpacing)
+
+            #         selectedItem Image***
+
+
+                    # Find the item in the board dictionary
+                    # Then move the item
+
+                    # rectangle.x = mouse_x + offset_x
+                    # rectangle.y = mouse_y + offset_y   
+
+
+        # ONLY draw things in here
     redrawGameWindow()
-    
-    # if var1 == True:
-    #     print(board)
-    #     var1 = False
+        
+        # if var1 == True:
+        #     print(board)
+        #     var1 = False
     
 
 pygame.quit()
