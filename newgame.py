@@ -109,11 +109,11 @@ itemArray = []
 image = ""
 
 itemGroup = pygame.sprite.Group()
-itemSize = [60, 60]
-outlineSize = [65, 65]
-innerSpacing = 25
+itemSize = [72, 72]
+outlineSize = [72, 72]
+innerSpacing = 10
 outerTopMargin = 40
-outerLeftMargin = 70
+outerLeftMargin = 40
 itemCount = 0
 
 # spacingArray = [0, 0.2, 0.4, 0.6, 0.8, 1]
@@ -485,6 +485,7 @@ while not gameOver:
                         elif len(selectedArray) == 1:
                             # There is 1 item currently selected
                             
+                            # The player selects the same element
                             if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
                                 drawItem("white-outline", rowLocation, columnLocation, itemSize)
                                 pygame.display.update()
@@ -502,56 +503,46 @@ while not gameOver:
                             
 
                             #Two items are identical in a column (vertical)
-                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] - 1 == rowLocation:
-                                selectedArray.append([columnLocation, rowLocation])
-                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
+                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
+                                board[columnLocation][rowLocation], board[columnLocation][rowLocation+1] = board[columnLocation][rowLocation+1], board[columnLocation][rowLocation]
+                                selectedArray = []
+                                gameChanged = True
+                                makeBoard(board)
 
-                                newColumn = board[columnLocation]
-                                newColumn[selectedArray[0][0]], newColumn[selectedArray[0][0]-1] = newColumn[selectedArray[0][0]-1], newColumn[selectedArray[0][0]]
 
-
-                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] + 1 == rowLocation:
-                                selectedArray.append([columnLocation, rowLocation])
-                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
-
-                                newColumn = board[columnLocation]
-                                newColumn[selectedArray[0][0]], newColumn[selectedArray[0][0]+1] = newColumn[selectedArray[0][0]+1], newColumn[selectedArray[0][0]]
+                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation-1:
+                                board[columnLocation][rowLocation], board[columnLocation][rowLocation-1] = board[columnLocation][rowLocation-1], board[columnLocation][rowLocation]
+                                selectedArray = []
+                                gameChanged = True
+                                makeBoard(board)
 
 
 
                             #Two items are identical in a row (horizontal)
                             elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation+1:
-                                print("WORKING")
-                                selectedArray.append([columnLocation, rowLocation])
-                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
-
-                                newRow = []
-
-                                for key in board:
-                                    newRow.append(board[key][rowLocation])
-                                    print("hjfdjf")
-                                
-                                print(" ")
-                                print(board)
                                 board[columnLocation][rowLocation], board[columnLocation+1][rowLocation] = board[columnLocation+1][rowLocation], board[columnLocation][rowLocation]
+                                selectedArray = []
+                                gameChanged = True
+                                makeBoard(board)
 
-                                print(board)
-                                # print(selectedArray)
-                                print(" ")
 
-
-                                # print(selectedArray)
-                                # newRow[selectedArray[0][0]], newRow[selectedArray[0][0]-1] = newRow[selectedArray[0][0]-1], newRow[selectedArray[0][0]]
-                                # print(newRow)
-
-                            elif selectedArray[0][0] == rowLocation and selectedArray[0][1] + 1 == columnLocation:
-                                print("hi")
+                            
+                            elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation-1:
+                                # print("HI")
+                                board[columnLocation][rowLocation], board[columnLocation-1][rowLocation] = board[columnLocation-1][rowLocation], board[columnLocation][rowLocation]
+                                selectedArray = []
+                                gameChanged = True
+                                makeBoard(board)
 
                             else:
-                                print("here")
-                                print(selectedArray)
-                                print(columnLocation)
-                                print(rowLocation)
+                                print("WRONG")
+                                # print(selectedArray)
+
+                                # print("col: " + str(columnLocation) + " row: " + str(rowLocation))
+                                # print(selectedArray[0][1])
+                                # print(rowLocation)
+                                # print()
+
                                 print(" ")
                                 drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                 selectedArray = []
