@@ -507,30 +507,45 @@ while not gameOver:
                                 drawItem("red-outline", rowLocation, columnLocation, itemSize)
 
                                 newColumn = board[columnLocation]
-                                print(newColumn)
-                                print("---------")
-                                
-                                # print(selectedArray)
-                                # print(selectedArray[0][0])
-                                # print(newColumn[selectedArray[0][0]])
-                                # print(newColumn[selectedArray[0][0]-1])
-
                                 newColumn[selectedArray[0][0]], newColumn[selectedArray[0][0]-1] = newColumn[selectedArray[0][0]-1], newColumn[selectedArray[0][0]]
-                                print(newColumn)
-                                # print("skafjsdj")
+
 
                             elif selectedArray[0][0] == columnLocation and selectedArray[0][1] + 1 == rowLocation:
-                                pass
+                                selectedArray.append([columnLocation, rowLocation])
+                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
+
+                                newColumn = board[columnLocation]
+                                newColumn[selectedArray[0][0]], newColumn[selectedArray[0][0]+1] = newColumn[selectedArray[0][0]+1], newColumn[selectedArray[0][0]]
 
 
 
                             #Two items are identical in a row (horizontal)
-                            elif selectedArray[0][1] == rowLocation and selectedArray[0][0] - 1 == columnLocation or selectedArray[0][0] == rowLocation and selectedArray[0][1] + 1 == columnLocation:
+                            elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation+1:
+                                print("WORKING")
                                 selectedArray.append([columnLocation, rowLocation])
                                 drawItem("red-outline", rowLocation, columnLocation, itemSize)
 
-                                print("Yes")
-                                pass
+                                newRow = []
+
+                                for key in board:
+                                    newRow.append(board[key][rowLocation])
+                                    print("hjfdjf")
+                                
+                                print(" ")
+                                print(board)
+                                board[columnLocation][rowLocation], board[columnLocation+1][rowLocation] = board[columnLocation+1][rowLocation], board[columnLocation][rowLocation]
+
+                                print(board)
+                                # print(selectedArray)
+                                print(" ")
+
+
+                                # print(selectedArray)
+                                # newRow[selectedArray[0][0]], newRow[selectedArray[0][0]-1] = newRow[selectedArray[0][0]-1], newRow[selectedArray[0][0]]
+                                # print(newRow)
+
+                            elif selectedArray[0][0] == rowLocation and selectedArray[0][1] + 1 == columnLocation:
+                                print("hi")
 
                             else:
                                 print("here")

@@ -28,10 +28,10 @@ COLUMN_COUNT = 8
 
 itemTypes = [
     "mushroom",
-    "potion",
+    "heal-potion",
+    "poison-potion",
     "snake",
     "tree",
-    "eye",
     "moon"
 ]
 
