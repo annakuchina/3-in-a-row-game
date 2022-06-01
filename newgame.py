@@ -466,21 +466,21 @@ while not gameOver:
                         # print("jknd")
                         itemSelected = False
 
-                    print("hi")
+                    # print("hi")
                     if itemSelected != False:
-                        print(selectedArray)
-                        print(len(selectedArray))
+                        # print(selectedArray)
+                        # print(len(selectedArray))
                        
                         if len(selectedArray) == 0:
                             selectedArray.append([columnLocation, rowLocation])
                             drawItem("red-outline", rowLocation, columnLocation, itemSize)
                         
                             pygame.display.update()
-                            print("Drawn")
+                            # print("Drawn")
 
-                            print("column " + str(columnLocation))
-                            print("row " + str(rowLocation))
-                            print(" ")
+                            # print("column " + str(columnLocation))
+                            # print("row " + str(rowLocation))
+                            # print(" ")
 
                         elif len(selectedArray) == 1:
                             # There is 1 item currently selected
@@ -493,13 +493,61 @@ while not gameOver:
                             # elif selectedArray[0][0] == columnLocation
 
                             # Get range of possible locations
+
+                            # print(selectedArray)
+                            # print("akjhzdfj")
                             
-                            possibleColumns = []
+                            # elif selectedArray[0][0] == columnLocation and selectedArray[0][0] - 1 == columnLocation:
+                            #     print("ZDdjfs")
                             
 
+                            #Two items are identical in a column (vertical)
+                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] - 1 == rowLocation:
+                                selectedArray.append([columnLocation, rowLocation])
+                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
 
-                            if selectedArray[0][0] + 1 == columnLocation or selectedArray[0][0] - 1 == columnLocation:
+                                newColumn = board[columnLocation]
+                                print(newColumn)
+                                print("---------")
+                                
+                                # print(selectedArray)
+                                # print(selectedArray[0][0])
+                                # print(newColumn[selectedArray[0][0]])
+                                # print(newColumn[selectedArray[0][0]-1])
+
+                                newColumn[selectedArray[0][0]], newColumn[selectedArray[0][0]-1] = newColumn[selectedArray[0][0]-1], newColumn[selectedArray[0][0]]
+                                print(newColumn)
+                                # print("skafjsdj")
+
+                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] + 1 == rowLocation:
                                 pass
+
+
+
+                            #Two items are identical in a row (horizontal)
+                            elif selectedArray[0][1] == rowLocation and selectedArray[0][0] - 1 == columnLocation or selectedArray[0][0] == rowLocation and selectedArray[0][1] + 1 == columnLocation:
+                                selectedArray.append([columnLocation, rowLocation])
+                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
+
+                                print("Yes")
+                                pass
+
+                            else:
+                                print("here")
+                                print(selectedArray)
+                                print(columnLocation)
+                                print(rowLocation)
+                                print(" ")
+                                drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
+                                selectedArray = []
+                                selectedArray.append([columnLocation, rowLocation])
+                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
+
+
+                        elif len(selectedArray) == 2:
+                            # Click on a different 
+                            # if 
+                            pass
 
 
 
