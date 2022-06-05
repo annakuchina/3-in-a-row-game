@@ -543,6 +543,7 @@ while not gameOver:
 
                             elif len(selectedArray) == 1:
                                 # There is 1 item currently selected
+                                swappedItems = False
                                 swappedBoard = copy.deepcopy(board)
                                 
                                 # The player selects the same position (row and column) twice
@@ -604,9 +605,12 @@ while not gameOver:
                                 print(" ")
                                 print(board)
                                 print(swappedBoard)
-                                if swappedBoard != board:
+                                if swappedItems == True:
                                     verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
                                     horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
+
+                                    # print("")
+                                    # print(selectedArray)
 
                                     if len(verticalCollectedSwapped) > 0 or len(horizontalCollectedSwapped) > 0:
                                         # board = swappedBoard
@@ -615,6 +619,10 @@ while not gameOver:
                                         board = copy.deepcopy(swappedBoard)
                                         makeBoard(board)
                                         print("changed")
+                                    
+                                    elif swappedBoard[selectedArray[0][0]][selectedArray[0][1]] == board[selectedArray[0][0]][selectedArray[0][1]]:
+                                        print("SAME THING")
+                                        scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                     
 
                                     # The items are not swapped
