@@ -4,7 +4,8 @@ import os
 import sys
 import itertools
 
-SCREEN = pygame.display.set_mode((800, 800))
+SCREEN = pygame.display.set_mode((900, 800))
+
 ROW_COUNT = 8
 COLUMN_COUNT = 8
 
@@ -48,7 +49,6 @@ itemTypes = [
 
 itemLen = len(itemTypes)
 
-#do the loading inside of the game maybe, or convert.alpha
 deleteOrange = ["orange", "orange-small", "orange-smaller", "BLANK"]
 # deleteOrange = ["snake", "snake1", "snake2", "BLANK"]
 
