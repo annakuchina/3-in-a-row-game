@@ -58,39 +58,13 @@ shiftItemsDown = False
 #SAMPLE BOARDS
 
 #NEW
+# board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
 
-board = {0: ['heal-potion', 'mushroom', 'mushroom', 'moon', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'snake', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'poison-potion', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
+# 1 horizontal match
+# board = {0: ["mushroom", 'mushroom', "mushroom", "snake", 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
+
 # board = {0: ['heal-potion', 'mushroom', 'mushroom', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'snake', 'mushroom'], 3: ['moon', 'moon', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'tree', 'tree']}
 
-# VERTICAL 3 in a row
-# board = {0: ['purple', 'yellow', 'yellow', 'blue', 'orange', 'green', 'green', 'blue'], 1: ['purple', 'blue', 'yellow', 'blue', 'yellow', 'purple', 'orange', 'orange'], 2: ['yellow', 'orange', 'blue', 'green', 'orange', 'orange', 'red', 'green'], 3: ['blue', 'orange', 'green', 'blue', 'blue', 'green', 'green', 'yellow'], 4: ['blue', 'green', 'blue', 'orange', 'red', 'purple', 'purple', 'yellow'], 5: ['orange', 'yellow', 'orange', 'yellow', 'blue', 'yellow', 'orange', 'yellow'], 6: ['yellow', 'red', 'purple', 'purple', 'yellow', 'red', 'red', 'orange'], 7: ['yellow', 'red', 'blue', 'yellow', 'purple', 'blue', 'orange', 'blue']}
-#Only 1
-# board = {0: ['red', 'red', 'orange', 'green', 'yellow', 'purple', 'purple', 'blue'], 1: ['red', 'yellow', 'red', 'yellow', 'yellow', 'orange', 'green', 'blue'], 2: ['orange', 'red', 'red', 'yellow', 'green', 'orange', 'orange', 'red'], 3: ['red', 'red', 'orange', 'green', 'red', 'orange', 'red', 'yellow'], 4: ['yellow', 'yellow', 'blue', 'green', 'red', 'green', 'green', 'orange'], 5: ['orange', 'red', 'orange', 'yellow', 'orange', 'blue', 'orange', 'orange'], 6: ['blue', 'blue', 'orange', 'orange', 'blue', 'green', 'green', 'yellow'], 7: ['purple', 'yellow', 'yellow', 'orange', 'blue', 'red', 'yellow', 'green']}
-
-# VERTICAL 4 in a row
-# board = {0: ['blue', 'yellow', 'purple', 'purple', 'green', 'red', 'green', 'purple'], 1: ['blue', 'red', 'green', 'green', 'blue', 'orange', 'orange', 'orange'], 2: ['green', 'blue', 'red', 'orange', 'green', 'green', 'red', 'red'], 3: ['green', 'purple', 'purple', 'orange', 'red', 'blue', 'red', 'yellow'], 4: ['orange', 'purple', 'orange', 'blue', 'red', 'yellow', 'blue', 'blue'], 5: ['green', 'orange', 'purple', 'blue', 'red', 'blue', 'yellow', 'green'], 6: ['green', 'green', 'purple', 'orange', 'red', 'purple', 'yellow', 'orange'], 7: ['orange', 'green', 'red', 'blue', 'orange', 'yellow', 'blue', 'blue']}
-
-# board = {0: ['red', 'blue', 'red', 'orange', 'orange', 'orange', 'green', 'green'], 1: ['red', 'blue', 'green', 'green', 'blue', 'green', 'orange', 'red'], 2: ['blue', 'green', 'blue', 'yellow', 'blue', 'orange', 'blue', 'orange'], 3: ['purple', 'purple', 'red', 'purple', 'yellow', 'orange', 'purple', 'yellow'], 4: ['green', 'green', 'blue', 'purple', 'green', 'blue', 'red', 'orange'], 5: ['blue', 'purple', 'green', 'yellow', 'yellow', 'orange', 'yellow', 'green'], 6: ['yellow', 'orange', 'blue', 'orange', 'green', 'purple', 'orange', 'green'], 7: ['purple', 'green', 'blue', 'yellow', 'purple', 'purple', 'red', 'blue']}
-
-
-# HORIZONTAL 3 in a row
-# board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'green'], 1: ['yellow', 'blue', 'red', 'orange', 'blue', 'purple', 'green', 'green'], 2: ['yellow', 'purple', 'purple', 'purple', 'green', 'red', 'purple', 'green'], 3: ['red', 'blue', 'red', 'green', 'blue', 'blue', 'purple', 'blue'], 4: ['green', 'yellow', 'orange', 'orange', 'red', 'blue', 'green', 'yellow'], 5: ['green', 'blue', 'purple', 'green', 'green', 'green', 'blue', 'green'], 6: ['blue', 'blue', 'red', 'red', 'blue', 'blue', 'purple', 'green'], 7: ['purple', 'yellow', 'yellow', 'blue', 'red', 'yellow', 'yellow', 'blue']}
-
-# board = {0: ['purple', 'green', 'blue', 'yellow', 'purple', 'red', 'purple', 'green'], 1: ['yellow', 'blue', 'red', 'orange', 'blue', 'purple', 'green', 'green'], 2: ['yellow', 'purple', 'purple', 'purple', 'green', 'red', 'purple', 'green'], 3: ['red', 'blue', 'red', 'green', 'blue', 'blue', 'purple', 'blue'], 4: ['green', 'yellow', 'orange', 'orange', 'red', 'blue', 'green', 'yellow'], 5: ['green', 'blue', 'purple', 'green', 'green', 'green', 'blue', 'green'], 6: ['blue', 'blue', 'red', 'red', 'blue', 'blue', 'purple', 'green'], 7: ['purple', 'yellow', 'yellow', 'blue', 'red', 'yellow', 'yellow', 'blue']}
-
-
-# 2 HORIZONTAL 4 in a row
-# board = {0: ['purple', 'purple', 'green', 'yellow', 'green', 'purple', 'red', 'yellow'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'blue', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'orange', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'red', 'red'], 4: ['blue', 'blue', 'red', 'green', 'purple', 'blue', 'purple', 'orange'], 5: ['purple', 'green', 'green', 'yellow', 'blue', 'purple', 'green', 'green'], 6: ['yellow', 'green', 'green', 'green', 'green', 'purple', 'orange', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
-
-# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'red', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'green', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'purple', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
-
-# board = {0: ['purple', 'purple', 'purple', 'yellow', 'green', 'purple', 'purple', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
-
-# board = {0: ['purple', 'green', 'green', 'green', 'green', 'green', 'green', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'purple', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
-
-# board = {0: ['purple', 'green', 'green', 'green', 'green', 'green', 'green', 'purple'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'green', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
-
-# board = {0: ['purple', 'green', 'green', 'green', 'purple', 'green', 'green', 'green'], 1: ['red', 'red', 'yellow', 'blue', 'purple', 'red', 'purple', 'orange'], 2: ['red', 'orange', 'green', 'purple', 'red', 'green', 'green', 'blue'], 3: ['green', 'red', 'purple', 'red', 'blue', 'red', 'purple', 'red'], 4: ['blue', 'green', 'red', 'green', 'purple', 'blue', 'green', 'orange'], 5: ['green', 'red', 'green', 'blue', 'green', 'blue', 'purple', 'green'], 6: ['yellow', 'green', 'green', 'purple', 'green', 'purple', 'blue', 'orange'], 7: ['red', 'green', 'red', 'orange', 'orange', 'red', 'purple', 'red']}
 
 
 
@@ -165,7 +139,7 @@ class Item(pygame.sprite.Sprite):
         self.mushroom = pygame.image.load(os.path.join("images", "mushroom.png")).convert_alpha()
         self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert_alpha()
         self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert_alpha()
-        self.snake = pygame.image.load(os.path.join("images", "tree.png")).convert_alpha()
+        self.snake = pygame.image.load(os.path.join("images", "snake.png")).convert_alpha()
         self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert_alpha()
         self.tree = pygame.image.load(os.path.join("images", "tree.png")).convert_alpha()
 
@@ -175,16 +149,37 @@ class Item(pygame.sprite.Sprite):
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert_alpha()
 
-        global itemDict
-        itemDict ={"mushroom": self.mushroom, "heal-potion": self.healPotion, "poison-potion": self.poisonPotion, "snake": self.snake, "moon": self.moon, "tree": self.tree, "orange": self.orange, "orange-small": self.orangeSmall, "orange-smaller": self.orangeSmaller, "BLANK": self.blank}
-        
+        self.redOutline = pygame.image.load(os.path.join("images", "red-outline.png")).convert_alpha()
+        self.whiteOutline = pygame.image.load(os.path.join("images", "white-outline.png")).convert_alpha()
 
-    def drawItem(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
+        global itemDict
+        itemDict ={"mushroom": self.mushroom,
+        "heal-potion": self.healPotion,
+        "poison-potion": self.poisonPotion,
+        "snake": self.snake,
+        "moon": self.moon,
+        "tree": self.tree,
+
+        "orange": self.orange,
+        "orange-small": self.orangeSmall,
+        "orange-smaller": self.orangeSmaller,
+
+        "BLANK": self.blank,
+
+        "red-outline": self.redOutline,
+        "white-outline": self.whiteOutline
+        }
+
+    def drawItem(self, chosenItem, rowNo, colNo, itemSize):
+
+        # if chosenItem == "BLANK":
+        #     print("drawing blank")
+
         self.image = itemDict[chosenItem]
         self.rect = self.image.get_rect()
 
         self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin  #put x coord here
-        self.rect.y = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin  #put y coord here
+        self.rect.y = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin  #put y coord here
 
         self.width = itemSize[0]
         self.height = itemSize[1]
@@ -197,18 +192,23 @@ class Item(pygame.sprite.Sprite):
         # itemPosition = [colNo*itemSize + innerSpacing*colNo + outerLeftMargin, ]
         # itemSprite = Item(chosenItem, itemPosition, itemSize)
         
-    # def drawItemDown(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
-    #     posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
-    #     posY = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
+    def drawItemDown(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
+        self.image = itemDict[chosenItem]
+        self.rect = self.image.get_rect()
 
-    #     itemPosition = [posX, posY]
+        self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
+        self.rect.y = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
+
+        self.width = itemSize[0]
+        self.height = itemSize[1]
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+
+        # itemPosition = [posX, posY]
         
-    #     #X, Y position
+        #X, Y position
 
-
-    #     #HERE
-    #     itemSprite = Item(chosenItem, itemPosition, itemSize)
-    #     allSprites.add(itemSprite)
+        #HERE
+        allSprites.add(self)
 
 # def wipeBoard():
 #     itemSprite = Item()
@@ -228,9 +228,8 @@ def makeBoard(givenBoard):
             #Have to load in something for init
 
             scene = Item()
-            scene.setup()
 
-            scene.drawItem(chosenItem, r, c, itemSize, 0)
+            scene.drawItem(chosenItem, r, c, itemSize)
 
             # itemGroup.add(itemSprite)
             
@@ -258,7 +257,8 @@ else:
             colArray.append(chosenItem)
 
             # drawItem(chosenItem, r, c, itemSize)
-            scene.drawItem(chosenItem, r, c, itemSize, 0)
+            scene = Item()
+            scene.drawItem(chosenItem, r, c, itemSize)
 
         
         board[c] = colArray
@@ -342,7 +342,8 @@ def redrawGameWindow():
                 if isinstance(item, list):
                     for rowNo in item:
                         # drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
-                        scene.drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize, 0)
+                        scene = Item()
+                        scene.drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
         verticalRemoveCount += 1
         
     if removeHorizontal:
@@ -351,10 +352,15 @@ def redrawGameWindow():
                 if isinstance(item, list):
                     for colNo in item:
                         # drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
-                        scene.drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize, 0)
+                        scene = Item()
+                        scene.drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
         horizontalRemoveCount += 1
 
     if shiftItemsDown:
+        print(" ")
+        print(shiftDownCount)
+        print(board)
+        #The unmoved board is getting made before the sprites are loaded in
         makeBoard(unmovedBoard)
         itemsModified = True
 
@@ -366,17 +372,22 @@ def redrawGameWindow():
 
                 unmovedRow += 1
 
-            scene.drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
+            #COMMENTED OUT
+            scene = Item()
+            scene.drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing])
             
+
             for movedItem in movedItemsBoard[key]:
                 selectedItem = board[key][movedItem]
 
                 if movedItem == 0:
                     if "BLANK" not in board[key] and shiftDownCount==3:                
-                        scene.drawItem(selectedItem, movedItem, key, itemSize, 0)
+                        scene = Item()
+                        scene.drawItem(selectedItem, movedItem, key, itemSize)
                     
                 else:
-                    scene.drawItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                    scene = Item()
+                    scene.drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
 
 
         shiftDownCount += 1
@@ -513,9 +524,10 @@ while not gameOver:
                        
                         if len(selectedArray) == 0:
                             selectedArray.append([columnLocation, rowLocation])
-                            scene.drawItem("red-outline", rowLocation, columnLocation, itemSize, 0)
-                        
+                            scene = Item()
+                            scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
                             pygame.display.update()
+                        
                             # print("Drawn")
 
                             # print("column " + str(columnLocation))
@@ -525,11 +537,13 @@ while not gameOver:
                         elif len(selectedArray) == 1:
                             # There is 1 item currently selected
                             
-                            # The player selects the same element
+                            # The player selects the same position (row and column) twice
                             if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
-                                scene.drawItem("white-outline", rowLocation, columnLocation, itemSize, 0)
-                                pygame.display.update()
+                                scene = Item()
+                                scene.drawItem("white-outline", rowLocation, columnLocation, itemSize)
+                                # print("drawingWHTIE")
                                 selectedArray = []
+                                pygame.display.update()
                             
                             # elif selectedArray[0][0] == columnLocation
 
@@ -540,6 +554,7 @@ while not gameOver:
                             
                             # elif selectedArray[0][0] == columnLocation and selectedArray[0][0] - 1 == columnLocation:
                             #     print("ZDdjfs")
+                            
                             
 
                             #Two items are identical in a column (vertical)
@@ -575,7 +590,7 @@ while not gameOver:
                                 makeBoard(board)
 
                             else:
-                                print("WRONG")
+                                # print("WRONG")
                                 # print(selectedArray)
 
                                 # print("col: " + str(columnLocation) + " row: " + str(rowLocation))
@@ -583,11 +598,14 @@ while not gameOver:
                                 # print(rowLocation)
                                 # print()
 
-                                print(" ")
-                                scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                # print(" ")
+                                scene = Item()
+                                scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                 selectedArray = []
                                 selectedArray.append([columnLocation, rowLocation])
-                                scene.drawItem("red-outline", rowLocation, columnLocation, itemSize, 0)
+
+                                scene = Item()
+                                scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
 
 
                         elif len(selectedArray) == 2:

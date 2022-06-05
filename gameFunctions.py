@@ -134,8 +134,6 @@ def shiftDown(col):
             col.reverse()
             unchangedCol.reverse()
 
-
-
             reversedItemNo = globs.COLUMN_COUNT-1 - itemNo
             
             #get center things
