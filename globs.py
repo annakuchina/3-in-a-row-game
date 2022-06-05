@@ -44,6 +44,8 @@ itemTypes = [
 #     "yellow"
 # ]
 
+# itemTypesDict = {"mushroom": pygame.image.load("mushroom").convert_alpha(), "heal-potion": pygame.image.load("heal-p")}
+
 itemLen = len(itemTypes)
 
 #do the loading inside of the game maybe, or convert.alpha

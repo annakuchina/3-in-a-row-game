@@ -58,7 +58,9 @@ shiftItemsDown = False
 #SAMPLE BOARDS
 
 #NEW
-board = {0: ['heal-potion', 'mushroom', 'mushroom', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'snake', 'mushroom'], 3: ['moon', 'moon', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'tree', 'tree']}
+
+board = {0: ['heal-potion', 'mushroom', 'mushroom', 'moon', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'snake', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'poison-potion', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
+# board = {0: ['heal-potion', 'mushroom', 'mushroom', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'snake', 'mushroom'], 3: ['moon', 'moon', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'tree', 'tree']}
 
 # VERTICAL 3 in a row
 # board = {0: ['purple', 'yellow', 'yellow', 'blue', 'orange', 'green', 'green', 'blue'], 1: ['purple', 'blue', 'yellow', 'blue', 'yellow', 'purple', 'orange', 'orange'], 2: ['yellow', 'orange', 'blue', 'green', 'orange', 'orange', 'red', 'green'], 3: ['blue', 'orange', 'green', 'blue', 'blue', 'green', 'green', 'yellow'], 4: ['blue', 'green', 'blue', 'orange', 'red', 'purple', 'purple', 'yellow'], 5: ['orange', 'yellow', 'orange', 'yellow', 'blue', 'yellow', 'orange', 'yellow'], 6: ['yellow', 'red', 'purple', 'purple', 'yellow', 'red', 'red', 'orange'], 7: ['yellow', 'red', 'blue', 'yellow', 'purple', 'blue', 'orange', 'blue']}
@@ -111,7 +113,7 @@ itemArray = []
 
 image = ""
 
-itemGroup = pygame.sprite.Group()
+allSprites = pygame.sprite.Group()
 itemSize = [72, 72]
 outlineSize = [72, 72]
 innerSpacing = 10
@@ -127,71 +129,86 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 # spacingArray = [1.33333, 1.33333, 1.66666, 1.66666]
 
 
-pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png")))
+pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
 pygame.display.set_icon(pygame_icon)
 
+itemDict = []
 
 class Item(pygame.sprite.Sprite):
-    def __init__(self, picture_path, pos, itemSize):
-        super().__init__()
+    def __init__(self):
+        # super().__init__()
+        pygame.sprite.Sprite.__init__(self)
+        #Create all attributes
 
 
-        completeImgPath = os.path.join("images", (str(picture_path) + ".png"))
-        # add checking here later
-        # print(" ")
-        # print(pos)
+        # self.image = itemDict[chosenItem]
+        # self.rect = self.image.get_rect()
 
-        self.image = pygame.image.load(completeImgPath)
+        # self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin  #put x coord here
+        # self.rect.y = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin  #put y coord here
+
+        # self.width = itemSize[0]
+        # self.height = itemSize[1]
+        # self.image = pygame.transform.scale(self.image, (self.width, self.height))
+
+        self.image = image
+
+        #CHANGE picture_path
+        pass
+
+        
+        # BLUE_SPRITE = pygame.image.load(os.path.join("images", "blue.png")).convert_alpha()
+
+    def setup(self):
+        #  """ Load everything in and initialize attributes """
+
+        self.mushroom = pygame.image.load(os.path.join("images", "mushroom.png")).convert_alpha()
+        self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert_alpha()
+        self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert_alpha()
+        self.snake = pygame.image.load(os.path.join("images", "tree.png")).convert_alpha()
+        self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert_alpha()
+        self.tree = pygame.image.load(os.path.join("images", "tree.png")).convert_alpha()
+
+        self.orange = pygame.image.load(os.path.join("images", "orange.png")).convert_alpha()
+        self.orangeSmaller = pygame.image.load(os.path.join("images", "orange-smaller.png")).convert_alpha()
+        self.orangeSmall = pygame.image.load(os.path.join("images", "orange-small.png")).convert_alpha()
+
+        self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert_alpha()
+
+        global itemDict
+        itemDict ={"mushroom": self.mushroom, "heal-potion": self.healPotion, "poison-potion": self.poisonPotion, "snake": self.snake, "moon": self.moon, "tree": self.tree, "orange": self.orange, "orange-small": self.orangeSmall, "orange-smaller": self.orangeSmaller, "BLANK": self.blank}
+        
+
+    def drawItem(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
+        self.image = itemDict[chosenItem]
         self.rect = self.image.get_rect()
-        self.rect.x = pos[0]  #put x coord here
-        self.rect.y = pos[1]  #put y coord here
+
+        self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin  #put x coord here
+        self.rect.y = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin  #put y coord here
+
         self.width = itemSize[0]
         self.height = itemSize[1]
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         
-        # the picture, and the rectangle around the picture
+        allSprites.add(self)
+        # posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
+        # posY = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin
 
-        # animateRemove(board[currentRow][colSplitCount])
+        # itemPosition = [colNo*itemSize + innerSpacing*colNo + outerLeftMargin, ]
+        # itemSprite = Item(chosenItem, itemPosition, itemSize)
+        
+    # def drawItemDown(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
+    #     posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
+    #     posY = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
 
-    #     def animateMoveDown(item):
-    #         pygame.time.get_ticks(60)
-    #         iterations = 60
-            
-    #         self.rect.y -= 1
-    #         board[currentRow][colSplitCount]
-    #         pass
-            
-
-
-    # def removeItem():
-    #     globs.SCREEN.blit(self.image, (self.x - 16, self.y - 11))
-    
-    # def moveDownItem(self, picture_path, pos, itemSize):
-    #     pass
+    #     itemPosition = [posX, posY]
+        
+    #     #X, Y position
 
 
-# def drawCol(rowNo, colNo, itemSize):
-#     itemPosition = [(colNo*itemSize + innerSpacing*colNo + outerLeftMargin), (rowNo*itemSize + innerSpacing*rowNo + outerTopMargin)]
-
-#     itemSprite = Item("BLANK", rowNo, colNo, itemSize[0])
-
-
-# def drawOutline(rowNo, colNo, itemSize):
-#     posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
-#     posY = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin
-
-
-
-def drawItem(chosenItem, rowNo, colNo, itemSize):
-    posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
-    posY = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin
-
-    # itemPosition = [colNo*itemSize + innerSpacing*colNo + outerLeftMargin, ]
-
-    itemPosition = [posX, posY]
-    itemSprite = Item(chosenItem, itemPosition, itemSize)
-    itemGroup.add(itemSprite)
-
+    #     #HERE
+    #     itemSprite = Item(chosenItem, itemPosition, itemSize)
+    #     allSprites.add(itemSprite)
 
 # def wipeBoard():
 #     itemSprite = Item()
@@ -199,12 +216,24 @@ def drawItem(chosenItem, rowNo, colNo, itemSize):
 # def positionGenerator()
 
 
+scene = Item()
+scene.setup()
+
 def makeBoard(givenBoard):
     c = 0
     for c, colArray in givenBoard.items():
         r = 0
         for chosenItem in colArray:
-            drawItem(chosenItem, r, c, itemSize)
+
+            #Have to load in something for init
+
+            scene = Item()
+            scene.setup()
+
+            scene.drawItem(chosenItem, r, c, itemSize, 0)
+
+            # itemGroup.add(itemSprite)
+            
             r+=1
 
 
@@ -228,7 +257,8 @@ else:
             chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
             colArray.append(chosenItem)
 
-            drawItem(chosenItem, r, c, itemSize)
+            # drawItem(chosenItem, r, c, itemSize)
+            scene.drawItem(chosenItem, r, c, itemSize, 0)
 
         
         board[c] = colArray
@@ -239,17 +269,19 @@ print(board)
 
 
 
-def drawItemDown(chosenItem, rowNo, colNo, itemSize, rowMultiplier):
+# def drawItemDown(chosenItem, rowNo, colNo, itemSize, rowMultiplier):
     
-    posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
-    posY = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
+#     posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
+#     posY = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
 
-    itemPosition = [posX, posY]
+#     itemPosition = [posX, posY]
     
-    #X, Y position
+#     #X, Y position
 
-    itemSprite = Item(chosenItem, itemPosition, itemSize)
-    itemGroup.add(itemSprite)
+
+#     #HERE
+#     itemSprite = Item(chosenItem, itemPosition, itemSize)
+#     allSprites.add(itemSprite)
 
 
 
@@ -286,7 +318,7 @@ def redrawGameWindow():
 
     global board
 
-    itemGroup.draw(globs.SCREEN)
+    allSprites.draw(globs.SCREEN)
 
     if verticalRemoveCount + 1 >= 8:
         #4 sprites, display each for 2 frames = 8 total frames
@@ -309,7 +341,8 @@ def redrawGameWindow():
             for item in verticalDict[key]:
                 if isinstance(item, list):
                     for rowNo in item:
-                        drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
+                        # drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
+                        scene.drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize, 0)
         verticalRemoveCount += 1
         
     if removeHorizontal:
@@ -317,7 +350,8 @@ def redrawGameWindow():
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
-                        drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
+                        # drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
+                        scene.drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize, 0)
         horizontalRemoveCount += 1
 
     if shiftItemsDown:
@@ -332,17 +366,17 @@ def redrawGameWindow():
 
                 unmovedRow += 1
 
-            drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing])
+            scene.drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
             
             for movedItem in movedItemsBoard[key]:
                 selectedItem = board[key][movedItem]
 
                 if movedItem == 0:
                     if "BLANK" not in board[key] and shiftDownCount==3:                
-                        drawItem(selectedItem, movedItem, key, itemSize)
+                        scene.drawItem(selectedItem, movedItem, key, itemSize, 0)
                     
                 else:
-                    drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                    scene.drawItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
 
 
         shiftDownCount += 1
@@ -479,7 +513,7 @@ while not gameOver:
                        
                         if len(selectedArray) == 0:
                             selectedArray.append([columnLocation, rowLocation])
-                            drawItem("red-outline", rowLocation, columnLocation, itemSize)
+                            scene.drawItem("red-outline", rowLocation, columnLocation, itemSize, 0)
                         
                             pygame.display.update()
                             # print("Drawn")
@@ -493,7 +527,7 @@ while not gameOver:
                             
                             # The player selects the same element
                             if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
-                                drawItem("white-outline", rowLocation, columnLocation, itemSize)
+                                scene.drawItem("white-outline", rowLocation, columnLocation, itemSize, 0)
                                 pygame.display.update()
                                 selectedArray = []
                             
@@ -550,10 +584,10 @@ while not gameOver:
                                 # print()
 
                                 print(" ")
-                                drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
+                                scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                 selectedArray = []
                                 selectedArray.append([columnLocation, rowLocation])
-                                drawItem("red-outline", rowLocation, columnLocation, itemSize)
+                                scene.drawItem("red-outline", rowLocation, columnLocation, itemSize, 0)
 
 
                         elif len(selectedArray) == 2:
