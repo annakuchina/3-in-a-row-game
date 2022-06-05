@@ -5,127 +5,22 @@ from unicodedata import name
 import numpy as np
 from os import system
 import time
-# from connect_four_game.globs import COLUMN_COUNT
-# from connect_four_game.globs import COLUMN_COUNT
-# from connect_four_game.globs import COLUMN_COUNT
 import globs
-# from newgame import ROW_COUNT, COLUMN_COUNT, itemTypes
-
-
-def deleteItems(columnDict, rowDict, board):
-
-    currentRow = globs.ROW_COUNT-1
-
-    while currentRow >= 0:
-        if currentRow in rowDict:
-
-            for colCount in rowDict[currentRow][1]:
-
-                if type(colCount) is list:
-                    
-                    for colSplitCount in colCount:
-                        i = colSplitCount-1
-                        if colSplitCount != 0:
-                            # There are multiple matches in an array
-
-                            # The one below is being replaced with the one above
-                            board[currentRow][colSplitCount] = board[i][colSplitCount]
-
-
-                            # animateRemove(board[currentRow][colSplitCount])
-                            # animateMoveDown(board[currentRow][colSplitCount])
-                            # HERE!!!
-                            
-                        else:
-                            chosenItem = itemTypes[random.randint(0, itemLen-1)]
-                            board[currentRow][colSplitCount] = chosenItem
-
-
-                # which columns are they?
-                # they are the colCount
-
-                #SET the row number to a variable - it is the currentRow
-                else:
-                    i = currentRow -1
-                    if currentRow != 0:
-                        print(board)
-                        # time.sleep(2)
-                        board[currentRow][colCount] = board[i][colCount]
-                        print(board[i][colCount])
-                        print("kjnsdzjkfjkzdfjkfdjkdfs")
-                        print("THE ONES U NEED TO REPLACE")
-                        print(' ')
-                    else:
-                        chosenItem = itemTypes[random.randint(0, itemLen-1)]
-                        print(chosenItem)
-                        print("kjdsjkfdskjl")
-                        print(currentRow)
-                        print(colCount)
-                        print(board[currentRow][colCount])
-                        board[currentRow][colCount] = chosenItem
-
-
-            # get the [1] part of the dictionary - for each one, get each number
-            # then for each number go up every row and move the item down that is directly above it
-            # spawn in new ones for the very top - pick random ones - you should make a function of spawning new ones***
-
-
-
-        currentRow-=1
-
-    print(board)
-
-
-
-        #MOVE all of the items down 1
-        #replace the top part with different colours
-        #do like an animation thing
-
-        #get the column number
-        #then shift all of them down by 1 in the required column
-
-
-
-
-# def checkBoard(board, columnDict, rowDict):
-    
-    
-#     # print(columnDict, rowDict)
-    
-#     # deleteItems(columnDict, rowDict, board)
-
-
 
 def shiftDown(col):
-    # print("start col:")
-    # col =  ['blue', 'yellow', 'BLANK', 'BLANK', 'BLANK', 'green', 'red', 'purple']
-    # col =  ['BLANK', 'purple', 'purple', 'BLANK', 'green', 'BLANK', 'blue', 'green']
-    # print(col)
-    # print(" ")
-
-
     col.reverse()
     itemNo = 0
-    blankPosNum = 0
-    
     modifiedItems = []
     
     for item in col:
         
         if item == "BLANK":
-            # blankPosNum = (globs.ROW_COUNT-1) - itemNo
-            
-
             unchangedCol = col[:itemNo]
-
             unchangedLen = len(unchangedCol)
-            # print(unchangedLen)
-            
+
             while unchangedLen < globs.COLUMN_COUNT:
                 unchangedCol.append("BLANK")
                 unchangedLen += 1
-
-
 
             col.pop(itemNo)
             newItem = globs.itemTypes[random.randint(0, globs.itemLen-1)]
@@ -136,31 +31,23 @@ def shiftDown(col):
 
             reversedItemNo = globs.COLUMN_COUNT-1 - itemNo
             
-            #get center things
+            # Get center things
             i = 0
             while i<= reversedItemNo:
                 if col[i] != "BLANK":
                     modifiedItems.append(i)
                 i += 1
-
-            # print(col)
-            # print(modifiedItems)
             
             return modifiedItems, unchangedCol, col
 
         itemNo+=1
 
-# shiftDown("col")
-
 
 def itemCollectVertical(board, itemTypes):
-    # itemTypes: the different colors available
-
     # Check horizontal locations for 3-in-a-row items
     comboCols1 = []
     rowMarker = 0
     colComboDict = {}
-    
 
     # HORIZONTAL MATCHES
     for item in itemTypes:
@@ -182,7 +69,6 @@ def itemCollectVertical(board, itemTypes):
 
                         rowMarker += 1
 
-                # GAP between them - see later
                 else:
                     rowMarker += 1
 
@@ -211,7 +97,6 @@ def itemCollectVertical(board, itemTypes):
                     firstCol.append(colComboDict[colKey][1][colCount])
                     
                     colCount += 1
-
                 colCount = j
                     
                 while colCount < len(colComboDict[colKey][1]):
@@ -220,19 +105,14 @@ def itemCollectVertical(board, itemTypes):
 
                 colComboDict[colKey].pop()
                 colComboDict[colKey].append(firstCol)
-                colComboDict[colKey].append(secondCol) #####
+                colComboDict[colKey].append(secondCol)
                 splitCol = True
 
             i+=1
             j+=1
 
-    # this one is rowComboDict
-        
-
     return(colComboDict)
-    # checkBoard(board, columnComboDict, rowComboDict)
-
-
+    
 
 def itemCollectHorizontal(board, itemTypes):
     colMarker = 0
@@ -258,8 +138,6 @@ def itemCollectHorizontal(board, itemTypes):
                             break
 
                         colMarker += 1
-
-                # GAP between them - see later
                 else:
                     colMarker += 1
 
@@ -269,7 +147,7 @@ def itemCollectHorizontal(board, itemTypes):
             comboRows = []
             colMarker = 0
 
-     #See if there are multiple matches in a row
+    # See if there are multiple matches in a row
     for rowKey in rowComboDict:
         rowLen = len(rowComboDict[rowKey][1])
         
@@ -305,5 +183,3 @@ def itemCollectHorizontal(board, itemTypes):
             j+=1
 
     return(rowComboDict)
-    # this one is columnComboDict
-

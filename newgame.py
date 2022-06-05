@@ -6,8 +6,6 @@ from unicodedata import name
 import numpy
 from os import system
 import time
-# from connect_four_game.globs import COLUMN_COUNT
-# from connect_four_game.globs import COLUMN_COUNT
 import globs
 import copy
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
@@ -24,18 +22,6 @@ globs.SCREEN.fill((255, 255, 255))
 # globs.SCREEN.fill((0, 0, 0))
 
 itemTypes = globs.itemTypes
-
-# Load all images
-
-# itemTypes = [
-#     "red",
-#     "yellow",
-#     "orange",
-#     "purple",
-#     "green",
-#     "blue"
-# ]
-
 
 SQUARESIZE = 8
 width = globs.COLUMN_COUNT * SQUARESIZE
@@ -75,16 +61,11 @@ shiftItemsDown = False
 #END SAMPLE BOARDS
 #-----------------
 
-# class Key(pygame.sprite.Sprite):
-#     def __init__(self, xpos, ypos, id):
-#         super(Key, self).__init__()
-#         self.i
 
 rectangle_draging = False
 itemLen = len(itemTypes)
 itemArray = []
 
-# rectangle = pygame.rect.Rect(176, 134, 17, 17)
 
 image = ""
 
@@ -96,13 +77,7 @@ outerTopMargin = 40
 outerLeftMargin = 40
 itemCount = 0
 
-# spacingArray = [0, 0.2, 0.4, 0.6, 0.8, 1]
-
-
 spacingArray = [0, 0.33333333, 0.66666666, 1]
-
-# spacingArray = [1.33333, 1.33333, 1.66666, 1.66666]
-
 
 pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
 pygame.display.set_icon(pygame_icon)
@@ -111,31 +86,10 @@ itemDict = []
 
 class Item(pygame.sprite.Sprite):
     def __init__(self):
-        # super().__init__()
         pygame.sprite.Sprite.__init__(self)
-        #Create all attributes
-
-
-        # self.image = itemDict[chosenItem]
-        # self.rect = self.image.get_rect()
-
-        # self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin  #put x coord here
-        # self.rect.y = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin  #put y coord here
-
-        # self.width = itemSize[0]
-        # self.height = itemSize[1]
-        # self.image = pygame.transform.scale(self.image, (self.width, self.height))
-
-        self.image = image
-
-        #CHANGE picture_path
-        pass
-
-        
-        # BLUE_SPRITE = pygame.image.load(os.path.join("images", "blue.png")).convert_alpha()
 
     def setup(self):
-        #  """ Load everything in and initialize attributes """
+        #  Load everything in and initialize attributes
         print("Loading in")
         self.mushroom = pygame.image.load(os.path.join("images", "mushroom.png")).convert()
         self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert()
@@ -172,10 +126,6 @@ class Item(pygame.sprite.Sprite):
         }
 
     def drawItem(self, chosenItem, rowNo, colNo, itemSize):
-
-        # if chosenItem == "BLANK":
-        #     print("drawing blank")
-
         self.image = itemDict[chosenItem]
         self.rect = self.image.get_rect()
 
@@ -187,16 +137,6 @@ class Item(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         
         allSprites.add(self)
-        # posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
-        # posY = rowNo*itemSize[1] + innerSpacing*rowNo + outerTopMargin
-
-        # itemPosition = [colNo*itemSize + innerSpacing*colNo + outerLeftMargin, ]
-        # itemSprite = Item(chosenItem, itemPosition, itemSize)
-
-        # newThing = pygame.sprite.LayeredUpdates.sprites(self)
-        # print(newThing)
-        # print("JKSDJFKD")
-
         
     def drawItemDown(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
         self.image = itemDict[chosenItem]
@@ -209,30 +149,13 @@ class Item(pygame.sprite.Sprite):
         self.height = itemSize[1]
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         
-        # print(self.rect.x)
-        
-        # itemPosition = [posX, posY]
-        #X, Y position
-
-        #HERE
         allSprites.add(self)
 
-    # def returnPosition(self, rowNo, colNo):
-    #     self.rect.x = 
-    #     pygame.sprite.LayeredUpdates.get_sprites_at(self.rect.x, self.rect.y)
-    #     self.rect.x 
-        
 
-
-# def wipeBoard():
-#     itemSprite = Item()
-
-# def positionGenerator()
-
-
+# Set up the game
 scene = Item()
 scene.setup()
-pygame.time.delay(300)
+pygame.time.delay(1000)
 
 def makeBoard(givenBoard):
     c = 0
@@ -240,13 +163,8 @@ def makeBoard(givenBoard):
         r = 0
         for chosenItem in colArray:
 
-            #Have to load in something for init
-
             scene = Item()
-
             scene.drawItem(chosenItem, r, c, itemSize)
-
-            # itemGroup.add(itemSprite)
             
             r+=1
 
@@ -271,34 +189,11 @@ else:
             chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
             colArray.append(chosenItem)
 
-            # drawItem(chosenItem, r, c, itemSize)
             scene = Item()
             scene.drawItem(chosenItem, r, c, itemSize)
 
         
         board[c] = colArray
-
-
-print(" ")
-print(board)
-
-
-
-# def drawItemDown(chosenItem, rowNo, colNo, itemSize, rowMultiplier):
-    
-#     posX = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin
-#     posY = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
-
-#     itemPosition = [posX, posY]
-    
-#     #X, Y position
-
-
-#     #HERE
-#     itemSprite = Item(chosenItem, itemPosition, itemSize)
-#     allSprites.add(itemSprite)
-
-
 
 
 horizontalRemoveCount = 0
@@ -308,13 +203,9 @@ shiftDownCount = 0
 itemsModified = False
 
 
-
 def redrawGameWindow():
     global firstGo
     global shiftedDict
-
-    # global shiftedColCount
-    # global shiftedCol
 
     global verticalRemoveCount
     global removeVertical
@@ -325,8 +216,8 @@ def redrawGameWindow():
 
     global shiftDownCount
     global shiftItemsDown
+
     global unmovedBoard
-    global modifiedItems
     global movedItemsBoard
 
     global previousBoard
@@ -345,18 +236,15 @@ def redrawGameWindow():
         removeHorizontal = False
 
     if shiftDownCount + 1 >= 5:
-        #Display 4 positions for 1 frames each = 4 frames
+        #Display 4 positions for 1 frames each = 4 total frames
         shiftDownCount = 0
         shiftItemsDown = False
-        # print("FALSE")
-        # print(" ")
 
     if removeVertical:
         for key in verticalDict:
             for item in verticalDict[key]:
                 if isinstance(item, list):
                     for rowNo in item:
-                        # drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
                         scene = Item()
                         scene.drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize)
         verticalRemoveCount += 1
@@ -366,16 +254,12 @@ def redrawGameWindow():
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
-                        # drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
                         scene = Item()
                         scene.drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize)
         horizontalRemoveCount += 1
 
     if shiftItemsDown:
-        print(" ")
-        print(shiftDownCount)
-        print(board)
-        #The unmoved board is getting made before the sprites are loaded in
+        # Old sprites are being emptied, the unmoved board is created
         allSprites.empty()
         makeBoard(unmovedBoard)
         itemsModified = True
@@ -388,10 +272,8 @@ def redrawGameWindow():
 
                 unmovedRow += 1
 
-            #COMMENTED OUT
             scene = Item()
             scene.drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing])
-            
 
             for movedItem in movedItemsBoard[key]:
                 selectedItem = board[key][movedItem]
@@ -405,11 +287,7 @@ def redrawGameWindow():
                     scene = Item()
                     scene.drawItemDown(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
 
-
         shiftDownCount += 1
-    
-    # redrawGameWindow == False
-
     pygame.display.update()
 
 
@@ -426,20 +304,12 @@ itemDragging = False
 
 selectedArray = []
 
-
 shiftedBoard = {}
 droppedItemsDict = {}
-
-var1 = True
 
 
 while not gameOver:   
     clock.tick(FPS)
-
-    
-    # print(pygame.sprite.LayeredUpdates.get_sprites_at(10, 40))
-    # allSprites.get_sprites_at(10, 40)
-    
 
     # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
     if gameChanged == True and shiftItemsDown == False:
@@ -449,7 +319,6 @@ while not gameOver:
         if len(verticalDict) > 0:
             removeVertical = True
 
-            # print(board)
             for key in verticalDict:
                 for item in verticalDict[key]:
                     if isinstance(item, list):
@@ -460,7 +329,6 @@ while not gameOver:
             removeVertical = False
             removeCount = 0
             verticalRemoveCount = 0
-            
 
         if len(horizontalDict) > 0:
             removeHorizontal = True
@@ -477,7 +345,7 @@ while not gameOver:
             horizontalRemoveCount = 0
 
         gameChanged = False
-
+        
 
     if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
         blankCount = 0
@@ -485,34 +353,29 @@ while not gameOver:
         unmovedBoard = {}
         movedItemsBoard = {}
 
-        if var1 == True:
-            for key in board:
-                if "BLANK" in board[key]:
-                    shiftItemsDown = True
-                    blankCount += 1
-                    modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
-                    movedItemsBoard[key] = modifiedItems
-                    board[key] = shiftedCol
-                    unmovedBoard[key] = unchangedCol
+        for key in board:
+            if "BLANK" in board[key]:
+                shiftItemsDown = True
+                blankCount += 1
+                modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
+                movedItemsBoard[key] = modifiedItems
+                board[key] = shiftedCol
+                unmovedBoard[key] = unchangedCol
 
         if blankCount == 0:
             shiftItemsDown = False
-
 
     if itemsModified == True and shiftItemsDown == False:
         gameChanged = True
         itemsModified = False
 
 
-    # if gameChanged == False:
     for event in pygame.event.get():
-
             if event.type == pygame.QUIT:
                 sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    # print("hhh")
 
                     if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
 
@@ -520,31 +383,18 @@ while not gameOver:
                         mouse_x, mouse_y = event.pos
 
                         xLocation = mouse_x - outerLeftMargin
-
                         yLocation = mouse_y - outerTopMargin
-
-                        # offset_x = mouse_x - outerTopMargin
-
-                        # offset_y = rectangle.y - mouse_y
-
-
 
                         columnLocation = xLocation // (itemSize[0]+innerSpacing)
                         rowLocation = yLocation // (itemSize[1]+innerSpacing)
 
                         if columnLocation >= globs.COLUMN_COUNT or columnLocation < 0:
-                            # print("jknd")
                             itemSelected = False
                         
                         if rowLocation >= globs.ROW_COUNT or rowLocation < 0:
-                            # print("jknd")
                             itemSelected = False
 
-                        # print("hi")
                         if itemSelected != False:
-                            # print(selectedArray)
-                            # print(len(selectedArray))
-
                             verticalDict = itemCollectVertical(board, itemTypes)
                             horizontalDict = itemCollectHorizontal(board, itemTypes)
                         
@@ -553,12 +403,6 @@ while not gameOver:
                                 scene = Item()
                                 scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
                                 pygame.display.update()
-                            
-                                # print("Drawn")
-
-                                # print("column " + str(columnLocation))
-                                # print("row " + str(rowLocation))
-                                # print(" ")
 
                             elif len(selectedArray) == 1:
                                 # There is 1 item currently selected
@@ -569,26 +413,8 @@ while not gameOver:
                                 if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
                                     scene = Item()
                                     scene.drawItem("white-outline", rowLocation, columnLocation, itemSize)
-                                    # print("drawingWHITE")
                                     selectedArray = []
                                     pygame.display.update()
-                                
-                                # elif selectedArray[0][0] == columnLocation
-
-                                # Get range of possible locations
-
-                                # print(selectedArray)
-                                # print("akjhzdfj")
-                                
-                                # elif selectedArray[0][0] == columnLocation and selectedArray[0][0] - 1 == columnLocation:
-                                #     print("ZDdjfs")
-                                
-                                
-
-                                # NEED TO CHECK if the swapped icons would result in a match
-
-                                # elif len(verticalDict) > 0 or len(horizontalDict) > 0:
-
 
                                 #Two items are identical in a column (vertical)
                                 elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
@@ -609,7 +435,6 @@ while not gameOver:
                                     swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
 
                                 else:
-                                    # print("WRONG")
                                     scene = Item()
                                     scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                     selectedArray = []
@@ -619,20 +444,12 @@ while not gameOver:
                                     scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
                                     pygame.display.update()
 
-                                #If one of the 'swapped' conditions has been met
-
-                                print(" ")
-                                print(board)
-                                print(swappedBoard)
+                                # If one of the 'swapped' conditions has been met
                                 if swappedItems == True:
                                     verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
                                     horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
 
-                                    # print("")
-                                    # print(selectedArray)
-
                                     if len(verticalCollectedSwapped) > 0 or len(horizontalCollectedSwapped) > 0:
-                                        # board = swappedBoard
                                         selectedArray = []
                                         gameChanged = True
                                         board = copy.deepcopy(swappedBoard)
@@ -643,26 +460,12 @@ while not gameOver:
                                         print("SAME THING")
                                         scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                         selectedArray = []
-                                    
 
                                     # The items are not swapped
                                     else:
                                         scene = Item()
                                         scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                         selectedArray = []
-                                    
-
-
-
-                    # print(roundedNo)
-
-                    # if xLocation > itemSize[0]:
-
-                    #     print("out of bounds")
-
-                    # print(xLocation)
-                    # print(yLocation)
-
 
             # See if user has lifted the left mouse button
             elif event.type == pygame.MOUSEBUTTONUP:
@@ -672,13 +475,9 @@ while not gameOver:
                     # See where the user drops the item
                     mouse_x, mouse_y = event.pos
 
+                    # See if it's in the range of column and rows
                     newColumnLocation = (mouse_x-outerLeftMargin) // (itemSize[0]+innerSpacing)
                     newRowLocation = (mouse_y-outerTopMargin) // (itemSize[0]+innerSpacing)
-
-                    
-                    # See if its in the range of column and rows
-                    
-
 
             # elif event.type == pygame.MOUSEMOTION:
             #     if itemDragging:
@@ -696,13 +495,7 @@ while not gameOver:
                     # rectangle.x = mouse_x + offset_x
                     # rectangle.y = mouse_y + offset_y   
 
-
-        # ONLY draw things in here
+    # Drawing the game
     redrawGameWindow()
-        
-        # if var1 == True:
-        #     print(board)
-        #     var1 = False
-    
 
 pygame.quit()
