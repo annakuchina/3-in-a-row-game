@@ -521,6 +521,9 @@ while not gameOver:
                     if itemSelected != False:
                         # print(selectedArray)
                         # print(len(selectedArray))
+
+                        verticalDict = itemCollectVertical(board, itemTypes)
+                        horizontalDict = itemCollectHorizontal(board, itemTypes)
                        
                         if len(selectedArray) == 0:
                             selectedArray.append([columnLocation, rowLocation])
@@ -536,6 +539,7 @@ while not gameOver:
 
                         elif len(selectedArray) == 1:
                             # There is 1 item currently selected
+                            
                             
                             # The player selects the same position (row and column) twice
                             if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
@@ -557,48 +561,66 @@ while not gameOver:
                             
                             
 
-                            #Two items are identical in a column (vertical)
-                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
-                                board[columnLocation][rowLocation], board[columnLocation][rowLocation+1] = board[columnLocation][rowLocation+1], board[columnLocation][rowLocation]
-                                selectedArray = []
-                                gameChanged = True
-                                makeBoard(board)
+                            # NEED TO CHECK if the swapped icons would result in a match
+
+                            # elif len(verticalDict) > 0 or len(horizontalDict) > 0:
+
+
+                                #Two items are identical in a column (vertical)
+
+                            if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
+                                swappedBoard = board
+                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation+1] = swappedBoard[columnLocation][rowLocation+1], swappedBoard[columnLocation][rowLocation]
+                                
+                                itemCollectVertical(swappedBoard)
+                                itemCollectHorizontal(swappedBoard)
+
+                                if itemCollectVertical > 0 or itemCollectHorizontal > 0:
+                                    board = swappedBoard
+                                    selectedArray = []
+                                    gameChanged = True
+                                    makeBoard(board)
+
 
 
                             elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation-1:
-                                board[columnLocation][rowLocation], board[columnLocation][rowLocation-1] = board[columnLocation][rowLocation-1], board[columnLocation][rowLocation]
-                                selectedArray = []
-                                gameChanged = True
-                                makeBoard(board)
+                                swappedBoard = board
+                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation-1] = swappedBoard[columnLocation][rowLocation-1], swappedBoard[columnLocation][rowLocation]
+                                #REMOVE vertical or horizontal
+                                
+                                if len(itemCollectVertical) > 0 or len(itemCollectHorizontal) > 0:
+                                    board = swappedBoard
+                                    selectedArray = []
+                                    gameChanged = True
+                                    makeBoard(board)
 
 
 
-                            #Two items are identical in a row (horizontal)
+                                #Two items are identical in a row (horizontal)
                             elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation+1:
-                                board[columnLocation][rowLocation], board[columnLocation+1][rowLocation] = board[columnLocation+1][rowLocation], board[columnLocation][rowLocation]
-                                selectedArray = []
-                                gameChanged = True
-                                makeBoard(board)
+                                swappedBoard = board
+                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation+1][rowLocation] = swappedBoard[columnLocation+1][rowLocation], swappedBoard[columnLocation][rowLocation]
+                                
+                                if len(itemCollectVertical) > 0 or len(itemCollectHorizontal) > 0:
+                                    board = swappedBoard
+                                    selectedArray = []
+                                    gameChanged = True
+                                    makeBoard(board)
 
 
-                            
+                                
                             elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation-1:
-                                # print("HI")
-                                board[columnLocation][rowLocation], board[columnLocation-1][rowLocation] = board[columnLocation-1][rowLocation], board[columnLocation][rowLocation]
-                                selectedArray = []
-                                gameChanged = True
-                                makeBoard(board)
+                                swappedBoard = board
+                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
+                                
+                                if len(itemCollectVertical) > 0 or len(itemCollectHorizontal) > 0:
+                                    board = swappedBoard
+                                    selectedArray = []
+                                    gameChanged = True
+                                    makeBoard(board)
 
                             else:
                                 # print("WRONG")
-                                # print(selectedArray)
-
-                                # print("col: " + str(columnLocation) + " row: " + str(rowLocation))
-                                # print(selectedArray[0][1])
-                                # print(rowLocation)
-                                # print()
-
-                                # print(" ")
                                 scene = Item()
                                 scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                 selectedArray = []
