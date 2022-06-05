@@ -136,19 +136,19 @@ class Item(pygame.sprite.Sprite):
 
     def setup(self):
         #  """ Load everything in and initialize attributes """
+        print("Loading in")
+        self.mushroom = pygame.image.load(os.path.join("images", "mushroom.png")).convert()
+        self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert()
+        self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert()
+        self.snake = pygame.image.load(os.path.join("images", "snake.png")).convert()
+        self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert()
+        self.tree = pygame.image.load(os.path.join("images", "tree.png")).convert()
 
-        self.mushroom = pygame.image.load(os.path.join("images", "mushroom.png")).convert_alpha()
-        self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert_alpha()
-        self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert_alpha()
-        self.snake = pygame.image.load(os.path.join("images", "snake.png")).convert_alpha()
-        self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert_alpha()
-        self.tree = pygame.image.load(os.path.join("images", "tree.png")).convert_alpha()
+        self.orange = pygame.image.load(os.path.join("images", "orange.png")).convert()
+        self.orangeSmaller = pygame.image.load(os.path.join("images", "orange-smaller.png")).convert()
+        self.orangeSmall = pygame.image.load(os.path.join("images", "orange-small.png")).convert()
 
-        self.orange = pygame.image.load(os.path.join("images", "orange.png")).convert_alpha()
-        self.orangeSmaller = pygame.image.load(os.path.join("images", "orange-smaller.png")).convert_alpha()
-        self.orangeSmall = pygame.image.load(os.path.join("images", "orange-small.png")).convert_alpha()
-
-        self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert_alpha()
+        self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
 
         self.redOutline = pygame.image.load(os.path.join("images", "red-outline.png")).convert_alpha()
         self.whiteOutline = pygame.image.load(os.path.join("images", "white-outline.png")).convert_alpha()
@@ -192,6 +192,11 @@ class Item(pygame.sprite.Sprite):
 
         # itemPosition = [colNo*itemSize + innerSpacing*colNo + outerLeftMargin, ]
         # itemSprite = Item(chosenItem, itemPosition, itemSize)
+
+        # newThing = pygame.sprite.LayeredUpdates.sprites(self)
+        # print(newThing)
+        # print("JKSDJFKD")
+
         
     def drawItemDown(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
         self.image = itemDict[chosenItem]
@@ -203,13 +208,21 @@ class Item(pygame.sprite.Sprite):
         self.width = itemSize[0]
         self.height = itemSize[1]
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
-
-        # itemPosition = [posX, posY]
         
+        # print(self.rect.x)
+        
+        # itemPosition = [posX, posY]
         #X, Y position
 
         #HERE
         allSprites.add(self)
+
+    # def returnPosition(self, rowNo, colNo):
+    #     self.rect.x = 
+    #     pygame.sprite.LayeredUpdates.get_sprites_at(self.rect.x, self.rect.y)
+    #     self.rect.x 
+        
+
 
 # def wipeBoard():
 #     itemSprite = Item()
@@ -322,12 +335,12 @@ def redrawGameWindow():
 
     allSprites.draw(globs.SCREEN)
 
-    if verticalRemoveCount + 1 >= 8:
+    if verticalRemoveCount + 1 >= 9:
         #4 sprites, display each for 2 frames = 8 total frames
         verticalRemoveCount = 0
         removeVertical = False
 
-    if horizontalRemoveCount + 1 >= 8:
+    if horizontalRemoveCount + 1 >= 9:
         horizontalRemoveCount = 0
         removeHorizontal = False
 
@@ -363,6 +376,7 @@ def redrawGameWindow():
         print(shiftDownCount)
         print(board)
         #The unmoved board is getting made before the sprites are loaded in
+        allSprites.empty()
         makeBoard(unmovedBoard)
         itemsModified = True
 
@@ -421,6 +435,11 @@ var1 = True
 
 while not gameOver:   
     clock.tick(FPS)
+
+    
+    # print(pygame.sprite.LayeredUpdates.get_sprites_at(10, 40))
+    # allSprites.get_sprites_at(10, 40)
+    
 
     # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
     if gameChanged == True and shiftItemsDown == False:
@@ -550,7 +569,7 @@ while not gameOver:
                                 if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
                                     scene = Item()
                                     scene.drawItem("white-outline", rowLocation, columnLocation, itemSize)
-                                    # print("drawingWHTIE")
+                                    # print("drawingWHITE")
                                     selectedArray = []
                                     pygame.display.update()
                                 
@@ -623,6 +642,7 @@ while not gameOver:
                                     elif swappedBoard[selectedArray[0][0]][selectedArray[0][1]] == board[selectedArray[0][0]][selectedArray[0][1]]:
                                         print("SAME THING")
                                         scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
+                                        selectedArray = []
                                     
 
                                     # The items are not swapped
