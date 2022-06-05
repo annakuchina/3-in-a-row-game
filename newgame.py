@@ -9,6 +9,7 @@ import time
 # from connect_four_game.globs import COLUMN_COUNT
 # from connect_four_game.globs import COLUMN_COUNT
 import globs
+import copy
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 
 # myFont = pygame.font.SysFont("monospace", 60)
@@ -60,16 +61,16 @@ shiftItemsDown = False
 #NEW
 # board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
 
+
+# board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
+
+
+
 # 1 horizontal match
 # board = {0: ["mushroom", 'mushroom', "mushroom", "snake", 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
 
 # board = {0: ['heal-potion', 'mushroom', 'mushroom', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'snake', 'mushroom'], 3: ['moon', 'moon', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'tree', 'tree']}
 
-
-
-
-# MULTIPLES
-# board = {0: ['green', 'green', 'purple', 'green', 'yellow', 'yellow', 'purple', 'red'], 1: ['green', 'yellow', 'green', 'green', 'yellow', 'blue', 'blue', 'orange'], 2: ['green', 'red', 'yellow', 'purple', 'green', 'orange', 'yellow', 'blue'], 3: ['blue', 'blue', 'blue', 'purple', 'green', 'green', 'blue', 'green'], 4: ['purple', 'purple', 'red', 'yellow', 'yellow', 'green', 'green', 'blue'], 5: ['purple', 'blue', 'yellow', 'red', 'purple', 'blue', 'red', 'yellow'], 6: ['red', 'purple', 'yellow', 'blue', 'blue', 'green', 'yellow', 'purple'], 7: ['orange', 'red', 'yellow', 'green', 'blue', 'blue', 'yellow', 'red']}
 
 #END SAMPLE BOARDS
 #-----------------
@@ -218,6 +219,7 @@ class Item(pygame.sprite.Sprite):
 
 scene = Item()
 scene.setup()
+pygame.time.delay(300)
 
 def makeBoard(givenBoard):
     c = 0
@@ -492,148 +494,135 @@ while not gameOver:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     # print("hhh")
-                    itemDragging = True
-                    itemSelected = True
-                    mouse_x, mouse_y = event.pos
 
-                    xLocation = mouse_x - outerLeftMargin
+                    if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
 
-                    yLocation = mouse_y - outerTopMargin
+                        itemSelected = True
+                        mouse_x, mouse_y = event.pos
 
-                    # offset_x = mouse_x - outerTopMargin
+                        xLocation = mouse_x - outerLeftMargin
 
-                    # offset_y = rectangle.y - mouse_y
+                        yLocation = mouse_y - outerTopMargin
+
+                        # offset_x = mouse_x - outerTopMargin
+
+                        # offset_y = rectangle.y - mouse_y
 
 
 
-                    columnLocation = xLocation // (itemSize[0]+innerSpacing)
-                    rowLocation = yLocation // (itemSize[1]+innerSpacing)
+                        columnLocation = xLocation // (itemSize[0]+innerSpacing)
+                        rowLocation = yLocation // (itemSize[1]+innerSpacing)
 
-                    if columnLocation >= globs.COLUMN_COUNT or columnLocation < 0:
-                        # print("jknd")
-                        itemSelected = False
-                    
-                    if rowLocation >= globs.ROW_COUNT or rowLocation < 0:
-                        # print("jknd")
-                        itemSelected = False
-
-                    # print("hi")
-                    if itemSelected != False:
-                        # print(selectedArray)
-                        # print(len(selectedArray))
-
-                        verticalDict = itemCollectVertical(board, itemTypes)
-                        horizontalDict = itemCollectHorizontal(board, itemTypes)
-                       
-                        if len(selectedArray) == 0:
-                            selectedArray.append([columnLocation, rowLocation])
-                            scene = Item()
-                            scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
-                            pygame.display.update()
+                        if columnLocation >= globs.COLUMN_COUNT or columnLocation < 0:
+                            # print("jknd")
+                            itemSelected = False
                         
-                            # print("Drawn")
+                        if rowLocation >= globs.ROW_COUNT or rowLocation < 0:
+                            # print("jknd")
+                            itemSelected = False
 
-                            # print("column " + str(columnLocation))
-                            # print("row " + str(rowLocation))
-                            # print(" ")
+                        # print("hi")
+                        if itemSelected != False:
+                            # print(selectedArray)
+                            # print(len(selectedArray))
 
-                        elif len(selectedArray) == 1:
-                            # There is 1 item currently selected
-                            
-                            
-                            # The player selects the same position (row and column) twice
-                            if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
+                            verticalDict = itemCollectVertical(board, itemTypes)
+                            horizontalDict = itemCollectHorizontal(board, itemTypes)
+                        
+                            if len(selectedArray) == 0:
+                                selectedArray.append([columnLocation, rowLocation])
                                 scene = Item()
-                                scene.drawItem("white-outline", rowLocation, columnLocation, itemSize)
-                                # print("drawingWHTIE")
-                                selectedArray = []
+                                scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
                                 pygame.display.update()
                             
-                            # elif selectedArray[0][0] == columnLocation
+                                # print("Drawn")
 
-                            # Get range of possible locations
+                                # print("column " + str(columnLocation))
+                                # print("row " + str(rowLocation))
+                                # print(" ")
 
-                            # print(selectedArray)
-                            # print("akjhzdfj")
-                            
-                            # elif selectedArray[0][0] == columnLocation and selectedArray[0][0] - 1 == columnLocation:
-                            #     print("ZDdjfs")
-                            
-                            
+                            elif len(selectedArray) == 1:
+                                # There is 1 item currently selected
+                                swappedBoard = copy.deepcopy(board)
+                                
+                                # The player selects the same position (row and column) twice
+                                if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
+                                    scene = Item()
+                                    scene.drawItem("white-outline", rowLocation, columnLocation, itemSize)
+                                    # print("drawingWHTIE")
+                                    selectedArray = []
+                                    pygame.display.update()
+                                
+                                # elif selectedArray[0][0] == columnLocation
 
-                            # NEED TO CHECK if the swapped icons would result in a match
+                                # Get range of possible locations
 
-                            # elif len(verticalDict) > 0 or len(horizontalDict) > 0:
+                                # print(selectedArray)
+                                # print("akjhzdfj")
+                                
+                                # elif selectedArray[0][0] == columnLocation and selectedArray[0][0] - 1 == columnLocation:
+                                #     print("ZDdjfs")
+                                
+                                
+
+                                # NEED TO CHECK if the swapped icons would result in a match
+
+                                # elif len(verticalDict) > 0 or len(horizontalDict) > 0:
 
 
                                 #Two items are identical in a column (vertical)
+                                elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
+                                    swappedItems = True
+                                    swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation+1] = swappedBoard[columnLocation][rowLocation+1], swappedBoard[columnLocation][rowLocation]
 
-                            if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
-                                swappedBoard = board
-                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation+1] = swappedBoard[columnLocation][rowLocation+1], swappedBoard[columnLocation][rowLocation]
-                                
-                                itemCollectVertical(swappedBoard)
-                                itemCollectHorizontal(swappedBoard)
-
-                                if itemCollectVertical > 0 or itemCollectHorizontal > 0:
-                                    board = swappedBoard
-                                    selectedArray = []
-                                    gameChanged = True
-                                    makeBoard(board)
-
-
-
-                            elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation-1:
-                                swappedBoard = board
-                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation-1] = swappedBoard[columnLocation][rowLocation-1], swappedBoard[columnLocation][rowLocation]
-                                #REMOVE vertical or horizontal
-                                
-                                if len(itemCollectVertical) > 0 or len(itemCollectHorizontal) > 0:
-                                    board = swappedBoard
-                                    selectedArray = []
-                                    gameChanged = True
-                                    makeBoard(board)
-
-
+                                elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation-1:
+                                    swappedItems = True
+                                    swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation-1] = swappedBoard[columnLocation][rowLocation-1], swappedBoard[columnLocation][rowLocation]
 
                                 #Two items are identical in a row (horizontal)
-                            elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation+1:
-                                swappedBoard = board
-                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation+1][rowLocation] = swappedBoard[columnLocation+1][rowLocation], swappedBoard[columnLocation][rowLocation]
-                                
-                                if len(itemCollectVertical) > 0 or len(itemCollectHorizontal) > 0:
-                                    board = swappedBoard
+                                elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation+1:
+                                    swappedItems = True
+                                    swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation+1][rowLocation] = swappedBoard[columnLocation+1][rowLocation], swappedBoard[columnLocation][rowLocation]
+
+                                elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation-1:
+                                    swappedItems = True
+                                    swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
+
+                                else:
+                                    # print("WRONG")
+                                    scene = Item()
+                                    scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
                                     selectedArray = []
-                                    gameChanged = True
-                                    makeBoard(board)
+                                    selectedArray.append([columnLocation, rowLocation])
 
+                                    scene = Item()
+                                    scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
+                                    pygame.display.update()
 
-                                
-                            elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation-1:
-                                swappedBoard = board
-                                swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
-                                
-                                if len(itemCollectVertical) > 0 or len(itemCollectHorizontal) > 0:
-                                    board = swappedBoard
-                                    selectedArray = []
-                                    gameChanged = True
-                                    makeBoard(board)
+                                #If one of the 'swapped' conditions has been met
 
-                            else:
-                                # print("WRONG")
-                                scene = Item()
-                                scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
-                                selectedArray = []
-                                selectedArray.append([columnLocation, rowLocation])
+                                print(" ")
+                                print(board)
+                                print(swappedBoard)
+                                if swappedBoard != board:
+                                    verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
+                                    horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
 
-                                scene = Item()
-                                scene.drawItem("red-outline", rowLocation, columnLocation, itemSize)
+                                    if len(verticalCollectedSwapped) > 0 or len(horizontalCollectedSwapped) > 0:
+                                        # board = swappedBoard
+                                        selectedArray = []
+                                        gameChanged = True
+                                        board = copy.deepcopy(swappedBoard)
+                                        makeBoard(board)
+                                        print("changed")
+                                    
 
-
-                        elif len(selectedArray) == 2:
-                            # Click on a different 
-                            # if 
-                            pass
+                                    # The items are not swapped
+                                    else:
+                                        scene = Item()
+                                        scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize)
+                                        selectedArray = []
+                                    
 
 
 
