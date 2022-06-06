@@ -43,7 +43,7 @@ down = 0
 
 shiftItemsDown = False
 
-screenDimensions = [900, 830] 
+screenDimensions = [925, 840] 
 
 
 #-----------------
@@ -97,11 +97,16 @@ darkerGreen = (247, 146, 51)
 darkerGreen = (249, 155, 52)
 # darkerGreen = (239, 125, 71)
 
-darkerGreen = (255, 155, 68)
+darkerOrange = (255, 155, 68)
+
+darkerGreen = (255, 174, 99)
 
 # uiColor = (187, 232, 196)
 
 accentColor = (255, 255, 255)
+
+# lighterBgColor = (255, 243, 237)
+# lighterBgColor = (252, 126, 0)
 
 rectangle_draging = False
 itemLen = len(itemTypes)
@@ -114,8 +119,8 @@ allSprites = pygame.sprite.Group()
 itemSize = [72, 72]
 outlineSize = [72, 72]
 innerSpacing = 9
-outerTopMargin = 140
-outerLeftMargin = 70
+outerTopMargin = 155
+outerLeftMargin = 75
 itemCount = 0
 
 spacingArray = [0, 0.33333333, 0.66666666, 1]
@@ -225,11 +230,13 @@ def drawSidebar():
     pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
 
 
-    topBarBg = pygame.Rect(outerLeftMargin-5, 25, screenDimensions[0]-(2*outerLeftMargin)+10, 100)
+    topBarBg = pygame.Rect(outerLeftMargin, 35, screenDimensions[0]-(2*outerLeftMargin), 90)
     pygame.draw.rect(globs.SCREEN, whiteColor, topBarBg)
     #Draw the top bar
-    topBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 90)
-    pygame.draw.rect(globs.SCREEN, darkerGreen, topBar)
+    
+    # topBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 90)
+    topBar = pygame.Rect(outerLeftMargin+5, 40, screenDimensions[0]-(2*outerLeftMargin)-10, 80)
+    pygame.draw.rect(globs.SCREEN, darkerOrange, topBar)
 
 
     # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, outerTopMargin + 2*(itemSize[1] + outerTopMargin), 500, 100)
@@ -237,7 +244,12 @@ def drawSidebar():
 
 
     #Draw the right side bar
-    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+20, outerTopMargin, 110, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
+
+    sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+30, outerTopMargin, 100, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
+    pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
+
+
+    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+35, outerTopMargin+5, 90, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
     # sideBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 80)
     pygame.draw.rect(globs.SCREEN, darkerGreen, sideBar)
 

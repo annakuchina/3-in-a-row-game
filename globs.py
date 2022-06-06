@@ -4,7 +4,7 @@ import os
 import sys
 import itertools
 
-SCREEN = pygame.display.set_mode((900, 830))
+SCREEN = pygame.display.set_mode((925, 840))
 
 ROW_COUNT = 8
 COLUMN_COUNT = 8
