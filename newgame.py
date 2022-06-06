@@ -219,6 +219,9 @@ pygame.time.delay(1000)
 
 def drawSidebar():
 
+    sidebarLeftSpacing = 30
+    sideBarWidth = 90
+
     # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, 0, 500, 1000)
     # pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
     
@@ -230,7 +233,9 @@ def drawSidebar():
     pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
 
 
-    topBarBg = pygame.Rect(outerLeftMargin, 35, screenDimensions[0]-(2*outerLeftMargin), 90)
+    # topBarBg = pygame.Rect(outerLeftMargin, 35, screenDimensions[0]-(2*outerLeftMargin), 90)
+
+    topBarBg = pygame.Rect(outerLeftMargin, 35, globs.COLUMN_COUNT*itemSize[1]+(globs.COLUMN_COUNT-1)*innerSpacing + sidebarLeftSpacing + sideBarWidth, 90)
     pygame.draw.rect(globs.SCREEN, whiteColor, topBarBg)
     #Draw the top bar
     
@@ -242,14 +247,14 @@ def drawSidebar():
     # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, outerTopMargin + 2*(itemSize[1] + outerTopMargin), 500, 100)
     # pygame.draw.rect(globs.SCREEN, accentColor, rect_object)
 
-
     #Draw the right side bar
 
-    sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+30, outerTopMargin, 100, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
+
+    sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth+10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
     pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
 
 
-    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+35, outerTopMargin+5, 90, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
+    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
     # sideBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 80)
     pygame.draw.rect(globs.SCREEN, darkerGreen, sideBar)
 
