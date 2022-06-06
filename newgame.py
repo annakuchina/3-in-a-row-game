@@ -7,6 +7,7 @@ import numpy
 from os import system
 import time
 # from connect_four_game.globs import COLUMN_COUNT
+# from connect_four_game.globs import COLUMN_COUNT
 import globs
 import copy
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
@@ -42,11 +43,14 @@ down = 0
 
 shiftItemsDown = False
 
-screenDimensions = [900, 800] 
+screenDimensions = [900, 830] 
 
 
 #-----------------
 #SAMPLE BOARDS
+
+#no matches
+# board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
 
 #NEW
 # board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
@@ -73,12 +77,17 @@ uiColor = (201, 234, 208)
 uiColor = (255, 226, 209)
 
 uiColor = (247, 199, 173)
+uiColor = (247, 187, 150)
+
+# uiColor = (245, 200, 171)
 
 # darkerGreen = (150, 204, 161)
 
 # darkerGreen = (148, 211, 160)
 
 # darkerGreen = (252, 153, 95)
+
+whiteColor = (255, 255, 255)
 
 darkerGreen = (6, 136, 87)
 # darkerGreen = (103, 175, 234)
@@ -87,6 +96,8 @@ darkerGreen = (247, 146, 51)
 
 darkerGreen = (249, 155, 52)
 # darkerGreen = (239, 125, 71)
+
+darkerGreen = (255, 155, 68)
 
 # uiColor = (187, 232, 196)
 
@@ -102,8 +113,8 @@ image = ""
 allSprites = pygame.sprite.Group()
 itemSize = [72, 72]
 outlineSize = [72, 72]
-innerSpacing = 10
-outerTopMargin = 100
+innerSpacing = 9
+outerTopMargin = 140
 outerLeftMargin = 70
 itemCount = 0
 
@@ -176,7 +187,7 @@ class Item(pygame.sprite.Sprite):
             self.image = itemDict[item]
             self.rect = self.image.get_rect()
 
-            self.rect.x = globs.COLUMN_COUNT*itemSize[0] + innerSpacing*globs.COLUMN_COUNT + outerLeftMargin + 80
+            self.rect.x = globs.COLUMN_COUNT*itemSize[0] + innerSpacing*globs.COLUMN_COUNT + outerLeftMargin + 30
 
             #Space it equal distances from the top
             self.rect.y = count*70 + 2*itemSize[1] + outerTopMargin
@@ -206,16 +217,29 @@ def drawSidebar():
     # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, 0, 500, 1000)
     # pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
     
-    print(screenDimensions[1])
-    topBar = pygame.Rect(0, 0, screenDimensions[0], 80)
-    pygame.draw.rect(globs.SCREEN, darkerGreen, topBar)
+    # print(screenDimensions[1])
+    
 
-    rect_object = pygame.Rect(0, 65, 1000, 1000)
+    #Draw the orange background
+    rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
     pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
+
+
+    topBarBg = pygame.Rect(outerLeftMargin-5, 25, screenDimensions[0]-(2*outerLeftMargin)+10, 100)
+    pygame.draw.rect(globs.SCREEN, whiteColor, topBarBg)
+    #Draw the top bar
+    topBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 90)
+    pygame.draw.rect(globs.SCREEN, darkerGreen, topBar)
 
 
     # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, outerTopMargin + 2*(itemSize[1] + outerTopMargin), 500, 100)
     # pygame.draw.rect(globs.SCREEN, accentColor, rect_object)
+
+
+    #Draw the right side bar
+    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+20, outerTopMargin, 110, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
+    # sideBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 80)
+    pygame.draw.rect(globs.SCREEN, darkerGreen, sideBar)
 
     i = 0
     for item in itemTypes:
@@ -273,6 +297,9 @@ verticalRemoveCount = 0
 shiftDownCount = 0
 
 itemsModified = False
+
+
+# print(board)
 
 
 def redrawGameWindow():
