@@ -1,6 +1,7 @@
 from operator import ne
 from optparse import Values
 import os, pygame, random, sys, math
+from re import I
 from pprint import pp
 from string import whitespace
 from unicodedata import name
@@ -139,6 +140,8 @@ class Item(pygame.sprite.Sprite):
         self.small3 = pygame.image.load(os.path.join("images", "small3.png")).convert_alpha()
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
+        self.blankWhite = pygame.image.load(os.path.join("images", "BLANK-white.png")).convert()
+        self.blankSidebar = pygame.image.load(os.path.join("images", "BLANK-sidebar.png")).convert()
 
         self.selectedOutline = pygame.image.load(os.path.join("images", "selected-outline.png")).convert_alpha()
         self.deselectedOutline = pygame.image.load(os.path.join("images", "deselected-outline.png")).convert_alpha()
@@ -160,6 +163,8 @@ class Item(pygame.sprite.Sprite):
         "small3": self.small3,
 
         "BLANK": self.blank,
+        "blankWhite": self.blankWhite,
+        "blankSidebar": self.blankSidebar,
 
         "selected-outline": self.selectedOutline,
         "deselected-outline": self.deselectedOutline
@@ -235,7 +240,7 @@ class Item(pygame.sprite.Sprite):
     def addItemCount(self, item, number):
         
         #Draw over the initial number count to erase it
-        textMessage = str(itemCountDict[item][1])
+        textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
 
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
         yLocation = itemCountDict[item][0]*55 + 2*itemSize[1] + outerTopMargin - fontS1 + 5
@@ -252,7 +257,7 @@ class Item(pygame.sprite.Sprite):
 
         #Add the number of new items to the count
         itemCountDict[item][1] += number
-        textMessage = str(itemCountDict[item][1])
+        textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
 
         text_surface = mainFont.render(textMessage, False, textColor)
 
@@ -260,32 +265,48 @@ class Item(pygame.sprite.Sprite):
 
 
     def drawHearts(self, heartNumber):
-        self.image = itemDict["BLANK"]
-        self.rect = self.image.get_rect()
 
-        self.width = 100
-        self.height = 100
-        self.rect.y = itemSize[1] + outerTopMargin
-        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
-        allSprites.add(self)
-
-        if heartNumber == 0.5:
+        if heartNumber % 1 == 0.5:
+            # print("HALF")
             self.image = itemDict["heart-half"]
         else:
             self.image = itemDict["heart"]
         self.rect = self.image.get_rect()
 
+        #DO THIS:
+        # self.width = width
+
         self.width = 30
         self.height = 30
 
         self.rect.y = itemSize[1] + outerTopMargin
-        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + math.floor(heartNumber)*40
+        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(heartNumber)*40
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         allSprites.add(self)
 
         # self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
         # self.rect.y = outerTopMargin
+
+    def clearHearts(self):
+        self.image = itemDict["blankSidebar"]
+        self.rect = self.image.get_rect()
+
+        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
+        self.rect.y = itemSize[0] + outerTopMargin
+        self.width = 3*30 + 2*10
+        self.height = 30
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        allSprites.add(self)
+
+    def addHeadings(self):
+        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
+        yLocation = outerTopMargin + 10
+
+        textMessage = "+"
+        text_surface = mainFont.render(textMessage, False, whiteColor)
+
+        globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+
 
 
 def sidebarHeadings():
@@ -301,15 +322,39 @@ scene.setup()
 pygame.time.delay(1000)
 
 def getHearts(heartNumber):
-    i = heartNumber
+    # i = heartNumber
+    # j = 0
 
-    #Get until you see the last 0.5
-    while i > 0:
+    # #Get until you see the last 0.5
+    # while i > 0:
+    #     print(i)
+    #     scene = Item()
+    #     scene.drawHearts(i)
+    #     i -= 1
+    # pygame.sprite.Group().empty()
+    # heartBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing, itemSize[1] + outerTopMargin, 3*30 + 2*10, 30)
+   
+    # pygame.draw.rect(globs.SCREEN, whiteColor, heartBg)
+    # pygame.display.update()
+    # print("HI")
+
+    scene = Item()
+    scene.clearHearts()
+
+    i = 0
+    while i < heartNumber:
+        print(i+0.5)
         scene = Item()
-        scene.drawHearts(i)
-        i -= 1
+        
+        if i + 0.5 == heartNumber:
+            print("HELLO") 
+            scene.drawHearts(i+0.5)
+        else:
+            scene.drawHearts(i)
 
-getHearts(3)
+        i += 1
+
+
 
 
 def drawSidebar():
@@ -359,7 +404,10 @@ def drawSidebar():
 drawSidebar()
 
 
-
+getHearts(3)
+# pygame.display.update()
+getHearts(2.5)
+# pygame.display.update()
 
 
 
