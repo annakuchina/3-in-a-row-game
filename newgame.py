@@ -1,6 +1,7 @@
 from operator import ne
 from optparse import Values
 import os, pygame, random, sys, math
+from pprint import pp
 from string import whitespace
 from unicodedata import name
 import numpy
@@ -25,9 +26,9 @@ pygame.display.set_icon(pygame_icon)
 
 globs.SCREEN.fill((255, 255, 255))
 
-mainFont = pygame.font.Font(os.path.join("fonts","VT323-Regular.ttf"), 50)
+mainFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 16)
 
-fontS1 = 50
+fontS1 = 16
 
 
 # globs.SCREEN.fill((0, 0, 0))
@@ -78,44 +79,14 @@ board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'pois
 #END SAMPLE BOARDS
 #-----------------
 
-uiColor = (209, 209, 255)
-uiColor = (6, 136, 87)
-uiColor = (0, 0, 0)
-uiColor = (16, 18, 28)
-uiColor = (201, 234, 208)
-uiColor = (255, 226, 209)
-
-uiColor = (247, 199, 173)
-uiColor = (247, 187, 150)
-
-# uiColor = (245, 200, 171)
-
-# darkerGreen = (150, 204, 161)
-
-# darkerGreen = (148, 211, 160)
-
-# darkerGreen = (252, 153, 95)
-
 whiteColor = (255, 255, 255)
+blackColor = (0, 0, 0)
 
-darkerGreen = (6, 136, 87)
-# darkerGreen = (103, 175, 234)
-darkerGreen = (249, 155, 52)
-darkerGreen = (247, 146, 51)
+backgroundPeachColor = (247, 187, 150)
 
-darkerGreen = (249, 155, 52)
-# darkerGreen = (239, 125, 71)
+darkerOrangeColor = (255, 155, 68)
+lighterOrangeColor = (255, 174, 99)
 
-darkerOrange = (255, 155, 68)
-
-darkerGreen = (255, 174, 99)
-
-# uiColor = (187, 232, 196)
-
-accentColor = (255, 255, 255)
-
-# lighterBgColor = (255, 243, 237)
-# lighterBgColor = (252, 126, 0)
 
 rectangle_draging = False
 itemLen = len(itemTypes)
@@ -127,7 +98,7 @@ image = ""
 allSprites = pygame.sprite.Group()
 itemSize = [72, 72]
 outlineSize = [72, 72]
-innerSpacing = 9
+innerSpacing = 8
 outerTopMargin = 155
 outerLeftMargin = 75
 itemCount = 0
@@ -135,7 +106,7 @@ itemCount = 0
 spacingArray = [0, 0.33333333, 0.66666666, 1]
 
 sidebarLeftSpacing = 30
-sideBarWidth = 100
+sideBarWidth = 150
 
 
 
@@ -149,12 +120,23 @@ class Item(pygame.sprite.Sprite):
         self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert()
         self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert()
         self.snake = pygame.image.load(os.path.join("images", "snake.png")).convert()
-        self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert()
+        self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert_alpha()
         self.tree = pygame.image.load(os.path.join("images", "tree.png")).convert()
 
-        self.orange = pygame.image.load(os.path.join("images", "orange.png")).convert()
-        self.orangeSmaller = pygame.image.load(os.path.join("images", "orange-smaller.png")).convert()
-        self.orangeSmall = pygame.image.load(os.path.join("images", "orange-small.png")).convert()
+        self.heart = pygame.image.load(os.path.join("images", "heart.png")).convert_alpha()
+        self.heartHalf = pygame.image.load(os.path.join("images", "heart-half.png")).convert_alpha()
+
+        self.mushroomSimple = pygame.image.load(os.path.join("images", "mushroom-simple.png")).convert_alpha()
+        self.healPotionSimple = pygame.image.load(os.path.join("images", "heal-potion-simple.png")).convert_alpha()
+        self.poisonPotionSimple = pygame.image.load(os.path.join("images", "poison-potion-simple.png")).convert_alpha()
+        self.snakeSimple = pygame.image.load(os.path.join("images", "snake-simple.png")).convert_alpha()
+        self.moonSimple = pygame.image.load(os.path.join("images", "moon-simple.png")).convert_alpha()
+        self.treeSimple = pygame.image.load(os.path.join("images", "tree-simple.png")).convert_alpha()
+        
+
+        self.small1 = pygame.image.load(os.path.join("images", "small1.png")).convert_alpha()
+        self.small2 = pygame.image.load(os.path.join("images", "small2.png")).convert_alpha()
+        self.small3 = pygame.image.load(os.path.join("images", "small3.png")).convert_alpha()
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
 
@@ -162,16 +144,20 @@ class Item(pygame.sprite.Sprite):
         self.deselectedOutline = pygame.image.load(os.path.join("images", "deselected-outline.png")).convert_alpha()
 
         global itemDict
-        itemDict ={"mushroom": self.mushroom,
+        itemDict ={
+        "heart": self.heart,
+        "heart-half": self.heartHalf,
+        
+        "mushroom": self.mushroom,
         "heal-potion": self.healPotion,
         "poison-potion": self.poisonPotion,
         "snake": self.snake,
         "moon": self.moon,
         "tree": self.tree,
 
-        "orange": self.orange,
-        "orange-small": self.orangeSmall,
-        "orange-smaller": self.orangeSmaller,
+        "small1": self.small1,
+        "small2": self.small2,
+        "small3": self.small3,
 
         "BLANK": self.blank,
 
@@ -179,14 +165,28 @@ class Item(pygame.sprite.Sprite):
         "deselected-outline": self.deselectedOutline
         }
 
+        global simpleItemDict
+        simpleItemDict = {
+        "mushroom": self.mushroomSimple,
+        "heal-potion": self.healPotionSimple,
+        "poison-potion": self.poisonPotionSimple,
+        "snake": self.snakeSimple,
+        "moon": self.moonSimple,
+        "tree": self.treeSimple
+        }
+
+        # global smallerItemDict
+        # smallerItemDict = {}
+
         global itemCountDict
+        # First index: order in which the item is display, Second: the current count of items, Third: the required tally of items
         itemCountDict = {
-        "mushroom": [0, 0],
-        "heal-potion": [1, 0],
-        "poison-potion": [2, 0],
-        "snake": [3, 0],
-        "moon": [4, 0],
-        "tree": [5, 0]
+        "mushroom": [0, 0, 3],
+        "tree": [1, 0, 6],
+        "heal-potion": [2, 0, 9],
+        "snake": [3, 0, 15],
+        "moon": [4, 0, 10],
+        "poison-potion": [5, 0, 9]
         }
 
     def drawItem(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
@@ -202,48 +202,95 @@ class Item(pygame.sprite.Sprite):
         
         allSprites.add(self)
 
+
     def drawSidebarItems(self, item, count):
-        self.image = itemDict[item]
+        self.image = simpleItemDict[item]
         self.rect = self.image.get_rect()
 
-        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 10
-
         #Space it equal distances from the top
-        self.rect.y = count*70 + 2*itemSize[1] + outerTopMargin
-        # self.rect.y = i*50 + 2*itemSize[1] + innerSpacing*2 + outerTopMargin
+        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 15
+        self.rect.y = count*55 + 2*itemSize[1] + outerTopMargin
 
-        self.width = 40
-        self.height = 40
+        textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
+        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
+        yLocation = itemCountDict[item][0]*55 + 2*itemSize[1] + outerTopMargin - fontS1 + 5
+
+        if count > 2:
+            textColor = blackColor
+            self.rect.y += 25
+            yLocation += 25
+        else:
+            textColor = whiteColor
+
+        self.width = 30
+        self.height = 30
 
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
-
         allSprites.add(self)
 
+        text_surface = mainFont.render(textMessage, False, textColor)
+        globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+
+
     def addItemCount(self, item, number):
-        itemCountDict[item][1] += number
-
-        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 60
-        yLocation = itemCountDict[item][0]*70 + 2*itemSize[1] + outerTopMargin + 10 - fontS1 + 35
-
-        # text_surface = mainFont.render('Some Text', False, (0, 0, 0))
-        # print(itemCountDict[item][1])
-        # print(" jdkfsjksfkj")
-
+        
+        #Draw over the initial number count to erase it
         textMessage = str(itemCountDict[item][1])
-        print(textMessage)
 
-        text_surface = mainFont.render(textMessage, False, (0, 0, 0))
+        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
+        yLocation = itemCountDict[item][0]*55 + 2*itemSize[1] + outerTopMargin - fontS1 + 5
 
-        globs.SCREEN.blit(text_surface, (xLocation, yLocation))
+        if itemCountDict[item][0] > 2:
+            textColor = blackColor
+            yLocation += 25
+        else:
+            textColor = whiteColor
 
-        # if item == "mushroom":
-        #     pass
+        text_surface = mainFont.render(textMessage, False, lighterOrangeColor)
+        globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+
+
+        #Add the number of new items to the count
+        itemCountDict[item][1] += number
+        textMessage = str(itemCountDict[item][1])
+
+        text_surface = mainFont.render(textMessage, False, textColor)
+
+        globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+
+
+    def drawHearts(self, heartNumber):
+        self.image = itemDict["BLANK"]
+        self.rect = self.image.get_rect()
+
+        self.width = 100
+        self.height = 100
+        self.rect.y = itemSize[1] + outerTopMargin
+        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        allSprites.add(self)
+
+        if heartNumber == 0.5:
+            self.image = itemDict["heart-half"]
+        else:
+            self.image = itemDict["heart"]
+        self.rect = self.image.get_rect()
+
+        self.width = 30
+        self.height = 30
+
+        self.rect.y = itemSize[1] + outerTopMargin
+        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + math.floor(heartNumber)*40
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        allSprites.add(self)
+
+        # self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
+        # self.rect.y = outerTopMargin
+
+
+def sidebarHeadings():
+    pass 
         
-        # elif item == ""
-
-        # print()
-        
-        # pass
 
 
 # class UI(pygame.sprite.Sprite):
@@ -253,6 +300,16 @@ scene = Item()
 scene.setup()
 pygame.time.delay(1000)
 
+def getHearts(heartNumber):
+    i = heartNumber
+
+    #Get until you see the last 0.5
+    while i > 0:
+        scene = Item()
+        scene.drawHearts(i)
+        i -= 1
+
+getHearts(3)
 
 
 def drawSidebar():
@@ -264,7 +321,7 @@ def drawSidebar():
 
     #Draw the orange background
     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
+    pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
 
 
     # topBarBg = pygame.Rect(outerLeftMargin, 35, screenDimensions[0]-(2*outerLeftMargin), 90)
@@ -275,7 +332,7 @@ def drawSidebar():
     
     # topBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 90)
     topBar = pygame.Rect(outerLeftMargin+5, 40, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 10, 80)
-    pygame.draw.rect(globs.SCREEN, darkerOrange, topBar)
+    pygame.draw.rect(globs.SCREEN, darkerOrangeColor, topBar)
 
 
     # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, outerTopMargin + 2*(itemSize[1] + outerTopMargin), 500, 100)
@@ -290,10 +347,10 @@ def drawSidebar():
 
     sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
     # sideBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 80)
-    pygame.draw.rect(globs.SCREEN, darkerGreen, sideBar)
+    pygame.draw.rect(globs.SCREEN, lighterOrangeColor, sideBar)
 
     i = 0
-    for item in itemTypes:
+    for item in itemCountDict:
         scene = Item()
         scene.drawSidebarItems(item, i)
 
@@ -355,8 +412,8 @@ itemsModified = False
 # print(board)
 
 
-scene = Item()
-scene.addItemCount("mushroom", 3)
+# scene = Item()
+# scene.addItemCount("mushroom", 3)
 
 
 
@@ -406,7 +463,7 @@ def redrawGameWindow():
                 if isinstance(item, list):
                     for rowNo in item:
                         scene = Item()
-                        scene.drawItem(globs.deleteOrange[verticalRemoveCount//2], rowNo, key, itemSize, 0)
+                        scene.drawItem(globs.deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
         verticalRemoveCount += 1
         
     if removeHorizontal:
@@ -415,7 +472,7 @@ def redrawGameWindow():
                 if isinstance(item, list):
                     for colNo in item:
                         scene = Item()
-                        scene.drawItem(globs.deleteOrange[horizontalRemoveCount//2], key, colNo, itemSize, 0)
+                        scene.drawItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
         horizontalRemoveCount += 1
 
     if shiftItemsDown:
@@ -494,6 +551,12 @@ while not gameOver:
             for key in verticalDict:
                 for item in verticalDict[key]:
                     if isinstance(item, list):
+                        # DO HERE
+                        scene = Item()
+                        matchItem = board[key][item[0]]
+                        matchLength = len(item)
+                        scene.addItemCount(matchItem, matchLength)
+
                         for rowNo in item:
                             board[key][rowNo] = "BLANK"
 
@@ -508,6 +571,12 @@ while not gameOver:
             for key in horizontalDict:
                 for item in horizontalDict[key]:
                     if isinstance(item, list):
+
+                        scene = Item()
+                        matchItem = board[item[0]][key]
+                        matchLength = len(item)
+                        scene.addItemCount(matchItem, matchLength)
+
                         for colNo in item:
                             board[colNo][key] = "BLANK"
 

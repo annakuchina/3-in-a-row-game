@@ -50,7 +50,7 @@ itemTypes = [
 
 itemLen = len(itemTypes)
 
-deleteOrange = ["orange", "orange-small", "orange-smaller", "BLANK"]
+deleteAnimation = ["small1", "small2", "small3", "BLANK"]
 # deleteOrange = ["snake", "snake1", "snake2", "BLANK"]
 
 # deleteOrange = [os.path.join("images", "orange.png")).convert_alpha(), pygame.image.load(os.path.join("images", "orange-small.png")).convert_alpha(), pygame.image.load(os.path.join("images", "orange-smaller.png")).convert_alpha()]
