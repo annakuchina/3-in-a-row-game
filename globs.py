@@ -6,6 +6,7 @@ import itertools
 
 SCREEN = pygame.display.set_mode((925, 840))
 
+
 ROW_COUNT = 8
 COLUMN_COUNT = 8
 
@@ -53,3 +54,4 @@ deleteOrange = ["orange", "orange-small", "orange-smaller", "BLANK"]
 # deleteOrange = ["snake", "snake1", "snake2", "BLANK"]
 
 # deleteOrange = [os.path.join("images", "orange.png")).convert_alpha(), pygame.image.load(os.path.join("images", "orange-small.png")).convert_alpha(), pygame.image.load(os.path.join("images", "orange-smaller.png")).convert_alpha()]
+

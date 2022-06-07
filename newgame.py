@@ -20,7 +20,16 @@ dt = clock.tick(FPS)
 
 pygame.init()
 
+pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
+pygame.display.set_icon(pygame_icon)
+
 globs.SCREEN.fill((255, 255, 255))
+
+mainFont = pygame.font.Font(os.path.join("fonts","VT323-Regular.ttf"), 50)
+
+fontS1 = 50
+
+
 # globs.SCREEN.fill((0, 0, 0))
 
 itemTypes = globs.itemTypes
@@ -50,7 +59,7 @@ screenDimensions = [925, 840]
 #SAMPLE BOARDS
 
 #no matches
-# board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
+board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
 
 #NEW
 # board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
@@ -125,10 +134,8 @@ itemCount = 0
 
 spacingArray = [0, 0.33333333, 0.66666666, 1]
 
-pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
-pygame.display.set_icon(pygame_icon)
-
-itemDict = []
+sidebarLeftSpacing = 30
+sideBarWidth = 100
 
 
 
@@ -138,7 +145,6 @@ class Item(pygame.sprite.Sprite):
 
     def setup(self):
         #  Load everything in and initialize attributes
-        print("Loading in")
         self.mushroom = pygame.image.load(os.path.join("images", "mushroom.png")).convert()
         self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert()
         self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert()
@@ -152,8 +158,8 @@ class Item(pygame.sprite.Sprite):
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
 
-        self.redOutline = pygame.image.load(os.path.join("images", "red-outline.png")).convert_alpha()
-        self.whiteOutline = pygame.image.load(os.path.join("images", "white-outline.png")).convert_alpha()
+        self.selectedOutline = pygame.image.load(os.path.join("images", "selected-outline.png")).convert_alpha()
+        self.deselectedOutline = pygame.image.load(os.path.join("images", "deselected-outline.png")).convert_alpha()
 
         global itemDict
         itemDict ={"mushroom": self.mushroom,
@@ -169,8 +175,18 @@ class Item(pygame.sprite.Sprite):
 
         "BLANK": self.blank,
 
-        "red-outline": self.redOutline,
-        "white-outline": self.whiteOutline
+        "selected-outline": self.selectedOutline,
+        "deselected-outline": self.deselectedOutline
+        }
+
+        global itemCountDict
+        itemCountDict = {
+        "mushroom": [0, 0],
+        "heal-potion": [1, 0],
+        "poison-potion": [2, 0],
+        "snake": [3, 0],
+        "moon": [4, 0],
+        "tree": [5, 0]
         }
 
     def drawItem(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
@@ -187,26 +203,48 @@ class Item(pygame.sprite.Sprite):
         allSprites.add(self)
 
     def drawSidebarItems(self, item, count):
-            print(item)
-            print(itemTypes)
-            self.image = itemDict[item]
-            self.rect = self.image.get_rect()
+        self.image = itemDict[item]
+        self.rect = self.image.get_rect()
 
-            self.rect.x = globs.COLUMN_COUNT*itemSize[0] + innerSpacing*globs.COLUMN_COUNT + outerLeftMargin + 30
+        self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 10
 
-            #Space it equal distances from the top
-            self.rect.y = count*70 + 2*itemSize[1] + outerTopMargin
-            # self.rect.y = i*50 + 2*itemSize[1] + innerSpacing*2 + outerTopMargin
+        #Space it equal distances from the top
+        self.rect.y = count*70 + 2*itemSize[1] + outerTopMargin
+        # self.rect.y = i*50 + 2*itemSize[1] + innerSpacing*2 + outerTopMargin
 
-            self.width = 40
-            self.height = 40
+        self.width = 40
+        self.height = 40
 
-            self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
-            allSprites.add(self)
+        allSprites.add(self)
 
-    # def drawSidebarLines(self):
+    def addItemCount(self, item, number):
+        itemCountDict[item][1] += number
+
+        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 60
+        yLocation = itemCountDict[item][0]*70 + 2*itemSize[1] + outerTopMargin + 10 - fontS1 + 35
+
+        # text_surface = mainFont.render('Some Text', False, (0, 0, 0))
+        # print(itemCountDict[item][1])
+        # print(" jdkfsjksfkj")
+
+        textMessage = str(itemCountDict[item][1])
+        print(textMessage)
+
+        text_surface = mainFont.render(textMessage, False, (0, 0, 0))
+
+        globs.SCREEN.blit(text_surface, (xLocation, yLocation))
+
+        # if item == "mushroom":
+        #     pass
         
+        # elif item == ""
+
+        # print()
+        
+        # pass
+
 
 # class UI(pygame.sprite.Sprite):
 
@@ -219,13 +257,9 @@ pygame.time.delay(1000)
 
 def drawSidebar():
 
-    sidebarLeftSpacing = 30
-    sideBarWidth = 90
-
     # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, 0, 500, 1000)
     # pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
     
-    # print(screenDimensions[1])
     
 
     #Draw the orange background
@@ -235,12 +269,12 @@ def drawSidebar():
 
     # topBarBg = pygame.Rect(outerLeftMargin, 35, screenDimensions[0]-(2*outerLeftMargin), 90)
 
-    topBarBg = pygame.Rect(outerLeftMargin, 35, globs.COLUMN_COUNT*itemSize[1]+(globs.COLUMN_COUNT-1)*innerSpacing + sidebarLeftSpacing + sideBarWidth, 90)
+    topBarBg = pygame.Rect(outerLeftMargin, 35, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 90)
     pygame.draw.rect(globs.SCREEN, whiteColor, topBarBg)
     #Draw the top bar
     
     # topBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 90)
-    topBar = pygame.Rect(outerLeftMargin+5, 40, screenDimensions[0]-(2*outerLeftMargin)-10, 80)
+    topBar = pygame.Rect(outerLeftMargin+5, 40, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 10, 80)
     pygame.draw.rect(globs.SCREEN, darkerOrange, topBar)
 
 
@@ -250,11 +284,11 @@ def drawSidebar():
     #Draw the right side bar
 
 
-    sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth+10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
+    sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
     pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
 
 
-    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
+    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
     # sideBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 80)
     pygame.draw.rect(globs.SCREEN, darkerGreen, sideBar)
 
@@ -266,6 +300,8 @@ def drawSidebar():
         i+=1
 
 drawSidebar()
+
+
 
 
 
@@ -317,6 +353,14 @@ itemsModified = False
 
 
 # print(board)
+
+
+scene = Item()
+scene.addItemCount("mushroom", 3)
+
+
+
+
 
 
 def redrawGameWindow():
@@ -529,7 +573,7 @@ while not gameOver:
                             if len(selectedArray) == 0:
                                 selectedArray.append([columnLocation, rowLocation])
                                 scene = Item()
-                                scene.drawItem("red-outline", rowLocation, columnLocation, itemSize, 0)
+                                scene.drawItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
                                 pygame.display.update()
 
                             elif len(selectedArray) == 1:
@@ -540,7 +584,7 @@ while not gameOver:
                                 # The player selects the same position (row and column) twice
                                 if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
                                     scene = Item()
-                                    scene.drawItem("white-outline", rowLocation, columnLocation, itemSize, 0)
+                                    scene.drawItem("deselected-outline", rowLocation, columnLocation, itemSize, 0)
                                     selectedArray = []
                                     pygame.display.update()
 
@@ -564,12 +608,12 @@ while not gameOver:
 
                                 else:
                                     scene = Item()
-                                    scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                    scene.drawItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                     selectedArray = []
                                     selectedArray.append([columnLocation, rowLocation])
 
                                     scene = Item()
-                                    scene.drawItem("red-outline", rowLocation, columnLocation, itemSize, 0)
+                                    scene.drawItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
                                     pygame.display.update()
 
                                 # If one of the 'swapped' conditions has been met
@@ -582,17 +626,15 @@ while not gameOver:
                                         gameChanged = True
                                         board = copy.deepcopy(swappedBoard)
                                         makeBoard(board)
-                                        print("changed")
                                     
                                     elif swappedBoard[selectedArray[0][0]][selectedArray[0][1]] == board[selectedArray[0][0]][selectedArray[0][1]]:
-                                        print("SAME THING")
-                                        scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                        scene.drawItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                         selectedArray = []
 
                                     # The items are not swapped
                                     else:
                                         scene = Item()
-                                        scene.drawItem("white-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                        scene.drawItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                         selectedArray = []
 
             # See if user has lifted the left mouse button
