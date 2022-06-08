@@ -29,6 +29,14 @@ globs.SCREEN.fill((255, 255, 255))
 
 mainFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 16)
 
+
+headingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 35)
+
+biggerHeadingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 41)
+
+fontS2 = 30
+fontS3 = 50
+
 fontS1 = 16
 
 
@@ -127,6 +135,9 @@ class Item(pygame.sprite.Sprite):
         self.heart = pygame.image.load(os.path.join("images", "heart.png")).convert_alpha()
         self.heartHalf = pygame.image.load(os.path.join("images", "heart-half.png")).convert_alpha()
 
+        self.energy = pygame.image.load(os.path.join("images", "energy.png")).convert_alpha()
+        self.energyHalf = pygame.image.load(os.path.join("images", "energy-half.png")).convert_alpha()
+
         self.mushroomSimple = pygame.image.load(os.path.join("images", "mushroom-simple.png")).convert_alpha()
         self.healPotionSimple = pygame.image.load(os.path.join("images", "heal-potion-simple.png")).convert_alpha()
         self.poisonPotionSimple = pygame.image.load(os.path.join("images", "poison-potion-simple.png")).convert_alpha()
@@ -214,18 +225,41 @@ class Item(pygame.sprite.Sprite):
 
         #Space it equal distances from the top
         self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 15
-        self.rect.y = count*55 + 2*itemSize[1] + outerTopMargin
+        self.rect.y = count*55 + 2.5*itemSize[1] + outerTopMargin
+
+        if count == 0:
+            print("hi")
+            xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 55 + sidebarLeftSpacing
+            yLocation = 2.5*itemSize[1] + outerTopMargin - fontS2 - 28
+
+            textMessage = "+"
+            text_surface = biggerHeadingFont.render(textMessage, False, whiteColor)
+
+            globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+
+        elif count == 3:
+            xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 61 + sidebarLeftSpacing
+            # yLocation = 2*itemSize[1] + outerTopMargin - fontS2 - 20
+            yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 9
+
+            textMessage = "x"
+            text_surface = headingFont.render(textMessage, False, blackColor)
+
+            globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+
 
         textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-        yLocation = itemCountDict[item][0]*55 + 2*itemSize[1] + outerTopMargin - fontS1 + 5
+        yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
 
         if count > 2:
             textColor = blackColor
-            self.rect.y += 25
-            yLocation += 25
+            self.rect.y += 35
+            yLocation += 35
         else:
             textColor = whiteColor
+
+
 
         self.width = 30
         self.height = 30
@@ -243,11 +277,11 @@ class Item(pygame.sprite.Sprite):
         textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
 
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-        yLocation = itemCountDict[item][0]*55 + 2*itemSize[1] + outerTopMargin - fontS1 + 5
+        yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
 
         if itemCountDict[item][0] > 2:
             textColor = blackColor
-            yLocation += 25
+            yLocation += 35
         else:
             textColor = whiteColor
 
@@ -287,6 +321,7 @@ class Item(pygame.sprite.Sprite):
         # self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
         # self.rect.y = outerTopMargin
 
+
     def clearHearts(self):
         self.image = itemDict["blankSidebar"]
         self.rect = self.image.get_rect()
@@ -298,15 +333,8 @@ class Item(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         allSprites.add(self)
 
-    def addHeadings(self):
-        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
-        yLocation = outerTopMargin + 10
-
-        textMessage = "+"
-        text_surface = mainFont.render(textMessage, False, whiteColor)
-
-        globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
-
+    # def addHeadings(self):
+       
 
 
 def sidebarHeadings():
@@ -406,7 +434,7 @@ drawSidebar()
 
 getHearts(3)
 # pygame.display.update()
-getHearts(2.5)
+# getHearts(2.5)
 # pygame.display.update()
 
 
