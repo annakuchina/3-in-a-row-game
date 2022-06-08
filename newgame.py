@@ -161,6 +161,9 @@ class Item(pygame.sprite.Sprite):
         itemDict ={
         "heart": self.heart,
         "heart-half": self.heartHalf,
+
+        "energy": self.energy,
+        "energy-half": self.energyHalf,
         
         "mushroom": self.mushroom,
         "heal-potion": self.healPotion,
