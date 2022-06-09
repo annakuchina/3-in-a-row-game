@@ -503,6 +503,8 @@ def redrawGameWindow():
     global unmovedBoard
     global movedItemsBoard
 
+    global horizontalDict, verticalDict
+
     global previousBoard
 
     global board
@@ -564,10 +566,12 @@ def redrawGameWindow():
                 if movedItem == 0:
                     if "BLANK" not in board[key] and shiftDownCount==3: 
                         drawGridItem(selectedItem, movedItem, key, itemSize, 0)
-                        pass
+                        # pygame.display.update()
+                        # pass
                     
                 else:
                     drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                    # pygame.display.update()
 
         shiftDownCount += 1
         
@@ -624,7 +628,8 @@ gameOver = False
 
 # Play Screen
 def play(): 
-    global gameChanged, shiftItemsDown, board, itemsModified
+    global gameChanged, shiftItemsDown, board, itemsModified, selectedArray, removeCount, verticalRemoveCount, horizontalRemoveCount, removeVertical, removeHorizontal
+    global horizontalDict, verticalDict, movedItemsBoard, unmovedBoard
 
     drawSidebar()
     drawPlayerStats("heart", 0)
@@ -651,7 +656,7 @@ def play():
         if gameChanged == True and shiftItemsDown == False:
             verticalDict = itemCollectVertical(board, itemTypes)
             horizontalDict = itemCollectHorizontal(board, itemTypes)
-            
+ 
             if len(verticalDict) > 0:
                 removeVertical = True
 
@@ -676,8 +681,8 @@ def play():
 
                 for key in horizontalDict:
                     for item in horizontalDict[key]:
+                        
                         if isinstance(item, list):
-
                             matchItem = board[item[0]][key]
                             matchLength = len(item)
                             calculatePlayerStats(matchItem + "Simple", matchLength)
@@ -803,15 +808,15 @@ def play():
                                             gameChanged = True
                                             board = copy.deepcopy(swappedBoard)
                                             drawPlayerStats("energy", -0.25)
-                                            print(playerStats)
-                                            print("Subtracted the energy 0.25")
+                                            # print(playerStats)
+                                            # print("Subtracted the energy 0.25")
                                             playerStatsModified = True
                                             makeBoard(board)
                                         
                                         elif swappedBoard[selectedArray[0][0]][selectedArray[0][1]] == board[selectedArray[0][0]][selectedArray[0][1]]:
                                             drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                             drawPlayerStats("energy", -0.5)
-                                            print("Subtracted the energy 0.5")
+                                            # print("Subtracted the energy 0.5")
                                             playerStatsModified = True
                                             selectedArray = []
 
@@ -819,7 +824,7 @@ def play():
                                         else:
                                             drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                             drawPlayerStats("energy", -0.5)
-                                            print("Subtracted the energy 0.5")
+                                            # print("Subtracted the energy 0.5")
                                             playerStatsModified = True
                                             selectedArray = []
 
@@ -852,6 +857,7 @@ def play():
                         # rectangle.y = mouse_y + offset_y   
 
         # Drawing the game
+        # print("redrawing")
         redrawGameWindow()
 
 redColor = (226, 39, 38)
@@ -877,10 +883,10 @@ def drawCenterText(displayText, textSize, textColor, xBackgroundWidth, yLocation
     font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
     textRect = textSurface.get_rect(center = (xBackgroundWidth, yLocation))
-    print(xBackgroundWidth)
+    # print(xBackgroundWidth)
 
 
-    print(yLocation)
+    # print(yLocation)
     globs.SCREEN.blit(textSurface, textRect)
 
 
@@ -916,14 +922,15 @@ def drawText(displayText, textSize, textColor, xLocation, yLocation):
 
 
 
-def button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize, action=None):
+def button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize):
     # global screen
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    if xLocation + width > mouse[0] > xLocation and yLocation + height > mouse[1] > yLocation:
-        if click[0] == 1 and action != None:
-            print("HI")
-            action()
+    # if xLocation + width > mouse[0] > xLocation and yLocation + height > mouse[1] > yLocation:
+    #     # if click[0] == 1 and action != None:
+    #     #     print("HI")
+    #     #     action()
+
     pygame.draw.rect(globs.SCREEN, backgroundColor, (xLocation, yLocation, width, height))
 
     drawCenterText(textContent, textSize, textColor, width//2 + xLocation, height//2 + yLocation)
@@ -963,8 +970,9 @@ def drawMenu():
     
 
 
-
-
+def quitGame():
+    pygame.quit()
+    quit()
 
 
 
@@ -981,24 +989,34 @@ def mainMenu():
     # button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize, action=None)
 
 
-    button("Start", (screenDimensions[0]- 250)//2, 4.5*screenDimensions[1]/10, 250, 70, pinkColor, whiteColor, 30, None)
+    button("Start", (screenDimensions[0]- 250)//2, 4.5*screenDimensions[1]/10, 250, 70, pinkColor, whiteColor, 30)
 
-    button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30, None)
+    button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30)
 
-    button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30, None)
+    button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30)
 
     while True:
         clock.tick(FPS)
+
+        
         # globs.SCREEN.fill(backgroundPeachColor)
         # rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
         # pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
 
+        
+
         for event in pygame.event.get():
+            mouse_x, mouse_y = event.pos
+
             if event.type == pygame.QUIT:
                 sys.exit()
             
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                pass
+               
+                if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
+                    print("quitting")
+                    quitGame()
+                # pass
 
         pygame.display.update()
         allSprites.draw(globs.SCREEN)
@@ -1006,11 +1024,11 @@ def mainMenu():
         
 
 
-gameRunning = False
-mainMenuRunning = True
+# gameRunning = False
+# mainMenuRunning = True
 
-# gameRunning = True
-# mainMenuRunning = False
+gameRunning = True
+mainMenuRunning = False
 
 if gameRunning == True:
     play()
