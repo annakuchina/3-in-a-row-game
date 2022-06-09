@@ -213,10 +213,6 @@ class Item(pygame.sprite.Sprite):
             "heart": [0, 3, 3],
             "energy": [1, 3, 3]
         }
-        # print(playerStats)
-
-        # global smallerItemDict
-        # smallerItemDict = {}
 
         global itemCountDict
         # First index: order in which the item is display, Second: the current count of items, Third: the required tally of items
@@ -229,20 +225,7 @@ class Item(pygame.sprite.Sprite):
         "poison-potionSimple": [5, 0, 9]
         }
 
-    # def drawItem(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
-    #     self.image = itemDict[chosenItem]
-    #     self.rect = self.image.get_rect()
-
-    #     self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin  #put x coord here
-    #     self.rect.y = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin  #put y coord here
-
-    #     self.width = itemSize[0]
-    #     self.height = itemSize[1]
-    #     self.image = pygame.transform.scale(self.image, (self.width, self.height))
-        
-        # allSprites.add(self)
-
-    def drawItems(self, item, xLocation, yLocation, width, height):
+    def drawItem(self, item, xLocation, yLocation, width, height):
         self.image = itemDict[item]
         self.rect = self.image.get_rect()
 
@@ -256,31 +239,23 @@ class Item(pygame.sprite.Sprite):
         allSprites.add(self)
        
 
-
-def sidebarHeadings():
-    pass 
-
-
 # Set up the game
 scene = Item()
 scene.setup()
 pygame.time.delay(1000)
 
-def drawGridItem(chosenItem, rowNo, colNo, newItemSize, rowMultiplier):
-    # print(itemSize)
-    xLocation = colNo*newItemSize[0] + innerSpacing*colNo + outerLeftMargin
-    yLocation = (rowNo+rowMultiplier)*newItemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
+def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
+    xLocation = colNo*givenItemSize[0] + innerSpacing*colNo + outerLeftMargin
+    yLocation = (rowNo+rowMultiplier)*givenItemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
 
-    width = newItemSize[0]
-    height = newItemSize[1]
+    width = givenItemSize[0]
+    height = givenItemSize[1]
 
     scene = Item()
-    scene.drawItems(chosenItem, xLocation, yLocation, width, height)
+    scene.drawItem(chosenItem, xLocation, yLocation, width, height)
 
 
 def drawItemCount(item, itemNumber):
-    # itemCountDict[item]
-    # print("HERE")
 
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
     xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
@@ -294,7 +269,6 @@ def drawItemCount(item, itemNumber):
 
     #If icons have already been drawn, cover over them with the background color to clear them
     if itemNumber != 0:
-        # print(itemCountMessage)
         text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
         globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
 
@@ -309,11 +283,9 @@ def calculatePlayerStats(item, itemNumber):
     # Take the number that needs to be added/subtracted, and do it
 
     # If the thing is bigger than limit, run the different function
-    if itemCountDict[item][1] + itemNumber >= itemCountDict[item][2]:
+    if itemCountDict[item][1] + itemNumber > itemCountDict[item][2]:
         itemCountDict[item][1] = 0
         drawItemCount(item, 0)
-
-        # print("Passed threshold")
 
         #Do things depending on if its a good or bad item
 
@@ -360,7 +332,7 @@ def drawSidebarIcons():
         if count > 2:
             yLocation += 35
 
-        scene.drawItems(item, xLocation, yLocation, width, height)
+        scene.drawItem(item, xLocation, yLocation, width, height)
 
         drawItemCount(item, 0)
         pygame.display.update()
@@ -376,7 +348,7 @@ def clearPlayerStats(item):
     height = 30
 
     item = "blankSidebar"
-    scene.drawItems(item, xLocation, yLocation, width, height)
+    scene.drawItem(item, xLocation, yLocation, width, height)
 
 
 #DRAW the energy and heart icons
@@ -402,35 +374,8 @@ def drawPlayerStats(item, itemNumber):
         if i + 0.5 == itemNumber:
             item = item + "-half"
         
-        scene.drawItems(item, xLocation, yLocation, width, height)
+        scene.drawItem(item, xLocation, yLocation, width, height)
         i += 1
-
-
-
-
-# def addItemCount(item, number):
-#     #Draw over the initial number count to erase it
-#     print("HFJKDS")
-#     textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
-
-#     xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-#     yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
-
-#     if itemCountDict[item][0] > 2:
-#         textColor = blackColor
-#         yLocation += 35
-#     else:
-#         textColor = whiteColor
-
-#     text_surface = mainFont.render(textMessage, False, lighterOrangeColor)
-#     globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
-
-#      #Add the number of new items to the count
-#     itemCountDict[item][1] += number
-#     textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
-
-#     text_surface = mainFont.render(textMessage, False, textColor)
-#     globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
 
 
 def drawSidebar():
@@ -580,36 +525,16 @@ def redrawGameWindow():
 
             #Draw the background in
 
-            #THE unmoved grid is being drawn, after which the blank spaces in between are drawn, and then the items are drawn
+            #The unmoved grid is being drawn, after which the blank spaces in between are drawn, and then the items are drawn
             #Key is column
-            print("drew the blank")
-            print(unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
-            print(" ")
-            print(unmovedRow)
-
-            # scene = Item()
-            # scene.drawItems("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing + 200], 0)
             
             drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
-
-            # rect_object = pygame.Rect(key*itemSize[0]+innerSpacing*(key)+outerLeftMargin, outerTopMargin, itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
-            # allSprites.add(rect_object)
-            # Needs to be added into queue but not added yet
-
-            # pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
 
             for movedItem in movedItemsBoard[key]:
                 selectedItem = board[key][movedItem]
 
-                # if shiftDownCount == 0:
-                #     drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)        
-
-
-                # drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
                 if movedItem == 0:
-                    if "BLANK" not in board[key] and shiftDownCount==3:
-                        print("LAST")
-                        # drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)        
+                    if "BLANK" not in board[key] and shiftDownCount==3: 
                         drawGridItem(selectedItem, movedItem, key, itemSize, 0)
                         pass
                     
