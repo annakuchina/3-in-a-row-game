@@ -3,7 +3,7 @@ from optparse import Values
 import os, pygame, random, sys, math
 from tkinter import W
 from re import I
-from pprint import pp
+# from pprint import pp
 from string import whitespace
 from unicodedata import name
 import numpy
@@ -70,7 +70,12 @@ screenDimensions = [925, 840]
 #SAMPLE BOARDS
 
 #no matches
-board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
+# board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
+
+# board = {0: ['tree', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['tree', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'tree', 'mushroom', 'tree', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
+
+board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'tree', 'mushroom', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'mushroom', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
+
 
 #NEW
 # board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
@@ -132,6 +137,7 @@ simpleItems = [
 class Item(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
+        self.image = image
 
     def setup(self):
         #  Load everything in and initialize attributes
@@ -207,7 +213,7 @@ class Item(pygame.sprite.Sprite):
             "heart": [0, 3, 3],
             "energy": [1, 3, 3]
         }
-        print(playerStats)
+        # print(playerStats)
 
         # global smallerItemDict
         # smallerItemDict = {}
@@ -223,20 +229,20 @@ class Item(pygame.sprite.Sprite):
         "poison-potionSimple": [5, 0, 9]
         }
 
-    def drawItem(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
-        self.image = itemDict[chosenItem]
-        self.rect = self.image.get_rect()
+    # def drawItem(self, chosenItem, rowNo, colNo, itemSize, rowMultiplier):
+    #     self.image = itemDict[chosenItem]
+    #     self.rect = self.image.get_rect()
 
-        self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin  #put x coord here
-        self.rect.y = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin  #put y coord here
+    #     self.rect.x = colNo*itemSize[0] + innerSpacing*colNo + outerLeftMargin  #put x coord here
+    #     self.rect.y = (rowNo+rowMultiplier)*itemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin  #put y coord here
 
-        self.width = itemSize[0]
-        self.height = itemSize[1]
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+    #     self.width = itemSize[0]
+    #     self.height = itemSize[1]
+    #     self.image = pygame.transform.scale(self.image, (self.width, self.height))
         
-        allSprites.add(self)
+        # allSprites.add(self)
 
-    def drawSidebarItems(self, item, xLocation, yLocation, width, height):
+    def drawItems(self, item, xLocation, yLocation, width, height):
         self.image = itemDict[item]
         self.rect = self.image.get_rect()
 
@@ -260,6 +266,17 @@ scene = Item()
 scene.setup()
 pygame.time.delay(1000)
 
+def drawGridItem(chosenItem, rowNo, colNo, newItemSize, rowMultiplier):
+    # print(itemSize)
+    xLocation = colNo*newItemSize[0] + innerSpacing*colNo + outerLeftMargin
+    yLocation = (rowNo+rowMultiplier)*newItemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
+
+    width = newItemSize[0]
+    height = newItemSize[1]
+
+    scene = Item()
+    scene.drawItems(chosenItem, xLocation, yLocation, width, height)
+
 
 def drawItemCount(item, itemNumber):
     # itemCountDict[item]
@@ -277,7 +294,7 @@ def drawItemCount(item, itemNumber):
 
     #If icons have already been drawn, cover over them with the background color to clear them
     if itemNumber != 0:
-        print(itemCountMessage)
+        # print(itemCountMessage)
         text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
         globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
 
@@ -296,13 +313,13 @@ def calculatePlayerStats(item, itemNumber):
         itemCountDict[item][1] = 0
         drawItemCount(item, 0)
 
-        print("Passed threshold")
+        # print("Passed threshold")
 
         #Do things depending on if its a good or bad item
 
     else:
         # itemCountDict[item][1] += itemNumber
-        print("didnt pass threshold")
+        # print("didnt pass threshold")
         drawItemCount(item, itemNumber)
 
     pass    
@@ -322,7 +339,7 @@ def drawSidebarIcons():
         scene = Item()
 
         if count == 0:
-            print("hi")
+            # print("hi")
             xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 55 + sidebarLeftSpacing
             yTextLocation = 2.5*itemSize[1] + outerTopMargin - fontS2 - 28
 
@@ -343,7 +360,7 @@ def drawSidebarIcons():
         if count > 2:
             yLocation += 35
 
-        scene.drawSidebarItems(item, xLocation, yLocation, width, height)
+        scene.drawItems(item, xLocation, yLocation, width, height)
 
         drawItemCount(item, 0)
         pygame.display.update()
@@ -359,12 +376,12 @@ def clearPlayerStats(item):
     height = 30
 
     item = "blankSidebar"
-    scene.drawSidebarItems(item, xLocation, yLocation, width, height)
+    scene.drawItems(item, xLocation, yLocation, width, height)
 
 
 #DRAW the energy and heart icons
 def drawPlayerStats(item, itemNumber):
-    print(playerStats[item])
+    # print(playerStats[item])
     playerStats[item][2] += itemNumber
 
     # There are less items there than there were previously
@@ -385,7 +402,7 @@ def drawPlayerStats(item, itemNumber):
         if i + 0.5 == itemNumber:
             item = item + "-half"
         
-        scene.drawSidebarItems(item, xLocation, yLocation, width, height)
+        scene.drawItems(item, xLocation, yLocation, width, height)
         i += 1
 
 
@@ -452,9 +469,9 @@ def makeBoard(givenBoard):
     for c, colArray in givenBoard.items():
         r = 0
         for chosenItem in colArray:
-
-            scene = Item()
-            scene.drawItem(chosenItem, r, c, itemSize, 0)
+            # scene = Item()
+            drawGridItem(chosenItem, r, c, itemSize, 0)
+            # scene.drawItem(chosenItem, r, c, itemSize, 0)
             
             r+=1
 
@@ -479,8 +496,7 @@ else:
             chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
             colArray.append(chosenItem)
 
-            scene = Item()
-            scene.drawItem(chosenItem, r, c, itemSize, 0)
+            drawGridItem(chosenItem, r, c, itemSize, 0)
 
         
         board[c] = colArray
@@ -518,8 +534,6 @@ def redrawGameWindow():
 
     global board
 
-    allSprites.draw(globs.SCREEN)
-
     if verticalRemoveCount + 1 >= 9:
         #4 sprites, display each for 2 frames = 8 total frames
         verticalRemoveCount = 0
@@ -539,8 +553,7 @@ def redrawGameWindow():
             for item in verticalDict[key]:
                 if isinstance(item, list):
                     for rowNo in item:
-                        scene = Item()
-                        scene.drawItem(globs.deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
+                        drawGridItem(globs.deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
         verticalRemoveCount += 1
         
     if removeHorizontal:
@@ -548,8 +561,7 @@ def redrawGameWindow():
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
-                        scene = Item()
-                        scene.drawItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
+                        drawGridItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
         horizontalRemoveCount += 1
 
     if shiftItemsDown:
@@ -566,13 +578,19 @@ def redrawGameWindow():
 
                 unmovedRow += 1
 
-            scene = Item()
-
-
             #Draw the background in
 
+            #THE unmoved grid is being drawn, after which the blank spaces in between are drawn, and then the items are drawn
             #Key is column
-            scene.drawItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
+            print("drew the blank")
+            print(unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
+            print(" ")
+            print(unmovedRow)
+
+            # scene = Item()
+            # scene.drawItems("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing + 200], 0)
+            
+            drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
 
             # rect_object = pygame.Rect(key*itemSize[0]+innerSpacing*(key)+outerLeftMargin, outerTopMargin, itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing)
             # allSprites.add(rect_object)
@@ -580,20 +598,27 @@ def redrawGameWindow():
 
             # pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
 
-
             for movedItem in movedItemsBoard[key]:
                 selectedItem = board[key][movedItem]
 
+                # if shiftDownCount == 0:
+                #     drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)        
+
+
+                # drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
                 if movedItem == 0:
-                    if "BLANK" not in board[key] and shiftDownCount==3:                
-                        scene = Item()
-                        scene.drawItem(selectedItem, movedItem, key, itemSize, 0)
+                    if "BLANK" not in board[key] and shiftDownCount==3:
+                        print("LAST")
+                        # drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)        
+                        drawGridItem(selectedItem, movedItem, key, itemSize, 0)
+                        pass
                     
                 else:
-                    scene = Item()
-                    scene.drawItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                    drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
 
         shiftDownCount += 1
+        
+    allSprites.draw(globs.SCREEN)
     pygame.display.update()
 
 
@@ -716,8 +741,7 @@ while not gameOver:
                         
                             if len(selectedArray) == 0:
                                 selectedArray.append([columnLocation, rowLocation])
-                                scene = Item()
-                                scene.drawItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
+                                drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
                                 pygame.display.update()
 
                             elif len(selectedArray) == 1:
@@ -727,8 +751,7 @@ while not gameOver:
                                 
                                 # The player selects the same position (row and column) twice
                                 if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
-                                    scene = Item()
-                                    scene.drawItem("deselected-outline", rowLocation, columnLocation, itemSize, 0)
+                                    drawGridItem("deselected-outline", rowLocation, columnLocation, itemSize, 0)
                                     selectedArray = []
                                     pygame.display.update()
 
@@ -751,13 +774,11 @@ while not gameOver:
                                     swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
 
                                 else:
-                                    scene = Item()
-                                    scene.drawItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                    drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                     selectedArray = []
                                     selectedArray.append([columnLocation, rowLocation])
 
-                                    scene = Item()
-                                    scene.drawItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
+                                    drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
                                     pygame.display.update()
 
                                 # If one of the 'swapped' conditions has been met
@@ -772,13 +793,12 @@ while not gameOver:
                                         makeBoard(board)
                                     
                                     elif swappedBoard[selectedArray[0][0]][selectedArray[0][1]] == board[selectedArray[0][0]][selectedArray[0][1]]:
-                                        scene.drawItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                        drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                         selectedArray = []
 
                                     # The items are not swapped
                                     else:
-                                        scene = Item()
-                                        scene.drawItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                        drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                         selectedArray = []
 
             # See if user has lifted the left mouse button
