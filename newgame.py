@@ -631,6 +631,10 @@ def play():
     global gameChanged, shiftItemsDown, board, itemsModified, selectedArray, removeCount, verticalRemoveCount, horizontalRemoveCount, removeVertical, removeHorizontal
     global horizontalDict, verticalDict, movedItemsBoard, unmovedBoard, last_pos
 
+    allSprites.empty()
+
+    makeBoard(board)
+
     drawSidebar()
     drawPlayerStats("heart", 0)
     drawPlayerStats("energy", 0)
@@ -875,16 +879,20 @@ redColor = (226, 39, 38)
 
 greenColor = (4, 73, 52)
 pinkColor = (216, 30, 92)
+lighterPinkColor = (242, 50, 111)
+
+brighterOrangeColor = (255, 151, 48)
 
 orangeRedColor = (245, 75, 42)
 orangeRedColor = (244, 121, 44)
 
 babyBlueColor = (79, 109, 225)
-
 darkBlueColor = (52, 67, 177)
 
 purpleColor = (195, 105, 223)
 purpleColor = (189, 99, 217)
+
+brighterPurpleColor = (201, 86, 239)
 
 
 def drawCenterText(displayText, textSize, textColor, xBackgroundWidth, yLocation):
@@ -953,27 +961,27 @@ def button(textContent, xLocation, yLocation, width, height, backgroundColor, te
 
 
 
-def drawMenu():
-    rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
+# def drawMainMenu():
+#     rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+#     pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
 
-    rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
-    pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
+#     rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
+#     pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
 
-    xLocation = 0
-    yLocation = 0
+#     xLocation = 0
+#     yLocation = 0
 
-    # scene = Item()
+#     # scene = Item()
 
-    gameTitle = "Woodland"
+#     gameTitle = "Woodland"
 
-    drawCenterText(gameTitle, 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
-    scene = Item()
-    scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
+#     drawCenterText(gameTitle, 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
+#     scene = Item()
+#     scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
 
-    scene = Item()
-    scene.drawItem("treeTransparent", 7*screenDimensions[0]/10, 3.9*screenDimensions[1]/10, 150, 150)
-    # pygame.transform.flip()
+#     scene = Item()
+#     scene.drawItem("treeTransparent", 7*screenDimensions[0]/10, 3.9*screenDimensions[1]/10, 150, 150)
+#     # pygame.transform.flip()
 
     
 
@@ -983,29 +991,105 @@ def quitGame():
     quit()
 
 
-
-def mainMenu():
+def pauseMenu():
     global last_pos
     allSprites.empty()
-    drawMenu()
 
-    # rect_object = pygame.Rect(1, 1, screenDimensions[0], screenDimensions[1])
-    # pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
+    globs.SCREEN.fill(backgroundPeachColor)
 
-    # globs.SCREEN.fill(whiteColor)
+    screenTitle = "Pause"
+    drawCenterText(screenTitle, 80, whiteColor, screenDimensions[0]//2, 2.7*screenDimensions[1]/10)
 
-    # button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize, action=None)
-
-
-    button("Start", (screenDimensions[0]- 250)//2, 4.5*screenDimensions[1]/10, 250, 70, pinkColor, whiteColor, 30)
-
-    button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30)
-
-    button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30)
+    button("Resume", (screenDimensions[0]- 400)//2, 3.5*screenDimensions[1]/10, 400, 90, whiteColor, lighterPinkColor, 30)
+    button("Help", (screenDimensions[0]- 375)//2, 5*screenDimensions[1]/10, 375, 90, whiteColor, brighterOrangeColor, 30)
+    button("Quit", (screenDimensions[0]- 330)//2, 6.6*screenDimensions[1]/10, 330, 90, whiteColor, brighterPurpleColor, 30)
 
     while True:
         clock.tick(FPS)
 
+        mouse_pos = pygame.mouse.get_pos()
+        if (mouse_pos != last_pos):
+            mouse_x, mouse_y = mouse_pos
+
+            last_pos = mouse_pos
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                #Resume
+                if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                    play()
+                
+                #Help
+                elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                    print("HELP")
+                
+                #Quit
+                if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
+                    quitGame()
+
+        pygame.display.update()
+
+
+def helpMenu():
+
+    global last_pos
+    allSprites.empty()
+
+    #Thinner green border
+    globs.SCREEN.fill(lighterOrangeColor)
+
+
+
+
+    while True:
+        clock.tick(FPS)
+
+        mouse_pos = pygame.mouse.get_pos()
+        if (mouse_pos != last_pos):
+            mouse_x, mouse_y = mouse_pos
+            # print(mouse_x, mouse_y)
+
+            last_pos = mouse_pos
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                pass
+
+        pygame.display.update()
+
+
+
+def mainMenu():
+    global last_pos
+    allSprites.empty()
+
+    rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+    pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
+
+    rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
+    pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
+
+    gameTitle = "Woodland"
+    drawCenterText(gameTitle, 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
+
+    scene = Item()
+    scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
+
+    scene = Item()
+    scene.drawItem("treeTransparent", 7*screenDimensions[0]/10, 3.9*screenDimensions[1]/10, 150, 150)
+
+    button("Start", (screenDimensions[0]- 250)//2, 4.5*screenDimensions[1]/10, 250, 70, lighterPinkColor, whiteColor, 30)
+    button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30)
+    button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30)
+
+    while True:
         clock.tick(FPS)
 
         mouse_pos = pygame.mouse.get_pos()
@@ -1030,17 +1114,14 @@ def mainMenu():
 
                 # START
                 if (screenDimensions[0]- 200)//2 + 200 > mouse_x > (screenDimensions[0]- 200)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
-                    print("START")
-                    pass
+                    play()
                 
                 # HELP
                 elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
                     print("HELP")
-                    # helpScreen()
                 
                 # QUIT
                 if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 7*screenDimensions[1]/10 + 70 > mouse_y > 7*screenDimensions[1]/10:
-                    print("QUIT")
                     quitGame()
 
                 
@@ -1055,16 +1136,18 @@ def mainMenu():
         
 
 
-gameRunning = False
-mainMenuRunning = True
+# gameRunning = False
+# mainMenuRunning = True
+
+# pauseMenu()
 
 # gameRunning = True
 # mainMenuRunning = False
 
-if gameRunning == True:
-    play()
+# if gameRunning == True:
+#     play()
 
-elif mainMenuRunning == True:
-    mainMenu()
+# elif mainMenuRunning == True:
+#     mainMenu()
 
 pygame.quit()
