@@ -118,6 +118,8 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 sidebarLeftSpacing = 30
 sideBarWidth = 150
 
+previousHeartNumber = 0
+
 simpleItems = [
     "mushroomSimple",
     "heal-potionSimple",
@@ -243,128 +245,12 @@ class Item(pygame.sprite.Sprite):
 
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
         allSprites.add(self)
-
-
-    # def drawSidebarItems(self, item, count):
-    #     self.image = simpleItemDict[item]
-    #     self.rect = self.image.get_rect()
-
-    #     #Space it equal distances from the top
-    #     self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 15
-    #     self.rect.y = count*55 + 2.5*itemSize[1] + outerTopMargin
-
-    #     if count == 0:
-    #         print("hi")
-    #         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 55 + sidebarLeftSpacing
-    #         yLocation = 2.5*itemSize[1] + outerTopMargin - fontS2 - 28
-
-    #         textMessage = "+"
-    #         text_surface = biggerHeadingFont.render(textMessage, False, whiteColor)
-
-    #         globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
-
-    #     elif count == 3:
-    #         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 61 + sidebarLeftSpacing
-    #         # yLocation = 2*itemSize[1] + outerTopMargin - fontS2 - 20
-    #         yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 9
-
-    #         textMessage = "x"
-    #         text_surface = headingFont.render(textMessage, False, blackColor)
-
-    #         globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
-
-
-    #     textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
-    #     xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-    #     yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
-
-    #     if count > 2:
-    #         textColor = blackColor
-    #         self.rect.y += 35
-    #         yLocation += 35
-    #     else:
-    #         textColor = whiteColor
-
-    #     self.width = 30
-    #     self.height = 30
-
-    #     self.image = pygame.transform.scale(self.image, (self.width, self.height))
-    #     allSprites.add(self)
-
-    #     text_surface = mainFont.render(textMessage, False, textColor)
-    #     globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
-
-
-    # def addItemCount(self, item, number):
-    #     #Draw over the initial number count to erase it
-    #     textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
-
-    #     xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-    #     yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
-
-    #     if itemCountDict[item][0] > 2:
-    #         textColor = blackColor
-    #         yLocation += 35
-    #     else:
-    #         textColor = whiteColor
-
-    #     text_surface = mainFont.render(textMessage, False, lighterOrangeColor)
-    #     globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
-
-    #     #Add the number of new items to the count
-    #     itemCountDict[item][1] += number
-    #     textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
-
-    #     text_surface = mainFont.render(textMessage, False, textColor)
-    #     globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
-
-
-
-    # def drawHearts(self, heartNumber):
-
-    #     if heartNumber % 1 == 0.5:
-    #         # print("HALF")
-    #         self.image = itemDict["heart-half"]
-    #     else:
-    #         self.image = itemDict["heart"]
-    #     self.rect = self.image.get_rect()
-
-    #     #DO THIS:
-    #     # self.width = width
-
-    #     self.width = 30
-    #     self.height = 30
-
-    #     self.rect.y = itemSize[1] + outerTopMargin
-    #     self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(heartNumber)*40
-    #     self.image = pygame.transform.scale(self.image, (self.width, self.height))
-    #     allSprites.add(self)
-
-        # self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-        # self.rect.y = outerTopMargin
-
-
-    # def clearHearts(self):
-    #     self.image = itemDict["blankSidebar"]
-    #     self.rect = self.image.get_rect()
-
-    #     self.rect.x = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
-    #     self.rect.y = itemSize[0] + outerTopMargin
-    #     self.width = 3*30 + 2*10
-    #     self.height = 30
-    #     self.image = pygame.transform.scale(self.image, (self.width, self.height))
-    #     allSprites.add(self)
-
-    # def addHeadings(self):
        
 
 
 def sidebarHeadings():
     pass 
-        
 
-
-# class UI(pygame.sprite.Sprite):
 
 # Set up the game
 scene = Item()
@@ -383,7 +269,6 @@ def drawItemCount(item, count):
     if itemCountDict[item][0] > 2:
         textColor = blackColor
         yTextLocation += 35
-        # yLocation += 35
     else:
         textColor = whiteColor
 
@@ -397,19 +282,14 @@ def drawItemCount(item, count):
         itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
 
     text_surface = mainFont.render(itemCountMessage, False, textColor)
-        # print(text_surface)
     globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
 
 
-
 def drawSidebarIcons():
-    
-    # image = simpleItemDict[item]
     width = 30
     height = 30
 
     for item in itemCountDict:
-        # print(item)
         count = itemCountDict[item][0]
 
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 15
@@ -429,7 +309,6 @@ def drawSidebarIcons():
         
         elif count == 3:
             xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 61 + sidebarLeftSpacing
-            # yLocation = 2*itemSize[1] + outerTopMargin - fontS2 - 20
             yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 9
 
             textMessage = "x"
@@ -437,37 +316,13 @@ def drawSidebarIcons():
 
             globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
 
-
-        # itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
-        # xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-        # yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
-
         if count > 2:
-        #     textColor = blackColor
-            # yTextLocation += 35
             yLocation += 35
-        # else:
-        #     textColor = whiteColor
-        
-        # print(item)
-        # print(xLocation)
-        # print(yLocation)
-        # print(" ")
+
         scene.drawSidebarItems(item, xLocation, yLocation, width, height)
 
         drawItemCount(item, 0)
-        
-        # print(" ")
-        # print(xTextLocation)
-        # print(yTextLocation)
-        # # print(itemCountMessage)
-        # text_surface = mainFont.render(itemCountMessage, False, textColor)
-        # print(text_surface)
-        # globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
-
         pygame.display.update()
-
-
 
 
 def clearHearts():
@@ -483,53 +338,32 @@ def clearHearts():
 
 
 def drawHearts(heartNumber):
-    # i = heartNumber
-    # j = 0
+    global previousHeartNumber
 
-    # #Get until you see the last 0.5
-    # while i > 0:
-    #     print(i)
-    #     scene = Item()
-    #     scene.drawHearts(i)
-    #     i -= 1
-    # pygame.sprite.Group().empty()
-    # heartBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing, itemSize[1] + outerTopMargin, 3*30 + 2*10, 30)
-   
-    # pygame.draw.rect(globs.SCREEN, whiteColor, heartBg)
-    # pygame.display.update()
-    # print("HI")
-
-    clearHearts()
+    if heartNumber < previousHeartNumber:
+        clearHearts()
 
     i = 0
 
-    #self, item, xLocation, yLocation, width, height
     width = 30
     height = 30
 
-    xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(heartNumber)*40
-    yLocation = itemSize[1] + outerTopMargin
-
     while i < heartNumber:
-        print(i+0.5)
+        # print(i+0.5)
         scene = Item()
 
-        if heartNumber % 1 == 0.5:
+        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(i)*40
+        yLocation = itemSize[1] + outerTopMargin
+
+        if i + 0.5 == heartNumber:
             item = "heart-half"
         else:
             item = "heart"
         
+        scene.drawSidebarItems(item, xLocation, yLocation, width, height)
         i += 1
 
-    scene.drawSidebarItems(item, xLocation, yLocation, width, height)
-        
-        # if i + 0.5 == heartNumber:
-        #     print("HELLO") 
-        #     scene.drawHearts(i+0.5)
-        # else:
-        #     scene.drawHearts(i)
-
-        # i += 1
+    previousHeartNumber = heartNumber
 
 def addItemCount(item, number):
     #Draw over the initial number count to erase it
@@ -556,14 +390,9 @@ def addItemCount(item, number):
 
 
 def drawSidebar():
-
-    # rect_object = pygame.Rect(globs.COLUMN_COUNT * itemSize[0] + outerLeftMargin + 200, 0, 500, 1000)
-    # pygame.draw.rect(globs.SCREEN, uiColor, rect_object)
-
     #Draw the orange background
     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
     pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
-
 
     #Draw the top bar
     topBarBg = pygame.Rect(outerLeftMargin, 35, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 90)
@@ -572,34 +401,17 @@ def drawSidebar():
     topBar = pygame.Rect(outerLeftMargin+5, 40, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 10, 80)
     pygame.draw.rect(globs.SCREEN, darkerOrangeColor, topBar)
 
-
     #Draw the right side bar
     sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
     pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
 
     sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
-    # sideBar = pygame.Rect(outerLeftMargin, 30, screenDimensions[0]-(2*outerLeftMargin), 80)
     pygame.draw.rect(globs.SCREEN, lighterOrangeColor, sideBar)
 
-    # count = 0
-    # for item in itemCountDict:
-    #     xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 15
-    #     yLocation = count*55 + 2.5*itemSize[1] + outerTopMargin
-    #     # self, item, xLocation, yLocation, width, height
-
-    #     scene = Item()
-    #     scene.drawSidebarItems(item, xLocation, yLocation, width, height)
-
-    #     count+=1
 
 drawSidebar()
 drawHearts(3)
 drawSidebarIcons()
-
-# pygame.display.update()
-# getHearts(2.5)
-# pygame.display.update()
-
 
 
 def makeBoard(givenBoard):
