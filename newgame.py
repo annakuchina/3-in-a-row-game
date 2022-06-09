@@ -105,9 +105,6 @@ lighterOrangeColor = (255, 174, 99)
 
 rectangle_draging = False
 itemLen = len(itemTypes)
-itemArray = []
-
-
 image = ""
 
 allSprites = pygame.sprite.Group()
@@ -123,16 +120,10 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 sidebarLeftSpacing = 30
 sideBarWidth = 150
 
-previousHeartNumber = 0
 
-simpleItems = [
-    "mushroomSimple",
-    "heal-potionSimple",
-    "poison-potionSimple",
-    "snakeSimple",
-    "moonSimple",
-    "treeSimple"
-    ]
+itemsDrawn = False
+
+
 
 class Item(pygame.sprite.Sprite):
     def __init__(self):
@@ -215,14 +206,14 @@ class Item(pygame.sprite.Sprite):
         }
 
         global itemCountDict
-        # First index: order in which the item is display, Second: the current count of items, Third: the required tally of items
+        # First index: order in which the item is display, Second: the previous count of items, Third: the current count of items, Fourth: the required tally of items
         itemCountDict = {
-        "mushroomSimple": [0, 0, 3],
-        "treeSimple": [1, 0, 6],
-        "heal-potionSimple": [2, 0, 9],
-        "snakeSimple": [3, 0, 15],
-        "moonSimple": [4, 0, 10],
-        "poison-potionSimple": [5, 0, 9]
+        "mushroomSimple": [0, 0, 0, 4],
+        "treeSimple": [1, 0, 0, 6],
+        "heal-potionSimple": [2, 0, 0, 9],
+        "snakeSimple": [3, 0, 0, 15],
+        "moonSimple": [4, 0, 0, 10],
+        "poison-potionSimple": [5, 0, 0, 9]
         }
 
     def drawItem(self, item, xLocation, yLocation, width, height):
@@ -244,6 +235,7 @@ scene = Item()
 scene.setup()
 pygame.time.delay(1000)
 
+
 def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
     xLocation = colNo*givenItemSize[0] + innerSpacing*colNo + outerLeftMargin
     yLocation = (rowNo+rowMultiplier)*givenItemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
@@ -255,9 +247,9 @@ def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
     scene.drawItem(chosenItem, xLocation, yLocation, width, height)
 
 
-def drawItemCount(item, itemNumber):
-
-    itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
+def drawItemCount(item):
+    global itemsDrawn
+    itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
     xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
     yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 25
 
@@ -268,31 +260,39 @@ def drawItemCount(item, itemNumber):
         textColor = whiteColor
 
     #If icons have already been drawn, cover over them with the background color to clear them
-    if itemNumber != 0:
+    if itemsDrawn == True:
         text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
         globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
 
-        itemCountDict[item][1] += itemNumber
-        itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
+        itemCountMessage = str(itemCountDict[item][2]) + "/" + str(itemCountDict[item][3])
 
     text_surface = mainFont.render(itemCountMessage, False, textColor)
     globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
 
+    itemsDrawn = True
+
+
 
 def calculatePlayerStats(item, itemNumber):
-    # Take the number that needs to be added/subtracted, and do it
+    # Take the number that needs to be added/subtracted, and to it
 
     # If the thing is bigger than limit, run the different function
-    if itemCountDict[item][1] + itemNumber > itemCountDict[item][2]:
-        itemCountDict[item][1] = 0
-        drawItemCount(item, 0)
+    if itemCountDict[item][2] + itemNumber >= itemCountDict[item][3]:
+        itemCountDict[item][1] = itemCountDict[item][2]
+        itemCountDict[item][2] = itemCountDict[item][3]
+        drawItemCount(item)
+    
+    elif itemCountDict[item][2] != itemCountDict[item][3]:
+        itemCountDict[item][1] = itemCountDict[item][2]
+        itemCountDict[item][2] += itemNumber
+        print("hi")
 
         #Do things depending on if its a good or bad item
-
-    else:
-        # itemCountDict[item][1] += itemNumber
-        # print("didnt pass threshold")
-        drawItemCount(item, itemNumber)
+    drawItemCount(item)
+    # else:
+    #     # itemCountDict[item][1] += itemNumber
+    #     # print("didnt pass threshold")
+    #     drawItemCount(item, itemNumber)
 
     pass    
 
@@ -334,7 +334,7 @@ def drawSidebarIcons():
 
         scene.drawItem(item, xLocation, yLocation, width, height)
 
-        drawItemCount(item, 0)
+        drawItemCount(item)
         pygame.display.update()
 
 
@@ -351,30 +351,40 @@ def clearPlayerStats(item):
     scene.drawItem(item, xLocation, yLocation, width, height)
 
 
+
+
 #DRAW the energy and heart icons
 def drawPlayerStats(item, itemNumber):
     # print(playerStats[item])
+    playerStats[item][1] = playerStats[item][2]
     playerStats[item][2] += itemNumber
 
+    selectedItem = item
+
+    print(playerStats)
+
     # There are less items there than there were previously
-    if itemNumber < playerStats[item][1]:
+    print(playerStats[item][2])
+    print(playerStats[item][1])
+    if playerStats[item][2] < playerStats[item][1]:
         clearPlayerStats(item)
+        print("CLEAR")
 
     i = 0
 
     width = 30
     height = 30
 
-    while i < itemNumber:
+    while i < playerStats[item][2]:
         scene = Item()
 
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(i)*40
         yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
 
-        if i + 0.5 == itemNumber:
-            item = item + "-half"
+        if i + 0.5 == playerStats[item][2]:
+            selectedItem = selectedItem + "-half"
         
-        scene.drawItem(item, xLocation, yLocation, width, height)
+        scene.drawItem(selectedItem, xLocation, yLocation, width, height)
         i += 1
 
 
@@ -399,12 +409,9 @@ def drawSidebar():
 
 
 drawSidebar()
-drawPlayerStats("heart", 3)
-drawPlayerStats("energy", 3)
-drawPlayerStats("energy", 2.5)
+drawPlayerStats("heart", 0)
+drawPlayerStats("energy", 0)
 drawSidebarIcons()
-
-
 
 
 
@@ -636,6 +643,11 @@ while not gameOver:
         itemsModified = False
 
 
+    if itemsModified == False and shiftDown == False and removeHorizontal == False and removeVertical == False:
+        # Check if there are any full things
+        pass
+
+
     for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -724,6 +736,7 @@ while not gameOver:
                                     # The items are not swapped
                                     else:
                                         drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                        drawPlayerStats("energy", -0.5)
                                         selectedArray = []
 
             # See if user has lifted the left mouse button
