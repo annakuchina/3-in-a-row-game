@@ -625,11 +625,11 @@ gameOver = False
 #     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
 #     pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
 
-
+last_pos = (0, 0)
 # Play Screen
 def play(): 
     global gameChanged, shiftItemsDown, board, itemsModified, selectedArray, removeCount, verticalRemoveCount, horizontalRemoveCount, removeVertical, removeHorizontal
-    global horizontalDict, verticalDict, movedItemsBoard, unmovedBoard
+    global horizontalDict, verticalDict, movedItemsBoard, unmovedBoard, last_pos
 
     drawSidebar()
     drawPlayerStats("heart", 0)
@@ -638,6 +638,13 @@ def play():
 
     while True:
         clock.tick(FPS)
+
+        mouse_pos = pygame.mouse.get_pos()
+        if (mouse_pos != last_pos):
+            mouse_x, mouse_y = mouse_pos
+            # print(mouse_x, mouse_y)
+
+            last_pos = mouse_pos
 
         # globs.SCREEN.fill(backgroundPeachColor)
 
@@ -729,6 +736,7 @@ def play():
 
 
         for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
                     sys.exit()
 
@@ -738,7 +746,7 @@ def play():
                         if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
 
                             itemSelected = True
-                            mouse_x, mouse_y = event.pos
+                            # mouse_x, mouse_y = event.pos
 
                             xLocation = mouse_x - outerLeftMargin
                             yLocation = mouse_y - outerTopMargin
@@ -977,9 +985,9 @@ def quitGame():
 
 
 def mainMenu():
+    global last_pos
     allSprites.empty()
     drawMenu()
-    print("u9")
 
     # rect_object = pygame.Rect(1, 1, screenDimensions[0], screenDimensions[1])
     # pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
@@ -998,6 +1006,15 @@ def mainMenu():
     while True:
         clock.tick(FPS)
 
+        clock.tick(FPS)
+
+        mouse_pos = pygame.mouse.get_pos()
+        if (mouse_pos != last_pos):
+            mouse_x, mouse_y = mouse_pos
+            # print(mouse_x, mouse_y)
+
+            last_pos = mouse_pos
+
         
         # globs.SCREEN.fill(backgroundPeachColor)
         # rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
@@ -1006,16 +1023,30 @@ def mainMenu():
         
 
         for event in pygame.event.get():
-            mouse_x, mouse_y = event.pos
-
             if event.type == pygame.QUIT:
                 sys.exit()
             
             elif event.type == pygame.MOUSEBUTTONDOWN:
-               
-                if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
-                    print("quitting")
+
+                # START
+                if (screenDimensions[0]- 200)//2 + 200 > mouse_x > (screenDimensions[0]- 200)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
+                    print("START")
+                    pass
+                
+                # HELP
+                elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
+                    print("HELP")
+                    # helpScreen()
+                
+                # QUIT
+                if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 7*screenDimensions[1]/10 + 70 > mouse_y > 7*screenDimensions[1]/10:
+                    print("QUIT")
                     quitGame()
+
+                
+                
+
+                
                 # pass
 
         pygame.display.update()
@@ -1024,11 +1055,11 @@ def mainMenu():
         
 
 
-# gameRunning = False
-# mainMenuRunning = True
+gameRunning = False
+mainMenuRunning = True
 
-gameRunning = True
-mainMenuRunning = False
+# gameRunning = True
+# mainMenuRunning = False
 
 if gameRunning == True:
     play()
