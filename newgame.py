@@ -37,8 +37,8 @@ fontS3 = 50
 
 fontS1 = 16
 
-gameRunning = False
-mainMenuRunning = True
+gameRunning = True
+# mainMenuRunning = True
 
 # globs.SCREEN.fill((0, 0, 0))
 
@@ -419,11 +419,14 @@ def drawSidebar():
     pygame.draw.rect(globs.SCREEN, lighterOrangeColor, sideBar)
 
 
-if gameRunning == True:
-    drawSidebar()
-    drawPlayerStats("heart", 0)
-    drawPlayerStats("energy", 0)
-    drawSidebarIcons()
+
+
+
+# if gameRunning == True:
+#     drawSidebar()
+#     drawPlayerStats("heart", 0)
+#     drawPlayerStats("energy", 0)
+#     drawSidebarIcons()
 
 
 
@@ -583,34 +586,61 @@ shiftedBoard = {}
 droppedItemsDict = {}
 
 
-def showGameOverScreen(gameOver):
-    while gameOver:
-        print("Hi")
+# def showGameOverScreen(gameOver):
+#     while gameOver:
+#         print("Hi")
+#         clock.tick(FPS)
+#         # scene = Item()
+#         # scene.setup()
+
+#         rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+#         pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+
+#         # allSprites.draw(globs.SCREEN)
+#         pygame.display.update()
+
+#         # redrawGameWindow()
+#     # self.screen.blit()
+
+
+gameOver = False
+# mainMenuRunning = True
+# gameRunning = False
+# # showGameOverScreen(gameOver)
+# menuCreated = False
+
+# def createMenu():
+#     global menuCreated
+#     menuCreated = True
+#     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+#     pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+
+
+# Play Screen
+def play(): 
+    global gameChanged, shiftItemsDown, board, itemsModified
+
+    drawSidebar()
+    drawPlayerStats("heart", 0)
+    drawPlayerStats("energy", 0)
+    drawSidebarIcons()
+
+    while True:
         clock.tick(FPS)
-        # scene = Item()
-        # scene.setup()
 
-        rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-        pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+        # globs.SCREEN.fill(backgroundPeachColor)
 
-        # allSprites.draw(globs.SCREEN)
-        pygame.display.update()
+        # if mainMenuRunning == True and gameRunning == False:
+        #     #Do the main menu things
+        #     # print('bbbbb')
+        #     if menuCreated == False:
+        #         print("createdMenu")
+        #         createMenu()
+        #     #Button click = true for gamerunning etc
+        #     pygame.display.update()
 
-        # redrawGameWindow()
-    # self.screen.blit()
+            # pass
 
-gameOver = True
-showGameOverScreen(gameOver)
-
-while not gameOver:
-    clock.tick(FPS)
-
-    if mainMenuRunning == True:
-        #Do the main menu things
-        #Button click = true for gamerunning etc
-        pass
-
-    elif gameRunning == True:
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
         if gameChanged == True and shiftItemsDown == False:
             verticalDict = itemCollectVertical(board, itemTypes)
@@ -817,5 +847,79 @@ while not gameOver:
 
         # Drawing the game
         redrawGameWindow()
+
+redColor = (226, 39, 38)
+
+
+def fontGenerator(displayText, textSize, textColor, xLocation, yLocation):
+    font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
+    textSurface = font.render(displayText, False, textColor)
+
+    if xLocation == "center":
+        textRect = textSurface.get_rect(center = (screenDimensions[0] // 2, yLocation))
+        globs.SCREEN.blit(textSurface, textRect)
+
+    else:
+        globs.SCREEN.blit(textSurface, (xLocation, yLocation))
+
+
+# def fontCen
+
+
+def drawMenu():
+    rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+    pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+
+    xLocation = 0
+    yLocation = 0
+
+    textColor = whiteColor
+
+    gameTitle = "Woodland"
+
+    fontGenerator(gameTitle, 80, redColor, "center", screenDimensions[1]/3)
+
+
+
+
+
+
+
+def mainMenu():
+    drawMenu()
+    print("u9")
+
+    # rect_object = pygame.Rect(1, 1, screenDimensions[0], screenDimensions[1])
+    # pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
+
+    # globs.SCREEN.fill(whiteColor)
+    while True:
+        clock.tick(FPS)
+        # globs.SCREEN.fill(backgroundPeachColor)
+        # rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+        # pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                pass
+
+        pygame.display.update()
+        
+
+
+gameRunning = False
+mainMenuRunning = True
+
+# gameRunning = True
+# mainMenuRunning = False
+
+if gameRunning == True:
+    play()
+
+elif mainMenuRunning == True:
+    mainMenu()
 
 pygame.quit()
