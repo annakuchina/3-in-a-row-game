@@ -136,8 +136,11 @@ class Item(pygame.sprite.Sprite):
         self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert()
         self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert()
         self.snake = pygame.image.load(os.path.join("images", "snake.png")).convert()
-        self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert_alpha()
+        self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert()
         self.tree = pygame.image.load(os.path.join("images", "tree.png")).convert()
+
+        self.mushroomTransparent = pygame.image.load(os.path.join("images", "mushroomTransparent.png")).convert_alpha()
+        self.treeTransparent = pygame.image.load(os.path.join("images", "treeTransparent.png")).convert_alpha()
 
         self.heart = pygame.image.load(os.path.join("images", "heart.png")).convert_alpha()
         self.heartHalf = pygame.image.load(os.path.join("images", "heart-half.png")).convert_alpha()
@@ -177,7 +180,10 @@ class Item(pygame.sprite.Sprite):
         "poison-potion": self.poisonPotion,
         "snake": self.snake,
         "moon": self.moon,
-        "tree": self.tree,
+        "tree": self.tree, 
+
+        "mushroomTransparent": self.mushroomTransparent,
+        "treeTransparent": self.treeTransparent,
 
         "small1": self.small1,
         "small2": self.small2,
@@ -849,35 +855,112 @@ def play():
         redrawGameWindow()
 
 redColor = (226, 39, 38)
+# redColor = (239, 50, 50)
 
 
-def fontGenerator(displayText, textSize, textColor, xLocation, yLocation):
+
+greenColor = (4, 73, 52)
+pinkColor = (216, 30, 92)
+
+orangeRedColor = (245, 75, 42)
+orangeRedColor = (244, 121, 44)
+
+babyBlueColor = (79, 109, 225)
+
+darkBlueColor = (52, 67, 177)
+
+purpleColor = (195, 105, 223)
+purpleColor = (189, 99, 217)
+
+
+def drawCenterText(displayText, textSize, textColor, xBackgroundWidth, yLocation):
+    font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
+    textSurface = font.render(displayText, False, textColor)
+    textRect = textSurface.get_rect(center = (xBackgroundWidth, yLocation))
+    print(xBackgroundWidth)
+
+
+    print(yLocation)
+    globs.SCREEN.blit(textSurface, textRect)
+
+
+    # screenDimensions[0] // 2, yLocation
+
+
+def drawText(displayText, textSize, textColor, xLocation, yLocation):
     font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
 
-    if xLocation == "center":
-        textRect = textSurface.get_rect(center = (screenDimensions[0] // 2, yLocation))
-        globs.SCREEN.blit(textSurface, textRect)
+    # if xLocation == "center":
+    #     textRect = textSurface.get_rect(center = (screenDimensions[0] // 2, yLocation))
+    #     globs.SCREEN.blit(textSurface, textRect)
 
-    else:
-        globs.SCREEN.blit(textSurface, (xLocation, yLocation))
+    # else:
+    globs.SCREEN.blit(textSurface, (xLocation, yLocation))
 
 
 # def fontCen
 
+# def button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, xTextLocation, yTextLocation, action=None):
+#     # global screen
+#     mouse = pygame.mouse.get_pos()
+#     click = pygame.mouse.get_pressed()
+#     if xLocation + width > mouse[0] > xLocation and yLocation + height > mouse[1] > yLocation:
+#         if click[0] == 1 and action != None:
+#             print("HI")
+#             action()
+#     if backgroundColor:
+#         pygame.draw.rect(globs.SCREEN, backgroundColor, (xLocation, yLocation, width, height))
+#     if textContent:
+#         drawText(textContent, 30, textColor, xTextLocation, yTextLocation)
+
+
+
+def button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize, action=None):
+    # global screen
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if xLocation + width > mouse[0] > xLocation and yLocation + height > mouse[1] > yLocation:
+        if click[0] == 1 and action != None:
+            print("HI")
+            action()
+    pygame.draw.rect(globs.SCREEN, backgroundColor, (xLocation, yLocation, width, height))
+
+    drawCenterText(textContent, textSize, textColor, width//2 + xLocation, height//2 + yLocation)
+
+    # textSurface = font.render(textContent, False, textColor)
+
+    # textRect = textSurface.get_rect(center = (screenDimensions[0] // 2, yLocation))
+
+    # # xTextLocation = 
+
+    # drawText(textContent, 30, textColor, xTextLocation, yTextLocation)
+
+
 
 def drawMenu():
-    rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+    rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+    pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
+
+    rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
+    pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
 
     xLocation = 0
     yLocation = 0
 
-    textColor = whiteColor
+    # scene = Item()
 
     gameTitle = "Woodland"
 
-    fontGenerator(gameTitle, 80, redColor, "center", screenDimensions[1]/3)
+    drawCenterText(gameTitle, 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
+    scene = Item()
+    scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
+
+    scene = Item()
+    scene.drawItem("treeTransparent", 7*screenDimensions[0]/10, 3.9*screenDimensions[1]/10, 150, 150)
+    # pygame.transform.flip()
+
+    
 
 
 
@@ -886,6 +969,7 @@ def drawMenu():
 
 
 def mainMenu():
+    allSprites.empty()
     drawMenu()
     print("u9")
 
@@ -893,6 +977,16 @@ def mainMenu():
     # pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
 
     # globs.SCREEN.fill(whiteColor)
+
+    # button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize, action=None)
+
+
+    button("Start", (screenDimensions[0]- 250)//2, 4.5*screenDimensions[1]/10, 250, 70, pinkColor, whiteColor, 30, None)
+
+    button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30, None)
+
+    button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30, None)
+
     while True:
         clock.tick(FPS)
         # globs.SCREEN.fill(backgroundPeachColor)
@@ -907,6 +1001,8 @@ def mainMenu():
                 pass
 
         pygame.display.update()
+        allSprites.draw(globs.SCREEN)
+    
         
 
 
