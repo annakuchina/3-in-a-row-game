@@ -1,19 +1,16 @@
-from operator import ne
-from optparse import Values
 import os, pygame, random, sys, math
-from tkinter import W
-from re import I
-# from pprint import pp
-from string import whitespace
-from unicodedata import name
-import numpy
-from os import system
-import time
+# from string import whitespace
+# from unicodedata import name
+# import numpy
+# from os import system
+# import time
 # from connect_four_game.globs import COLUMN_COUNT
 # from connect_four_game.globs import COLUMN_COUNT
 import globs
 import copy
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
+
+# import gameOver
 
 # myFont = pygame.font.SysFont("monospace", 60)
 
@@ -62,6 +59,7 @@ down = 0
 
 
 shiftItemsDown = False
+playerStatsModified = False
 
 screenDimensions = [925, 840] 
 
@@ -200,13 +198,13 @@ class Item(pygame.sprite.Sprite):
 
         global playerStats
         playerStats = {
-            # First index: order in which the item is in display, Second: the previous count of items, Third: the current count of items
+            # 0 index: order in which the item is in display, 1: the previous count of items, 2: the current count of items
             "heart": [0, 3, 3],
             "energy": [1, 3, 3]
         }
 
         global itemCountDict
-        # First index: order in which the item is display, Second: the previous count of items, Third: the current count of items, Fourth: the required tally of items
+        # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items
         itemCountDict = {
         "mushroomSimple": [0, 0, 0, 4],
         "treeSimple": [1, 0, 0, 6],
@@ -285,8 +283,12 @@ def calculatePlayerStats(item, itemNumber):
     elif itemCountDict[item][2] != itemCountDict[item][3]:
         itemCountDict[item][1] = itemCountDict[item][2]
         itemCountDict[item][2] += itemNumber
-        print("hi")
-
+        # print("hi")
+    
+    if itemCountDict[item][2] == 0:
+        gameOver = True
+        showGameOverScreen(gameOver)
+        
         #Do things depending on if its a good or bad item
     drawItemCount(item)
     # else:
@@ -361,14 +363,14 @@ def drawPlayerStats(item, itemNumber):
 
     selectedItem = item
 
-    print(playerStats)
+    # print(playerStats)
 
-    # There are less items there than there were previously
-    print(playerStats[item][2])
-    print(playerStats[item][1])
+    # # There are less items there than there were previously
+    # print(playerStats[item][2])
+    # print(playerStats[item][1])
     if playerStats[item][2] < playerStats[item][1]:
         clearPlayerStats(item)
-        print("CLEAR")
+        # print("CLEAR")
 
     i = 0
 
@@ -383,6 +385,13 @@ def drawPlayerStats(item, itemNumber):
 
         if i + 0.5 == playerStats[item][2]:
             selectedItem = selectedItem + "-half"
+
+        elif i + 0.25 == playerStats[item][2] and playerStats[item][1] % 1 == 0.5:
+            selectedItem = selectedItem + "-half"
+
+        # elif i + 0.25 == playerStats[item][2] and playerStats[item][1] % 1 == 1:
+        #     selectedItem = selectedItem
+
         
         scene.drawItem(selectedItem, xLocation, yLocation, width, height)
         i += 1
@@ -571,6 +580,25 @@ shiftedBoard = {}
 droppedItemsDict = {}
 
 
+def showGameOverScreen(gameOver):
+    while gameOver:
+        print("Hi")
+        clock.tick(FPS)
+        # scene = Item()
+        # scene.setup()
+
+        rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+        pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+
+        # allSprites.draw(globs.SCREEN)
+        pygame.display.update()
+
+        # redrawGameWindow()
+    # self.screen.blit()
+
+gameOver = True
+showGameOverScreen(gameOver)
+
 while not gameOver:   
     clock.tick(FPS)
 
@@ -643,9 +671,11 @@ while not gameOver:
         itemsModified = False
 
 
-    if itemsModified == False and shiftDown == False and removeHorizontal == False and removeVertical == False:
-        # Check if there are any full things
-        pass
+    # if playerStatsModified == True and itemsModified == False and shiftDown == False and removeHorizontal == False and removeVertical == False:
+    #     # Check if there are any full things
+        
+
+    #     pass
 
 
     for event in pygame.event.get():
@@ -727,16 +757,25 @@ while not gameOver:
                                         selectedArray = []
                                         gameChanged = True
                                         board = copy.deepcopy(swappedBoard)
+                                        drawPlayerStats("energy", -0.25)
+                                        print(playerStats)
+                                        print("Subtracted the energy 0.25")
+                                        playerStatsModified = True
                                         makeBoard(board)
                                     
                                     elif swappedBoard[selectedArray[0][0]][selectedArray[0][1]] == board[selectedArray[0][0]][selectedArray[0][1]]:
                                         drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                        drawPlayerStats("energy", -0.5)
+                                        print("Subtracted the energy 0.5")
+                                        playerStatsModified = True
                                         selectedArray = []
 
                                     # The items are not swapped
                                     else:
                                         drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                         drawPlayerStats("energy", -0.5)
+                                        print("Subtracted the energy 0.5")
+                                        playerStatsModified = True
                                         selectedArray = []
 
             # See if user has lifted the left mouse button
