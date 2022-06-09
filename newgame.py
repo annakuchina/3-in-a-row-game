@@ -201,10 +201,13 @@ class Item(pygame.sprite.Sprite):
         "treeSimple": self.treeSimple
         }
 
-        global simpleItemDict
-        simpleItemDict = {
-        
+        global playerStats
+        playerStats = {
+            # First index: order in which the item is in display, Second: the previous count of items, Third: the current count of items
+            "heart": [0, 3, 3],
+            "energy": [1, 3, 3]
         }
+        print(playerStats)
 
         # global smallerItemDict
         # smallerItemDict = {}
@@ -258,7 +261,7 @@ scene.setup()
 pygame.time.delay(1000)
 
 
-def drawItemCount(item, count):
+def drawItemCount(item, itemNumber):
     # itemCountDict[item]
     # print("HERE")
 
@@ -273,16 +276,37 @@ def drawItemCount(item, count):
         textColor = whiteColor
 
     #If icons have already been drawn, cover over them with the background color to clear them
-    if count != 0:
+    if itemNumber != 0:
         print(itemCountMessage)
         text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
         globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
 
-        itemCountDict[item][1] += count
+        itemCountDict[item][1] += itemNumber
         itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
 
     text_surface = mainFont.render(itemCountMessage, False, textColor)
     globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
+
+
+def calculatePlayerStats(item, itemNumber):
+    # Take the number that needs to be added/subtracted, and do it
+
+    # If the thing is bigger than limit, run the different function
+    if itemCountDict[item][1] + itemNumber >= itemCountDict[item][2]:
+        itemCountDict[item][1] = 0
+        drawItemCount(item, 0)
+
+        print("Passed threshold")
+
+        #Do things depending on if its a good or bad item
+
+    else:
+        # itemCountDict[item][1] += itemNumber
+        print("didnt pass threshold")
+        drawItemCount(item, itemNumber)
+
+    pass    
+
 
 
 def drawSidebarIcons():
@@ -325,68 +349,71 @@ def drawSidebarIcons():
         pygame.display.update()
 
 
-def clearHearts():
+def clearPlayerStats(item):
     scene = Item()
-    item = "blankSidebar"
 
     xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
-    yLocation = itemSize[0] + outerTopMargin
+    yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
 
     width = 3*30 + 2*10
     height = 30
+
+    item = "blankSidebar"
     scene.drawSidebarItems(item, xLocation, yLocation, width, height)
 
 
-def drawHearts(heartNumber):
-    global previousHeartNumber
+#DRAW the energy and heart icons
+def drawPlayerStats(item, itemNumber):
+    print(playerStats[item])
+    playerStats[item][2] += itemNumber
 
-    if heartNumber < previousHeartNumber:
-        clearHearts()
+    # There are less items there than there were previously
+    if itemNumber < playerStats[item][1]:
+        clearPlayerStats(item)
 
     i = 0
 
     width = 30
     height = 30
 
-    while i < heartNumber:
-        # print(i+0.5)
+    while i < itemNumber:
         scene = Item()
 
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(i)*40
-        yLocation = itemSize[1] + outerTopMargin
+        yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
 
-        if i + 0.5 == heartNumber:
-            item = "heart-half"
-        else:
-            item = "heart"
+        if i + 0.5 == itemNumber:
+            item = item + "-half"
         
         scene.drawSidebarItems(item, xLocation, yLocation, width, height)
         i += 1
 
-    previousHeartNumber = heartNumber
 
-def addItemCount(item, number):
-    #Draw over the initial number count to erase it
-    textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
 
-    xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
-    yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
 
-    if itemCountDict[item][0] > 2:
-        textColor = blackColor
-        yLocation += 35
-    else:
-        textColor = whiteColor
+# def addItemCount(item, number):
+#     #Draw over the initial number count to erase it
+#     print("HFJKDS")
+#     textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
 
-    text_surface = mainFont.render(textMessage, False, lighterOrangeColor)
-    globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+#     xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
+#     yLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 5
 
-     #Add the number of new items to the count
-    itemCountDict[item][1] += number
-    textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
+#     if itemCountDict[item][0] > 2:
+#         textColor = blackColor
+#         yLocation += 35
+#     else:
+#         textColor = whiteColor
 
-    text_surface = mainFont.render(textMessage, False, textColor)
-    globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+#     text_surface = mainFont.render(textMessage, False, lighterOrangeColor)
+#     globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
+
+#      #Add the number of new items to the count
+#     itemCountDict[item][1] += number
+#     textMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][2])
+
+#     text_surface = mainFont.render(textMessage, False, textColor)
+#     globs.SCREEN.blit(text_surface, (xLocation, yLocation + 20))
 
 
 def drawSidebar():
@@ -410,8 +437,14 @@ def drawSidebar():
 
 
 drawSidebar()
-drawHearts(3)
+drawPlayerStats("heart", 3)
+drawPlayerStats("energy", 3)
+drawPlayerStats("energy", 2.5)
 drawSidebarIcons()
+
+
+
+
 
 
 def makeBoard(givenBoard):
@@ -458,13 +491,6 @@ verticalRemoveCount = 0
 shiftDownCount = 0
 
 itemsModified = False
-
-
-# print(board)
-
-
-# scene = Item()
-# scene.addItemCount("mushroom", 3)
 
 
 
@@ -605,7 +631,7 @@ while not gameOver:
                         # DO HERE
                         matchItem = board[key][item[0]]
                         matchLength = len(item)
-                        drawItemCount(matchItem + "Simple", matchLength)
+                        calculatePlayerStats(matchItem + "Simple", matchLength)
 
                         for rowNo in item:
                             board[key][rowNo] = "BLANK"
@@ -624,7 +650,7 @@ while not gameOver:
 
                         matchItem = board[item[0]][key]
                         matchLength = len(item)
-                        drawItemCount(matchItem + "Simple", matchLength)
+                        calculatePlayerStats(matchItem + "Simple", matchLength)
 
                         for colNo in item:
                             board[colNo][key] = "BLANK"
