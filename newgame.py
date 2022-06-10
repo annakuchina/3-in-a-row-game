@@ -668,9 +668,19 @@ while gameRunning:
     #     play()
 
     if playScreenRunning:
+
         if initiateScreen:
             play()
             initiateScreen = False
+
+        clock.tick(FPS)
+        # play()
+        mouse_pos = pygame.mouse.get_pos()
+        if (mouse_pos != last_pos):
+            mouse_x, mouse_y = mouse_pos
+            last_pos = mouse_pos
+
+            
 
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
         if gameChanged == True and shiftItemsDown == False:
@@ -763,27 +773,24 @@ while gameRunning:
             if event.button == 1:
 
                 if mainMenuRunning:
-                    print("HI")
                     #Resume
-                    if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
-                        play()
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
                         # play()
                         mainMenuRunning = False
                         playScreenRunning = True
                         initiateScreen = True
                         print("play")
-
-
+                        
+                    
                     #Help
-                    elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
-                        print("hi")
                     elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
                         print("HELP")
-
+                    
                     #Quit
                     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
+
+
                 elif helpMenuRunning:
                     #Resume
                     if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
@@ -796,6 +803,7 @@ while gameRunning:
                     #Quit
                     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
+
                 elif gameRunning:
                     if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
                             itemSelected = True
