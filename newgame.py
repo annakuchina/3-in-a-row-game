@@ -640,112 +640,18 @@ def play():
     drawPlayerStats("energy", 0)
     drawSidebarIcons()
 
-    while True:
-        clock.tick(FPS)
-
-        mouse_pos = pygame.mouse.get_pos()
-        if (mouse_pos != last_pos):
-            mouse_x, mouse_y = mouse_pos
-            # print(mouse_x, mouse_y)
-
-            last_pos = mouse_pos
-
-        # globs.SCREEN.fill(backgroundPeachColor)
-
-        # if mainMenuRunning == True and gameRunning == False:
-        #     #Do the main menu things
-        #     # print('bbbbb')
-        #     if menuCreated == False:
-        #         print("createdMenu")
-        #         createMenu()
-        #     #Button click = true for gamerunning etc
-        #     pygame.display.update()
-
-            # pass
-
-        # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
-        if gameChanged == True and shiftItemsDown == False:
-            verticalDict = itemCollectVertical(board, itemTypes)
-            horizontalDict = itemCollectHorizontal(board, itemTypes)
- 
-            if len(verticalDict) > 0:
-                removeVertical = True
-
-                for key in verticalDict:
-                    for item in verticalDict[key]:
-                        if isinstance(item, list):
-                            # DO HERE
-                            matchItem = board[key][item[0]]
-                            matchLength = len(item)
-                            calculatePlayerStats(matchItem + "Simple", matchLength)
-
-                            for rowNo in item:
-                                board[key][rowNo] = "BLANK"
-
-            else:
-                removeVertical = False
-                removeCount = 0
-                verticalRemoveCount = 0
-
-            if len(horizontalDict) > 0:
-                removeHorizontal = True
-
-                for key in horizontalDict:
-                    for item in horizontalDict[key]:
-                        
-                        if isinstance(item, list):
-                            matchItem = board[item[0]][key]
-                            matchLength = len(item)
-                            calculatePlayerStats(matchItem + "Simple", matchLength)
-
-                            for colNo in item:
-                                board[colNo][key] = "BLANK"
-
-            else:
-                removeHorizontal = False
-                removeCount = 0
-                horizontalRemoveCount = 0
-
-            gameChanged = False
+    
 
 
-        if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
-            blankCount = 0
 
-            unmovedBoard = {}
-            movedItemsBoard = {}
+        # for event in pygame.event.get():
 
-            for key in board:
-                if "BLANK" in board[key]:
-                    shiftItemsDown = True
-                    blankCount += 1
-                    modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
-                    movedItemsBoard[key] = modifiedItems
-                    board[key] = shiftedCol
-                    unmovedBoard[key] = unchangedCol
+        #         if event.type == pygame.QUIT:
+        #             sys.exit()
 
-            if blankCount == 0:
-                shiftItemsDown = False
-
-        if itemsModified == True and shiftItemsDown == False:
-            gameChanged = True
-            itemsModified = False
-
-
-        # if playerStatsModified == True and itemsModified == False and shiftDown == False and removeHorizontal == False and removeVertical == False:
-        #     # Check if there are any full things
-            
-
-        #     pass
-
-
-        for event in pygame.event.get():
-
-                if event.type == pygame.QUIT:
-                    sys.exit()
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
+        #         if event.type == pygame.MOUSEBUTTONDOWN:
+        #             if event.button == 1:
+        #                 pass
 
                         
 
@@ -881,34 +787,23 @@ def pauseMenu():
     button("Help", (screenDimensions[0]- 375)//2, 5*screenDimensions[1]/10, 375, 90, whiteColor, brighterOrangeColor, 30)
     button("Quit", (screenDimensions[0]- 330)//2, 6.6*screenDimensions[1]/10, 330, 90, whiteColor, brighterPurpleColor, 30)
 
-    while True:
-        clock.tick(FPS)
+    # while True:
+    #     clock.tick(FPS)
 
-        mouse_pos = pygame.mouse.get_pos()
-        if (mouse_pos != last_pos):
-            mouse_x, mouse_y = mouse_pos
+    #     mouse_pos = pygame.mouse.get_pos()
+    #     if (mouse_pos != last_pos):
+    #         mouse_x, mouse_y = mouse_pos
 
-            last_pos = mouse_pos
+    #         last_pos = mouse_pos
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             sys.exit()
             
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                # if event.type = 1:
-                #Resume
-                if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
-                    play()
+    #         elif event.type == pygame.MOUSEBUTTONDOWN:
                 
-                #Help
-                elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
-                    print("HELP")
-                
-                #Quit
-                if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
-                    quitGame()
 
-        pygame.display.update()
+    #     pygame.display.update()
 
 
 def helpMenu():
@@ -920,27 +815,25 @@ def helpMenu():
     globs.SCREEN.fill(lighterOrangeColor)
 
 
+    # while True:
+    #     clock.tick(FPS)
 
+    #     mouse_pos = pygame.mouse.get_pos()
+    #     if (mouse_pos != last_pos):
+    #         mouse_x, mouse_y = mouse_pos
+    #         # print(mouse_x, mouse_y)
 
-    while True:
-        clock.tick(FPS)
+    #         last_pos = mouse_pos
 
-        mouse_pos = pygame.mouse.get_pos()
-        if (mouse_pos != last_pos):
-            mouse_x, mouse_y = mouse_pos
-            # print(mouse_x, mouse_y)
-
-            last_pos = mouse_pos
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             sys.exit()
             
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+    #         elif event.type == pygame.MOUSEBUTTONDOWN:
                 
-                pass
+    #             pass
 
-        pygame.display.update()
+    #     pygame.display.update()
 
 
 
@@ -967,57 +860,49 @@ def mainMenu():
     button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30)
     button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30)
 
-    while True:
-        clock.tick(FPS)
+    # while True:
+    #     clock.tick(FPS)
 
-        mouse_pos = pygame.mouse.get_pos()
-        if (mouse_pos != last_pos):
-            mouse_x, mouse_y = mouse_pos
-            # print(mouse_x, mouse_y)
-
-            last_pos = mouse_pos
-
-        
-        # globs.SCREEN.fill(backgroundPeachColor)
-        # rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-        # pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+    #     mouse_pos = pygame.mouse.get_pos()
+    #     if (mouse_pos != last_pos):
+    #         mouse_x, mouse_y = mouse_pos
+    #         last_pos = mouse_pos
 
         
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             sys.exit()
             
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
+    #         elif event.type == pygame.MOUSEBUTTONDOWN:
+    #             if event.button == 1:
                     
                     
-                    # START
-                    if (screenDimensions[0]- 200)//2 + 200 > mouse_x > (screenDimensions[0]- 200)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
-                        play()
+    #                 # START
+    #                 if (screenDimensions[0]- 200)//2 + 200 > mouse_x > (screenDimensions[0]- 200)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
+    #                     play()
                     
-                    # HELP
-                    elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
-                        print("HELP")
+    #                 # HELP
+    #                 elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
+    #                     print("HELP")
                     
-                    # QUIT
-                    if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 7*screenDimensions[1]/10 + 70 > mouse_y > 7*screenDimensions[1]/10:
-                        quitGame()
+    #                 # QUIT
+    #                 if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 7*screenDimensions[1]/10 + 70 > mouse_y > 7*screenDimensions[1]/10:
+    #                     quitGame()
 
                     
-                    
+    #                 # pass
 
-                    
-                    # pass
-
-        pygame.display.update()
-        allSprites.draw(globs.SCREEN)
+    #     pygame.display.update()
+    #     allSprites.draw(globs.SCREEN)
 
 
 
 
-gameRunning = True
+gameRunning = False
 mainMenuRunning = True
+pauseMenuRunning = False
+helpMenuRunning = False
 
 # pauseMenu()
 
@@ -1032,6 +917,91 @@ if gameRunning:
     if (mouse_pos != last_pos):
         mouse_x, mouse_y = mouse_pos
         last_pos = mouse_pos
+
+
+
+    if gameRunning:
+        play()
+
+        # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
+        if gameChanged == True and shiftItemsDown == False:
+            verticalDict = itemCollectVertical(board, itemTypes)
+            horizontalDict = itemCollectHorizontal(board, itemTypes)
+ 
+            if len(verticalDict) > 0:
+                removeVertical = True
+
+                for key in verticalDict:
+                    for item in verticalDict[key]:
+                        if isinstance(item, list):
+                            # DO HERE
+                            matchItem = board[key][item[0]]
+                            matchLength = len(item)
+                            calculatePlayerStats(matchItem + "Simple", matchLength)
+
+                            for rowNo in item:
+                                board[key][rowNo] = "BLANK"
+
+            else:
+                removeVertical = False
+                removeCount = 0
+                verticalRemoveCount = 0
+
+            if len(horizontalDict) > 0:
+                removeHorizontal = True
+
+                for key in horizontalDict:
+                    for item in horizontalDict[key]:
+                        
+                        if isinstance(item, list):
+                            matchItem = board[item[0]][key]
+                            matchLength = len(item)
+                            calculatePlayerStats(matchItem + "Simple", matchLength)
+
+                            for colNo in item:
+                                board[colNo][key] = "BLANK"
+
+            else:
+                removeHorizontal = False
+                removeCount = 0
+                horizontalRemoveCount = 0
+
+            gameChanged = False
+
+
+        if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
+            blankCount = 0
+
+            unmovedBoard = {}
+            movedItemsBoard = {}
+
+            for key in board:
+                if "BLANK" in board[key]:
+                    shiftItemsDown = True
+                    blankCount += 1
+                    modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
+                    movedItemsBoard[key] = modifiedItems
+                    board[key] = shiftedCol
+                    unmovedBoard[key] = unchangedCol
+
+            if blankCount == 0:
+                shiftItemsDown = False
+
+        if itemsModified == True and shiftItemsDown == False:
+            gameChanged = True
+            itemsModified = False
+
+    elif mainMenuRunning:
+        mainMenu()
+
+    elif pauseMenuRunning:
+        pauseMenu()
+
+
+    elif helpMenuRunning:
+        helpMenu()
+
+
 
     
 
@@ -1054,6 +1024,21 @@ if gameRunning:
                     #Quit
                     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
+
+
+                elif helpMenuRunning:
+                    #Resume
+                    if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                        play()
+                    
+                    #Help
+                    elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                        print("HELP")
+                    
+                    #Quit
+                    if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
+                        quitGame()
+
 
                 elif gameRunning:
                     if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
@@ -1165,10 +1150,9 @@ if gameRunning:
                     newRowLocation = (mouse_y-outerTopMargin) // (itemSize[0]+innerSpacing)
 
         # Drawing the game
-        redrawGameWindow()
+        # redrawGameWindow()
 
-
-
+    allSprites.draw(globs.SCREEN)
     pygame.display.update()
 
 
