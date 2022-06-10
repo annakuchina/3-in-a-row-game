@@ -177,6 +177,7 @@ def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
     height = givenItemSize[1]
     scene = Item()
     scene.drawItem(chosenItem, xLocation, yLocation, width, height)
+
 def drawItemCount(item):
     global itemsDrawn
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
@@ -195,6 +196,7 @@ def drawItemCount(item):
     text_surface = mainFont.render(itemCountMessage, False, textColor)
     globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
     itemsDrawn = True
+
 def calculatePlayerStats(item, itemNumber):
     # Take the number that needs to be added/subtracted, and to it
     # If the thing is bigger than limit, run the different function
@@ -214,11 +216,8 @@ def calculatePlayerStats(item, itemNumber):
         
         #Do things depending on if its a good or bad item
     drawItemCount(item)
-    # else:
-    #     # itemCountDict[item][1] += itemNumber
-    #     # print("didnt pass threshold")
-    #     drawItemCount(item, itemNumber)
-    pass    
+        
+
 def drawSidebarIcons():
     width = 30
     height = 30
@@ -267,13 +266,11 @@ def drawPlayerStats(item, itemNumber):
     playerStats[item][1] = playerStats[item][2]
     playerStats[item][2] += itemNumber
     selectedItem = item
-    # print(playerStats)
+
     # # There are less items there than there were previously
-    # print(playerStats[item][2])
-    # print(playerStats[item][1])
     if playerStats[item][2] < playerStats[item][1]:
         clearPlayerStats(item)
-        # print("CLEAR")
+
     i = 0
     width = 30
     height = 30
@@ -285,8 +282,6 @@ def drawPlayerStats(item, itemNumber):
             selectedItem = selectedItem + "-half"
         elif i + 0.25 == playerStats[item][2] and playerStats[item][1] % 1 == 0.5:
             selectedItem = selectedItem + "-half"
-        # elif i + 0.25 == playerStats[item][2] and playerStats[item][1] % 1 == 1:
-        #     selectedItem = selectedItem
         
         scene.drawItem(selectedItem, xLocation, yLocation, width, height)
         i += 1
