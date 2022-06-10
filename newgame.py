@@ -342,6 +342,9 @@ verticalRemoveCount = 0
 shiftDownCount = 0
 itemsModified = False
 
+addItemBorder = False
+removeItemBorder = False
+removeAllItemBorders = False
 
 def redrawGameWindow():
     global firstGo
@@ -358,6 +361,8 @@ def redrawGameWindow():
     global horizontalDict, verticalDict
     global previousBoard
     global board
+    global addItemBorder, removeItemBorder, removeAllItemBorders
+    global selectedArray
 
     if verticalRemoveCount + 1 >= 9:
         #4 sprites, display each for 2 frames = 8 total frames
@@ -417,6 +422,25 @@ def redrawGameWindow():
                     drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
                     # pygame.display.update()
         shiftDownCount += 1
+
+    if addItemBorder:
+        drawGridItem("selected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+        pygame.display.update()
+        addItemBorder = False
+
+    if removeItemBorder:
+        drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+        pygame.display.update()
+        selectedArray = []
+        removeItemBorder = False
+
+    if removeAllItemBorders:
+        print(selectedArray)
+        drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+        drawGridItem("deselected-outline", selectedArray[1][1], selectedArray[1][0], itemSize, 0)
+        pygame.display.update()
+        removeAllItemBorders = False
+
     
     allSprites.draw(globs.SCREEN)
     pygame.display.update()
@@ -733,10 +757,18 @@ while gameRunning:
                                 horizontalDict = itemCollectHorizontal(board, itemTypes)
                             
                                 if len(selectedArray) == 0:
+                                    
                                     selectedArray.append([columnLocation, rowLocation])
+                                    #Selected array and displayedArray -> moves from selected to displayed
+                                    
+                                    print(selectedArray)
+
                                     selectedItem = True
-                                    drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
-                                    pygame.display.update()
+
+                                    addItemBorder = True
+
+                                    # drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
+                                    # pygame.display.update()
                                     # pygame.display.update()
 
                                 elif len(selectedArray) == 1:
@@ -746,9 +778,10 @@ while gameRunning:
                                     
                                     # The player selects the same position (row and column) twice
                                     if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
-                                        drawGridItem("deselected-outline", rowLocation, columnLocation, itemSize, 0)
-                                        selectedArray = []
-                                        pygame.display.update()
+                                        # drawGridItem("deselected-outline", rowLocation, columnLocation, itemSize, 0)
+                                        removeItemBorder = True
+                                        # selectedArray = []
+                                        # pygame.display.update()
                                         # pygame.display.update()
 
                                     #Two items are identical in a column (vertical)
@@ -770,12 +803,20 @@ while gameRunning:
                                         swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
                                     
                                     else:
-                                        drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
-                                        selectedArray = []
-                                        selectedArray.append([columnLocation, rowLocation])
+                                        removeItemBorder = True
+                                        #Remove it from the PREVIOUS one
 
-                                        drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
-                                        pygame.display.update()
+                                        print(selectedArray)
+                                        print(columnLocation, rowLocation)
+                                        # drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                        # selectedArray = []
+
+                                        #Do different things for adding and subtracting - selectedArray, replacementArray
+                                        selectedArray.append([columnLocation, rowLocation])
+                                        addItemBorder = True
+
+                                        # drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
+                                        # pygame.display.update()
                                         # pygame.display.update()
 
                                     # If one of the 'swapped' conditions has been met
@@ -793,14 +834,17 @@ while gameRunning:
                                             makeBoard(board)
                                         
                                         elif swappedBoard[selectedArray[0][0]][selectedArray[0][1]] == board[selectedArray[0][0]][selectedArray[0][1]]:
-                                            drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                            removeItemBorder = True
+                                            # drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+
                                             drawPlayerStats("energy", -0.5)
                                             # print("Subtracted the energy 0.5")
                                             playerStatsModified = True
                                             selectedArray = []
                                         # The items are not swapped
                                         else:
-                                            drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+                                            removeItemBorder = True
+                                            # drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                             drawPlayerStats("energy", -0.5)
                                             # print("Subtracted the energy 0.5")
                                             playerStatsModified = True
