@@ -14,7 +14,7 @@ from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 # myFont = pygame.font.SysFont("monospace", 60)
 clock = pygame.time.Clock()
 FPS = 8
-dt = clock.tick(FPS)
+# dt = clock.tick(FPS)
 pygame.init()
 pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
 pygame.display.set_icon(pygame_icon)
@@ -425,6 +425,7 @@ itemDragging = False
 selectedArray = []
 shiftedBoard = {}
 droppedItemsDict = {}
+
 # def showGameOverScreen(gameOver):
 #     while gameOver:
 #         print("Hi")
@@ -437,6 +438,7 @@ droppedItemsDict = {}
 #         pygame.display.update()
 #         # redrawGameWindow()
 #     # self.screen.blit()
+
 gameOver = False
 # mainMenuRunning = True
 # gameRunning = False
@@ -447,6 +449,7 @@ gameOver = False
 #     menuCreated = True
 #     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
 #     pygame.draw.rect(globs.SCREEN, whiteColor, rect_object)
+
 last_pos = (0, 0)
 # Play Screen
 def play(): 
@@ -479,68 +482,26 @@ darkBlueColor = (52, 67, 177)
 purpleColor = (195, 105, 223)
 purpleColor = (189, 99, 217)
 brighterPurpleColor = (201, 86, 239)
+
 def drawCenterText(displayText, textSize, textColor, xBackgroundWidth, yLocation):
     font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
     textRect = textSurface.get_rect(center = (xBackgroundWidth, yLocation))
-    # print(xBackgroundWidth)
-    # print(yLocation)
     globs.SCREEN.blit(textSurface, textRect)
-    # screenDimensions[0] // 2, yLocation
+
 def drawText(displayText, textSize, textColor, xLocation, yLocation):
     font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
-    # if xLocation == "center":
-    #     textRect = textSurface.get_rect(center = (screenDimensions[0] // 2, yLocation))
-    #     globs.SCREEN.blit(textSurface, textRect)
-    # else:
     globs.SCREEN.blit(textSurface, (xLocation, yLocation))
-# def fontCen
-# def button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, xTextLocation, yTextLocation, action=None):
-#     # global screen
-#     mouse = pygame.mouse.get_pos()
-#     click = pygame.mouse.get_pressed()
-#     if xLocation + width > mouse[0] > xLocation and yLocation + height > mouse[1] > yLocation:
-#         if click[0] == 1 and action != None:
-#             print("HI")
-#             action()
-#     if backgroundColor:
-#         pygame.draw.rect(globs.SCREEN, backgroundColor, (xLocation, yLocation, width, height))
-#     if textContent:
-#         drawText(textContent, 30, textColor, xTextLocation, yTextLocation)
+
 def button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize):
-    # global screen
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    # if xLocation + width > mouse[0] > xLocation and yLocation + height > mouse[1] > yLocation:
-    #     # if click[0] == 1 and action != None:
-    #     #     print("HI")
-    #     #     action()
     pygame.draw.rect(globs.SCREEN, backgroundColor, (xLocation, yLocation, width, height))
     drawCenterText(textContent, textSize, textColor, width//2 + xLocation, height//2 + yLocation)
-    # textSurface = font.render(textContent, False, textColor)
-    # textRect = textSurface.get_rect(center = (screenDimensions[0] // 2, yLocation))
-    # # xTextLocation = 
-    # drawText(textContent, 30, textColor, xTextLocation, yTextLocation)
-# def drawMainMenu():
-#     rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-#     pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
-#     rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
-#     pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
-#     xLocation = 0
-#     yLocation = 0
-#     # scene = Item()
-#     gameTitle = "Woodland"
-#     drawCenterText(gameTitle, 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
-#     scene = Item()
-#     scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
-#     scene = Item()
-#     scene.drawItem("treeTransparent", 7*screenDimensions[0]/10, 3.9*screenDimensions[1]/10, 150, 150)
-#     # pygame.transform.flip()
     
 def quitGame():
     pygame.quit()
     quit()
+
 def pauseMenu():
     global last_pos
     allSprites.empty()
@@ -550,39 +511,15 @@ def pauseMenu():
     button("Resume", (screenDimensions[0]- 400)//2, 3.5*screenDimensions[1]/10, 400, 90, whiteColor, lighterPinkColor, 30)
     button("Help", (screenDimensions[0]- 375)//2, 5*screenDimensions[1]/10, 375, 90, whiteColor, brighterOrangeColor, 30)
     button("Quit", (screenDimensions[0]- 330)//2, 6.6*screenDimensions[1]/10, 330, 90, whiteColor, brighterPurpleColor, 30)
-    # while True:
-    #     clock.tick(FPS)
-    #     mouse_pos = pygame.mouse.get_pos()
-    #     if (mouse_pos != last_pos):
-    #         mouse_x, mouse_y = mouse_pos
-    #         last_pos = mouse_pos
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             sys.exit()
-            
-    #         elif event.type == pygame.MOUSEBUTTONDOWN:
-                
-    #     pygame.display.update()
+
+
 def helpMenu():
     global last_pos
     allSprites.empty()
     #Thinner green border
     globs.SCREEN.fill(lighterOrangeColor)
-    # while True:
-    #     clock.tick(FPS)
-    #     mouse_pos = pygame.mouse.get_pos()
-    #     if (mouse_pos != last_pos):
-    #         mouse_x, mouse_y = mouse_pos
-    #         # print(mouse_x, mouse_y)
-    #         last_pos = mouse_pos
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             sys.exit()
-            
-    #         elif event.type == pygame.MOUSEBUTTONDOWN:
-                
-    #             pass
-    #     pygame.display.update()
+
+
 def mainMenu():
     global last_pos
     allSprites.empty()
@@ -602,39 +539,6 @@ def mainMenu():
 
     allSprites.draw(globs.SCREEN)
 
-    # while True:
-    #     clock.tick(FPS)
-
-    #     mouse_pos = pygame.mouse.get_pos()
-    #     if (mouse_pos != last_pos):
-    #         mouse_x, mouse_y = mouse_pos
-    #         last_pos = mouse_pos
-        
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             sys.exit()
-            
-    #         elif event.type == pygame.MOUSEBUTTONDOWN:
-    #             if event.button == 1:
-                    
-                    
-    #                 # START
-    #                 if (screenDimensions[0]- 200)//2 + 200 > mouse_x > (screenDimensions[0]- 200)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
-    #                     play()
-                    
-    #                 # HELP
-    #                 elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
-    #                     print("HELP")
-                    
-    #                 # QUIT
-    #                 if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 7*screenDimensions[1]/10 + 70 > mouse_y > 7*screenDimensions[1]/10:
-    #                     quitGame()
-                    
-    #                 # pass
-    #     pygame.display.update()
-    #     allSprites.draw(globs.SCREEN)
-
-
 
 gameRunning = False
 gameRunning = True
@@ -647,12 +551,8 @@ playScreenRunning = False
 
 initiateScreen = True
 
-# pauseMenu()
 
-# gameRunning = True
-# mainMenuRunning = False
 
-# if gameRunning:
 while gameRunning:
     clock.tick(FPS)
     # play()
@@ -910,8 +810,8 @@ while gameRunning:
 
 
 
-if mainMenuRunning == True:
-    mainMenu()
+# if mainMenuRunning == True:
+#     mainMenu()
 # elif mainMenuRunning == True:
 #     mainMenu()
 
