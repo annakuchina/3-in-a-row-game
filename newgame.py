@@ -1,4 +1,5 @@
 import os, pygame, random, sys, math
+from re import T
 # from string import whitespace
 # from unicodedata import name
 # import numpy
@@ -343,9 +344,10 @@ def drawSidebarIcons():
             yLocation += 35
 
         scene.drawItem(item, xLocation, yLocation, width, height)
-
+        print(item)
         drawItemCount(item)
-        pygame.display.update()
+
+        allSprites.draw(globs.SCREEN)
 
 
 def clearPlayerStats(item):
@@ -403,6 +405,8 @@ def drawPlayerStats(item, itemNumber):
         
         scene.drawItem(selectedItem, xLocation, yLocation, width, height)
         i += 1
+
+    allSprites.draw(globs.SCREEN)
 
 
 def drawSidebar():
@@ -860,6 +864,8 @@ def mainMenu():
     button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30)
     button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30)
 
+    allSprites.draw(globs.SCREEN)
+
     # while True:
     #     clock.tick(FPS)
 
@@ -899,17 +905,22 @@ def mainMenu():
 
 
 
-gameRunning = False
+gameRunning = True
+
 mainMenuRunning = True
 pauseMenuRunning = False
 helpMenuRunning = False
+
+playScreenRunning = False
+
+initiateScreen = True
 
 # pauseMenu()
 
 # gameRunning = True
 # mainMenuRunning = False
 
-if gameRunning:
+while gameRunning:
     clock.tick(FPS)
     # play()
 
@@ -918,10 +929,10 @@ if gameRunning:
         mouse_x, mouse_y = mouse_pos
         last_pos = mouse_pos
 
-
-
-    if gameRunning:
-        play()
+    if playScreenRunning:
+        if initiateScreen:
+            play()
+            initiateScreen = False
 
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
         if gameChanged == True and shiftItemsDown == False:
@@ -990,16 +1001,28 @@ if gameRunning:
         if itemsModified == True and shiftItemsDown == False:
             gameChanged = True
             itemsModified = False
+            
+        pygame.display.update()
 
     elif mainMenuRunning:
-        mainMenu()
+        if initiateScreen:
+            mainMenu()
+            print("initiating")
+            pygame.display.update()
+            initiateScreen = False
 
     elif pauseMenuRunning:
-        pauseMenu()
+        if initiateScreen:
+            pauseMenu()
+            pygame.display.update()
+            initiateScreen = False
 
 
     elif helpMenuRunning:
-        helpMenu()
+        if initiateScreen:
+            helpMenu()
+            pygame.display.update()
+            initiateScreen = False
 
 
 
@@ -1010,15 +1033,22 @@ if gameRunning:
             sys.exit()
         
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            print("djkdjk")
             if event.button == 1:
 
                 if mainMenuRunning:
+                    print("HI")
                     #Resume
-                    if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
-                        play()
+                    if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
+                        # play()
+                        mainMenuRunning = False
+                        playScreenRunning = True
+                        initiateScreen = True
+                        print("play")
+                        
                     
                     #Help
-                    elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                    elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
                         print("HELP")
                     
                     #Quit
@@ -1065,7 +1095,7 @@ if gameRunning:
                                 if len(selectedArray) == 0:
                                     selectedArray.append([columnLocation, rowLocation])
                                     drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
-                                    pygame.display.update()
+                                    # pygame.display.update()
 
                                 elif len(selectedArray) == 1:
                                     # There is 1 item currently selected
@@ -1076,7 +1106,7 @@ if gameRunning:
                                     if selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation:
                                         drawGridItem("deselected-outline", rowLocation, columnLocation, itemSize, 0)
                                         selectedArray = []
-                                        pygame.display.update()
+                                        # pygame.display.update()
 
                                     #Two items are identical in a column (vertical)
                                     elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
@@ -1102,7 +1132,7 @@ if gameRunning:
                                         selectedArray.append([columnLocation, rowLocation])
 
                                         drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
-                                        pygame.display.update()
+                                        # pygame.display.update()
 
                                     # If one of the 'swapped' conditions has been met
                                     if swappedItems == True:
@@ -1152,12 +1182,12 @@ if gameRunning:
         # Drawing the game
         # redrawGameWindow()
 
-    allSprites.draw(globs.SCREEN)
-    pygame.display.update()
+    # allSprites.draw(globs.SCREEN)
+    
 
 
 
-elif mainMenuRunning == True:
-    mainMenu()
+# elif mainMenuRunning == True:
+#     mainMenu()
 
 pygame.quit()
