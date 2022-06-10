@@ -551,7 +551,7 @@ initiateScreen = True
 
 
 while gameRunning:
-    clock.tick(FPS)
+    
     # play()
 
     mouse_pos = pygame.mouse.get_pos()
@@ -801,6 +801,8 @@ while gameRunning:
     allSprites.draw(globs.SCREEN)
     pygame.display.update()
     # allSprites.draw(globs.SCREEN)
+
+    clock.tick(FPS)
 
 
 pygame.quit()
