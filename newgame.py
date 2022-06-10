@@ -491,6 +491,7 @@ itemsModified = False
 
 
 def redrawGameWindow():
+    print("drawing game window")
     global firstGo
     global shiftedDict
 
@@ -929,7 +930,13 @@ while gameRunning:
         mouse_x, mouse_y = mouse_pos
         last_pos = mouse_pos
 
+
+    
+
     if playScreenRunning:
+        if gameChanged:
+            redrawGameWindow()
+
         if initiateScreen:
             play()
             initiateScreen = False
@@ -1001,7 +1008,7 @@ while gameRunning:
         if itemsModified == True and shiftItemsDown == False:
             gameChanged = True
             itemsModified = False
-            
+
         pygame.display.update()
 
     elif mainMenuRunning:
@@ -1164,7 +1171,7 @@ while gameRunning:
                                             playerStatsModified = True
                                             selectedArray = []
 
-                    redrawGameWindow()
+                    # redrawGameWindow()
 
                 # See if user has lifted the left mouse button
         elif event.type == pygame.MOUSEBUTTONUP:
