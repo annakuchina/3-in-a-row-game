@@ -167,7 +167,9 @@ class Item(pygame.sprite.Sprite):
 # Set up the game
 scene = Item()
 scene.setup()
-pygame.time.delay(1000)
+# pygame.time.delay(1500)
+
+
 def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
     xLocation = colNo*givenItemSize[0] + innerSpacing*colNo + outerLeftMargin
     yLocation = (rowNo+rowMultiplier)*givenItemSize[1] + innerSpacing*(rowNo+rowMultiplier) + outerTopMargin
@@ -573,8 +575,7 @@ while gameRunning:
             play()
             initiateScreen = False
 
-        clock.tick(FPS)
-        # play()
+
         mouse_pos = pygame.mouse.get_pos()
         if (mouse_pos != last_pos):
             mouse_x, mouse_y = mouse_pos
@@ -639,7 +640,6 @@ while gameRunning:
         pygame.display.update()
 
     elif mainMenuRunning:
-        mainMenu()
         if initiateScreen:
             mainMenu()
             print("initiating")
@@ -647,7 +647,6 @@ while gameRunning:
             initiateScreen = False
 
     elif pauseMenuRunning:
-        pauseMenu()
         if initiateScreen:
             pauseMenu()
             pygame.display.update()
@@ -655,7 +654,6 @@ while gameRunning:
 
 
     elif helpMenuRunning:
-        helpMenu()
         if initiateScreen:
             helpMenu()
             pygame.display.update()
@@ -673,6 +671,7 @@ while gameRunning:
             if event.button == 1:
 
                 if mainMenuRunning:
+                    print("hi")
                     #Resume
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
                         # play()
@@ -723,6 +722,7 @@ while gameRunning:
                             
                                 if len(selectedArray) == 0:
                                     selectedArray.append([columnLocation, rowLocation])
+                                    selectedItem = True
                                     drawGridItem("selected-outline", rowLocation, columnLocation, itemSize, 0)
                                     pygame.display.update()
                                     # pygame.display.update()
@@ -807,12 +807,5 @@ while gameRunning:
     pygame.display.update()
     # allSprites.draw(globs.SCREEN)
 
-
-
-
-# if mainMenuRunning == True:
-#     mainMenu()
-# elif mainMenuRunning == True:
-#     mainMenu()
 
 pygame.quit()
