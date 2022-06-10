@@ -1136,18 +1136,18 @@ def mainMenu():
         
 
 
-# gameRunning = False
-# mainMenuRunning = True
+gameRunning = False
+mainMenuRunning = True
 
 # pauseMenu()
 
 # gameRunning = True
 # mainMenuRunning = False
 
-# if gameRunning == True:
-#     play()
+if gameRunning == True:
+    play()
 
-# elif mainMenuRunning == True:
-#     mainMenu()
+elif mainMenuRunning == True:
+    mainMenu()
 
 pygame.quit()
