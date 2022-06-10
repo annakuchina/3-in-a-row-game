@@ -193,6 +193,7 @@ def drawItemCount(item):
         text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
         globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
         itemCountMessage = str(itemCountDict[item][2]) + "/" + str(itemCountDict[item][3])
+        
     text_surface = mainFont.render(itemCountMessage, False, textColor)
     globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
     itemsDrawn = True
@@ -340,6 +341,8 @@ horizontalRemoveCount = 0
 verticalRemoveCount = 0
 shiftDownCount = 0
 itemsModified = False
+
+
 def redrawGameWindow():
     global firstGo
     global shiftedDict
@@ -355,17 +358,21 @@ def redrawGameWindow():
     global horizontalDict, verticalDict
     global previousBoard
     global board
+
     if verticalRemoveCount + 1 >= 9:
         #4 sprites, display each for 2 frames = 8 total frames
         verticalRemoveCount = 0
         removeVertical = False
+
     if horizontalRemoveCount + 1 >= 9:
         horizontalRemoveCount = 0
         removeHorizontal = False
+
     if shiftDownCount + 1 >= 5:
         #Display 4 positions for 1 frames each = 4 total frames
         shiftDownCount = 0
         shiftItemsDown = False
+
     if removeVertical:
         for key in verticalDict:
             for item in verticalDict[key]:
@@ -381,6 +388,7 @@ def redrawGameWindow():
                     for colNo in item:
                         drawGridItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
         horizontalRemoveCount += 1
+
     if shiftItemsDown:
         # Old sprites are being emptied, the unmoved board is created
         allSprites.empty()
@@ -409,9 +417,14 @@ def redrawGameWindow():
                     drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
                     # pygame.display.update()
         shiftDownCount += 1
-        
+    
     allSprites.draw(globs.SCREEN)
     pygame.display.update()
+    
+    # if removeVertical or removeHorizontal or shiftItemsDown:
+    #     allSprites.draw(globs.SCREEN)
+    #     pygame.display.update()
+
 gameChanged = True
 gameOver = False
 turn = 0
@@ -559,8 +572,6 @@ while gameRunning:
         mouse_x, mouse_y = mouse_pos
         last_pos = mouse_pos
 
-
-
     # if gameRunning:
     #     play()
 
@@ -576,7 +587,6 @@ while gameRunning:
             mouse_x, mouse_y = mouse_pos
             last_pos = mouse_pos
 
-            
 
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
         if gameChanged == True and shiftItemsDown == False:
@@ -614,6 +624,10 @@ while gameRunning:
                 removeCount = 0
                 horizontalRemoveCount = 0
             gameChanged = False
+
+            redrawGameWindow()
+            pygame.display.update()
+
         if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
             blankCount = 0
             unmovedBoard = {}
@@ -632,7 +646,11 @@ while gameRunning:
             gameChanged = True
             itemsModified = False
 
+
+        redrawGameWindow()
         pygame.display.update()
+
+        
 
     elif mainMenuRunning:
         if initiateScreen:
@@ -662,7 +680,7 @@ while gameRunning:
             sys.exit()
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            print("djkdjk")
+            # print("djkdjk")
             if event.button == 1:
 
                 if mainMenuRunning:
@@ -674,7 +692,6 @@ while gameRunning:
                         playScreenRunning = True
                         initiateScreen = True
                         print("play")
-                        
                     
                     #Help
                     elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
@@ -738,16 +755,20 @@ while gameRunning:
                                     elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation+1:
                                         swappedItems = True
                                         swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation+1] = swappedBoard[columnLocation][rowLocation+1], swappedBoard[columnLocation][rowLocation]
+
                                     elif selectedArray[0][0] == columnLocation and selectedArray[0][1] == rowLocation-1:
                                         swappedItems = True
                                         swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation-1] = swappedBoard[columnLocation][rowLocation-1], swappedBoard[columnLocation][rowLocation]
+                                    
                                     #Two items are identical in a row (horizontal)
                                     elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation+1:
                                         swappedItems = True
                                         swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation+1][rowLocation] = swappedBoard[columnLocation+1][rowLocation], swappedBoard[columnLocation][rowLocation]
+                                    
                                     elif selectedArray[0][1] == rowLocation and selectedArray[0][0] == columnLocation-1:
                                         swappedItems = True
                                         swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
+                                    
                                     else:
                                         drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                         selectedArray = []
@@ -784,7 +805,7 @@ while gameRunning:
                                             # print("Subtracted the energy 0.5")
                                             playerStatsModified = True
                                             selectedArray = []
-                    redrawGameWindow()
+                    # redrawGameWindow()
                 # See if user has lifted the left mouse button
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
@@ -798,8 +819,8 @@ while gameRunning:
         # Drawing the game
         # redrawGameWindow()
 
-    allSprites.draw(globs.SCREEN)
-    pygame.display.update()
+    # allSprites.draw(globs.SCREEN)
+    # pygame.display.update()
     # allSprites.draw(globs.SCREEN)
 
     clock.tick(FPS)
