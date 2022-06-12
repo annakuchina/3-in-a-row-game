@@ -352,6 +352,10 @@ removeItemBorder = False
 
 modifyEnergy = 0
 
+
+boardChanged = False
+
+
 def redrawGameWindow():
     global firstGo
     global shiftedDict
@@ -370,6 +374,7 @@ def redrawGameWindow():
     global addItemBorder, removeItemBorder
     global selectedArray, displayedArray
     global modifyEnergy
+    global boardChanged
 
     # if gameChanged == True:
     #     makeBoard(board)
@@ -395,6 +400,8 @@ def redrawGameWindow():
                     for rowNo in item:
                         drawGridItem(globs.deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
         verticalRemoveCount += 1
+
+        boardChanged = True
         
     if removeHorizontal:
         for key in horizontalDict:
@@ -403,6 +410,8 @@ def redrawGameWindow():
                     for colNo in item:
                         drawGridItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
         horizontalRemoveCount += 1
+
+        boardChanged = True
 
     if shiftItemsDown:
         # Old sprites are being emptied, the unmoved board is created
@@ -435,6 +444,8 @@ def redrawGameWindow():
                     # Moving it down one by one
         shiftDownCount += 1
 
+        boardChanged = True
+
 
     if removeItemBorder:
         drawGridItem("deselected-outline", displayedArray[0][1], displayedArray[0][0], itemSize, 0)
@@ -446,10 +457,12 @@ def redrawGameWindow():
         displayedArray = []
         removeItemBorder = False
 
+        boardChanged = True
+
 
     if addItemBorder:
         drawGridItem("selected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
-        pygame.display.update()
+        # pygame.display.update()
         addItemBorder = False
         print("Added item border")
         print("selected Array: " + str(selectedArray))
@@ -460,12 +473,21 @@ def redrawGameWindow():
         # print(displayedArray)
         # print("jjjj")
 
+        boardChanged = True
+
     
 
     if modifyEnergy != 0:
         drawPlayerStats("energy", modifyEnergy)
         modifyEnergy = 0
 
+        boardChanged = True
+
+
+    if boardChanged:
+        allSprites.draw(globs.SCREEN)
+        pygame.display.update()
+        boardChanged = False
 
     # if removeAllItemBorders:
     #     print(selectedArray)
@@ -474,9 +496,9 @@ def redrawGameWindow():
     #     pygame.display.update()
     #     removeAllItemBorders = False
 
-    
-    allSprites.draw(globs.SCREEN)
-    pygame.display.update()
+    # pygame.display.update()
+    # allSprites.draw(globs.SCREEN)
+    # pygame.display.update()
     
     # if removeVertical or removeHorizontal or shiftItemsDown:
     #     allSprites.draw(globs.SCREEN)
@@ -644,6 +666,11 @@ while gameRunning:
             mouse_x, mouse_y = mouse_pos
             last_pos = mouse_pos
 
+        # if boardChanged:
+        #     allSprites.draw(globs.SCREEN)
+        #     pygame.display.update()
+        #     boardChanged = False
+
 
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
         if gameChanged == True and shiftItemsDown == False:
@@ -709,7 +736,9 @@ while gameRunning:
 
 
         redrawGameWindow()
-        pygame.display.update()
+        # allSprites.draw(globs.SCREEN)
+        # pygame.display.update()
+        # pygame.display.update()
 
 
     elif mainMenuRunning:
@@ -870,7 +899,8 @@ while gameRunning:
                                         verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
                                         horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
                                         if len(verticalCollectedSwapped) > 0 or len(horizontalCollectedSwapped) > 0:
-                                            # selectedArray = []
+                                            selectedArray = []
+                                            displayedArray = []
                                             gameChanged = True
                                             board = copy.deepcopy(swappedBoard)
                                             print("HELLO")
@@ -884,6 +914,8 @@ while gameRunning:
                                         
                                         elif swappedBoard[displayedArray[0][0]][displayedArray[0][1]] == board[displayedArray[0][0]][displayedArray[0][1]]:
                                             removeItemBorder = True
+                                            selectedArray = []
+                                            # displayedArray = []
                                             # drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                             
                                             modifyEnergy = -0.5
@@ -894,6 +926,8 @@ while gameRunning:
                                         # The items are not swapped
                                         else:
                                             removeItemBorder = True
+                                            selectedArray = []
+                                            # displayedArray = []
                                             # drawGridItem("deselected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
                                             
                                             modifyEnergy = -0.5
