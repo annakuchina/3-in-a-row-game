@@ -103,6 +103,8 @@ class Item(pygame.sprite.Sprite):
         self.small1 = pygame.image.load(os.path.join("images", "small1.png")).convert_alpha()
         self.small2 = pygame.image.load(os.path.join("images", "small2.png")).convert_alpha()
         self.small3 = pygame.image.load(os.path.join("images", "small3.png")).convert_alpha()
+        self.smallnew = pygame.image.load(os.path.join("images", "smallnew.png")).convert_alpha()
+
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
         self.blankWhite = pygame.image.load(os.path.join("images", "BLANK-white.png")).convert()
         self.blankSidebar = pygame.image.load(os.path.join("images", "BLANK-sidebar.png")).convert()
@@ -123,9 +125,13 @@ class Item(pygame.sprite.Sprite):
         "tree": self.tree, 
         "mushroomTransparent": self.mushroomTransparent,
         "treeTransparent": self.treeTransparent,
+
         "small1": self.small1,
         "small2": self.small2,
         "small3": self.small3,
+        "smallnew": self.smallnew,
+
+
         "BLANK": self.blank,
         "blankWhite": self.blankWhite,
         "blankSidebar": self.blankSidebar,
@@ -379,17 +385,17 @@ def redrawGameWindow():
     # if gameChanged == True:
     #     makeBoard(board)
 
-    if verticalRemoveCount + 1 >= 9:
-        #4 sprites, display each for 2 frames = 8 total frames
+    if verticalRemoveCount + 1 >= 5:
+        #3 sprites, display each for 4 frames = 8 total frames
         verticalRemoveCount = 0
         removeVertical = False
 
-    if horizontalRemoveCount + 1 >= 9:
+    if horizontalRemoveCount + 1 >= 5:
         horizontalRemoveCount = 0
         removeHorizontal = False
 
     if shiftDownCount + 1 >= 5:
-        #Display 4 positions for 1 frames each = 4 total frames
+        #Display 2 positions for 2 frames each = 4 total frames
         shiftDownCount = 0
         shiftItemsDown = False
 
@@ -408,13 +414,18 @@ def redrawGameWindow():
             for item in horizontalDict[key]:
                 if isinstance(item, list):
                     for colNo in item:
+                        print(" ")
+                        print(horizontalRemoveCount)
+                        # print(" ")
+                        print(horizontalRemoveCount//2)
+                        print(" ")
                         drawGridItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
         horizontalRemoveCount += 1
 
         boardChanged = True
 
     if shiftItemsDown:
-        # Old sprites are being emptied, the unmoved board is created
+        # Old sprites are being emptied, the shifted down board is created
         allSprites.empty()
         # makeBoard(unmovedBoard)
         # print(" ")
