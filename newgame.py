@@ -408,11 +408,10 @@ def redrawGameWindow():
         # previousShiftDownCount = 0
 
     if removeVertical:
-        for key in verticalDict:
-            print(verticalRemoveCount)
-            print(verticalRemoveCount//4)
-
-            if previousRemoveVerticalCount != verticalRemoveCount//4:
+        if previousRemoveVerticalCount != verticalRemoveCount//4:
+            for key in verticalDict:
+                print(verticalRemoveCount)
+                print(verticalRemoveCount//4)
 
                 for item in verticalDict[key]:
                     if isinstance(item, list):
@@ -420,15 +419,19 @@ def redrawGameWindow():
                             drawGridItem(globs.deleteAnimation[verticalRemoveCount//4], rowNo, key, itemSize, 0)
                             itemBoardChanged = True
 
+        else:
+            print("NOT1")
+
         previousRemoveVerticalCount = verticalRemoveCount
         verticalRemoveCount += 1
 
         # itemBoardChanged = True
         
     if removeHorizontal:
-        for key in horizontalDict:
+        if previousRemoveHorizontalCount != horizontalRemoveCount//4:
+            for key in horizontalDict:
             
-            if previousRemoveHorizontalCount != horizontalRemoveCount//4:
+            
 
                 for item in horizontalDict[key]:
                     if isinstance(item, list):
@@ -440,6 +443,9 @@ def redrawGameWindow():
                             # print(" ")
                             drawGridItem(globs.deleteAnimation[horizontalRemoveCount//4], key, colNo, itemSize, 0)
                             itemBoardChanged = True
+
+        else:
+            print("NOT2")
 
         previousRemoveHorizontalCount = horizontalRemoveCount
         horizontalRemoveCount += 1
@@ -459,41 +465,47 @@ def redrawGameWindow():
         # print("unmoved board is made")
 
         #REMOVE it from here
-        
-        for key in movedItemsBoard:
-            unmovedRow = 0
-            for item in unmovedBoard[key]:
-                if item != "BLANK":
-                    break
-                unmovedRow += 1
-            #Draw the background in
-            #The unmoved grid is being drawn, after which the blank spaces in between are drawn, and then the items are drawn
-            #Key is column
-            
-            drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
-            for movedItem in movedItemsBoard[key]:
-                selectedItem = board[key][movedItem]
-                if movedItem == 0:
-                    # print(shiftDownCount)
-                    if "BLANK" not in board[key] and shiftDownCount==7: 
-                        drawGridItem(selectedItem, movedItem, key, itemSize, 0)
-                        itemsModified = True
-                        #Switching the item above for the one below
-                        # print("HI")
-                    
-                else:
-                        # previousShiftDownCount = 
-                        drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
-                        
-                        itemsModified = True
-                        # previousShiftDownCount = shiftDownCount//2
+        if previousShiftDownCount != shiftDownCount//4:
+            itemBoardChanged = True
 
-                    # print("JKHDJK")
-                    
-                    # Moving it down one by one
+            for key in movedItemsBoard:
+                unmovedRow = 0
+                for item in unmovedBoard[key]:
+                    if item != "BLANK":
+                        break
+                    unmovedRow += 1
+                #Draw the background in
+                #The unmoved grid is being drawn, after which the blank spaces in between are drawn, and then the items are drawn
+                #Key is column
+
+                
+                drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
+                for movedItem in movedItemsBoard[key]:
+                    selectedItem = board[key][movedItem]
+                    if movedItem == 0:
+                        # print(shiftDownCount)
+                        if "BLANK" not in board[key] and shiftDownCount==7: 
+                            drawGridItem(selectedItem, movedItem, key, itemSize, 0)
+                            itemsModified = True
+                            #Switching the item above for the one below
+                            # print("HI")
+                        
+                    else:
+                            # previousShiftDownCount = 
+                            drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
+                            
+                            itemsModified = True
+                            # previousShiftDownCount = shiftDownCount//2
+
+                        # print("JKHDJK")
+                        
+                        # Moving it down one by one
+        else:
+            print("NOT3")
+        previousShiftDownCount = shiftDownCount
         shiftDownCount += 1
 
-        boardChanged = True
+        
 
 
     if removeItemBorder:
@@ -532,12 +544,18 @@ def redrawGameWindow():
 
         boardChanged = True
 
+    if itemBoardChanged:
+        allSprites.draw(globs.SCREEN)
+        pygame.display.update()
+        itemBoardChanged = False
 
-    if boardChanged or itemBoardChanged:
+
+    if boardChanged:
         allSprites.draw(globs.SCREEN)
         pygame.display.update()
         boardChanged = False
-        itemBoardChanged = False
+        print("BOARDCHANGED")
+        # itemBoardChanged = False
 
     # if removeAllItemBorders:
     #     print(selectedArray)
@@ -750,7 +768,8 @@ while gameRunning:
                         if isinstance(item, list):
                             matchItem = board[item[0]][key]
                             matchLength = len(item)
-                            calculatePlayerStats(matchItem + "Simple", matchLength)
+                            if item != "BLANK":
+                                calculatePlayerStats(matchItem + "Simple", matchLength)
                             for colNo in item:
                                 board[colNo][key] = "BLANK"
             else:
