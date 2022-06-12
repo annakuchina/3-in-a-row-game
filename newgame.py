@@ -246,7 +246,7 @@ def drawSidebarIcons():
 
         scene.drawItem(item, xLocation, yLocation, width, height)
 
-        print(item)
+        # print(item)
         drawItemCount(item)
         pygame.display.update()
 
@@ -416,7 +416,14 @@ def redrawGameWindow():
     if shiftItemsDown:
         # Old sprites are being emptied, the unmoved board is created
         allSprites.empty()
-        makeBoard(unmovedBoard)
+        # makeBoard(unmovedBoard)
+        # print(" ")
+
+        # print(movedItemsBoard)
+        # print(" ")
+
+        # print(unmovedBoard)
+        # print("unmoved board is made")
         itemsModified = True
         for key in movedItemsBoard:
             unmovedRow = 0
@@ -450,9 +457,9 @@ def redrawGameWindow():
     if removeItemBorder:
         drawGridItem("deselected-outline", displayedArray[0][1], displayedArray[0][0], itemSize, 0)
         
-        print("Removed item border")
-        print("displayed Array: " + str(displayedArray))
-        print(" ")
+        # print("Removed item border")
+        # print("displayed Array: " + str(displayedArray))
+        # print(" ")
         
         displayedArray = []
         removeItemBorder = False
@@ -464,9 +471,9 @@ def redrawGameWindow():
         drawGridItem("selected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
         # pygame.display.update()
         addItemBorder = False
-        print("Added item border")
-        print("selected Array: " + str(selectedArray))
-        print(" ")
+        # print("Added item border")
+        # print("selected Array: " + str(selectedArray))
+        # print(" ")
         displayedArray = selectedArray
 
         selectedArray = []
@@ -744,7 +751,7 @@ while gameRunning:
     elif mainMenuRunning:
         if initiateScreen:
             mainMenu()
-            print("initiating")
+            # print("initiating")
             pygame.display.update()
             initiateScreen = False
 
@@ -773,14 +780,14 @@ while gameRunning:
             if event.button == 1:
 
                 if mainMenuRunning:
-                    print("hi")
+                    # print("hi")
                     #Resume
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
                         # play()
                         mainMenuRunning = False
                         playScreenRunning = True
                         initiateScreen = True
-                        print("play")
+                        # print("play")
                     
                     #Help
                     elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
@@ -817,8 +824,6 @@ while gameRunning:
                             columnLocation = xLocation // (itemSize[0]+innerSpacing)
                             rowLocation = yLocation // (itemSize[1]+innerSpacing)
 
-                            print(xLocation, yLocation)
-                            print(itemSize[0]+innerSpacing)
 
                             if columnLocation >= globs.COLUMN_COUNT or columnLocation < 0:
                                 itemSelected = False
@@ -834,7 +839,7 @@ while gameRunning:
                                     selectedArray.append([columnLocation, rowLocation])
                                     #Selected array and displayedArray -> moves from selected to displayed
                                     
-                                    print(selectedArray)
+                                    # print(selectedArray)
 
                                     selectedItem = True
 
@@ -876,7 +881,7 @@ while gameRunning:
                                         swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation-1][rowLocation] = swappedBoard[columnLocation-1][rowLocation], swappedBoard[columnLocation][rowLocation]
                                     
                                     else:
-                                        print("THIS ONE")
+                                        # print("THIS ONE")
                                         selectedArray.append([columnLocation, rowLocation])
                                         addItemBorder = True
 
@@ -899,18 +904,63 @@ while gameRunning:
                                         verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
                                         horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
                                         if len(verticalCollectedSwapped) > 0 or len(horizontalCollectedSwapped) > 0:
-                                            selectedArray = []
-                                            displayedArray = []
+                                            
+                                            # print(itemTypes)
+                                            # print(columnLocation, rowLocation)
+                                            # print(selectedArray)
+
+                                            
                                             gameChanged = True
-                                            board = copy.deepcopy(swappedBoard)
-                                            print("HELLO")
+                                            
+                                            # print("HELLO")
 
                                             modifyEnergy = -0.25
                                             # drawPlayerStats("energy", -0.25)
                                             # print(playerStats)
                                             # print("Subtracted the energy 0.25")
                                             # playerStatsModified = True
-                                            makeBoard(board)
+
+                                            # drawGridItem()
+
+                                            # makeBoard(board)
+                                            # print(selectedItem)
+                                            # print("zzzz ")
+                                            # print(displayedArray)
+
+                                            #Display array: goes vertical first, then horizontal
+                                            # print("HELLO")
+
+                                            #The first one selected during the swap
+                                            # print(board[displayedArray[0][0]][displayedArray[0][1]])
+                                            #The second one during the swap
+                                            # print(board[columnLocation][rowLocation])
+
+                                            # print(board)
+                                            # print(displayedArray)
+                                            # print(columnLocation, rowLocation)
+                                            # print(displayedArray[0][1], displayedArray[0][0])
+                                            # drawGridItem(board[displayedArray[0][1]][displayedArray[0][0]], rowLocation, columnLocation, itemSize, 0)
+
+                                            drawGridItem(board[displayedArray[0][0]][displayedArray[0][1]], rowLocation, columnLocation, itemSize, 0)
+                                            
+                                            # print()
+                                            # swappedItems = True
+                                            drawGridItem(board[columnLocation][rowLocation], displayedArray[0][1], displayedArray[0][0], itemSize, 0)
+                                            boardChanged = True
+
+                                            # allSprites.draw(globs.SCREEN)
+
+                                            # print(board)
+                                            # print(" ")
+                                            # print(swappedBoard)
+                                            board = copy.deepcopy(swappedBoard)
+                                            # print(board[selectedArray][0][1])
+                                            # print(board[selectedItem][0][0])
+                                            #Make the board from the selected board item
+                                            selectedArray = []
+                                            displayedArray = []
+
+                                            # print('MAKING BOARD AGAIN')
                                         
                                         elif swappedBoard[displayedArray[0][0]][displayedArray[0][1]] == board[displayedArray[0][0]][displayedArray[0][1]]:
                                             removeItemBorder = True
