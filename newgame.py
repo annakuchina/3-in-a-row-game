@@ -6,7 +6,7 @@ import copy
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 
 clock = pygame.time.Clock()
-FPS = 16
+FPS = 8
 
 pygame.init()
 pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
@@ -376,29 +376,29 @@ def redrawGameWindow():
 
     global previousShiftDownCount, previousRemoveVerticalCount, previousRemoveHorizontalCount
 
-    if verticalRemoveCount + 1 >= 9:
+    if verticalRemoveCount + 1 >= 5:
         #3 sprites, display each for 4 frames = 8 total frames
         verticalRemoveCount = 0
         removeVertical = False
 
-    if horizontalRemoveCount + 1 >= 9:
+    if horizontalRemoveCount + 1 >= 5:
         horizontalRemoveCount = 0
         removeHorizontal = False
 
-    if shiftDownCount + 1 >= 9:
+    if shiftDownCount + 1 >= 5:
         #Display 2 positions for 2 frames each = 4 total frames
         shiftDownCount = 0
         shiftItemsDown = False
         # previousShiftDownCount = 0
 
     if removeVertical:
-        if previousRemoveVerticalCount != verticalRemoveCount//4:
+        if previousRemoveVerticalCount != verticalRemoveCount//2:
             for key in verticalDict:
 
                 for item in verticalDict[key]:
                     if isinstance(item, list):
                         for rowNo in item:
-                            drawGridItem(globs.deleteAnimation[verticalRemoveCount//4], rowNo, key, itemSize, 0)
+                            drawGridItem(globs.deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
                             boardChanged = True
 
         previousRemoveVerticalCount = verticalRemoveCount
@@ -407,7 +407,7 @@ def redrawGameWindow():
         # itemBoardChanged = True
         
     if removeHorizontal:
-        if previousRemoveHorizontalCount != horizontalRemoveCount//4:
+        if previousRemoveHorizontalCount != horizontalRemoveCount//2:
             for key in horizontalDict:
             
             
@@ -415,7 +415,7 @@ def redrawGameWindow():
                 for item in horizontalDict[key]:
                     if isinstance(item, list):
                         for colNo in item:
-                            drawGridItem(globs.deleteAnimation[horizontalRemoveCount//4], key, colNo, itemSize, 0)
+                            drawGridItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
                             boardChanged = True
 
 
@@ -425,34 +425,31 @@ def redrawGameWindow():
     if shiftItemsDown:
         # Old sprites are being emptied, the shifted down board is created
         allSprites.empty()
+        boardChanged = True
 
-        if previousShiftDownCount != shiftDownCount//4:
-            boardChanged = True
+        for key in movedItemsBoard:
+            unmovedRow = 0
+            for item in unmovedBoard[key]:
+                if item != "BLANK":
+                    break
+                unmovedRow += 1
+            #Draw the background in
+            #The unmoved grid is being drawn, after which the blank spaces in between are drawn, and then the items are drawn
 
-            for key in movedItemsBoard:
-                unmovedRow = 0
-                for item in unmovedBoard[key]:
-                    if item != "BLANK":
-                        break
-                    unmovedRow += 1
-                #Draw the background in
-                #The unmoved grid is being drawn, after which the blank spaces in between are drawn, and then the items are drawn
+            
+            drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
+            for movedItem in movedItemsBoard[key]:
+                selectedItem = board[key][movedItem]
+                if movedItem == 0:
+                    if "BLANK" not in board[key] and shiftDownCount==3: 
+                        drawGridItem(selectedItem, movedItem, key, itemSize, 0)
+                        itemsModified = True
+                        #Switching the item above for the one below
+                    
+                else:
+                        drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                        itemsModified = True
 
-                
-                drawGridItem("BLANK", 0, key, [itemSize[1], unmovedRow*itemSize[0] + (unmovedRow-1)*innerSpacing], 0)
-                for movedItem in movedItemsBoard[key]:
-                    selectedItem = board[key][movedItem]
-                    if movedItem == 0:
-                        if "BLANK" not in board[key] and shiftDownCount==7: 
-                            drawGridItem(selectedItem, movedItem, key, itemSize, 0)
-                            itemsModified = True
-                            #Switching the item above for the one below
-                        
-                    else:
-                            drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
-                            
-                            itemsModified = True
-        previousShiftDownCount = shiftDownCount
         shiftDownCount += 1
 
         
@@ -488,10 +485,6 @@ def redrawGameWindow():
         pygame.display.update()
         boardChanged = False
 
-    if boardChanged:
-        allSprites.draw(globs.SCREEN)
-        pygame.display.update()
-        boardChanged = False
 
 
 gameChanged = True
