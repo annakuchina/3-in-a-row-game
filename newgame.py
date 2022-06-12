@@ -63,11 +63,11 @@ itemSize = [72, 72]
 outlineSize = [72, 72]
 innerSpacing = 8
 outerTopMargin = 155
-outerLeftMargin = 75
+outerLeftMargin = 50
 itemCount = 0
 spacingArray = [0, 0.33333333, 0.66666666, 1]
 sidebarLeftSpacing = 30
-sideBarWidth = 150
+sideBarWidth = 155
 itemsDrawn = False
 class Item(pygame.sprite.Sprite):
     def __init__(self):
@@ -99,6 +99,9 @@ class Item(pygame.sprite.Sprite):
         self.small3 = pygame.image.load(os.path.join("images", "small3.png")).convert_alpha()
         self.smallnew = pygame.image.load(os.path.join("images", "smallnew.png")).convert_alpha()
 
+        self.playButton = pygame.image.load(os.path.join("images", "playbutton.png")).convert_alpha()
+        self.pauseButton = pygame.image.load(os.path.join("images", "pausebutton.png")).convert_alpha()
+
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
         self.blankWhite = pygame.image.load(os.path.join("images", "BLANK-white.png")).convert()
         self.blankSidebar = pygame.image.load(os.path.join("images", "BLANK-sidebar.png")).convert()
@@ -124,6 +127,9 @@ class Item(pygame.sprite.Sprite):
         "small2": self.small2,
         "small3": self.small3,
         "smallnew": self.smallnew,
+
+        "playButton": self.playButton,
+        "pauseButton": self.pauseButton,
 
 
         "BLANK": self.blank,
@@ -181,7 +187,7 @@ def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
 def drawItemCount(item):
     global itemsDrawn
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
-    xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 55
+    xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 67
     yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 25
     if itemCountDict[item][0] > 2:
         textColor = blackColor
@@ -223,7 +229,7 @@ def drawSidebarIcons():
     height = 30
     for item in itemCountDict:
         count = itemCountDict[item][0]
-        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 15
+        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 23
         yLocation = count*55 + 2.5*itemSize[1] + outerTopMargin
         scene = Item()
         if count == 0:
@@ -235,7 +241,7 @@ def drawSidebarIcons():
         
         elif count == 3:
             xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 61 + sidebarLeftSpacing
-            yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 9
+            yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 8
             textMessage = "x"
             text_surface = headingFont.render(textMessage, False, blackColor)
             globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
@@ -245,9 +251,8 @@ def drawSidebarIcons():
         scene.drawItem(item, xLocation, yLocation, width, height)
 
         drawItemCount(item)
-        pygame.display.update()
 
-        allSprites.draw(globs.SCREEN)
+    allSprites.draw(globs.SCREEN)
 
 
 def clearPlayerStats(item):
@@ -259,6 +264,7 @@ def clearPlayerStats(item):
     item = "blankSidebar"
     scene.drawItem(item, xLocation, yLocation, width, height)
 #DRAW the energy and heart icons
+
 def drawPlayerStats(item, itemNumber):
     playerStats[item][1] = playerStats[item][2]
     playerStats[item][2] += itemNumber
@@ -290,16 +296,40 @@ def drawSidebar():
     #Draw the orange background
     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
     pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
+
     #Draw the top bar
     topBarBg = pygame.Rect(outerLeftMargin, 35, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 90)
     pygame.draw.rect(globs.SCREEN, whiteColor, topBarBg)
     topBar = pygame.Rect(outerLeftMargin+5, 40, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 10, 80)
     pygame.draw.rect(globs.SCREEN, darkerOrangeColor, topBar)
+
     #Draw the right side bar
     sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
     pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
     sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
     pygame.draw.rect(globs.SCREEN, lighterOrangeColor, sideBar)
+
+    textMessage = "Woodland"
+    drawCenterText(textMessage, 50, pinkColor, screenDimensions[0]/2 + 4 + 5, outerTopMargin/2 + 6)
+    # drawCenterText(textMessage, 50, redColor, screenDimensions[0]/2+3, outerTopMargin/2 + 5)
+    drawCenterText(textMessage, 50, whiteColor, screenDimensions[0]/2 + 5, outerTopMargin/2 + 6)
+
+    scene = Item()
+
+    levelNumber = 1
+    drawText("L" + str(levelNumber), 40, whiteColor, outerLeftMargin+50, 62)
+    # drawText(str(levelNumber), 50, whiteColor, outerLeftMargin+50, 60)
+    
+    scene.drawItem("pauseButton", globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50, 58, 50, 50)
+    
+    # scene = Item()
+    # scene.drawItem("playButton", globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 53, 65, 65)
+
+    # pygame.draw.polygon(surface=globs.SCREEN, color=(255,0,0), points=[(50,100), (100,50), (150,100)])
+    # text_surface = biggerHeadingFont.render(textMessage, False, whiteColor)
+    # globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
+
+
 # if gameRunning == True:
 #     drawSidebar()
 #     drawPlayerStats("heart", 0)
@@ -583,6 +613,9 @@ def pauseMenu():
     button("Help", (screenDimensions[0]- 375)//2, 5*screenDimensions[1]/10, 375, 90, whiteColor, brighterOrangeColor, 30)
     button("Quit", (screenDimensions[0]- 330)//2, 6.6*screenDimensions[1]/10, 330, 90, whiteColor, brighterPurpleColor, 30)
 
+    # allSprites.draw(globs.Screen)
+    # print("FDSKJJK")
+    # pygame.display.update()
 
 def helpMenu():
     global last_pos
@@ -632,9 +665,16 @@ while gameRunning:
 
     if playScreenRunning:
 
+        # print("playscreenrun")
+
         if initiateScreen:
+            print("initiating")
             play()
+            # pygame.display.update()
+            # print(allSprites)
+            # allSprites.draw(globs.SCREEN)
             initiateScreen = False
+            pygame.display.update()
 
 
         mouse_pos = pygame.mouse.get_pos()
@@ -716,6 +756,7 @@ while gameRunning:
 
     elif pauseMenuRunning:
         if initiateScreen:
+            print("HIHJFD")
             pauseMenu()
             pygame.display.update()
             initiateScreen = False
@@ -739,6 +780,7 @@ while gameRunning:
 
                 if mainMenuRunning:
                     #Resume
+                    # print("clicked on main menu")
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
                         mainMenuRunning = False
                         playScreenRunning = True
@@ -753,10 +795,14 @@ while gameRunning:
                         quitGame()
 
 
-                elif helpMenuRunning:
+                elif pauseMenuRunning:
                     #Resume
                     if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
-                        play()
+                        # play()
+                        pauseMenuRunning = False
+                        playScreenRunning = True
+                        initiateScreen = True
+
                     
                     #Help
                     elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
@@ -765,8 +811,31 @@ while gameRunning:
                     #Quit
                     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
+                
+                
+                # elif helpMenuRunning:
+                #     #Resume
+                #     if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                #         play()
+                    
+                #     #Help
+                #     elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                #         print("HELP")
+                    
+                #     #Quit
+                #     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
+                #         quitGame()
 
-                elif gameRunning:
+                elif playScreenRunning:
+
+                    # globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50, 58, 50, 50)
+
+                    if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
+                        print("HI")
+                        initiateScreen = True
+                        playScreenRunning = False
+                        pauseMenuRunning = True
+
                     if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
                             itemSelected = True
                             xLocation = mouse_x - outerLeftMargin
