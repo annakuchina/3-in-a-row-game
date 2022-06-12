@@ -360,7 +360,12 @@ modifyEnergy = 0
 
 
 boardChanged = False
+itemBoardChanged = False
 
+previousShiftDownCount = -1
+
+previousRemoveVerticalCount = -1
+previousRemoveHorizontalCount = -1
 
 def redrawGameWindow():
     global firstGo
@@ -380,7 +385,9 @@ def redrawGameWindow():
     global addItemBorder, removeItemBorder
     global selectedArray, displayedArray
     global modifyEnergy
-    global boardChanged
+    global boardChanged, itemBoardChanged
+
+    global previousShiftDownCount, previousRemoveVerticalCount, previousRemoveHorizontalCount
 
     # if gameChanged == True:
     #     makeBoard(board)
@@ -398,32 +405,46 @@ def redrawGameWindow():
         #Display 2 positions for 2 frames each = 4 total frames
         shiftDownCount = 0
         shiftItemsDown = False
-        previousShiftDownCount = 0
+        # previousShiftDownCount = 0
 
     if removeVertical:
         for key in verticalDict:
-            for item in verticalDict[key]:
-                if isinstance(item, list):
-                    for rowNo in item:
-                        drawGridItem(globs.deleteAnimation[verticalRemoveCount//4], rowNo, key, itemSize, 0)
+            print(verticalRemoveCount)
+            print(verticalRemoveCount//4)
+
+            if previousRemoveVerticalCount != verticalRemoveCount//4:
+
+                for item in verticalDict[key]:
+                    if isinstance(item, list):
+                        for rowNo in item:
+                            drawGridItem(globs.deleteAnimation[verticalRemoveCount//4], rowNo, key, itemSize, 0)
+                            itemBoardChanged = True
+
+        previousRemoveVerticalCount = verticalRemoveCount
         verticalRemoveCount += 1
 
-        boardChanged = True
+        # itemBoardChanged = True
         
     if removeHorizontal:
         for key in horizontalDict:
-            for item in horizontalDict[key]:
-                if isinstance(item, list):
-                    for colNo in item:
-                        print(" ")
-                        print(horizontalRemoveCount)
-                        # print(" ")
-                        print(horizontalRemoveCount//2)
-                        print(" ")
-                        drawGridItem(globs.deleteAnimation[horizontalRemoveCount//4], key, colNo, itemSize, 0)
+            
+            if previousRemoveHorizontalCount != horizontalRemoveCount//4:
+
+                for item in horizontalDict[key]:
+                    if isinstance(item, list):
+                        for colNo in item:
+                            # print(" ")
+                            # print(horizontalRemoveCount)
+                            # # print(" ")
+                            # print(horizontalRemoveCount//2)
+                            # print(" ")
+                            drawGridItem(globs.deleteAnimation[horizontalRemoveCount//4], key, colNo, itemSize, 0)
+                            itemBoardChanged = True
+
+        previousRemoveHorizontalCount = horizontalRemoveCount
         horizontalRemoveCount += 1
 
-        boardChanged = True
+        # itemBoardChanged = True
 
     if shiftItemsDown:
         # Old sprites are being emptied, the shifted down board is created
@@ -461,10 +482,11 @@ def redrawGameWindow():
                         # print("HI")
                     
                 else:
+                        # previousShiftDownCount = 
                         drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
                         
                         itemsModified = True
-                        previousShiftDownCount = shiftDownCount//2
+                        # previousShiftDownCount = shiftDownCount//2
 
                     # print("JKHDJK")
                     
@@ -511,10 +533,11 @@ def redrawGameWindow():
         boardChanged = True
 
 
-    if boardChanged:
+    if boardChanged or itemBoardChanged:
         allSprites.draw(globs.SCREEN)
         pygame.display.update()
         boardChanged = False
+        itemBoardChanged = False
 
     # if removeAllItemBorders:
     #     print(selectedArray)
