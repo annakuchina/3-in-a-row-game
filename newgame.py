@@ -398,6 +398,7 @@ def redrawGameWindow():
         #Display 2 positions for 2 frames each = 4 total frames
         shiftDownCount = 0
         shiftItemsDown = False
+        previousShiftDownCount = 0
 
     if removeVertical:
         for key in verticalDict:
@@ -435,7 +436,9 @@ def redrawGameWindow():
 
         # print(unmovedBoard)
         # print("unmoved board is made")
-        itemsModified = True
+
+        #REMOVE it from here
+        
         for key in movedItemsBoard:
             unmovedRow = 0
             for item in unmovedBoard[key]:
@@ -453,11 +456,16 @@ def redrawGameWindow():
                     # print(shiftDownCount)
                     if "BLANK" not in board[key] and shiftDownCount==7: 
                         drawGridItem(selectedItem, movedItem, key, itemSize, 0)
+                        itemsModified = True
                         #Switching the item above for the one below
                         # print("HI")
                     
                 else:
-                    drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
+                        drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
+                        
+                        itemsModified = True
+                        previousShiftDownCount = shiftDownCount//2
+
                     # print("JKHDJK")
                     
                     # Moving it down one by one
