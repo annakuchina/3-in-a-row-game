@@ -13,7 +13,7 @@ from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 # import gameOver
 # myFont = pygame.font.SysFont("monospace", 60)
 clock = pygame.time.Clock()
-FPS = 8
+FPS = 16
 # dt = clock.tick(FPS)
 pygame.init()
 pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
@@ -385,16 +385,16 @@ def redrawGameWindow():
     # if gameChanged == True:
     #     makeBoard(board)
 
-    if verticalRemoveCount + 1 >= 5:
+    if verticalRemoveCount + 1 >= 9:
         #3 sprites, display each for 4 frames = 8 total frames
         verticalRemoveCount = 0
         removeVertical = False
 
-    if horizontalRemoveCount + 1 >= 5:
+    if horizontalRemoveCount + 1 >= 9:
         horizontalRemoveCount = 0
         removeHorizontal = False
 
-    if shiftDownCount + 1 >= 5:
+    if shiftDownCount + 1 >= 9:
         #Display 2 positions for 2 frames each = 4 total frames
         shiftDownCount = 0
         shiftItemsDown = False
@@ -404,7 +404,7 @@ def redrawGameWindow():
             for item in verticalDict[key]:
                 if isinstance(item, list):
                     for rowNo in item:
-                        drawGridItem(globs.deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
+                        drawGridItem(globs.deleteAnimation[verticalRemoveCount//4], rowNo, key, itemSize, 0)
         verticalRemoveCount += 1
 
         boardChanged = True
@@ -419,7 +419,7 @@ def redrawGameWindow():
                         # print(" ")
                         print(horizontalRemoveCount//2)
                         print(" ")
-                        drawGridItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
+                        drawGridItem(globs.deleteAnimation[horizontalRemoveCount//4], key, colNo, itemSize, 0)
         horizontalRemoveCount += 1
 
         boardChanged = True
@@ -450,13 +450,14 @@ def redrawGameWindow():
             for movedItem in movedItemsBoard[key]:
                 selectedItem = board[key][movedItem]
                 if movedItem == 0:
-                    if "BLANK" not in board[key] and shiftDownCount==3: 
+                    # print(shiftDownCount)
+                    if "BLANK" not in board[key] and shiftDownCount==7: 
                         drawGridItem(selectedItem, movedItem, key, itemSize, 0)
                         #Switching the item above for the one below
                         # print("HI")
                     
                 else:
-                    drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//1])
+                    drawGridItem(selectedItem, movedItem-1, key, itemSize, spacingArray[shiftDownCount//2])
                     # print("JKHDJK")
                     
                     # Moving it down one by one
