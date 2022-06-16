@@ -67,9 +67,11 @@ fullPlayerStatsList = []
 #SAMPLE BOARDS
 
 # board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'snake', 'moon', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
-board = {0: ['mushroom', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'tree', 'tree', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
+# board = {0: ['mushroom', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'tree', 'tree', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
 
+# board = {0: ['snake', 'snake', 'snake', 'poisonPotion', 'poisonPotion', 'snake', 'mushroom', 'mushroom'], 1: ['mushroom', 'mushroom', 'moon', 'moon', 'poisonPotion', 'snake', 'tree', 'mushroom'], 2: ['tree', 'snake', 'snake', 'mushroom', 'poisonPotion', 'moon', 'poisonPotion', 'tree'], 3: ['tree', 'snake', 'moon', 'snake', 'moon', 'mushroom', 'poisonPotion', 'snake'], 4: ['tree', 'poisonPotion', 'snake', 'healPotion', 'snake', 'moon', 'mushroom', 'moon'], 5: ['snake', 'healPotion', 'poisonPotion', 'snake', 'tree', 'tree', 'poisonPotion', 'mushroom'], 6: ['mushroom', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion', 'mushroom', 'tree', 'poisonPotion'], 7: ['healPotion', 'healPotion', 'mushroom', 'mushroom', 'snake', 'moon', 'tree', 'moon']}
 
+# board = {0: ['snake', 'snake', 'tree', 'mushroom', 'mushroom', 'moon', 'mushroom', 'snake'], 1: ['snake', 'poisonPotion', 'healPotion', 'moon', 'healPotion', 'mushroom', 'poisonPotion', 'poisonPotion'], 2: ['healPotion', 'snake', 'mushroom', 'moon', 'tree', 'healPotion', 'healPotion', 'poisonPotion'], 3: ['mushroom', 'tree', 'tree', 'poisonPotion', 'mushroom', 'moon', 'snake', 'healPotion'], 4: ['moon', 'healPotion', 'moon', 'moon', 'moon', 'poisonPotion', 'mushroom', 'healPotion'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion'], 6: ['healPotion', 'poisonPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'moon'], 7: ['snake', 'mushroom', 'snake', 'poisonPotion', 'snake', 'snake', 'poisonPotion', 'moon']}
 
 #no matches
 # board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
@@ -121,6 +123,8 @@ class Item(pygame.sprite.Sprite):
         self.selectedOutline = pygame.image.load(os.path.join("images", "selectedOutline.png")).convert_alpha()
         self.deselectedOutline = pygame.image.load(os.path.join("images", "deselectedOutline.png")).convert_alpha()
 
+        self.collectionBorder = pygame.image.load(os.path.join("images", "collectionBorder.png")).convert_alpha()
+
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
         self.blankDynamic = pygame.image.load(os.path.join("images", "BLANKDynamic.png")).convert_alpha()
         self.blankSidebar = pygame.image.load(os.path.join("images", "BLANKSidebar.png")).convert()
@@ -154,6 +158,8 @@ class Item(pygame.sprite.Sprite):
 
         "selectedOutline": self.selectedOutline,
         "deselectedOutline": self.deselectedOutline,
+
+        "collectionBorder": self.collectionBorder,
         
         "BLANK": self.blank,
         "BLANKDynamic": self.blankDynamic,
@@ -188,7 +194,6 @@ class Item(pygame.sprite.Sprite):
 # Set up the game
 scene = Item()
 scene.setup()
-# pygame.time.delay(1500)
 
 
 def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
@@ -258,18 +263,12 @@ def calculatePlayerStats(item, itemNumber):
     
     #Prev count
     # if itemCountDict[item][1] == itemCountDict[item][3]:
-        
-    #     print("hi")
-
     # See if there is 4/4 etc and then make the energy and stuff go up
-
-    
-
     # User reached the required amount of items
     if itemCountDict[item][2] + itemNumber >= itemCountDict[item][3]:
         itemCountDict[item][1] = itemCountDict[item][2]
         itemCountDict[item][2] = itemCountDict[item][3]
-        print(item)
+        # print(item)
         fullPlayerStatsList.append(item)
         #The icons are drawn in here
         drawItemCount(item)
@@ -289,6 +288,7 @@ def calculatePlayerStats(item, itemNumber):
         
 
 def drawSidebarIcons():
+    # Drawing all the simpler, smaller icons in the sidebar
     width = 30
     height = 30
     for item in itemCountDict:
@@ -317,6 +317,9 @@ def drawSidebarIcons():
         drawItemCount(item)
 
     allSprites.draw(globs.SCREEN)
+
+
+# def drawCollection
 
 
 def clearPlayerStats(item):
@@ -372,7 +375,7 @@ def drawSidebar():
 
     #Draw the right side bar
     sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
-    pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
+    pygame.draw.rect(globs.SCREEN, blackColor, sideBarBg)
     sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
     pygame.draw.rect(globs.SCREEN, lighterOrangeColor, sideBar)
 
@@ -387,8 +390,17 @@ def drawSidebar():
     drawText("L" + str(levelNumber), 40, whiteColor, outerLeftMargin+50, 62)
     # drawText(str(levelNumber), 50, whiteColor, outerLeftMargin+50, 60)
     
-    scene.drawItem("pauseButton", globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50, 58, 50, 50)
+    scene.drawItem("pauseButton", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
     
+    scene = Item()
+    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing), 40, 40)
+
+    scene = Item()
+    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing), 40, 40)
+
+    
+    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 23*2 + 20, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing), 60, 60)
+
     # scene = Item()
     # scene.drawItem("playButton", globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 53, 65, 65)
 
@@ -551,8 +563,17 @@ def redrawGameWindow():
 
         boardChanged = True
 
-    if len(fullPlayerStatsList) > 0 and shiftItemsDown == False and removeHorizontal == False and removeVertical == False and boardChanged == False:
+    # if len(fullPlayerStatsList) > 0 and shiftItemsDown == False and removeHorizontal == False and removeVertical == False:
+    if len(fullPlayerStatsList) > 0 and gameChanged == True:
+        # if 
+        # print(" ")
+        #Get this to run after the items fall
+        
         print(fullPlayerStatsList)
+
+
+        #LEN and a true variable
+        
 
     if boardChanged:
         allSprites.draw(globs.SCREEN)
@@ -563,7 +584,7 @@ def redrawGameWindow():
 
 
 
-gameChanged = True
+gameChanged = False
 gameOver = False
 turn = 0
 shiftedDict = {}
@@ -721,6 +742,7 @@ while gameRunning:
             # allSprites.draw(globs.SCREEN)
             initiateScreen = False
             pygame.display.update()
+            gameChanged = True
 
 
         mouse_pos = pygame.mouse.get_pos()
