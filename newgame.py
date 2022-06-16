@@ -483,6 +483,7 @@ def redrawGameWindow():
     global modifyEnergy
     global boardChanged, boardChanged
     global startLevel
+    global fullPlayerStatsList
 
     global previousShiftDownCount, previousRemoveVerticalCount, previousRemoveHorizontalCount
 
@@ -596,31 +597,43 @@ def redrawGameWindow():
         for item in fullPlayerStatsList:
             print(fullPlayerStatsList)
 
+            # Friendly items
             if item == "mushroomSimple":
-                pass
+                drawPlayerStats("energy", 1)
+                drawPlayerStats("heart", 1)
 
             elif item == "treeSimple":
-                pass
+                drawPlayerStats("energy", 1)
+                drawPlayerStats("heart", 0.5)
+                if 3 - playerStats["energy"][2] == 0:
+                    pass
+                    #ADD the counting up in here
+                
 
             elif item == "healPotionSimple":
-                pass
+                if playerStats["energy"][2] < 3:
+                    drawPlayerStats("energy", 3 - playerStats["energy"][2])
 
+                if playerStats["hearts"][2] < 3:
+                    drawPlayerStats("heart", 3 - playerStats["hearts"][2])
+
+
+            # Enemy items
             elif item == "snakeSimple":
                 drawPlayerStats("energy", -1)
-                drawPlayerStats("heart", -0.5)
-                print("less hearts")
 
             elif item == "moonSimple":
                 drawPlayerStats("heart", -0.5)
 
             elif item == "poisonPotionSimple":
                 drawPlayerStats("heart", -1)
-                drawPlayerStats("energy", -1)
+                drawPlayerStats("energy", -0.5)
 
             itemCountDict[item][1] = itemCountDict[item][2]
             itemCountDict[item][2] = 0
             drawItemCount(item)
-            fullPlayerStatsList.remove(item)
+
+        fullPlayerStatsList = []
             #LEN and a true variable
 
         boardChanged = True
