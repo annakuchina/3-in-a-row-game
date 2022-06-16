@@ -69,6 +69,9 @@ fullPlayerStatsList = []
 #-----------------
 #SAMPLE BOARDS
 
+
+board = {0: ['mushroom', 'poisonPotion', 'moon', 'mushroom', 'poisonPotion', 'mushroom', 'snake', 'tree'], 1: ['tree', 'healPotion', 'moon', 'healPotion', 'mushroom', 'mushroom', 'tree', 'healPotion'], 2: ['healPotion', 'healPotion', 'snake', 'moon', 'poisonPotion', 'mushroom', 'poisonPotion', 'healPotion'], 3: ['healPotion', 'tree', 'tree', 'snake', 'mushroom', 'mushroom', 'healPotion', 'mushroom'], 4: ['tree', 'mushroom', 'mushroom', 'poisonPotion', 'snake', 'mushroom', 'poisonPotion', 'mushroom'], 5: ['mushroom', 'poisonPotion', 'mushroom', 'healPotion', 'tree', 'healPotion', 'tree', 'mushroom'], 6: ['moon', 'mushroom', 'mushroom', 'snake', 'moon', 'healPotion', 'tree', 'mushroom'], 7: ['tree', 'healPotion', 'tree', 'snake', 'moon', 'snake', 'healPotion', 'tree']}
+
 # board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'snake', 'moon', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
 # board = {0: ['mushroom', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'tree', 'tree', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
 
@@ -241,7 +244,7 @@ else:
         
         board[c] = colArray
 
-# print(board)
+print(board)
 
 
 def drawItemCount(item):
@@ -590,6 +593,7 @@ def redrawGameWindow():
 
     # if len(fullPlayerStatsList) > 0 and shiftItemsDown == False and removeHorizontal == False and removeVertical == False:
     if len(fullPlayerStatsList) > 0 and gameChanged == True:
+        print("AYO")
         # if 
         # print(" ")
         #Get this to run after the items fall
@@ -614,8 +618,8 @@ def redrawGameWindow():
                 if playerStats["energy"][2] < 3:
                     drawPlayerStats("energy", 3 - playerStats["energy"][2])
 
-                if playerStats["hearts"][2] < 3:
-                    drawPlayerStats("heart", 3 - playerStats["hearts"][2])
+                if playerStats["heart"][2] < 3:
+                    drawPlayerStats("heart", 3 - playerStats["heart"][2])
 
 
             # Enemy items
@@ -826,11 +830,11 @@ while gameRunning:
                     for item in verticalDict[key]:
                         if isinstance(item, list):
                             # Check that it's not 3 blank's in a row
-                            if board[key][item[0]] != "BLANK":
                                 matchItem = board[key][item[0]]
                                 matchLength = len(item)
                                 if startLevel == False:
-                                    calculatePlayerStats(matchItem + "Simple", matchLength)
+                                    if item != "BLANK":
+                                        calculatePlayerStats(matchItem + "Simple", matchLength)
                                 for rowNo in item:
                                     board[key][rowNo] = "BLANK"
             else:
@@ -843,7 +847,6 @@ while gameRunning:
                 for key in horizontalDict:
                     for item in horizontalDict[key]:
                         if isinstance(item, list):
-                            if board[key][item[0]] != "BLANK":
                                 matchItem = board[item[0]][key]
                                 matchLength = len(item)
                                 if startLevel == False:
