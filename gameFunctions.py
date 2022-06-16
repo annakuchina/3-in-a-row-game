@@ -53,6 +53,7 @@ def itemCollectVertical(board, itemTypes):
     for item in itemTypes:
         for c in range(globs.COLUMN_COUNT):
             while rowMarker < globs.ROW_COUNT-2:
+                # if board[c][row]
 
                 if board[c][rowMarker] == item and board[c][rowMarker+1] == item and board[c][rowMarker+2] == item:
                     comboCols1.extend([rowMarker, rowMarker+1, rowMarker+2])
