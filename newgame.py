@@ -191,6 +191,9 @@ class Item(pygame.sprite.Sprite):
         "moonSimple": [4, 0, 0, 8],
         "poisonPotionSimple": [5, 0, 0, 8]
         }
+
+        
+        
     def drawItem(self, item, xLocation, yLocation, width, height):
         self.image = itemDict[item]
         self.rect = self.image.get_rect()
@@ -249,8 +252,8 @@ print(board)
 
 def drawItemCount(item):
     global itemsDrawn
-    print(itemCountDict)
-    print("FDJDJ")
+    # print(itemCountDict)
+    # print("FDJDJ")
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
     xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 67
     yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 25
@@ -456,6 +459,7 @@ addItemBorder = False
 removeItemBorder = False
 
 modifyEnergy = 0
+modifyHearts = 0
 
 
 boardChanged = False
@@ -487,6 +491,7 @@ def redrawGameWindow():
     global boardChanged, boardChanged
     global startLevel
     global fullPlayerStatsList
+    global modifyHearts
 
     global previousShiftDownCount, previousRemoveVerticalCount, previousRemoveHorizontalCount
 
@@ -593,45 +598,90 @@ def redrawGameWindow():
 
     # if len(fullPlayerStatsList) > 0 and shiftItemsDown == False and removeHorizontal == False and removeVertical == False:
     if len(fullPlayerStatsList) > 0 and gameChanged == True:
-        print("AYO")
         # if 
         # print(" ")
         #Get this to run after the items fall
         
         for item in fullPlayerStatsList:
-            print(fullPlayerStatsList)
+            # print(fullPlayerSta tsList)
 
             # Friendly items
             if item == "mushroomSimple":
-                drawPlayerStats("energy", 1)
-                drawPlayerStats("heart", 1)
+                modifyEnergy = 1
+                modifyHearts = 1
 
             elif item == "treeSimple":
-                drawPlayerStats("energy", 1)
-                drawPlayerStats("heart", 0.5)
-                if 3 - playerStats["energy"][2] == 0:
-                    pass
+                modifyEnergy = 1
+                modifyHearts = 0.5
+                # if 3 - playerStats["energy"][2] == 0:
+                #     pass
                     #ADD the counting up in here
                 
 
             elif item == "healPotionSimple":
-                if playerStats["energy"][2] < 3:
-                    drawPlayerStats("energy", 3 - playerStats["energy"][2])
 
-                if playerStats["heart"][2] < 3:
-                    drawPlayerStats("heart", 3 - playerStats["heart"][2])
+                modifyEnergy = 3
+                modifyHearts = 3
 
+                # if playerStats["energy"][2] < 3:
+                #     drawPlayerStats("energy", 3 - playerStats["energy"][2])
+
+                # if playerStats["heart"][2] < 3:
+                #     drawPlayerStats("heart", 3 - playerStats["heart"][2])
 
             # Enemy items
             elif item == "snakeSimple":
-                drawPlayerStats("energy", -1)
+                pass
+                modifyEnergy = -1
+                # drawPlayerStats("energy", -1)
 
             elif item == "moonSimple":
-                drawPlayerStats("heart", -0.5)
+                pass
+                modifyHearts = -0.5
+                # drawPlayerStats("heart", -0.5)
 
             elif item == "poisonPotionSimple":
-                drawPlayerStats("heart", -1)
-                drawPlayerStats("energy", -0.5)
+                pass
+                modifyEnergy = -0.5
+                modifyHearts = -1
+                # drawPlayerStats("heart", -1)
+                # drawPlayerStats("energy", -0.5)
+
+            if modifyEnergy > 0:
+                energyAddAmount = modifyEnergy + playerStats["energy"][2] - 3
+
+                if energyAddAmount == playerStats["energy"][2] and playerStats["energy"][2] == 3:
+                    pass
+                else:
+                    print("HI1")
+                    drawPlayerStats("energy", energyAddAmount)
+
+            elif modifyEnergy < 0:
+                #modifyEnergy takes away more energy than is available (player loses)
+                if -modifyEnergy >= playerStats["energy"][2]:
+                    print("YOU LOST")
+                    sys.exit()
+            
+
+            if modifyHearts > 0:
+                
+                if modifyHearts + playerStats["heart"][2] > 3:
+                    pass
+                else:
+                    heartsAddAmount = modifyHearts + playerStats["heart"][2] - 3
+                    # if heartsAddAmount == playerStats["heart"][2] and playerStats["heart"][2] == 3:
+                    #     pass
+                    # else:
+                    drawPlayerStats("heart", heartsAddAmount)
+
+            elif modifyHearts < 0:
+                #modifyEnergy takes away more energy than is available (player loses)
+                if -modifyHearts >= playerStats["heart"][2]:
+                    print("YOU LOST")
+                    sys.exit()
+
+            modifyEnergy = 0
+            modifyHearts = 0
 
             itemCountDict[item][1] = itemCountDict[item][2]
             itemCountDict[item][2] = 0
