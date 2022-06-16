@@ -13,6 +13,8 @@ pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + 
 pygame.display.set_icon(pygame_icon)
 pygame.display.set_caption('Woodland')
 
+pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN, pygame.KEYDOWN])
+
 globs.SCREEN.fill((255, 255, 255))
 mainFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 16)
 headingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 35)
@@ -62,6 +64,7 @@ sideBarWidth = 155
 
 itemsDrawn = False
 fullPlayerStatsList = []
+
 
 #-----------------
 #SAMPLE BOARDS
@@ -124,6 +127,8 @@ class Item(pygame.sprite.Sprite):
         self.deselectedOutline = pygame.image.load(os.path.join("images", "deselectedOutline.png")).convert_alpha()
 
         self.collectionBorder = pygame.image.load(os.path.join("images", "collectionBorder.png")).convert_alpha()
+        self.mushroomPlain = pygame.image.load(os.path.join("images", "mushroomPlain.png")).convert()
+        self.treePlain = pygame.image.load(os.path.join("images", "treePlain.png")).convert()
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
         self.blankDynamic = pygame.image.load(os.path.join("images", "BLANKDynamic.png")).convert_alpha()
@@ -160,6 +165,8 @@ class Item(pygame.sprite.Sprite):
         "deselectedOutline": self.deselectedOutline,
 
         "collectionBorder": self.collectionBorder,
+        "mushroomPlain": self.mushroomPlain,
+        "treePlain": self.treePlain,
         
         "BLANK": self.blank,
         "BLANKDynamic": self.blankDynamic,
@@ -177,9 +184,9 @@ class Item(pygame.sprite.Sprite):
         "mushroomSimple": [0, 0, 0, 4],
         "treeSimple": [1, 0, 0, 6],
         "healPotionSimple": [2, 0, 0, 9],
-        "snakeSimple": [3, 0, 0, 15],
-        "moonSimple": [4, 0, 0, 10],
-        "poisonPotionSimple": [5, 0, 0, 9]
+        "snakeSimple": [3, 0, 0, 7],
+        "moonSimple": [4, 0, 0, 8],
+        "poisonPotionSimple": [5, 0, 0, 8]
         }
     def drawItem(self, item, xLocation, yLocation, width, height):
         self.image = itemDict[item]
@@ -234,14 +241,20 @@ else:
         
         board[c] = colArray
 
-print(board)
+# print(board)
 
 
 def drawItemCount(item):
     global itemsDrawn
+    print(itemCountDict)
+    print("FDJDJ")
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
     xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 67
     yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 25
+
+    if itemCountDict[item][0] > 1:
+        yTextLocation += 55
+    
     if itemCountDict[item][0] > 2:
         textColor = blackColor
         yTextLocation += 35
@@ -281,7 +294,8 @@ def calculatePlayerStats(item, itemNumber):
     
     if itemCountDict[item][2] == 0:
         gameOver = True
-        showGameOverScreen(gameOver)
+        print("game over")
+        # showGameOverScreen(gameOver)
         
         #Do things depending on if its a good or bad item
     # drawItemCount(item)
@@ -296,6 +310,7 @@ def drawSidebarIcons():
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 23
         yLocation = count*55 + 2.5*itemSize[1] + outerTopMargin
         scene = Item()
+        #Friendlies
         if count == 0:
             xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 55 + sidebarLeftSpacing
             yTextLocation = 2.5*itemSize[1] + outerTopMargin - fontS2 - 28
@@ -303,12 +318,18 @@ def drawSidebarIcons():
             text_surface = biggerHeadingFont.render(textMessage, False, whiteColor)
             globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
         
+        #Enemies
         elif count == 3:
             xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 61 + sidebarLeftSpacing
-            yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 8
+            yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 8 + 55
             textMessage = "x"
             text_surface = headingFont.render(textMessage, False, blackColor)
             globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
+            print("HI")
+
+        if count > 1:
+            yLocation += 55
+
         if count > 2:
             yLocation += 35
 
@@ -343,6 +364,7 @@ def drawPlayerStats(item, itemNumber):
     # There are less items there than there were previously
     if playerStats[item][2] < playerStats[item][1]:
         clearPlayerStats(item)
+        print("clear")
 
     i = 0
     width = 30
@@ -375,7 +397,7 @@ def drawSidebar():
 
     #Draw the right side bar
     sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
-    pygame.draw.rect(globs.SCREEN, blackColor, sideBarBg)
+    pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
     sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
     pygame.draw.rect(globs.SCREEN, lighterOrangeColor, sideBar)
 
@@ -393,13 +415,15 @@ def drawSidebar():
     scene.drawItem("pauseButton", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
     
     scene = Item()
-    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing), 40, 40)
+    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
+
+    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing) - 20, 40, 40)
 
     scene = Item()
-    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing), 40, 40)
+    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
 
-    
-    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 23*2 + 20, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing), 60, 60)
+    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing) - 20, 40, 40)
+
 
     # scene = Item()
     # scene.drawItem("playButton", globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 53, 65, 65)
@@ -569,10 +593,37 @@ def redrawGameWindow():
         # print(" ")
         #Get this to run after the items fall
         
-        print(fullPlayerStatsList)
+        for item in fullPlayerStatsList:
+            print(fullPlayerStatsList)
 
+            if item == "mushroomSimple":
+                pass
 
-        #LEN and a true variable
+            elif item == "treeSimple":
+                pass
+
+            elif item == "healPotionSimple":
+                pass
+
+            elif item == "snakeSimple":
+                drawPlayerStats("energy", -1)
+                drawPlayerStats("heart", -0.5)
+                print("less hearts")
+
+            elif item == "moonSimple":
+                drawPlayerStats("heart", -0.5)
+
+            elif item == "poisonPotionSimple":
+                drawPlayerStats("heart", -1)
+                drawPlayerStats("energy", -1)
+
+            itemCountDict[item][1] = itemCountDict[item][2]
+            itemCountDict[item][2] = 0
+            drawItemCount(item)
+            fullPlayerStatsList.remove(item)
+            #LEN and a true variable
+
+        boardChanged = True
         
 
     if boardChanged:
@@ -843,6 +894,11 @@ while gameRunning:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                sys.exit()
+
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
