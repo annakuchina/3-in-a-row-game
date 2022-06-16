@@ -4,6 +4,12 @@ import os
 import sys
 import itertools
 
+# flags = FULLSCREEN | DOUBLEBUF
+
+# resolution = (925, 840)
+
+# SCREEN = pygame.display.set_mode(resolution, flags, 16)
+
 SCREEN = pygame.display.set_mode((925, 840))
 
 
@@ -30,8 +36,8 @@ COLUMN_COUNT = 8
 
 itemTypes = [
     "mushroom",
-    "heal-potion",
-    "poison-potion",
+    "healPotion",
+    "poisonPotion",
     "snake",
     "tree",
     "moon"
@@ -50,9 +56,8 @@ itemTypes = [
 
 itemLen = len(itemTypes)
 
-deleteAnimation = ["small1", "small2", "small3", "BLANK"]
 
-deleteAnimation = ["smallnew", "BLANK"]
+deleteAnimation = ["BLANKDynamic", "BLANK"]
 
 # deleteOrange = ["snake", "snake1", "snake2", "BLANK"]
 

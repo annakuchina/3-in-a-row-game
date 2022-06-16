@@ -11,6 +11,8 @@ FPS = 8
 pygame.init()
 pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
 pygame.display.set_icon(pygame_icon)
+pygame.display.set_caption('Woodland')
+
 globs.SCREEN.fill((255, 255, 255))
 mainFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 16)
 headingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 35)
@@ -41,7 +43,7 @@ screenDimensions = [925, 840]
 #no matches
 # board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
 # board = {0: ['tree', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['tree', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'tree', 'mushroom', 'tree', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
-board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'tree', 'mushroom', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'mushroom', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
+# board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'snake', 'moon', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
 #NEW
 # board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
 # board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
@@ -65,84 +67,84 @@ innerSpacing = 8
 outerTopMargin = 155
 outerLeftMargin = 50
 itemCount = 0
+
 spacingArray = [0, 0.33333333, 0.66666666, 1]
+
 sidebarLeftSpacing = 30
 sideBarWidth = 155
+
 itemsDrawn = False
+
 class Item(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
     def setup(self):
         #  Load everything in and initialize attributes
+        self.mushroomTransparent = pygame.image.load(os.path.join("images", "mushroomTransparent.png")).convert_alpha()
+        self.treeTransparent = pygame.image.load(os.path.join("images", "treeTransparent.png")).convert_alpha()
+
+        self.pauseButton = pygame.image.load(os.path.join("images", "pauseButton.png")).convert_alpha()
+
         self.mushroom = pygame.image.load(os.path.join("images", "mushroom.png")).convert()
-        self.healPotion = pygame.image.load(os.path.join("images", "heal-potion.png")).convert()
-        self.poisonPotion = pygame.image.load(os.path.join("images", "poison-potion.png")).convert()
+        self.healPotion = pygame.image.load(os.path.join("images", "healPotion.png")).convert()
+        self.poisonPotion = pygame.image.load(os.path.join("images", "poisonPotion.png")).convert()
         self.snake = pygame.image.load(os.path.join("images", "snake.png")).convert()
         self.moon = pygame.image.load(os.path.join("images", "moon.png")).convert()
         self.tree = pygame.image.load(os.path.join("images", "tree.png")).convert()
-        self.mushroomTransparent = pygame.image.load(os.path.join("images", "mushroomTransparent.png")).convert_alpha()
-        self.treeTransparent = pygame.image.load(os.path.join("images", "treeTransparent.png")).convert_alpha()
-        self.heart = pygame.image.load(os.path.join("images", "heart.png")).convert_alpha()
-        self.heartHalf = pygame.image.load(os.path.join("images", "heart-half.png")).convert_alpha()
-        self.energy = pygame.image.load(os.path.join("images", "energy.png")).convert_alpha()
-        self.energyHalf = pygame.image.load(os.path.join("images", "energy-half.png")).convert_alpha()
-        self.mushroomSimple = pygame.image.load(os.path.join("images", "mushroom-simple.png")).convert_alpha()
-        self.healPotionSimple = pygame.image.load(os.path.join("images", "heal-potion-simple.png")).convert_alpha()
-        self.poisonPotionSimple = pygame.image.load(os.path.join("images", "poison-potion-simple.png")).convert_alpha()
-        self.snakeSimple = pygame.image.load(os.path.join("images", "snake-simple.png")).convert_alpha()
-        self.moonSimple = pygame.image.load(os.path.join("images", "moon-simple.png")).convert_alpha()
-        self.treeSimple = pygame.image.load(os.path.join("images", "tree-simple.png")).convert_alpha()
         
-        self.small1 = pygame.image.load(os.path.join("images", "small1.png")).convert_alpha()
-        self.small2 = pygame.image.load(os.path.join("images", "small2.png")).convert_alpha()
-        self.small3 = pygame.image.load(os.path.join("images", "small3.png")).convert_alpha()
-        self.smallnew = pygame.image.load(os.path.join("images", "smallnew.png")).convert_alpha()
+        self.heart = pygame.image.load(os.path.join("images", "heart.png")).convert_alpha()
+        self.heartHalf = pygame.image.load(os.path.join("images", "heartHalf.png")).convert_alpha()
+        self.energy = pygame.image.load(os.path.join("images", "energy.png")).convert_alpha()
+        self.energyHalf = pygame.image.load(os.path.join("images", "energyHalf.png")).convert_alpha()
 
-        self.playButton = pygame.image.load(os.path.join("images", "playbutton.png")).convert_alpha()
-        self.pauseButton = pygame.image.load(os.path.join("images", "pausebutton.png")).convert_alpha()
+        self.mushroomSimple = pygame.image.load(os.path.join("images", "mushroomSimple.png")).convert_alpha()
+        self.healPotionSimple = pygame.image.load(os.path.join("images", "healPotionSimple.png")).convert_alpha()
+        self.poisonPotionSimple = pygame.image.load(os.path.join("images", "poisonPotionSimple.png")).convert_alpha()
+        self.snakeSimple = pygame.image.load(os.path.join("images", "snakeSimple.png")).convert_alpha()
+        self.moonSimple = pygame.image.load(os.path.join("images", "moonSimple.png")).convert_alpha()
+        self.treeSimple = pygame.image.load(os.path.join("images", "treeSimple.png")).convert_alpha()
+
+        self.selectedOutline = pygame.image.load(os.path.join("images", "selectedOutline.png")).convert_alpha()
+        self.deselectedOutline = pygame.image.load(os.path.join("images", "deselectedOutline.png")).convert_alpha()
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
-        self.blankWhite = pygame.image.load(os.path.join("images", "BLANK-white.png")).convert()
-        self.blankSidebar = pygame.image.load(os.path.join("images", "BLANK-sidebar.png")).convert()
-        self.selectedOutline = pygame.image.load(os.path.join("images", "selected-outline.png")).convert_alpha()
-        self.deselectedOutline = pygame.image.load(os.path.join("images", "deselected-outline.png")).convert_alpha()
-        global itemDict
-        itemDict ={
-        "heart": self.heart,
-        "heart-half": self.heartHalf,
-        "energy": self.energy,
-        "energy-half": self.energyHalf,
+        self.blankDynamic = pygame.image.load(os.path.join("images", "BLANKDynamic.png")).convert_alpha()
+        self.blankSidebar = pygame.image.load(os.path.join("images", "BLANKSidebar.png")).convert()
         
-        "mushroom": self.mushroom,
-        "heal-potion": self.healPotion,
-        "poison-potion": self.poisonPotion,
-        "snake": self.snake,
-        "moon": self.moon,
-        "tree": self.tree, 
+        global itemDict
+
+        itemDict ={
         "mushroomTransparent": self.mushroomTransparent,
         "treeTransparent": self.treeTransparent,
 
-        "small1": self.small1,
-        "small2": self.small2,
-        "small3": self.small3,
-        "smallnew": self.smallnew,
-
-        "playButton": self.playButton,
         "pauseButton": self.pauseButton,
+        
+        "mushroom": self.mushroom,
+        "healPotion": self.healPotion,
+        "poisonPotion": self.poisonPotion,
+        "snake": self.snake,
+        "moon": self.moon,
+        "tree": self.tree,
 
-
-        "BLANK": self.blank,
-        "blankWhite": self.blankWhite,
-        "blankSidebar": self.blankSidebar,
-        "selected-outline": self.selectedOutline,
-        "deselected-outline": self.deselectedOutline,
+        "heart": self.heart,
+        "heartHalf": self.heartHalf,
+        "energy": self.energy,
+        "energyHalf": self.energyHalf,
+        
         "mushroomSimple": self.mushroomSimple,
-        "heal-potionSimple": self.healPotionSimple,
-        "poison-potionSimple": self.poisonPotionSimple,
+        "healPotionSimple": self.healPotionSimple,
+        "poisonPotionSimple": self.poisonPotionSimple,
         "snakeSimple": self.snakeSimple,
         "moonSimple": self.moonSimple,
-        "treeSimple": self.treeSimple
+        "treeSimple": self.treeSimple,
+
+        "selectedOutline": self.selectedOutline,
+        "deselectedOutline": self.deselectedOutline,
+        
+        "BLANK": self.blank,
+        "BLANKDynamic": self.blankDynamic,
+        "blankSidebar": self.blankSidebar
         }
         global playerStats
         playerStats = {
@@ -155,10 +157,10 @@ class Item(pygame.sprite.Sprite):
         itemCountDict = {
         "mushroomSimple": [0, 0, 0, 4],
         "treeSimple": [1, 0, 0, 6],
-        "heal-potionSimple": [2, 0, 0, 9],
+        "healPotionSimple": [2, 0, 0, 9],
         "snakeSimple": [3, 0, 0, 15],
         "moonSimple": [4, 0, 0, 10],
-        "poison-potionSimple": [5, 0, 0, 9]
+        "poisonPotionSimple": [5, 0, 0, 9]
         }
     def drawItem(self, item, xLocation, yLocation, width, height):
         self.image = itemDict[item]
@@ -282,9 +284,9 @@ def drawPlayerStats(item, itemNumber):
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(i)*40
         yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
         if i + 0.5 == playerStats[item][2]:
-            selectedItem = selectedItem + "-half"
+            selectedItem = selectedItem + "Half"
         elif i + 0.25 == playerStats[item][2] and playerStats[item][1] % 1 == 0.5:
-            selectedItem = selectedItem + "-half"
+            selectedItem = selectedItem + "Half"
         
         scene.drawItem(selectedItem, xLocation, yLocation, width, height)
         i += 1
@@ -482,11 +484,9 @@ def redrawGameWindow():
 
         shiftDownCount += 1
 
-        
-
 
     if removeItemBorder:
-        drawGridItem("deselected-outline", displayedArray[0][1], displayedArray[0][0], itemSize, 0)
+        drawGridItem("deselectedOutline", displayedArray[0][1], displayedArray[0][0], itemSize, 0)
         
         displayedArray = []
         removeItemBorder = False
@@ -495,7 +495,7 @@ def redrawGameWindow():
 
 
     if addItemBorder:
-        drawGridItem("selected-outline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
+        drawGridItem("selectedOutline", selectedArray[0][1], selectedArray[0][0], itemSize, 0)
 
         addItemBorder = False
         displayedArray = selectedArray
@@ -722,8 +722,8 @@ while gameRunning:
 
             gameChanged = False
 
-            redrawGameWindow()
-            pygame.display.update()
+            # redrawGameWindow()
+            # pygame.display.update()
 
         if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
             blankCount = 0
@@ -761,7 +761,6 @@ while gameRunning:
             pygame.display.update()
             initiateScreen = False
 
-
     elif helpMenuRunning:
         if initiateScreen:
             helpMenu()
@@ -769,8 +768,6 @@ while gameRunning:
             initiateScreen = False
 
 
-
-    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -930,23 +927,6 @@ while gameRunning:
                                             
                                             modifyEnergy = -0.5
 
-
-                # See if user has lifted the left mouse button
-        elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:
-                if gameRunning:
-                    itemDragging = False
-                    # See where the user drops the item
-                    # mouse_x, mouse_y = event.pos
-                    # print(mouse_x, mouse_y)
-                    # See if it's in the range of column and rows
-                    # newColumnLocation = (mouse_x-outerLeftMargin) // (itemSize[0]+innerSpacing)
-                    # newRowLocation = (mouse_y-outerTopMargin) // (itemSize[0]+innerSpacing)
-        # Drawing the game
-        # redrawGameWindow()
-
-
     clock.tick(FPS)
-
 
 pygame.quit()
