@@ -46,6 +46,15 @@ blackColor = (0, 0, 0)
 backgroundPeachColor = (247, 187, 150)
 darkerOrangeColor = (255, 155, 68)
 lighterOrangeColor = (255, 174, 99)
+
+# mushroomSimpleColor = (232, 50, 49)
+# treeSimpleColor = (246, 82, 48)
+# healPotionSimpleColor = (202, 18, 81)
+# snakeSimpleColor = (88, 102, 229)
+# moonSimpleColor = (175, 72, 238)
+# poisonPotionSimpleColor = (15, 130, 85)
+
+
 rectangle_draging = False
 itemLen = len(itemTypes)
 image = ""
@@ -182,14 +191,14 @@ class Item(pygame.sprite.Sprite):
             "energy": [1, 3, 3]
         }
         global itemCountDict
-        # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items
+        # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items, 4: the colour corresponding to the item
         itemCountDict = {
-        "mushroomSimple": [0, 0, 0, 4],
-        "treeSimple": [1, 0, 0, 6],
-        "healPotionSimple": [2, 0, 0, 9],
-        "snakeSimple": [3, 0, 0, 7],
-        "moonSimple": [4, 0, 0, 8],
-        "poisonPotionSimple": [5, 0, 0, 8]
+        "mushroomSimple": [0, 0, 0, 4, (232, 50, 49)],
+        "treeSimple": [1, 0, 0, 6, (246, 82, 48)],
+        "healPotionSimple": [2, 0, 0, 9, (202, 18, 81)],
+        "snakeSimple": [3, 0, 0, 7, (88, 102, 229)],
+        "moonSimple": [4, 0, 0, 8, (175, 72, 238)],
+        "poisonPotionSimple": [5, 0, 0, 8, (15, 130, 85)]
         }
 
         
@@ -257,15 +266,27 @@ def drawItemCount(item):
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
     xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 67
     yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 25
+    
+    textColor = ""
+
+    #Add a different color if it is full
+    if itemCountDict[item][2] == itemCountDict[item][3]:
+        textColor = itemCountDict[item][4]
 
     if itemCountDict[item][0] > 1:
         yTextLocation += 55
     
     if itemCountDict[item][0] > 2:
-        textColor = blackColor
         yTextLocation += 35
+        if textColor == "":
+            textColor = blackColor
     else:
-        textColor = whiteColor
+        if textColor == "":
+            textColor = whiteColor
+
+    
+
+
     #If icons have already been drawn, cover over them with the background color to clear them
     if itemsDrawn == True:
         text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
@@ -694,9 +715,6 @@ def redrawGameWindow():
         boardChanged = False
 
 
-
-
-
 gameChanged = False
 gameOver = False
 turn = 0
@@ -1041,11 +1059,9 @@ while gameRunning:
                                 verticalDict = itemCollectVertical(board, itemTypes)
                                 horizontalDict = itemCollectHorizontal(board, itemTypes)
                             
-                                if len(displayedArray) == 0:
-                                    
+                                if len(displayedArray) == 0:                 
                                     selectedArray.append([columnLocation, rowLocation])
                                     #Selected array and displayedArray -> moves from selected to displayed
-
 
                                     selectedItem = True
                                     addItemBorder = True
