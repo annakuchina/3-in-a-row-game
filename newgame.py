@@ -879,9 +879,9 @@ def mainMenu():
     scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
     scene = Item()
     scene.drawItem("treeTransparent", 7*screenDimensions[0]/10, 3.9*screenDimensions[1]/10, 150, 150)
-    button("Start", (screenDimensions[0]- 250)//2, 4.5*screenDimensions[1]/10, 250, 70, lighterPinkColor, whiteColor, 30)
-    button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 30)
-    button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 30)
+    button("Start", (screenDimensions[0]- 250)//2, 4.5*screenDimensions[1]/10, 250, 70, lighterPinkColor, whiteColor, 25)
+    button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 25)
+    button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 25)
 
     allSprites.draw(globs.SCREEN)
 
