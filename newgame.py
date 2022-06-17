@@ -648,37 +648,41 @@ def redrawGameWindow():
                 # drawPlayerStats("energy", -0.5)
 
             if modifyEnergy > 0:
-                energyAddAmount = modifyEnergy + playerStats["energy"][2] - 3
+                if modifyEnergy + playerStats["energy"][2] >= 3:
+                    print("ZZZZ")
+                    print(playerStats)
+                    drawPlayerStats("energy", 3 - playerStats["energy"][2])
 
-                if energyAddAmount == playerStats["energy"][2] and playerStats["energy"][2] == 3:
-                    pass
                 else:
-                    print("HI1")
-                    drawPlayerStats("energy", energyAddAmount)
+                    print("Z2")
+                    print(playerStats)
+                    print(modifyEnergy)
+                    # energyAddAmount = modifyEnergy + playerStats["energy"][2] - 3
+                    drawPlayerStats("energy", modifyEnergy)
 
             elif modifyEnergy < 0:
-                #modifyEnergy takes away more energy than is available (player loses)
+                # modifyEnergy takes away more energy than is available (player loses)
                 if -modifyEnergy >= playerStats["energy"][2]:
                     print("YOU LOST")
                     sys.exit()
-            
+                else:
+                    drawPlayerStats("energy", modifyEnergy)
+
 
             if modifyHearts > 0:
-                
                 if modifyHearts + playerStats["heart"][2] > 3:
-                    pass
+                    drawPlayerStats("heart", 3 - playerStats["heart"][2])
                 else:
-                    heartsAddAmount = modifyHearts + playerStats["heart"][2] - 3
-                    # if heartsAddAmount == playerStats["heart"][2] and playerStats["heart"][2] == 3:
-                    #     pass
-                    # else:
-                    drawPlayerStats("heart", heartsAddAmount)
+                    # heartsAddAmount = modifyHearts + playerStats["heart"][2] - 3
+                    drawPlayerStats("heart", modifyHearts)
 
             elif modifyHearts < 0:
-                #modifyEnergy takes away more energy than is available (player loses)
+                # modifyHearts takes away more hearts than are available (player loses)
                 if -modifyHearts >= playerStats["heart"][2]:
                     print("YOU LOST")
                     sys.exit()
+                else:
+                    drawPlayerStats("hearts", modifyHearts)
 
             modifyEnergy = 0
             modifyHearts = 0
