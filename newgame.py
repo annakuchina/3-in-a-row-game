@@ -46,9 +46,15 @@ blackColor = (0, 0, 0)
 backgroundPeachColor = (247, 187, 150)
 darkerOrangeColor = (255, 155, 68)
 lighterOrangeColor = (255, 174, 99)
+backgroundLighterOrangeColor = (252, 196, 136)
+
 
 # mushroomSimpleColor = (232, 50, 49)
+mushroomSimpleColor = (241, 60, 62)
+
 # treeSimpleColor = (246, 82, 48)
+treeSimpleColor = (246, 107, 47)
+
 # healPotionSimpleColor = (202, 18, 81)
 # snakeSimpleColor = (88, 102, 229)
 # moonSimpleColor = (175, 72, 238)
@@ -139,14 +145,15 @@ class Item(pygame.sprite.Sprite):
         self.deselectedOutline = pygame.image.load(os.path.join("images", "deselectedOutline.png")).convert_alpha()
 
         self.collectionBorder = pygame.image.load(os.path.join("images", "collectionBorder.png")).convert_alpha()
-        self.mushroomPlain = pygame.image.load(os.path.join("images", "mushroomPlain.png")).convert()
-        self.treePlain = pygame.image.load(os.path.join("images", "treePlain.png")).convert()
+        self.collectionBorderRed = pygame.image.load(os.path.join("images", "collectionBorderRed.png")).convert_alpha()
+        self.collectionBorderOrange = pygame.image.load(os.path.join("images", "collectionBorderOrange.png")).convert_alpha()
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
         self.blankDynamic = pygame.image.load(os.path.join("images", "BLANKDynamic.png")).convert_alpha()
         self.blankSidebar = pygame.image.load(os.path.join("images", "BLANKSidebar.png")).convert()
         
         global itemDict
+        global mushroomSimpleColor, treeSimpleColor
 
         itemDict ={
         "mushroomTransparent": self.mushroomTransparent,
@@ -177,8 +184,8 @@ class Item(pygame.sprite.Sprite):
         "deselectedOutline": self.deselectedOutline,
 
         "collectionBorder": self.collectionBorder,
-        "mushroomPlain": self.mushroomPlain,
-        "treePlain": self.treePlain,
+        "collectionBorderRed": self.collectionBorderRed,
+        "collectionBorderOrange": self.collectionBorderOrange,
         
         "BLANK": self.blank,
         "BLANKDynamic": self.blankDynamic,
@@ -193,8 +200,8 @@ class Item(pygame.sprite.Sprite):
         global itemCountDict
         # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items, 4: the colour corresponding to the item
         itemCountDict = {
-        "mushroomSimple": [0, 0, 0, 4, (232, 50, 49)],
-        "treeSimple": [1, 0, 0, 6, (246, 82, 48)],
+        "mushroomSimple": [0, 0, 0, 4, mushroomSimpleColor],
+        "treeSimple": [1, 0, 0, 6, treeSimpleColor],
         "healPotionSimple": [2, 0, 0, 9, (202, 18, 81)],
         "snakeSimple": [3, 0, 0, 7, (88, 102, 229)],
         "moonSimple": [4, 0, 0, 8, (175, 72, 238)],
@@ -337,28 +344,23 @@ def drawSidebarIcons():
         xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 23
         yLocation = count*55 + 2.5*itemSize[1] + outerTopMargin
         scene = Item()
-        #Friendlies
-        if count == 0:
-            xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 55 + sidebarLeftSpacing
-            yTextLocation = 2.5*itemSize[1] + outerTopMargin - fontS2 - 28
-            textMessage = "+"
-            text_surface = biggerHeadingFont.render(textMessage, False, whiteColor)
-            globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
-        
-        #Enemies
-        elif count == 3:
-            xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 61 + sidebarLeftSpacing
-            yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS2 + 8 + 55
-            textMessage = "x"
-            text_surface = headingFont.render(textMessage, False, blackColor)
-            globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
-            print("HI")
 
         if count > 1:
             yLocation += 55
 
         if count > 2:
             yLocation += 35
+
+        #Friendlies
+
+        if count == 0:
+            drawText("+", 60, darkerOrangeColor, xLocation + 22, yLocation - 50)
+            drawText("+", 40, whiteColor, xLocation + 32, yLocation - 41)
+        
+        #Enemies
+        elif count == 3:
+            drawText("x", 56, darkerOrangeColor, xLocation + 22 + 3 + 4, yLocation - 49 - 3)
+            drawText("x", 40, blackColor, xLocation + 32 + 4, yLocation - 41 - 3 + 1)
 
         scene.drawItem(item, xLocation, yLocation, width, height)
 
@@ -376,7 +378,7 @@ def clearPlayerStats(item):
     yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
     width = 3*30 + 2*10
     height = 30
-    item = "blankSidebar"
+    item = "BLANK"
     scene.drawItem(item, xLocation, yLocation, width, height)
 
 #DRAW the energy and heart icons
@@ -411,6 +413,36 @@ def drawPlayerStats(item, itemNumber):
     allSprites.draw(globs.SCREEN)
 
 
+def fillCollection(item):
+
+    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
+    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
+    scene = Item()
+
+    if item == "mushroomSimple":
+        fillUpNumber = 10
+        currentFillStatus = 0
+
+        print("mushroom")
+        mushroomCollectionBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 25 + 6, (45 - fillUpNumber - currentFillStatus) + (2*55 + 2.5*itemSize[1] + outerTopMargin - 7), 45 -12, fillUpNumber)
+        pygame.draw.rect(globs.SCREEN, mushroomSimpleColor, mushroomCollectionBg)
+
+        scene.drawItem("collectionBorderRed", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing +25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+    
+
+    elif item == "treeSimple":
+        fillUpNumber = 10
+        currentFillStatus = 0
+
+        print("tree")
+
+        treeCollectionBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25 + 6, (45 - fillUpNumber - currentFillStatus) +  (2*55 + 2.5*itemSize[1] + outerTopMargin - 7), 45 - 12, 10)
+        pygame.draw.rect(globs.SCREEN, treeSimpleColor, treeCollectionBg)
+
+        scene.drawItem("collectionBorderOrange", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+
+
+
 def drawSidebar():
     #Draw the orange background
     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
@@ -440,15 +472,30 @@ def drawSidebar():
     # drawText(str(levelNumber), 50, whiteColor, outerLeftMargin+50, 60)
     
     scene.drawItem("pauseButton", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
-    
-    scene = Item()
-    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
 
+    # xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
+    # yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
+    # width = 3*30 + 2*10
+    # height = 30
+    # color = whiteColor
+
+    # statBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 10 + sidebarLeftSpacing, 2*itemSize[0]/3 + outerTopMargin - 10, 3*30 + 2*10 + 20, 90)
+    # pygame.draw.rect(globs.SCREEN, darkerOrangeColor, statBg)
+
+
+
+    # scene.drawItem(item, xLocation, yLocation, width, height)
+    
+    # scene = Item()
+    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
+
+    fillCollection("mushroomSimple")
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing) - 20, 40, 40)
 
-    scene = Item()
-    scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
+    # scene = Item()
+    # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
 
+    fillCollection("treeSimple")
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing) - 20, 40, 40)
 
 
@@ -460,15 +507,10 @@ def drawSidebar():
     # globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
 
 
-# if gameRunning == True:
-#     drawSidebar()
-#     drawPlayerStats("heart", 0)
-#     drawPlayerStats("energy", 0)
-#     drawSidebarIcons()
+
+
 
 displayedArray = []
-
-
 
 
 horizontalRemoveCount = 0
@@ -628,10 +670,12 @@ def redrawGameWindow():
 
             # Friendly items
             if item == "mushroomSimple":
+                fillCollection(item)
                 modifyEnergy = 1
                 modifyHearts = 1
 
             elif item == "treeSimple":
+                fillCollection(item)
                 modifyEnergy = 1
                 modifyHearts = 0.5
                 # if 3 - playerStats["energy"][2] == 0:
