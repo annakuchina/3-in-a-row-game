@@ -631,33 +631,24 @@ def redrawGameWindow():
 
             # Enemy items
             elif item == "snakeSimple":
-                pass
+                # pass
                 modifyEnergy = -1
-                # drawPlayerStats("energy", -1)
 
             elif item == "moonSimple":
-                pass
+                # pass
                 modifyHearts = -0.5
-                # drawPlayerStats("heart", -0.5)
 
             elif item == "poisonPotionSimple":
-                pass
+                # pass
                 modifyEnergy = -0.5
                 modifyHearts = -1
-                # drawPlayerStats("heart", -1)
-                # drawPlayerStats("energy", -0.5)
+
 
             if modifyEnergy > 0:
                 if modifyEnergy + playerStats["energy"][2] >= 3:
-                    print("ZZZZ")
-                    print(playerStats)
                     drawPlayerStats("energy", 3 - playerStats["energy"][2])
 
                 else:
-                    print("Z2")
-                    print(playerStats)
-                    print(modifyEnergy)
-                    # energyAddAmount = modifyEnergy + playerStats["energy"][2] - 3
                     drawPlayerStats("energy", modifyEnergy)
 
             elif modifyEnergy < 0:
@@ -673,7 +664,6 @@ def redrawGameWindow():
                 if modifyHearts + playerStats["heart"][2] > 3:
                     drawPlayerStats("heart", 3 - playerStats["heart"][2])
                 else:
-                    # heartsAddAmount = modifyHearts + playerStats["heart"][2] - 3
                     drawPlayerStats("heart", modifyHearts)
 
             elif modifyHearts < 0:
@@ -682,7 +672,8 @@ def redrawGameWindow():
                     print("YOU LOST")
                     sys.exit()
                 else:
-                    drawPlayerStats("hearts", modifyHearts)
+                    drawPlayerStats("heart", modifyHearts)
+
 
             modifyEnergy = 0
             modifyHearts = 0
@@ -887,7 +878,7 @@ while gameRunning:
                                 matchItem = board[key][item[0]]
                                 matchLength = len(item)
                                 if startLevel == False:
-                                    if item != "BLANK":
+                                    if matchItem != "BLANK":
                                         calculatePlayerStats(matchItem + "Simple", matchLength)
                                 for rowNo in item:
                                     board[key][rowNo] = "BLANK"
@@ -904,7 +895,7 @@ while gameRunning:
                                 matchItem = board[item[0]][key]
                                 matchLength = len(item)
                                 if startLevel == False:
-                                    if item != "BLANK":
+                                    if matchItem != "BLANK":
                                         calculatePlayerStats(matchItem + "Simple", matchLength)
                                 for colNo in item:
                                     board[colNo][key] = "BLANK"
