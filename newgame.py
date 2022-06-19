@@ -23,7 +23,7 @@ biggerHeadingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 41)
 fontS2 = 30
 fontS3 = 50
 fontS1 = 16
-gameRunning = True
+# gameRunning = True
 
 
 itemTypes = globs.itemTypes
@@ -48,6 +48,7 @@ darkerOrangeColor = (255, 155, 68)
 lighterOrangeColor = (255, 174, 99)
 backgroundLighterOrangeColor = (252, 196, 136)
 
+blueColor = (88, 102, 229)
 
 # mushroomSimpleColor = (232, 50, 49)
 mushroomSimpleColor = (241, 60, 62)
@@ -197,23 +198,23 @@ class Item(pygame.sprite.Sprite):
         global itemCountDict
         # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items, 4: the colour corresponding to the item
         itemCountDict = {
-            "mushroomSimple": [0, 0, 0, 4, mushroomSimpleColor],
-            "treeSimple": [1, 0, 0, 6, treeSimpleColor],
-            "moonSimple": [2, 0, 0, 8, (175, 72, 238)],
-            "healPotionSimple": [3, 0, 0, 5, (202, 18, 81)],
-            "snakeSimple": [4, 0, 0, 7, (88, 102, 229)],
-            "poisonPotionSimple": [5, 0, 0, 8, (15, 130, 85)]
+            "mushroomSimple": [0, 0, 0, 0, mushroomSimpleColor],
+            "treeSimple": [1, 0, 0, 0, treeSimpleColor],
+            "moonSimple": [2, 0, 0, 0, (175, 72, 238)],
+            "healPotionSimple": [3, 0, 0, 0, (202, 18, 81)],
+            "snakeSimple": [4, 0, 0, 0, (88, 102, 229)],
+            "poisonPotionSimple": [5, 0, 0, 0, (15, 130, 85)]
         }
 
         global levelInfoDict
 
         levelInfoDict = {
-            "mushroomSimple": [],
-            "treeSimple": [],
-            "moonSimple": [],
-            "healPotionSimple": [],
-            "snakeSimple": [],
-            "poisonPotionSimple": []
+            "mushroomSimple": [4, 5, 6, 7, 8],
+            "treeSimple": [6, 7, 8, 9, 10],
+            "moonSimple": [8, 8, 9, 10, 11],
+            "healPotionSimple": [5, 8, 9, 10, 11],
+            "snakeSimple": [7, 6, 5, 4, 4],
+            "poisonPotionSimple": [8, 7, 6, 5, 4]
         }
 
         
@@ -382,6 +383,7 @@ def drawSidebarIcons():
 
         scene.drawItem(item, xLocation, yLocation, width, height)
 
+
         drawItemCount(item)
 
     scene = Item()
@@ -512,7 +514,10 @@ def fillCollection(item):
 
 
 
-def drawLevel(levelNumber):
+def drawLevel():
+    for item in levelInfoDict:
+        itemCountDict[item][3] = levelInfoDict[item][levelNumber-1]
+        
     if levelNumber > 1:
         drawText("L" + str(levelNumber), 40, darkerOrangeColor, outerLeftMargin+50, 62)
     drawText("L" + str(levelNumber), 40, whiteColor, outerLeftMargin+50, 62)
@@ -543,7 +548,7 @@ def drawSidebar():
     scene = Item()
 
     # levelNumber = 1
-    drawLevel(levelNumber)
+    drawLevel()
     # drawText(str(levelNumber), 50, whiteColor, outerLeftMargin+50, 60)
     
     scene.drawItem("pauseButton", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
@@ -583,14 +588,7 @@ def drawSidebar():
 
 
 def levelUp():
-    width = 500
-    height = 300
-    # print(screenDimensions[0] - width/2)
-    # print(screenDimensions[1] - height/2)
-
-    colNo*80 + innerSpacing + outerLeftMargin
-
-    # print(screenDimensions)
+    allSprites.empty()
 
     levelUpBg = pygame.Rect(itemSize[0] + innerSpacing + outerLeftMargin, 2*itemSize[0] + innerSpacing*2 + outerTopMargin, itemSize[0]*6 + innerSpacing*5, itemSize[0]*4 + innerSpacing*3)
 
@@ -651,7 +649,6 @@ previousRemoveVerticalCount = -1
 previousRemoveHorizontalCount = -1
 
 
-levelUpScreenRunning = False
 
 
 
@@ -796,11 +793,11 @@ def redrawGameWindow():
                 # fillCollection(item)
                 # modifyEnergy = 1
                 modifyHearts = 1
-                # playerStats["mushroom"][1] += 3
+                playerStats["mushroom"][1] += 3
 
                 #TESTING LEVEL UP 
-                playerStats["mushroom"][1] += 12
-                playerStats["tree"][1] += 12
+                # playerStats["mushroom"][1] += 12
+                # playerStats["tree"][1] += 12
                 # if playerStats["heart"][2] == 3:
                 #     # Already have maximum hearts available
                 #     playerStats["mushroomCount"][1] += modifyHearts
@@ -881,29 +878,13 @@ def redrawGameWindow():
             # Enemy items
             elif item == "snakeSimple":
                 # pass
-                modifyEnergy = -0.5
+                modifyHearts = -0.5
 
 
             elif item == "poisonPotionSimple":
                 # pass
                 modifyEnergy = -0.5
                 modifyHearts = -0.5
-
-
-            if modifyEnergy > 0:
-                if modifyEnergy + playerStats["energy"][2] >= 3:
-                    drawPlayerStats("energy", 3 - playerStats["energy"][2])
-
-                else:
-                    drawPlayerStats("energy", modifyEnergy)
-
-            elif modifyEnergy < 0:
-                # modifyEnergy takes away more energy than is available (player loses)
-                if -modifyEnergy >= playerStats["energy"][2]:
-                    print("YOU LOST")
-                    sys.exit()
-                else:
-                    drawPlayerStats("energy", modifyEnergy)
 
 
             if playerStats["tree"][1] > 0:
@@ -930,12 +911,26 @@ def redrawGameWindow():
                 playScreenRunning = False
                 initiateScreen = True
                 # print("LEVEL UP")
-                levelUp()
 
             # if playerStats["mushroom"][0] == 12 and 
 
                 # print("DOING MUSHROOM")
                 # fillCollection("mushroom")
+
+            if modifyEnergy > 0:
+                if modifyEnergy + playerStats["energy"][2] >= 3:
+                    drawPlayerStats("energy", 3 - playerStats["energy"][2])
+
+                else:
+                    drawPlayerStats("energy", modifyEnergy)
+
+            elif modifyEnergy < 0:
+                # modifyEnergy takes away more energy than is available (player loses)
+                if -modifyEnergy >= playerStats["energy"][2]:
+                    print("YOU LOST")
+                    sys.exit()
+                else:
+                    drawPlayerStats("energy", modifyEnergy)
 
 
             if modifyHearts > 0:
@@ -1064,7 +1059,6 @@ def quitGame():
     quit()
 
 def pauseMenu():
-    global last_pos
     allSprites.empty()
     globs.SCREEN.fill(backgroundPeachColor)
     screenTitle = "Pause"
@@ -1077,15 +1071,33 @@ def pauseMenu():
     # print("FDSKJJK")
     # pygame.display.update()
 
+def winScreen():
+    allSprites.empty()
+    globs.SCREEN.fill(darkerOrangeColor)
+
+    drawCenterText("You Win!", 70, whiteColor, screenDimensions[0]//2, 2.7*screenDimensions[1]/10)
+    button("Main Menu", (screenDimensions[0]- 375)//2, 3.5*screenDimensions[1]/10, 375, 90, whiteColor, lighterPinkColor, 26)
+    button("Help", (screenDimensions[0]- 350)//2, 5*screenDimensions[1]/10, 350, 90, whiteColor, brighterOrangeColor, 26)
+    button("Quit", (screenDimensions[0]- 325)//2, 6.5*screenDimensions[1]/10, 325, 90, whiteColor, brighterPurpleColor, 26)
+
+def loseScreen():
+    allSprites.empty()
+    globs.SCREEN.fill(blueColor)
+
+    drawCenterText("You Lose!", 70, whiteColor, screenDimensions[0]//2, 2.7*screenDimensions[1]/10)
+    button("Main Menu", (screenDimensions[0]- 375)//2, 3.5*screenDimensions[1]/10, 375, 90, whiteColor, lighterPinkColor, 26)
+    button("Help", (screenDimensions[0]- 350)//2, 5*screenDimensions[1]/10, 350, 90, whiteColor, brighterOrangeColor, 26)
+    button("Quit", (screenDimensions[0]- 325)//2, 6.5*screenDimensions[1]/10, 325, 90, whiteColor, brighterPurpleColor, 26)
+
+
+
 def helpMenu():
-    global last_pos
     allSprites.empty()
     #Thinner green border
     globs.SCREEN.fill(lighterOrangeColor)
 
 
 def mainMenu():
-    global last_pos
     allSprites.empty()
     rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
     pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
@@ -1104,14 +1116,21 @@ def mainMenu():
     allSprites.draw(globs.SCREEN)
 
 
-gameRunning = False
 gameRunning = True
 
-mainMenuRunning = True
+# mainMenuRunning = True
+mainMenuRunning = False
+
 pauseMenuRunning = False
 helpMenuRunning = False
 
 playScreenRunning = False
+
+levelUpScreenRunning = False
+
+loseScreenRunning = True
+winScreenRunning = False
+
 
 initiateScreen = True
 startLevel = True
@@ -1138,12 +1157,10 @@ while gameRunning:
         last_pos = mouse_pos
 
     if playScreenRunning:
+        # print("HI")
 
         if initiateScreen:
-            print("HJKJK")
-            
             print(board)
-
             # print("initiating")
             play()
             # pygame.display.update()
@@ -1155,10 +1172,10 @@ while gameRunning:
             gameChanged = True
 
 
-        mouse_pos = pygame.mouse.get_pos()
-        if (mouse_pos != last_pos):
-            mouse_x, mouse_y = mouse_pos
-            last_pos = mouse_pos
+        # mouse_pos = pygame.mouse.get_pos()
+        # if (mouse_pos != last_pos):
+        #     mouse_x, mouse_y = mouse_pos
+        #     last_pos = mouse_pos
 
 
 
@@ -1244,7 +1261,21 @@ while gameRunning:
             levelUp()
             initiateScreen = False
 
-            
+    elif winScreenRunning:
+        if initiateScreen:
+            levelNumber = 1
+            randomBoard()
+            winScreen()
+            pygame.display.update()
+            initiateScreen = False
+    
+    elif loseScreenRunning:
+        if initiateScreen:
+            levelNumber = 1
+            randomBoard()
+            loseScreen()
+            pygame.display.update()
+            initiateScreen = False
 
     elif pauseMenuRunning:
         if initiateScreen:
@@ -1309,28 +1340,67 @@ while gameRunning:
                 elif levelUpScreenRunning:
                     print(" ")
                     # Continue
-                    # print(math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing))
-                    # print(math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing))
-                    print(mouse_x)
-                    firstXpos = math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing)
-                    secondXpos = math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing)
-
-                    print(firstXpos)
-                    print(secondXpos)
 
                     if outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing > mouse_x > outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing and 4*itemSize[0] + innerSpacing*3 + outerTopMargin + 90 > mouse_y > 4*itemSize[0] + innerSpacing*3 + outerTopMargin:
-                        
-                        
                         print("CONTINUE")
+                        
+                        allSprites.empty()
+                        boardChanged = True
+                        rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+                        pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
+                        levelNumber += 1
 
-                   
-                    # if firstXpos > mouse_x > secondXpos:
-                    #     print(":KJDFJKDF")
+                        if levelNumber == 9:
+                            print("YOU WIN")
+                        else:
+                            randomBoard()
+                            initiateScreen = True
+                            levelUpScreenRunning = False
+                            playScreenRunning = True
+                            drawLevel()
+                        # board = {}
 
-                    # if 4*itemSize[0] + innerSpacing*3 + outerTopMargin > mouse_y > 4*itemSize[0] + innerSpacing*3 + outerTopMargin + 90:
-                    #     print("2")
-                    # button("Continue", outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing, 4*itemSize[0] + innerSpacing*3 + outerTopMargin, 3*itemSize[0] + 3*innerSpacing, 90, mushroomSimpleColor, whiteColor, 20)
+                
 
+                elif winScreenRunning:
+                    # Main menu
+                    if (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                        print("mainMENU")
+                        initiateScreen = True
+                        winScreenRunning = False
+                        mainMenuRunning = True
+                    
+                    # Help
+                    elif (screenDimensions[0]- 350)//2 + 350 > mouse_x > (screenDimensions[0]- 350)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                        initiateScreen = True
+                        winScreenRunning = False
+                        helpMenuRunning = True
+                    
+                    elif (screenDimensions[0]- 325)//2 + 325 > mouse_x > (screenDimensions[0]- 325)//2 and 6.5*screenDimensions[1]/10 + 90 > mouse_y > 6.5*screenDimensions[1]/10:
+                        winScreenRunning = False
+                        quitGame()
+
+                    # button("Main Menu", (screenDimensions[0]- 375)//2, 3.5*screenDimensions[1]/10, 375, 90, whiteColor, lighterPinkColor, 26)
+                    # button("Help", (screenDimensions[0]- 350)//2, 5*screenDimensions[1]/10, 350, 90, whiteColor, brighterOrangeColor, 26)
+                    # button("Quit", (screenDimensions[0]- 325)//2, 6.5*screenDimensions[1]/10, 325, 90, whiteColor, brighterPurpleColor, 26)
+                    print("WIN")
+                        
+                elif loseScreenRunning:
+                    # Main menu
+                    if (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                        initiateScreen = True
+                        loseScreenRunning = False
+                        mainMenuRunning = True
+                    
+                    # Help
+                    elif (screenDimensions[0]- 350)//2 + 350 > mouse_x > (screenDimensions[0]- 350)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                        initiateScreen = True
+                        loseScreenRunning = False
+                        helpMenuRunning = True
+                    
+                    elif (screenDimensions[0]- 325)//2 + 325 > mouse_x > (screenDimensions[0]- 325)//2 and 6.5*screenDimensions[1]/10 + 90 > mouse_y > 6.5*screenDimensions[1]/10:
+                        winScreenRunning = False
+                        quitGame()
                 
                 # elif helpMenuRunning:
                 #     #Resume
@@ -1346,7 +1416,6 @@ while gameRunning:
                 #         quitGame()
 
                 elif playScreenRunning:
-
                     # globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50, 58, 50, 50)
 
                     if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
@@ -1354,9 +1423,9 @@ while gameRunning:
                         playScreenRunning = False
                         pauseMenuRunning = True
 
+                    print(removalAction)
                     if removalAction == False and shiftItemsDown == False:
                             firstRound = False
-                            print("SELECTED NOw")
                             itemSelected = True
                             xLocation = mouse_x - outerLeftMargin
                             yLocation = mouse_y - outerTopMargin
