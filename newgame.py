@@ -941,15 +941,11 @@ while gameRunning:
             last_pos = mouse_pos
 
 
-        # if currentRound == True:
 
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
-        # print("RUNNING")
         if gameChanged == True and shiftItemsDown == False:
-            print("RUNNING")
             verticalDict = itemCollectVertical(board, itemTypes)
             horizontalDict = itemCollectHorizontal(board, itemTypes)
-            # print("HI1")
  
             if len(verticalDict) > 0:
                 removeVerticalCurrent = True
@@ -995,41 +991,20 @@ while gameRunning:
             # redrawGameWindow()
             # pygame.display.update()
         
-        # print(removalAction)
         if removeVerticalCurrent == False and removeHorizontalCurrent == False and shiftItemsDown == False and removalAction == True:
-            # blankCount = 0
-            print("HI ")
             unmovedBoard = {}
             movedItemsBoard = {}
 
             for key in board:
                 if "BLANK" in board[key]:
                     shiftItemsDown = True
-                    # blankCount += 1
                     modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
                     movedItemsBoard[key] = modifiedItems
                     board[key] = shiftedCol
                     unmovedBoard[key] = unchangedCol
-                    # print(shiftItemsDown)
-                    # print("***")
                     
-
             if shiftItemsDown == False:
                 removalAction = False
-                removalAction = False
-                # print(" ")
-                # print(board)
-                # print(" ")
-                #It detects it in the space of time where the thing is being animated - the removeitem
-
-            # if blankCount == 0:
-                # shiftItemsDown = False
-            # print(shiftItemsDown)
-
-            # if firstRound == True and shiftItemsDown == False:
-            #     # print(" ")
-            #     print("FIRST ROUND IS FALSE")
-            #     firstRound = False
 
         if itemsModified == True and shiftItemsDown == False:
             gameChanged = True
@@ -1122,7 +1097,6 @@ while gameRunning:
                     # globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50, 58, 50, 50)
 
                     if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
-                        print("HI")
                         initiateScreen = True
                         playScreenRunning = False
                         pauseMenuRunning = True
@@ -1191,8 +1165,6 @@ while gameRunning:
                                     # If one of the 'swapped' conditions has been met
                                     if swappedItems == True:
                                         firstRound = False
-                                        print("FIRST ROUND IS FALSE")
-                                        print(" ")
 
                                         verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
                                         horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
