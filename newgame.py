@@ -80,11 +80,13 @@ sideBarWidth = 155
 itemsDrawn = False
 fullPlayerStatsList = []
 
+levelNumber = 1
+
 
 #-----------------
 #SAMPLE BOARDS
 
-# {0: ['healPotion', 'snake', 'snake', 'moon', 'mushroom', 'tree', 'snake', 'healPotion'], 1: ['healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'snake', 'snake', 'mushroom', 'tree'], 2: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'healPotion', 'mushroom', 'snake'], 3: ['mushroom', 'tree', 'moon', 'tree', 'healPotion', 'moon', 'mushroom', 'moon'], 4: ['healPotion', 'snake', 'healPotion', 'mushroom', 'moon', 'mushroom', 'mushroom', 'tree'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'tree', 'healPotion', 'mushroom', 'mushroom', 'tree', 'poisonPotion', 'moon'], 7: ['mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'healPotion', 'tree']}
+board = {0: ['healPotion', 'snake', 'snake', 'moon', 'mushroom', 'mushroom', 'snake', 'mushroom'], 1: ['healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'snake', 'snake', 'mushroom', 'tree'], 2: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'healPotion', 'snake', 'snake'], 3: ['mushroom', 'tree', 'moon', 'tree', 'healPotion', 'moon', 'mushroom', 'moon'], 4: ['healPotion', 'snake', 'healPotion', 'mushroom', 'moon', 'mushroom', 'mushroom', 'tree'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'tree', 'healPotion', 'mushroom', 'mushroom', 'tree', 'poisonPotion', 'moon'], 7: ['mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'healPotion', 'tree']}
 
 # board = {0: ['moon', 'tree', 'moon', 'moon', 'moon', 'moon', 'healPotion', 'poisonPotion'], 1: ['tree', 'snake', 'healPotion', 'healPotion', 'moon', 'snake', 'poisonPotion', 'healPotion'], 2: ['healPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'poisonPotion', 'snake'], 3: ['snake', 'tree', 'moon', 'tree', 'poisonPotion', 'tree', 'mushroom', 'poisonPotion'], 4: ['mushroom', 'tree', 'mushroom', 'snake', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion'], 5: ['healPotion', 'tree', 'moon', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'moon'], 6: ['tree', 'healPotion', 'mushroom', 'healPotion', 'snake', 'mushroom', 'poisonPotion', 'snake'], 7: ['healPotion', 'poisonPotion', 'snake', 'healPotion', 'healPotion', 'moon', 'moon', 'mushroom']}
 
@@ -262,18 +264,22 @@ def randomBoard():
 
     return board
 
-if len(board) > 0:
-    testDict = True
-    dictionaryLen = len(board)
-else:
-    testDict = False
 
-if testDict == True:
+print(board)
+if len(board) > 0:
     makeBoard(board)
-    
+
 else:
     #Generate the board randomly
+    print("rand")
     randomBoard()
+
+# if testDict == True:
+#     makeBoard(board)
+    
+# else:
+    
+    
     
 
 
@@ -456,7 +462,7 @@ def fillCollection(item):
     yLocation = 42 + 2*55 + 2.5*itemSize[1] + outerTopMargin - 7
     # fillNumber = 0
 
-    print(playerStats)
+    # print(playerStats)
     # print(playerStats[item])
     # math.floor(fillArray[1])
 
@@ -466,10 +472,10 @@ def fillCollection(item):
     currentFillStatus = playerStats[item][1] * 3
     previousFillStatus = playerStats[item][0] * 3
 
-    print(currentFillStatus)
-    print(previousFillStatus)
+    # print(currentFillStatus)
+    # print(previousFillStatus)
 
-    print(item)
+    # print(item)
 
     # if playerStats[item][0] + playerStats[item][0] >= 12:
     #     playerStats
@@ -485,7 +491,7 @@ def fillCollection(item):
 
     # If it previously wasn't filled at all, fill in the first one
     if playerStats[item][0] == 0 and playerStats[item][1] > 0:
-        print("HI")
+        # print("HI")
         collectionBg = pygame.Rect(xLocation + 3, yLocation - 3, 45 - 12 - 6, 3)
         pygame.draw.rect(globs.SCREEN, selectedColor, collectionBg)
 
@@ -504,6 +510,12 @@ def fillCollection(item):
         # pygame.draw.rect(globs.SCREEN, treeSimpleColor, treeCollectionBg)
 
 
+
+
+def drawLevel(levelNumber):
+    if levelNumber > 1:
+        drawText("L" + str(levelNumber), 40, darkerOrangeColor, outerLeftMargin+50, 62)
+    drawText("L" + str(levelNumber), 40, whiteColor, outerLeftMargin+50, 62)
 
 
 def drawSidebar():
@@ -530,8 +542,8 @@ def drawSidebar():
 
     scene = Item()
 
-    levelNumber = 1
-    drawText("L" + str(levelNumber), 40, whiteColor, outerLeftMargin+50, 62)
+    # levelNumber = 1
+    drawLevel(levelNumber)
     # drawText(str(levelNumber), 50, whiteColor, outerLeftMargin+50, 60)
     
     scene.drawItem("pauseButton", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
@@ -571,6 +583,47 @@ def drawSidebar():
 
 
 def levelUp():
+    width = 500
+    height = 300
+    # print(screenDimensions[0] - width/2)
+    # print(screenDimensions[1] - height/2)
+
+    colNo*80 + innerSpacing + outerLeftMargin
+
+    # print(screenDimensions)
+
+    levelUpBg = pygame.Rect(itemSize[0] + innerSpacing + outerLeftMargin, 2*itemSize[0] + innerSpacing*2 + outerTopMargin, itemSize[0]*6 + innerSpacing*5, itemSize[0]*4 + innerSpacing*3)
+
+    # print(2*(itemSize[0] + innerSpacing + outerLeftMargin, 2*itemSize[0] + innerSpacing*2 + outerTopMargin))
+    # print(" dkfsjdfjk")
+
+
+    # drawCenterText("Level Up!", 20, redColor,  0*(itemSize[0] + innerSpacing + outerLeftMargin) + itemSize[0]*6 + innerSpacing*5, 2*itemSize[0] + innerSpacing*2 + outerTopMargin)
+
+    
+
+    # drawCenterText("Level Up!", 50, redColor,  outerTopMargin + itemSize[0]*6 + innerSpacing*5 + 2*(itemSize[0] + innerSpacing + outerLeftMargin), 2*itemSize[0] + innerSpacing*2 + outerTopMargin, itemSize[0] + innerSpacing + outerTopMargin)
+
+    # levelUpBg = pygame.Rect(screenDimensions[0]/2 - width/2, screenDimensions[1]/2 - width/2, width, height)
+
+
+    # levelUpBg = pygame.Rect(50, 50, width, height)
+
+    # xBackgroundWidth = screenDimensions[1]
+
+    pygame.draw.rect(globs.SCREEN, whiteColor, levelUpBg)
+
+    drawCenterText("Level Up!", 40, treeSimpleColor, (itemSize[0] + innerSpacing + outerLeftMargin) + (itemSize[0]*6 + innerSpacing*5)/2, 3.3*itemSize[0] + innerSpacing*3 + outerTopMargin)
+    
+    button("Continue", outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing, 4*itemSize[0] + innerSpacing*3 + outerTopMargin, 3*itemSize[0] + 3*innerSpacing, 90, mushroomSimpleColor, whiteColor, 20)
+
+    # font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 30)
+    # textSurface = font.render("Level Up!", False, redColor)
+    # textRect = textSurface.get_rect(center = (xBackgroundWidth, 2*itemSize[0] + innerSpacing*2 + outerTopMargin))
+
+    # globs.SCREEN.blit(textSurface, textRect)
+
+    # randomBoard()
     pass
 
 
@@ -598,7 +651,7 @@ previousRemoveVerticalCount = -1
 previousRemoveHorizontalCount = -1
 
 
-
+levelUpScreenRunning = False
 
 
 
@@ -624,6 +677,7 @@ def redrawGameWindow():
     global startLevel
     global fullPlayerStatsList
     global modifyHearts
+    global levelUpScreenRunning, initiateScreen, playScreenRunning
 
     global previousShiftDownCount, previousRemoveVerticalCount, previousRemoveHorizontalCount
 
@@ -742,8 +796,11 @@ def redrawGameWindow():
                 # fillCollection(item)
                 # modifyEnergy = 1
                 modifyHearts = 1
-                playerStats["mushroom"][1] += 3
+                # playerStats["mushroom"][1] += 3
 
+                #TESTING LEVEL UP 
+                playerStats["mushroom"][1] += 12
+                playerStats["tree"][1] += 12
                 # if playerStats["heart"][2] == 3:
                 #     # Already have maximum hearts available
                 #     playerStats["mushroomCount"][1] += modifyHearts
@@ -869,7 +926,9 @@ def redrawGameWindow():
 
 
             if playerStats["mushroom"][0] == 12 and playerStats["tree"][0] == 12:
-                levelUp = True
+                levelUpScreenRunning = True
+                playScreenRunning = False
+                initiateScreen = True
                 # print("LEVEL UP")
                 levelUp()
 
@@ -1179,6 +1238,14 @@ while gameRunning:
             pygame.display.update()
             initiateScreen = False
 
+    elif levelUpScreenRunning:
+        if initiateScreen:
+            board = {}
+            levelUp()
+            initiateScreen = False
+
+            
+
     elif pauseMenuRunning:
         if initiateScreen:
             print("HIHJFD")
@@ -1239,6 +1306,31 @@ while gameRunning:
                     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
                 
+                elif levelUpScreenRunning:
+                    print(" ")
+                    # Continue
+                    # print(math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing))
+                    # print(math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing))
+                    print(mouse_x)
+                    firstXpos = math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing)
+                    secondXpos = math.floor(outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing)
+
+                    print(firstXpos)
+                    print(secondXpos)
+
+                    if outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing > mouse_x > outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing and 4*itemSize[0] + innerSpacing*3 + outerTopMargin + 90 > mouse_y > 4*itemSize[0] + innerSpacing*3 + outerTopMargin:
+                        
+                        
+                        print("CONTINUE")
+
+                   
+                    # if firstXpos > mouse_x > secondXpos:
+                    #     print(":KJDFJKDF")
+
+                    # if 4*itemSize[0] + innerSpacing*3 + outerTopMargin > mouse_y > 4*itemSize[0] + innerSpacing*3 + outerTopMargin + 90:
+                    #     print("2")
+                    # button("Continue", outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing, 4*itemSize[0] + innerSpacing*3 + outerTopMargin, 3*itemSize[0] + 3*innerSpacing, 90, mushroomSimpleColor, whiteColor, 20)
+
                 
                 # elif helpMenuRunning:
                 #     #Resume
