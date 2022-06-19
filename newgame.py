@@ -15,7 +15,7 @@ pygame.display.set_caption('Woodland')
 
 pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN, pygame.KEYDOWN])
 
-globs.SCREEN.fill((255, 255, 255))
+
 mainFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 16)
 headingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 35)
 biggerHeadingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 41)
@@ -56,6 +56,8 @@ mushroomSimpleColor = (241, 60, 62)
 # treeSimpleColor = (246, 82, 48)
 treeSimpleColor = (246, 107, 47)
 
+# globs.SCREEN.fill(backgroundPeachColor)
+
 # healPotionSimpleColor = (202, 18, 81)
 # snakeSimpleColor = (88, 102, 229)
 # moonSimpleColor = (175, 72, 238)
@@ -87,7 +89,7 @@ levelNumber = 1
 #-----------------
 #SAMPLE BOARDS
 
-board = {0: ['healPotion', 'snake', 'snake', 'moon', 'mushroom', 'mushroom', 'snake', 'mushroom'], 1: ['healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'snake', 'snake', 'mushroom', 'tree'], 2: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'healPotion', 'snake', 'snake'], 3: ['mushroom', 'tree', 'moon', 'tree', 'healPotion', 'moon', 'mushroom', 'moon'], 4: ['healPotion', 'snake', 'healPotion', 'mushroom', 'moon', 'mushroom', 'mushroom', 'tree'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'tree', 'healPotion', 'mushroom', 'mushroom', 'tree', 'poisonPotion', 'moon'], 7: ['mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'healPotion', 'tree']}
+# board = {0: ['healPotion', 'snake', 'snake', 'moon', 'mushroom', 'mushroom', 'snake', 'mushroom'], 1: ['healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'snake', 'snake', 'mushroom', 'tree'], 2: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'healPotion', 'snake', 'snake'], 3: ['mushroom', 'tree', 'moon', 'tree', 'healPotion', 'moon', 'mushroom', 'moon'], 4: ['healPotion', 'snake', 'healPotion', 'mushroom', 'moon', 'mushroom', 'mushroom', 'tree'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'tree', 'healPotion', 'mushroom', 'mushroom', 'tree', 'poisonPotion', 'moon'], 7: ['mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'healPotion', 'tree']}
 
 # board = {0: ['moon', 'tree', 'moon', 'moon', 'moon', 'moon', 'healPotion', 'poisonPotion'], 1: ['tree', 'snake', 'healPotion', 'healPotion', 'moon', 'snake', 'poisonPotion', 'healPotion'], 2: ['healPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'poisonPotion', 'snake'], 3: ['snake', 'tree', 'moon', 'tree', 'poisonPotion', 'tree', 'mushroom', 'poisonPotion'], 4: ['mushroom', 'tree', 'mushroom', 'snake', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion'], 5: ['healPotion', 'tree', 'moon', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'moon'], 6: ['tree', 'healPotion', 'mushroom', 'healPotion', 'snake', 'mushroom', 'poisonPotion', 'snake'], 7: ['healPotion', 'poisonPotion', 'snake', 'healPotion', 'healPotion', 'moon', 'moon', 'mushroom']}
 
@@ -1094,7 +1096,50 @@ def loseScreen():
 def helpMenu():
     allSprites.empty()
     #Thinner green border
-    globs.SCREEN.fill(lighterOrangeColor)
+    rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+    pygame.draw.rect(globs.SCREEN, lighterOrangeColor, rectObject)
+    rectObject = pygame.Rect(30, 30, screenDimensions[0]-60, screenDimensions[1]-60)
+    pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
+
+    marginLeft = 50
+
+    topMargin = 100
+
+    drawCenterText("Help", 50, orangeRedColor, screenDimensions[0]//2, 1*screenDimensions[1]/10)
+
+    line1 = "You have wondered into a magical woodland!"
+
+    line2 = "To swap/collect items, click two adjacent items."
+    line3 = "They must create a 3+ in a row/column when swapped."
+
+    line4 = "Fill the collections with friendly items to level up!"
+    line5 = "Collecting friendly items also restores health/energy: "
+    line6 = "Mushrooms, trees, moons, healing potions"
+
+
+    line7 = "Beware of enemies! Snakes will drain your health."
+    line8 = "Poison potions will deplete both energy and health."
+
+    line9 = "The item board shuffles before each round."
+    line10 = "Pass five levels to win"
+
+    textDict = {0: [line1], 1: [line2, line3], 2: [line4, line5, line6], 3: [line7, line8], 4: [line9, line10]}
+
+    spaceCount = 0
+    for key in textDict: # Each paragraph
+        spaceCount += 0.5
+        # print(key)
+        for line in textDict[key]: 
+            spaceCount += 0.3
+            drawText(line, 15, orangeRedColor, marginLeft, spaceCount*screenDimensions[1]/10 + topMargin)
+            
+
+    # paragraphDict = {1: line1, 2: line2}
+
+    # drawText(line1, 15, darkerOrangeColor, marginLeft, 2*screenDimensions[1]/10)
+    # drawText(line2, 15, darkerOrangeColor, marginLeft, 2.5*screenDimensions[1]/10)
+    # drawText(line3, 15, darkerOrangeColor, marginLeft, 3*screenDimensions[1]/10)
+
 
 
 def mainMenu():
@@ -1103,8 +1148,7 @@ def mainMenu():
     pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
     rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
     pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
-    gameTitle = "Woodland"
-    drawCenterText(gameTitle, 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
+    drawCenterText("Woodland", 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
     scene = Item()
     scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
     scene = Item()
@@ -1122,13 +1166,13 @@ gameRunning = True
 mainMenuRunning = False
 
 pauseMenuRunning = False
-helpMenuRunning = False
+helpMenuRunning = True
 
 playScreenRunning = False
 
 levelUpScreenRunning = False
 
-loseScreenRunning = True
+loseScreenRunning = False
 winScreenRunning = False
 
 
@@ -1169,7 +1213,11 @@ while gameRunning:
             initiateScreen = False
             pygame.display.update()
             firstRound = True
+            initiatePlayScreen = True
+
+        if initiatePlayScreen == True:
             gameChanged = True
+            initiatePlayScreen = False
 
 
         # mouse_pos = pygame.mouse.get_pos()
@@ -1178,56 +1226,56 @@ while gameRunning:
         #     last_pos = mouse_pos
 
 
+        else:
+            # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
+            if gameChanged == True and shiftItemsDown == False:
+                verticalDict = itemCollectVertical(board, itemTypes)
+                horizontalDict = itemCollectHorizontal(board, itemTypes)
+    
+                if len(verticalDict) > 0:
+                    removeVerticalCurrent = True
+                    removalAction = True
+                    
+                    for key in verticalDict:
+                        for item in verticalDict[key]:
+                            if isinstance(item, list):
+                                # Check that it's not 3 blank's in a row
+                                    matchItem = board[key][item[0]]
+                                    matchLength = len(item)
+                                    if startLevel == False:
+                                        if matchItem != "BLANK" and firstRound == False:
+                                            calculatePlayerStats(matchItem + "Simple", matchLength)
+                                    for rowNo in item:
+                                        board[key][rowNo] = "BLANK"
+                else:
+                    removeVerticalCurrent = False
+                    removeCount = 0
+                    verticalRemoveCount = 0
 
-        # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
-        if gameChanged == True and shiftItemsDown == False:
-            verticalDict = itemCollectVertical(board, itemTypes)
-            horizontalDict = itemCollectHorizontal(board, itemTypes)
- 
-            if len(verticalDict) > 0:
-                removeVerticalCurrent = True
-                removalAction = True
-                
-                for key in verticalDict:
-                    for item in verticalDict[key]:
-                        if isinstance(item, list):
-                            # Check that it's not 3 blank's in a row
-                                matchItem = board[key][item[0]]
-                                matchLength = len(item)
-                                if startLevel == False:
-                                    if matchItem != "BLANK" and firstRound == False:
-                                        calculatePlayerStats(matchItem + "Simple", matchLength)
-                                for rowNo in item:
-                                    board[key][rowNo] = "BLANK"
-            else:
-                removeVerticalCurrent = False
-                removeCount = 0
-                verticalRemoveCount = 0
+                if len(horizontalDict) > 0:
+                    removeHorizontalCurrent = True
+                    removalAction = True
 
-            if len(horizontalDict) > 0:
-                removeHorizontalCurrent = True
-                removalAction = True
+                    for key in horizontalDict:
+                        for item in horizontalDict[key]:
+                            if isinstance(item, list):
+                                    matchItem = board[item[0]][key]
+                                    matchLength = len(item)
+                                    if startLevel == False:
+                                        if matchItem != "BLANK" and firstRound == False:
+                                            calculatePlayerStats(matchItem + "Simple", matchLength)
+                                    for colNo in item:
+                                        board[colNo][key] = "BLANK"
+                else:
+                    removeHorizontalCurrent = False
+                    removeCount = 0
+                    horizontalRemoveCount = 0
 
-                for key in horizontalDict:
-                    for item in horizontalDict[key]:
-                        if isinstance(item, list):
-                                matchItem = board[item[0]][key]
-                                matchLength = len(item)
-                                if startLevel == False:
-                                    if matchItem != "BLANK" and firstRound == False:
-                                        calculatePlayerStats(matchItem + "Simple", matchLength)
-                                for colNo in item:
-                                    board[colNo][key] = "BLANK"
-            else:
-                removeHorizontalCurrent = False
-                removeCount = 0
-                horizontalRemoveCount = 0
+                gameChanged = False
 
-            gameChanged = False
-
-            # redrawGameWindow()
-            # pygame.display.update()
-        
+                # redrawGameWindow()
+                # pygame.display.update()
+            
         if removeVerticalCurrent == False and removeHorizontalCurrent == False and shiftItemsDown == False and removalAction == True:
             unmovedBoard = {}
             movedItemsBoard = {}
@@ -1247,6 +1295,7 @@ while gameRunning:
             gameChanged = True
             itemsModified = False
 
+        # if initiatePlayScreen == False:
         redrawGameWindow()
 
     elif mainMenuRunning:
@@ -1304,8 +1353,7 @@ while gameRunning:
             if event.button == 1:
 
                 if mainMenuRunning:
-                    #Resume
-                    # print("clicked on main menu")
+                    #Play
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
                         mainMenuRunning = False
                         playScreenRunning = True
