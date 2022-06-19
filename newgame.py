@@ -84,8 +84,11 @@ fullPlayerStatsList = []
 #-----------------
 #SAMPLE BOARDS
 
+# {0: ['healPotion', 'snake', 'snake', 'moon', 'mushroom', 'tree', 'snake', 'healPotion'], 1: ['healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'snake', 'snake', 'mushroom', 'tree'], 2: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'healPotion', 'mushroom', 'snake'], 3: ['mushroom', 'tree', 'moon', 'tree', 'healPotion', 'moon', 'mushroom', 'moon'], 4: ['healPotion', 'snake', 'healPotion', 'mushroom', 'moon', 'mushroom', 'mushroom', 'tree'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'tree', 'healPotion', 'mushroom', 'mushroom', 'tree', 'poisonPotion', 'moon'], 7: ['mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'healPotion', 'tree']}
 
-board = {0: ['mushroom', 'poisonPotion', 'moon', 'mushroom', 'poisonPotion', 'mushroom', 'snake', 'tree'], 1: ['tree', 'healPotion', 'moon', 'healPotion', 'mushroom', 'mushroom', 'tree', 'healPotion'], 2: ['healPotion', 'healPotion', 'snake', 'moon', 'poisonPotion', 'mushroom', 'poisonPotion', 'healPotion'], 3: ['healPotion', 'tree', 'tree', 'snake', 'mushroom', 'mushroom', 'healPotion', 'mushroom'], 4: ['tree', 'mushroom', 'mushroom', 'poisonPotion', 'snake', 'mushroom', 'poisonPotion', 'mushroom'], 5: ['mushroom', 'poisonPotion', 'mushroom', 'healPotion', 'tree', 'healPotion', 'tree', 'mushroom'], 6: ['moon', 'mushroom', 'mushroom', 'snake', 'moon', 'healPotion', 'tree', 'mushroom'], 7: ['tree', 'healPotion', 'tree', 'snake', 'moon', 'snake', 'healPotion', 'tree']}
+# board = {0: ['moon', 'tree', 'moon', 'moon', 'moon', 'moon', 'healPotion', 'poisonPotion'], 1: ['tree', 'snake', 'healPotion', 'healPotion', 'moon', 'snake', 'poisonPotion', 'healPotion'], 2: ['healPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'poisonPotion', 'snake'], 3: ['snake', 'tree', 'moon', 'tree', 'poisonPotion', 'tree', 'mushroom', 'poisonPotion'], 4: ['mushroom', 'tree', 'mushroom', 'snake', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion'], 5: ['healPotion', 'tree', 'moon', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'moon'], 6: ['tree', 'healPotion', 'mushroom', 'healPotion', 'snake', 'mushroom', 'poisonPotion', 'snake'], 7: ['healPotion', 'poisonPotion', 'snake', 'healPotion', 'healPotion', 'moon', 'moon', 'mushroom']}
+
+# board = {0: ['mushroom', 'poisonPotion', 'moon', 'mushroom', 'poisonPotion', 'mushroom', 'snake', 'tree'], 1: ['tree', 'healPotion', 'moon', 'healPotion', 'mushroom', 'mushroom', 'tree', 'healPotion'], 2: ['healPotion', 'healPotion', 'snake', 'moon', 'poisonPotion', 'mushroom', 'poisonPotion', 'healPotion'], 3: ['healPotion', 'tree', 'tree', 'snake', 'mushroom', 'mushroom', 'healPotion', 'mushroom'], 4: ['tree', 'mushroom', 'mushroom', 'poisonPotion', 'snake', 'mushroom', 'poisonPotion', 'mushroom'], 5: ['mushroom', 'poisonPotion', 'mushroom', 'healPotion', 'tree', 'healPotion', 'tree', 'mushroom'], 6: ['moon', 'mushroom', 'mushroom', 'snake', 'moon', 'healPotion', 'tree', 'mushroom'], 7: ['tree', 'healPotion', 'tree', 'snake', 'moon', 'snake', 'healPotion', 'tree']}
 
 # board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'snake', 'moon', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
 # board = {0: ['mushroom', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'tree', 'tree', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
@@ -94,16 +97,6 @@ board = {0: ['mushroom', 'poisonPotion', 'moon', 'mushroom', 'poisonPotion', 'mu
 
 # board = {0: ['snake', 'snake', 'tree', 'mushroom', 'mushroom', 'moon', 'mushroom', 'snake'], 1: ['snake', 'poisonPotion', 'healPotion', 'moon', 'healPotion', 'mushroom', 'poisonPotion', 'poisonPotion'], 2: ['healPotion', 'snake', 'mushroom', 'moon', 'tree', 'healPotion', 'healPotion', 'poisonPotion'], 3: ['mushroom', 'tree', 'tree', 'poisonPotion', 'mushroom', 'moon', 'snake', 'healPotion'], 4: ['moon', 'healPotion', 'moon', 'moon', 'moon', 'poisonPotion', 'mushroom', 'healPotion'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion'], 6: ['healPotion', 'poisonPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'moon'], 7: ['snake', 'mushroom', 'snake', 'poisonPotion', 'snake', 'snake', 'poisonPotion', 'moon']}
 
-#no matches
-# board = {0: ['mushroom', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['mushroom', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'mushroom', 'heal-potion', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
-# board = {0: ['tree', 'moon', 'tree', 'snake', 'tree', 'poison-potion', 'poison-potion', 'heal-potion'], 1: ['tree', 'poison-potion', 'tree', 'poison-potion', 'heal-potion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'tree', 'mushroom', 'tree', 'tree', 'snake', 'moon', 'heal-potion'], 3: ['tree', 'tree', 'snake', 'poison-potion', 'poison-potion', 'mushroom', 'moon', 'heal-potion'], 4: ['tree', 'poison-potion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poison-potion', 'snake', 'heal-potion', 'mushroom', 'poison-potion'], 6: ['mushroom', 'mushroom', 'snake', 'poison-potion', 'mushroom', 'snake', 'tree', 'poison-potion'], 7: ['heal-potion', 'tree', 'poison-potion', 'mushroom', 'tree', 'heal-potion', 'tree', 'moon']}
-
-#NEW
-# board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
-# board = {0: ['heal-potion', 'mushroom', 'tree', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
-# 1 horizontal match
-# board = {0: ["mushroom", 'mushroom', "mushroom", "snake", 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'moon', 'mushroom'], 3: ['moon', 'snake', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'mushroom', 'tree']}
-# board = {0: ['heal-potion', 'mushroom', 'mushroom', 'mushroom', 'tree', 'tree', 'mushroom', 'moon'], 1: ['moon', 'tree', 'snake', 'moon', 'tree', 'heal-potion', 'snake', 'heal-potion'], 2: ['mushroom', 'mushroom', 'heal-potion', 'moon', 'snake', 'moon', 'snake', 'mushroom'], 3: ['moon', 'moon', 'moon', 'heal-potion', 'poison-potion', 'snake', 'snake', 'poison-potion'], 4: ['heal-potion', 'mushroom', 'snake', 'mushroom', 'tree', 'moon', 'mushroom', 'snake'], 5: ['tree', 'snake', 'heal-potion', 'tree', 'snake', 'moon', 'snake', 'heal-potion'], 6: ['moon', 'heal-potion', 'moon', 'moon', 'snake', 'mushroom', 'snake', 'mushroom'], 7: ['snake', 'poison-potion', 'snake', 'poison-potion', 'poison-potion', 'tree', 'tree', 'tree']}
 #END SAMPLE BOARDS
 #-----------------
 
@@ -150,7 +143,6 @@ class Item(pygame.sprite.Sprite):
 
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
         self.blankDynamic = pygame.image.load(os.path.join("images", "BLANKDynamic.png")).convert_alpha()
-        self.blankSidebar = pygame.image.load(os.path.join("images", "BLANKSidebar.png")).convert()
         
         global itemDict
         global mushroomSimpleColor, treeSimpleColor
@@ -188,24 +180,38 @@ class Item(pygame.sprite.Sprite):
         "collectionBorderOrange": self.collectionBorderOrange,
         
         "BLANK": self.blank,
-        "BLANKDynamic": self.blankDynamic,
-        "blankSidebar": self.blankSidebar
+        "BLANKDynamic": self.blankDynamic
         }
         global playerStats
         playerStats = {
             # 0 index: order in which the item is in display, 1: the previous count of items, 2: the current count of items
             "heart": [0, 3, 3],
-            "energy": [1, 3, 3]
+            "energy": [1, 3, 3],
+
+             # 0: the previous count of items (total), 1: the current added count of items
+            "tree": [0, 0],
+            "mushroom": [0, 0]
         }
         global itemCountDict
         # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items, 4: the colour corresponding to the item
         itemCountDict = {
-        "mushroomSimple": [0, 0, 0, 4, mushroomSimpleColor],
-        "treeSimple": [1, 0, 0, 6, treeSimpleColor],
-        "healPotionSimple": [2, 0, 0, 9, (202, 18, 81)],
-        "snakeSimple": [3, 0, 0, 7, (88, 102, 229)],
-        "moonSimple": [4, 0, 0, 8, (175, 72, 238)],
-        "poisonPotionSimple": [5, 0, 0, 8, (15, 130, 85)]
+            "mushroomSimple": [0, 0, 0, 4, mushroomSimpleColor],
+            "treeSimple": [1, 0, 0, 6, treeSimpleColor],
+            "moonSimple": [2, 0, 0, 8, (175, 72, 238)],
+            "healPotionSimple": [3, 0, 0, 5, (202, 18, 81)],
+            "snakeSimple": [4, 0, 0, 7, (88, 102, 229)],
+            "poisonPotionSimple": [5, 0, 0, 8, (15, 130, 85)]
+        }
+
+        global levelInfoDict
+
+        levelInfoDict = {
+            "mushroomSimple": [],
+            "treeSimple": [],
+            "moonSimple": [],
+            "healPotionSimple": [],
+            "snakeSimple": [],
+            "poisonPotionSimple": []
         }
 
         
@@ -244,6 +250,34 @@ def makeBoard(givenBoard):
             
             r+=1
 
+def randomBoard():
+    for c in range(globs.COLUMN_COUNT):
+        colArray = []
+        for r in range(globs.ROW_COUNT):
+            chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
+            colArray.append(chosenItem)
+            drawGridItem(chosenItem, r, c, itemSize, 0)
+        
+        board[c] = colArray
+
+    return board
+
+if len(board) > 0:
+    testDict = True
+    dictionaryLen = len(board)
+else:
+    testDict = False
+
+if testDict == True:
+    makeBoard(board)
+    
+else:
+    #Generate the board randomly
+    randomBoard()
+    
+
+
+
 
 def drawItemCount(item):
     global itemsDrawn
@@ -262,7 +296,7 @@ def drawItemCount(item):
     if itemCountDict[item][0] > 1:
         yTextLocation += 55
     
-    if itemCountDict[item][0] > 2:
+    if itemCountDict[item][0] > 3:
         yTextLocation += 35
         if textColor == "":
             textColor = blackColor
@@ -327,23 +361,34 @@ def drawSidebarIcons():
         if count > 1:
             yLocation += 55
 
-        if count > 2:
+        if count > 3:
             yLocation += 35
 
         #Friendlies
-
         if count == 0:
             drawText("+", 60, darkerOrangeColor, xLocation + 22, yLocation - 50)
             drawText("+", 40, whiteColor, xLocation + 32, yLocation - 41)
         
         #Enemies
-        elif count == 3:
+        elif count == 4:
             drawText("x", 56, darkerOrangeColor, xLocation + 22 + 3 + 4, yLocation - 49 - 3)
             drawText("x", 40, blackColor, xLocation + 32 + 4, yLocation - 41 - 3 + 1)
 
         scene.drawItem(item, xLocation, yLocation, width, height)
 
         drawItemCount(item)
+
+    scene = Item()
+    scene.drawItem("collectionBorderRed", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing +25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+    
+    scene = Item()
+    scene.drawItem("collectionBorderOrange", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+
+    # playerStats["tree"][1] = 1
+    # fillCollection("tree")
+
+    # fillCollection("mushroomSimple", 5)
+    # fillCollection("treeSimple", 3)
 
     allSprites.draw(globs.SCREEN)
 
@@ -396,29 +441,68 @@ def fillCollection(item):
 
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
-    scene = Item()
+    # scene = Item()
 
-    if item == "mushroomSimple":
-        fillUpNumber = 10
-        currentFillStatus = 0
-
-        # print("mushroom")
-        mushroomCollectionBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 25 + 6, (45 - fillUpNumber - currentFillStatus) + (2*55 + 2.5*itemSize[1] + outerTopMargin - 7), 45 -12, fillUpNumber)
-        pygame.draw.rect(globs.SCREEN, mushroomSimpleColor, mushroomCollectionBg)
-
-        scene.drawItem("collectionBorderRed", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing +25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+    # scene = Item()
+    # scene.drawItem("collectionBorderRed", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing +25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
     
+    # scene = Item()
+    # scene.drawItem("collectionBorderOrange", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+    # allSprites.draw(globs.SCREEN)
 
-    elif item == "treeSimple":
-        fillUpNumber = 10
-        currentFillStatus = 0
+    # allSprites.empty()
 
-        # print("tree")
+    xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 6 + 25
+    yLocation = 42 + 2*55 + 2.5*itemSize[1] + outerTopMargin - 7
+    # fillNumber = 0
 
-        treeCollectionBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25 + 6, (45 - fillUpNumber - currentFillStatus) +  (2*55 + 2.5*itemSize[1] + outerTopMargin - 7), 45 - 12, 10)
-        pygame.draw.rect(globs.SCREEN, treeSimpleColor, treeCollectionBg)
+    print(playerStats)
+    # print(playerStats[item])
+    # math.floor(fillArray[1])
 
-        scene.drawItem("collectionBorderOrange", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+    if playerStats[item][0] + playerStats[item][1] >= 12:
+        playerStats[item][1] = 12 - playerStats[item][0]
+
+    currentFillStatus = playerStats[item][1] * 3
+    previousFillStatus = playerStats[item][0] * 3
+
+    print(currentFillStatus)
+    print(previousFillStatus)
+
+    print(item)
+
+    # if playerStats[item][0] + playerStats[item][0] >= 12:
+    #     playerStats
+
+    if item == "mushroom":
+        selectedColor = mushroomSimpleColor
+        # mushroomCollectionBg = pygame.Rect(xLocation + 3, yLocation - currentFillStatus, 45 -12 - 6, currentFillStatus)
+        # pygame.draw.rect(globs.SCREEN, mushroomSimpleColor, mushroomCollectionBg)
+
+    elif item == "tree":
+        selectedColor = treeSimpleColor
+        xLocation = xLocation + sideBarWidth - 45 - 50
+
+    # If it previously wasn't filled at all, fill in the first one
+    if playerStats[item][0] == 0 and playerStats[item][1] > 0:
+        print("HI")
+        collectionBg = pygame.Rect(xLocation + 3, yLocation - 3, 45 - 12 - 6, 3)
+        pygame.draw.rect(globs.SCREEN, selectedColor, collectionBg)
+
+
+        if playerStats[item][1] > 1:
+            collectionBg = pygame.Rect(xLocation, yLocation - currentFillStatus, 45 - 12, currentFillStatus - 3)
+            pygame.draw.rect(globs.SCREEN, selectedColor, collectionBg)
+
+    else:
+        collectionBg = pygame.Rect(xLocation, yLocation - currentFillStatus - previousFillStatus, 45 - 12, currentFillStatus)
+        pygame.draw.rect(globs.SCREEN, selectedColor, collectionBg)
+
+
+    playerStats[item][0] += playerStats[item][1]
+    playerStats[item][1] = 0
+        # pygame.draw.rect(globs.SCREEN, treeSimpleColor, treeCollectionBg)
+
 
 
 
@@ -468,13 +552,13 @@ def drawSidebar():
     # scene = Item()
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
 
-    fillCollection("mushroomSimple")
+    # fillCollection("mushroomSimple")
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing) - 20, 40, 40)
 
     # scene = Item()
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, 2*55 + 2.5*itemSize[1] + outerTopMargin - 5, 40, 40)
 
-    fillCollection("treeSimple")
+    # fillCollection("treeSimple")
     # scene.drawItem("collectionBorder", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 40) - 30, outerTopMargin + (globs.COLUMN_COUNT-1)*(itemSize[1]+innerSpacing) - 20, 40, 40)
 
 
@@ -486,7 +570,8 @@ def drawSidebar():
     # globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation + 20))
 
 
-
+def levelUp():
+    pass
 
 
 displayedArray = []
@@ -654,23 +739,77 @@ def redrawGameWindow():
 
             # Friendly items
             if item == "mushroomSimple":
-                fillCollection(item)
-                modifyEnergy = 1
+                # fillCollection(item)
+                # modifyEnergy = 1
                 modifyHearts = 1
+                playerStats["mushroom"][1] += 3
+
+                # if playerStats["heart"][2] == 3:
+                #     # Already have maximum hearts available
+                #     playerStats["mushroomCount"][1] += modifyHearts
+                #     modifyHearts = 0
+
+                # else:
+                #     #Get the remainder
+                #     playerStats["mushroomCount"][1] += math.ceil((playerStats["heart"][2] + modifyHearts) - 3)
+                    # playerStats["mushroomCount"] += 1
+
+
+                # if playerStats["energy"][2] == 3:
+                #     # Already have maximum energy available
+                #     playerStats["mushroomCount"][1] += modifyEnergy
+                #     modifyEnergy = 0
+
+                # else:
+                #     print(math.ceil((playerStats["energy"][2] + modifyEnergy) - 3))
+                #     playerStats["mushroomCount"][1] += math.ceil((playerStats["energy"][2] + modifyEnergy) - 3)
+
 
             elif item == "treeSimple":
-                fillCollection(item)
+                # fillCollection(item)
                 modifyEnergy = 1
-                modifyHearts = 0.5
+                playerStats["tree"][1] += 3
+                # modifyHearts = 0.5
+
+                # if playerStats["heart"][2] == 3:
+                #     # Already have maximum hearts available
+                #     playerStats["treeCount"][1] += modifyHearts
+
+                # else:
+                #     #Get the remainder
+                #     playerStats["treeCount"] += math.ceil((playerStats["heart"][2] + modifyHearts) - 3)
+
+
+                # if playerStats["energy"][2] == 3:
+                #     # Already have maximum energy available
+                #     playerStats["treeCount"][1] += modifyEnergy
+                #     modifyEnergy = 0
+
+                # else:
+                    # print(math.ceil((playerStats["energy"][2] + modifyEnergy) - 3))
+                    # playerStats["treeCount"][1] += math.ceil((playerStats["energy"][2] + modifyEnergy) - 3)
+
                 # if 3 - playerStats["energy"][2] == 0:
                 #     pass
                     #ADD the counting up in here
-                
 
             elif item == "healPotionSimple":
+                modifyEnergy = 2
+                modifyHearts = 2
 
-                modifyEnergy = 3
-                modifyHearts = 3
+                if playerStats["heart"][2] == 3:
+                    playerStats["mushroom"][1] += 1
+                    playerStats["tree"][1] += 1
+                    # Already have maximum energy available
+                    # playerStats["treeCount"][1] += modifyEnergy
+                    # modifyEnergy = 0
+
+                if playerStats["energy"][2] == 3:
+                    playerStats["mushroom"][1] += 1
+                    playerStats["tree"][1] += 1
+                    # Already have maximum energy available
+                    # playerStats["treeCount"][1] += modifyEnergy
+                    # modifyEnergy = 0
 
                 # if playerStats["energy"][2] < 3:
                 #     drawPlayerStats("energy", 3 - playerStats["energy"][2])
@@ -678,19 +817,20 @@ def redrawGameWindow():
                 # if playerStats["heart"][2] < 3:
                 #     drawPlayerStats("heart", 3 - playerStats["heart"][2])
 
+            elif item == "moonSimple":
+                playerStats["mushroom"][1] += 1
+                playerStats["tree"][1] += 1
+
             # Enemy items
             elif item == "snakeSimple":
                 # pass
-                modifyEnergy = -1
+                modifyEnergy = -0.5
 
-            elif item == "moonSimple":
-                # pass
-                modifyHearts = -0.5
 
             elif item == "poisonPotionSimple":
                 # pass
                 modifyEnergy = -0.5
-                modifyHearts = -1
+                modifyHearts = -0.5
 
 
             if modifyEnergy > 0:
@@ -707,6 +847,36 @@ def redrawGameWindow():
                     sys.exit()
                 else:
                     drawPlayerStats("energy", modifyEnergy)
+
+
+            if playerStats["tree"][1] > 0:
+                print("DOING TREE")
+                # fillCollection("tree")
+
+                if playerStats["tree"][0] > 12:
+                    playerStats["mushroom"][1] += playerStats["tree"][0]
+                else:
+
+                    fillCollection("tree")
+                
+
+            if playerStats["mushroom"][1] > 0:
+
+                if playerStats["mushroom"][0] > 12:
+                    playerStats["tree"][1] += playerStats["mushroom"][0]
+                else:
+                    fillCollection("mushroom")
+
+
+            if playerStats["mushroom"][0] == 12 and playerStats["tree"][0] == 12:
+                levelUp = True
+                # print("LEVEL UP")
+                levelUp()
+
+            # if playerStats["mushroom"][0] == 12 and 
+
+                # print("DOING MUSHROOM")
+                # fillCollection("mushroom")
 
 
             if modifyHearts > 0:
@@ -886,10 +1056,22 @@ playScreenRunning = False
 
 initiateScreen = True
 startLevel = True
+currentLevel = 1
 
 firstRound = True
 
+# playerStats["tree"][1] = 1
+# fillCollection("tree")
+
+
 while gameRunning:
+
+    # fillCollection("mushroomSimple")
+    
+
+    # playerStats["tree"][1] = 2
+
+    # fillCollection("tree")
 
     mouse_pos = pygame.mouse.get_pos()
     if (mouse_pos != last_pos):
@@ -898,30 +1080,9 @@ while gameRunning:
 
     if playScreenRunning:
 
-        # print("playscreenrun")
-
         if initiateScreen:
-            if len(board) > 0:
-                testDict = True
-                dictionaryLen = len(board)
-            else:
-                testDict = False
-
-            if testDict == True:
-                makeBoard(board)
-                
-            else:
-                #Generate the board randomly
-                for c in range(globs.COLUMN_COUNT):
-                    colArray = []
-                    for r in range(globs.ROW_COUNT):
-                        itemCount = itemCount + 1
-                        chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
-                        colArray.append(chosenItem)
-                        drawGridItem(chosenItem, r, c, itemSize, 0)
-                    
-                    board[c] = colArray
-
+            print("HJKJK")
+            
             print(board)
 
             # print("initiating")
@@ -1101,7 +1262,9 @@ while gameRunning:
                         playScreenRunning = False
                         pauseMenuRunning = True
 
-                    if removeVerticalCurrent == False and removeHorizontalCurrent == False and shiftItemsDown == False:
+                    if removalAction == False and shiftItemsDown == False:
+                            firstRound = False
+                            print("SELECTED NOw")
                             itemSelected = True
                             xLocation = mouse_x - outerLeftMargin
                             yLocation = mouse_y - outerTopMargin
@@ -1159,12 +1322,12 @@ while gameRunning:
                                         selectedArray.append([columnLocation, rowLocation])
                                         addItemBorder = True
 
+
                                         removeItemBorder = True
                                         #Remove it from the PREVIOUS one
 
                                     # If one of the 'swapped' conditions has been met
                                     if swappedItems == True:
-                                        firstRound = False
 
                                         verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
                                         horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
@@ -1179,26 +1342,21 @@ while gameRunning:
                                             selectedArray = []
                                             displayedArray = []
 
-                                            
+                                            # modifyEnergy = -0.25
 
-                                            if startLevel == False:
-                                                modifyEnergy = -0.25
-
-                                            # print('MAKING BOARD AGAIN')
                                         
+                                        # The items are not swapped
                                         elif swappedBoard[displayedArray[0][0]][displayedArray[0][1]] == board[displayedArray[0][0]][displayedArray[0][1]]:
                                             removeItemBorder = True
                                             selectedArray = []
                                             
-                                            if startLevel == False:
-                                                modifyEnergy = -0.5
-
-                                        # The items are not swapped
+                                            modifyEnergy = -0.25
+   
                                         else:
                                             removeItemBorder = True
                                             selectedArray = []
-                                            if startLevel == False:
-                                                modifyEnergy = -0.5
+                                            
+                                            modifyEnergy = -0.25
 
     clock.tick(FPS)
 
