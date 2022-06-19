@@ -85,7 +85,7 @@ fullPlayerStatsList = []
 #SAMPLE BOARDS
 
 
-# board = {0: ['mushroom', 'poisonPotion', 'moon', 'mushroom', 'poisonPotion', 'mushroom', 'snake', 'tree'], 1: ['tree', 'healPotion', 'moon', 'healPotion', 'mushroom', 'mushroom', 'tree', 'healPotion'], 2: ['healPotion', 'healPotion', 'snake', 'moon', 'poisonPotion', 'mushroom', 'poisonPotion', 'healPotion'], 3: ['healPotion', 'tree', 'tree', 'snake', 'mushroom', 'mushroom', 'healPotion', 'mushroom'], 4: ['tree', 'mushroom', 'mushroom', 'poisonPotion', 'snake', 'mushroom', 'poisonPotion', 'mushroom'], 5: ['mushroom', 'poisonPotion', 'mushroom', 'healPotion', 'tree', 'healPotion', 'tree', 'mushroom'], 6: ['moon', 'mushroom', 'mushroom', 'snake', 'moon', 'healPotion', 'tree', 'mushroom'], 7: ['tree', 'healPotion', 'tree', 'snake', 'moon', 'snake', 'healPotion', 'tree']}
+board = {0: ['mushroom', 'poisonPotion', 'moon', 'mushroom', 'poisonPotion', 'mushroom', 'snake', 'tree'], 1: ['tree', 'healPotion', 'moon', 'healPotion', 'mushroom', 'mushroom', 'tree', 'healPotion'], 2: ['healPotion', 'healPotion', 'snake', 'moon', 'poisonPotion', 'mushroom', 'poisonPotion', 'healPotion'], 3: ['healPotion', 'tree', 'tree', 'snake', 'mushroom', 'mushroom', 'healPotion', 'mushroom'], 4: ['tree', 'mushroom', 'mushroom', 'poisonPotion', 'snake', 'mushroom', 'poisonPotion', 'mushroom'], 5: ['mushroom', 'poisonPotion', 'mushroom', 'healPotion', 'tree', 'healPotion', 'tree', 'mushroom'], 6: ['moon', 'mushroom', 'mushroom', 'snake', 'moon', 'healPotion', 'tree', 'mushroom'], 7: ['tree', 'healPotion', 'tree', 'snake', 'moon', 'snake', 'healPotion', 'tree']}
 
 # board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'snake', 'moon', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
 # board = {0: ['mushroom', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'tree', 'tree', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
@@ -244,27 +244,6 @@ def makeBoard(givenBoard):
             
             r+=1
 
-if len(board) > 0:
-    testDict = True
-    dictionaryLen = len(board)
-else:
-    testDict = False
-if testDict == True:
-    makeBoard(board)
-else:
-    #Generate the board randomly
-    for c in range(globs.COLUMN_COUNT):
-        colArray = []
-        for r in range(globs.ROW_COUNT):
-            itemCount = itemCount + 1
-            chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
-            colArray.append(chosenItem)
-            drawGridItem(chosenItem, r, c, itemSize, 0)
-        
-        board[c] = colArray
-
-print(board)
-
 
 def drawItemCount(item):
     global itemsDrawn
@@ -373,13 +352,13 @@ def drawSidebarIcons():
 
 
 def clearPlayerStats(item):
-    scene = Item()
     xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
     yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
     width = 3*30 + 2*10
     height = 30
-    item = "BLANK"
-    scene.drawItem(item, xLocation, yLocation, width, height)
+
+    pygame.draw.rect(globs.SCREEN, lighterOrangeColor, (xLocation, yLocation, width, height))
+
 
 #DRAW the energy and heart icons
 
@@ -393,7 +372,7 @@ def drawPlayerStats(item, itemNumber):
     # There are less items there than there were previously
     if playerStats[item][2] < playerStats[item][1]:
         clearPlayerStats(item)
-        print("clear")
+        # print("clear")
 
     i = 0
     width = 30
@@ -423,7 +402,7 @@ def fillCollection(item):
         fillUpNumber = 10
         currentFillStatus = 0
 
-        print("mushroom")
+        # print("mushroom")
         mushroomCollectionBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 25 + 6, (45 - fillUpNumber - currentFillStatus) + (2*55 + 2.5*itemSize[1] + outerTopMargin - 7), 45 -12, fillUpNumber)
         pygame.draw.rect(globs.SCREEN, mushroomSimpleColor, mushroomCollectionBg)
 
@@ -434,7 +413,7 @@ def fillCollection(item):
         fillUpNumber = 10
         currentFillStatus = 0
 
-        print("tree")
+        # print("tree")
 
         treeCollectionBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25 + 6, (45 - fillUpNumber - currentFillStatus) +  (2*55 + 2.5*itemSize[1] + outerTopMargin - 7), 45 - 12, 10)
         pygame.draw.rect(globs.SCREEN, treeSimpleColor, treeCollectionBg)
@@ -533,13 +512,18 @@ previousShiftDownCount = -1
 previousRemoveVerticalCount = -1
 previousRemoveHorizontalCount = -1
 
+
+
+
+
+
 def redrawGameWindow():
     global firstGo
     global shiftedDict
     global verticalRemoveCount
-    global removeVertical
+    global removeVerticalCurrent
     global horizontalRemoveCount
-    global removeHorizontal
+    global removeHorizontalCurrent
     global itemsModified
     global shiftDownCount
     global shiftItemsDown
@@ -561,11 +545,11 @@ def redrawGameWindow():
     if verticalRemoveCount + 1 >= 5:
         #3 sprites, display each for 4 frames = 8 total frames
         verticalRemoveCount = 0
-        removeVertical = False
+        removeVerticalCurrent = False
 
     if horizontalRemoveCount + 1 >= 5:
         horizontalRemoveCount = 0
-        removeHorizontal = False
+        removeHorizontalCurrent = False
 
     if shiftDownCount + 1 >= 5:
         #Display 2 positions for 2 frames each = 4 total frames
@@ -573,7 +557,7 @@ def redrawGameWindow():
         shiftItemsDown = False
         # previousShiftDownCount = 0
 
-    if removeVertical:
+    if removeVerticalCurrent:
         if previousRemoveVerticalCount != verticalRemoveCount//2:
             for key in verticalDict:
                 for item in verticalDict[key]:
@@ -588,7 +572,7 @@ def redrawGameWindow():
 
         # itemBoardChanged = True
         
-    if removeHorizontal:
+    if removeHorizontalCurrent:
         if previousRemoveHorizontalCount != horizontalRemoveCount//2:
             for key in horizontalDict:
                 for item in horizontalDict[key]:
@@ -660,7 +644,7 @@ def redrawGameWindow():
         boardChanged = True
 
     # if len(fullPlayerStatsList) > 0 and shiftItemsDown == False and removeHorizontal == False and removeVertical == False:
-    if len(fullPlayerStatsList) > 0 and gameChanged == True:
+    if len(fullPlayerStatsList) > 0 and gameChanged == True and firstRound == False:
         # if 
         # print(" ")
         #Get this to run after the items fall
@@ -763,12 +747,17 @@ gameChanged = False
 gameOver = False
 turn = 0
 shiftedDict = {}
-removeHorizontal = False
-removeVertical = False
 itemDragging = False
 selectedArray = []
 shiftedBoard = {}
 droppedItemsDict = {}
+
+
+removeHorizontalCurrent = False
+removeVerticalCurrent = False
+
+removalAction = False
+
 
 # def showGameOverScreen(gameOver):
 #     while gameOver:
@@ -796,7 +785,7 @@ gameOver = False
 last_pos = (0, 0)
 # Play Screen
 def play(): 
-    global gameChanged, shiftItemsDown, board, itemsModified, selectedArray, removeCount, verticalRemoveCount, horizontalRemoveCount, removeVertical, removeHorizontal
+    global gameChanged, shiftItemsDown, board, itemsModified, selectedArray, removeCount, verticalRemoveCount, horizontalRemoveCount, removeVerticalCurrent, removeHorizontalCurrent
     global horizontalDict, verticalDict, movedItemsBoard, unmovedBoard, last_pos
     allSprites.empty()
     makeBoard(board)
@@ -898,6 +887,8 @@ playScreenRunning = False
 initiateScreen = True
 startLevel = True
 
+firstRound = True
+
 while gameRunning:
 
     mouse_pos = pygame.mouse.get_pos()
@@ -910,13 +901,37 @@ while gameRunning:
         # print("playscreenrun")
 
         if initiateScreen:
-            print("initiating")
+            if len(board) > 0:
+                testDict = True
+                dictionaryLen = len(board)
+            else:
+                testDict = False
+
+            if testDict == True:
+                makeBoard(board)
+                
+            else:
+                #Generate the board randomly
+                for c in range(globs.COLUMN_COUNT):
+                    colArray = []
+                    for r in range(globs.ROW_COUNT):
+                        itemCount = itemCount + 1
+                        chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
+                        colArray.append(chosenItem)
+                        drawGridItem(chosenItem, r, c, itemSize, 0)
+                    
+                    board[c] = colArray
+
+            print(board)
+
+            # print("initiating")
             play()
             # pygame.display.update()
             # print(allSprites)
             # allSprites.draw(globs.SCREEN)
             initiateScreen = False
             pygame.display.update()
+            firstRound = True
             gameChanged = True
 
 
@@ -926,13 +941,20 @@ while gameRunning:
             last_pos = mouse_pos
 
 
+        # if currentRound == True:
+
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
+        # print("RUNNING")
         if gameChanged == True and shiftItemsDown == False:
+            print("RUNNING")
             verticalDict = itemCollectVertical(board, itemTypes)
             horizontalDict = itemCollectHorizontal(board, itemTypes)
+            # print("HI1")
  
             if len(verticalDict) > 0:
-                removeVertical = True
+                removeVerticalCurrent = True
+                removalAction = True
+                
                 for key in verticalDict:
                     for item in verticalDict[key]:
                         if isinstance(item, list):
@@ -940,29 +962,31 @@ while gameRunning:
                                 matchItem = board[key][item[0]]
                                 matchLength = len(item)
                                 if startLevel == False:
-                                    if matchItem != "BLANK":
+                                    if matchItem != "BLANK" and firstRound == False:
                                         calculatePlayerStats(matchItem + "Simple", matchLength)
                                 for rowNo in item:
                                     board[key][rowNo] = "BLANK"
             else:
-                removeVertical = False
+                removeVerticalCurrent = False
                 removeCount = 0
                 verticalRemoveCount = 0
 
             if len(horizontalDict) > 0:
-                removeHorizontal = True
+                removeHorizontalCurrent = True
+                removalAction = True
+
                 for key in horizontalDict:
                     for item in horizontalDict[key]:
                         if isinstance(item, list):
                                 matchItem = board[item[0]][key]
                                 matchLength = len(item)
                                 if startLevel == False:
-                                    if matchItem != "BLANK":
+                                    if matchItem != "BLANK" and firstRound == False:
                                         calculatePlayerStats(matchItem + "Simple", matchLength)
                                 for colNo in item:
                                     board[colNo][key] = "BLANK"
             else:
-                removeHorizontal = False
+                removeHorizontalCurrent = False
                 removeCount = 0
                 horizontalRemoveCount = 0
 
@@ -970,23 +994,42 @@ while gameRunning:
 
             # redrawGameWindow()
             # pygame.display.update()
-
-        if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
-            blankCount = 0
+        
+        # print(removalAction)
+        if removeVerticalCurrent == False and removeHorizontalCurrent == False and shiftItemsDown == False and removalAction == True:
+            # blankCount = 0
+            print("HI ")
             unmovedBoard = {}
             movedItemsBoard = {}
 
             for key in board:
                 if "BLANK" in board[key]:
                     shiftItemsDown = True
-                    blankCount += 1
+                    # blankCount += 1
                     modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
                     movedItemsBoard[key] = modifiedItems
                     board[key] = shiftedCol
                     unmovedBoard[key] = unchangedCol
+                    # print(shiftItemsDown)
+                    # print("***")
+                    
 
-            if blankCount == 0:
-                shiftItemsDown = False
+            if shiftItemsDown == False:
+                removalAction = False
+                removalAction = False
+                # print(" ")
+                # print(board)
+                # print(" ")
+                #It detects it in the space of time where the thing is being animated - the removeitem
+
+            # if blankCount == 0:
+                # shiftItemsDown = False
+            # print(shiftItemsDown)
+
+            # if firstRound == True and shiftItemsDown == False:
+            #     # print(" ")
+            #     print("FIRST ROUND IS FALSE")
+            #     firstRound = False
 
         if itemsModified == True and shiftItemsDown == False:
             gameChanged = True
@@ -1084,7 +1127,7 @@ while gameRunning:
                         playScreenRunning = False
                         pauseMenuRunning = True
 
-                    if removeVertical == False and removeHorizontal == False and shiftItemsDown == False:
+                    if removeVerticalCurrent == False and removeHorizontalCurrent == False and shiftItemsDown == False:
                             itemSelected = True
                             xLocation = mouse_x - outerLeftMargin
                             yLocation = mouse_y - outerTopMargin
@@ -1147,6 +1190,10 @@ while gameRunning:
 
                                     # If one of the 'swapped' conditions has been met
                                     if swappedItems == True:
+                                        firstRound = False
+                                        print("FIRST ROUND IS FALSE")
+                                        print(" ")
+
                                         verticalCollectedSwapped = itemCollectVertical(swappedBoard, itemTypes)
                                         horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
                                         if len(verticalCollectedSwapped) > 0 or len(horizontalCollectedSwapped) > 0:
