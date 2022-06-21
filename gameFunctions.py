@@ -1,9 +1,5 @@
 
 import random, math
-# from unicodedata import name
-# import numpy as np
-# from os import system
-# import time
 import globs
 
 def shiftDown(col):

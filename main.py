@@ -17,27 +17,16 @@ pygame.display.set_caption('Woodland')
 pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN, pygame.KEYDOWN])
 
 
-mainFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 16)
-headingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 35)
-biggerHeadingFont = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), 41)
-
-fontS2 = 30
-fontS3 = 50
-fontS1 = 16
-# gameRunning = True
-
-
 itemTypes = globs.itemTypes
+itemLen = globs.itemLen
+
 SQUARESIZE = 8
 width = globs.COLUMN_COUNT * SQUARESIZE
 height = (globs.ROW_COUNT+1) * SQUARESIZE
 size = (width, height)
 board = {}
 unmovedBoard = {}
-left = 0
-right = 0
-up = 0
-down = 0
+
 shiftItemsDown = False
 playerStatsModified = False
 screenDimensions = [925, 840] 
@@ -48,33 +37,20 @@ backgroundPeachColor = (247, 187, 150)
 darkerOrangeColor = (255, 155, 68)
 lighterOrangeColor = (255, 174, 99)
 backgroundLighterOrangeColor = (252, 196, 136)
-
 blueColor = (88, 102, 229)
 
-# mushroomSimpleColor = (232, 50, 49)
 mushroomSimpleColor = (241, 60, 62)
-
-# treeSimpleColor = (246, 82, 48)
 treeSimpleColor = (246, 107, 47)
 
-# globs.SCREEN.fill(backgroundPeachColor)
 
-# healPotionSimpleColor = (202, 18, 81)
-# snakeSimpleColor = (88, 102, 229)
-# moonSimpleColor = (175, 72, 238)
-# poisonPotionSimpleColor = (15, 130, 85)
-
-
-rectangle_draging = False
-itemLen = len(itemTypes)
 image = ""
 allSprites = pygame.sprite.Group()
 itemSize = [72, 72]
-outlineSize = [72, 72]
+
 innerSpacing = 8
 outerTopMargin = 155
 outerLeftMargin = 50
-itemCount = 0
+# itemCount = 0
 
 deleteAnimation = ["BLANKDynamic", "BLANK"]
 spacingArray = [0, 0.33333333, 0.66666666, 1]
@@ -305,7 +281,7 @@ def drawItemCount(item):
     # print("FDJDJ")
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
     xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 67
-    yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - fontS1 + 25
+    yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - 16 + 25
     
     textColor = ""
 
@@ -324,18 +300,15 @@ def drawItemCount(item):
         if textColor == "":
             textColor = whiteColor
 
-    
-
-
     #If icons have already been drawn, cover over them with the background color to clear them
     if itemsDrawn == True:
-        text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
-        SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
+        drawText(itemCountMessage, 16, lighterOrangeColor, xTextLocation, yTextLocation)
         itemCountMessage = str(itemCountDict[item][2]) + "/" + str(itemCountDict[item][3])
-        
-    text_surface = mainFont.render(itemCountMessage, False, textColor)
-    SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
+    
+    drawText(itemCountMessage, 16, textColor, xTextLocation, yTextLocation)
     itemsDrawn = True
+
+
 
 def calculatePlayerStats(item, itemNumber):
     global fullPlayerStatsList
@@ -1171,21 +1144,21 @@ while gameRunning:
                 verticalDict = itemCollectVertical(board, itemTypes)
                 horizontalDict = itemCollectHorizontal(board, itemTypes)
 
-                print(board)
-                print(verticalDict)
-                print(horizontalDict)
-                print(" ")
+                # print(board)
+                # print(verticalDict)
+                # print(horizontalDict)
+                # print(" ")
     
                 if len(verticalDict) > 0:
                     removeVerticalCurrent = True
                     removalAction = True
 
-                    print(" ")
-                    print("-----------")
-                    print(verticalDict)
-                    print(horizontalDict)
-                    print(" ")
-                    print(board)
+                    # print(" ")
+                    # print("-----------")
+                    # print(verticalDict)
+                    # print(horizontalDict)
+                    # print(" ")
+                    # print(board)
                 
                     for key in verticalDict:
                         for item in verticalDict[key]:
@@ -1199,8 +1172,8 @@ while gameRunning:
                                     for rowNo in item:
                                         board[key][rowNo] = "BLANK"
 
-                    print(board)
-                    print(" ")
+                    # print(board)
+                    # print(" ")
                 else:
                     removeVerticalCurrent = False
                     removeCount = 0
