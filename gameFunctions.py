@@ -1,10 +1,9 @@
-from operator import ne
-from optparse import Values
-import os, pygame, random, sys, math
-from unicodedata import name
-import numpy as np
-from os import system
-import time
+
+import random, math
+# from unicodedata import name
+# import numpy as np
+# from os import system
+# import time
 import globs
 
 def shiftDown(col):

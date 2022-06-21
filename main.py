@@ -330,11 +330,11 @@ def drawItemCount(item):
     #If icons have already been drawn, cover over them with the background color to clear them
     if itemsDrawn == True:
         text_surface = mainFont.render(itemCountMessage, False, lighterOrangeColor)
-        globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
+        SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
         itemCountMessage = str(itemCountDict[item][2]) + "/" + str(itemCountDict[item][3])
         
     text_surface = mainFont.render(itemCountMessage, False, textColor)
-    globs.SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
+    SCREEN.blit(text_surface, (xTextLocation, yTextLocation))
     itemsDrawn = True
 
 def calculatePlayerStats(item, itemNumber):
@@ -411,7 +411,7 @@ def drawSidebarIcons():
     # fillCollection("mushroomSimple", 5)
     # fillCollection("treeSimple", 3)
 
-    allSprites.draw(globs.SCREEN)
+    allSprites.draw(SCREEN)
 
 
 # def drawCollection
@@ -423,7 +423,7 @@ def clearPlayerStats(item):
     width = 3*30 + 2*10
     height = 30
 
-    pygame.draw.rect(globs.SCREEN, lighterOrangeColor, (xLocation, yLocation, width, height))
+    pygame.draw.rect(SCREEN, lighterOrangeColor, (xLocation, yLocation, width, height))
 
 
 #DRAW the energy and heart icons
@@ -455,7 +455,7 @@ def drawPlayerStats(item, itemNumber):
         scene.drawItem(selectedItem, xLocation, yLocation, width, height)
         i += 1
 
-    allSprites.draw(globs.SCREEN)
+    allSprites.draw(SCREEN)
 
 
 def fillCollection(item):
@@ -478,16 +478,16 @@ def fillCollection(item):
     # If it previously wasn't filled at all, fill in the first one
     if playerStats[item][0] == 0 and playerStats[item][1] > 0:
         collectionBg = pygame.Rect(xLocation + 3, yLocation - 3, 45 - 12 - 6, 3)
-        pygame.draw.rect(globs.SCREEN, selectedColor, collectionBg)
+        pygame.draw.rect(SCREEN, selectedColor, collectionBg)
 
 
         if playerStats[item][1] > 1:
             collectionBg = pygame.Rect(xLocation, yLocation - currentFillStatus, 45 - 12, currentFillStatus - 3)
-            pygame.draw.rect(globs.SCREEN, selectedColor, collectionBg)
+            pygame.draw.rect(SCREEN, selectedColor, collectionBg)
 
     else:
         collectionBg = pygame.Rect(xLocation, yLocation - currentFillStatus - previousFillStatus, 45 - 12, currentFillStatus)
-        pygame.draw.rect(globs.SCREEN, selectedColor, collectionBg)
+        pygame.draw.rect(SCREEN, selectedColor, collectionBg)
 
     playerStats[item][0] += playerStats[item][1]
     playerStats[item][1] = 0
@@ -507,19 +507,19 @@ def drawLevel():
 def drawSidebar():
     #Draw the orange background
     rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
+    pygame.draw.rect(SCREEN, backgroundPeachColor, rect_object)
 
     #Draw the top bar
     topBarBg = pygame.Rect(outerLeftMargin, 35, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 90)
-    pygame.draw.rect(globs.SCREEN, whiteColor, topBarBg)
+    pygame.draw.rect(SCREEN, whiteColor, topBarBg)
     topBar = pygame.Rect(outerLeftMargin+5, 40, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 10, 80)
-    pygame.draw.rect(globs.SCREEN, darkerOrangeColor, topBar)
+    pygame.draw.rect(SCREEN, darkerOrangeColor, topBar)
 
     #Draw the right side bar
     sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
-    pygame.draw.rect(globs.SCREEN, whiteColor, sideBarBg)
+    pygame.draw.rect(SCREEN, whiteColor, sideBarBg)
     sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
-    pygame.draw.rect(globs.SCREEN, lighterOrangeColor, sideBar)
+    pygame.draw.rect(SCREEN, lighterOrangeColor, sideBar)
 
     textMessage = "Woodland"
     drawCenterText(textMessage, 50, pinkColor, screenDimensions[0]/2 + 4 + 5, outerTopMargin/2 + 6)
@@ -572,7 +572,7 @@ def levelUp():
     allSprites.empty()
 
     levelUpBg = pygame.Rect(itemSize[0] + innerSpacing + outerLeftMargin, 2*itemSize[0] + innerSpacing*2 + outerTopMargin, itemSize[0]*6 + innerSpacing*5, itemSize[0]*4 + innerSpacing*3)
-    pygame.draw.rect(globs.SCREEN, whiteColor, levelUpBg)
+    pygame.draw.rect(SCREEN, whiteColor, levelUpBg)
 
     drawCenterText("Level Up!", 40, treeSimpleColor, (itemSize[0] + innerSpacing + outerLeftMargin) + (itemSize[0]*6 + innerSpacing*5)/2, 3.3*itemSize[0] + innerSpacing*3 + outerTopMargin)
     
@@ -915,7 +915,7 @@ def redrawGameWindow():
         
 
     if boardChanged:
-        allSprites.draw(globs.SCREEN)
+        allSprites.draw(SCREEN)
         pygame.display.update()
         boardChanged = False
 
@@ -996,15 +996,15 @@ def drawCenterText(displayText, textSize, textColor, xBackgroundWidth, yLocation
     font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
     textRect = textSurface.get_rect(center = (xBackgroundWidth, yLocation))
-    globs.SCREEN.blit(textSurface, textRect)
+    SCREEN.blit(textSurface, textRect)
 
 def drawText(displayText, textSize, textColor, xLocation, yLocation):
     font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
-    globs.SCREEN.blit(textSurface, (xLocation, yLocation))
+    SCREEN.blit(textSurface, (xLocation, yLocation))
 
 def button(textContent, xLocation, yLocation, width, height, backgroundColor, textColor, textSize):
-    pygame.draw.rect(globs.SCREEN, backgroundColor, (xLocation, yLocation, width, height))
+    pygame.draw.rect(SCREEN, backgroundColor, (xLocation, yLocation, width, height))
     drawCenterText(textContent, textSize, textColor, width//2 + xLocation, height//2 + yLocation)
     
 def quitGame():
@@ -1013,7 +1013,7 @@ def quitGame():
 
 def pauseMenu():
     allSprites.empty()
-    globs.SCREEN.fill(backgroundPeachColor)
+    SCREEN.fill(backgroundPeachColor)
     screenTitle = "Pause"
     drawCenterText(screenTitle, 80, whiteColor, screenDimensions[0]//2, 2.7*screenDimensions[1]/10)
     button("Resume", (screenDimensions[0]- 400)//2, 3.5*screenDimensions[1]/10, 400, 90, whiteColor, lighterPinkColor, 30)
@@ -1026,7 +1026,7 @@ def pauseMenu():
 
 def winScreen():
     allSprites.empty()
-    globs.SCREEN.fill(darkerOrangeColor)
+    SCREEN.fill(darkerOrangeColor)
 
     drawCenterText("You Win!", 70, whiteColor, screenDimensions[0]//2, 2.7*screenDimensions[1]/10)
     button("Main Menu", (screenDimensions[0]- 375)//2, 3.5*screenDimensions[1]/10, 375, 90, whiteColor, lighterPinkColor, 26)
@@ -1035,7 +1035,7 @@ def winScreen():
 
 def loseScreen():
     allSprites.empty()
-    globs.SCREEN.fill(blueColor)
+    SCREEN.fill(blueColor)
 
     drawCenterText("You Lose!", 70, whiteColor, screenDimensions[0]//2, 2.7*screenDimensions[1]/10)
     button("Main Menu", (screenDimensions[0]- 375)//2, 3.5*screenDimensions[1]/10, 375, 90, whiteColor, lighterPinkColor, 26)
@@ -1048,9 +1048,9 @@ def helpMenu():
     allSprites.empty()
     #Thinner green border
     rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(globs.SCREEN, lighterOrangeColor, rectObject)
+    pygame.draw.rect(SCREEN, lighterOrangeColor, rectObject)
     rectObject = pygame.Rect(30, 30, screenDimensions[0]-60, screenDimensions[1]-60)
-    pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
+    pygame.draw.rect(SCREEN, whiteColor, rectObject)
 
     marginLeft = 50
 
@@ -1096,9 +1096,9 @@ def helpMenu():
 def mainMenu():
     allSprites.empty()
     rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(globs.SCREEN, darkerOrangeColor, rectObject)
+    pygame.draw.rect(SCREEN, darkerOrangeColor, rectObject)
     rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
-    pygame.draw.rect(globs.SCREEN, whiteColor, rectObject)
+    pygame.draw.rect(SCREEN, whiteColor, rectObject)
     drawCenterText("Woodland", 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
     scene = Item()
     scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
@@ -1108,7 +1108,7 @@ def mainMenu():
     button("Help", (screenDimensions[0]- 225)//2, 5.7*screenDimensions[1]/10, 225, 70, darkerOrangeColor, whiteColor, 25)
     button("Quit", (screenDimensions[0]- 200)//2, 7*screenDimensions[1]/10, 200, 70, purpleColor, whiteColor, 25)
 
-    allSprites.draw(globs.SCREEN)
+    allSprites.draw(SCREEN)
 
 
 gameRunning = True
@@ -1348,7 +1348,7 @@ while gameRunning:
                         allSprites.empty()
                         boardChanged = True
                         rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-                        pygame.draw.rect(globs.SCREEN, backgroundPeachColor, rect_object)
+                        pygame.draw.rect(SCREEN, backgroundPeachColor, rect_object)
                         levelNumber += 1
 
                         if levelNumber == 6:
