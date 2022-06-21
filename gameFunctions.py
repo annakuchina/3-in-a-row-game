@@ -1,7 +1,7 @@
-
 import random, math
 import globs
 
+# Shift a column with "BLANK" items in it down
 def shiftDown(col):
     col.reverse()
     itemNo = 0
@@ -26,7 +26,6 @@ def shiftDown(col):
 
             reversedItemNo = globs.COLUMN_COUNT-1 - itemNo
             
-            # Get center things
             i = 0
             while i<= reversedItemNo:
                 if col[i] != "BLANK":
@@ -39,32 +38,26 @@ def shiftDown(col):
 
 
 def itemCollectVertical(board, itemTypes):
-    # Check horizontal locations for 3-in-a-row items
+    # Check vertical locations for 3-in-a-row items
     comboCols1 = []
     rowMarker = 0
     colComboDict = {}
 
-    # HORIZONTAL MATCHES
     for item in itemTypes:
         for c in range(globs.COLUMN_COUNT):
             while rowMarker < globs.ROW_COUNT-2:
-                # if board[c][row]
-
                 if board[c][rowMarker] == item and board[c][rowMarker+1] == item and board[c][rowMarker+2] == item:
                     comboCols1.extend([rowMarker, rowMarker+1, rowMarker+2])
                     rowMarker += 2
 
                     while rowMarker+1 < globs.ROW_COUNT:
                         # Checking if it is longer than 3 in a row
-
                         if board[c][rowMarker+1] == item:
                             comboCols1.append(rowMarker + 1)
-                            
                         else:
                             break
 
                         rowMarker += 1
-
                 else:
                     rowMarker += 1
 
@@ -103,7 +96,6 @@ def itemCollectVertical(board, itemTypes):
                 colComboDict[colKey].append(firstCol)
                 colComboDict[colKey].append(secondCol)
                 splitCol = True
-
             i+=1
             j+=1
 
@@ -111,11 +103,11 @@ def itemCollectVertical(board, itemTypes):
     
 
 def itemCollectHorizontal(board, itemTypes):
+    # Check horizontal locations for 3-in-a-row items
     colMarker = 0
     comboRows = []
     rowComboDict = {}
 
-    # VERTICAL MATCHES
     for item in itemTypes:
         for r in range(globs.ROW_COUNT):
             while colMarker < globs.COLUMN_COUNT-2:
@@ -126,10 +118,8 @@ def itemCollectHorizontal(board, itemTypes):
 
                     while colMarker+1 < globs.COLUMN_COUNT:
                         # Checking if it is longer than 3 in a column
-
                         if board[colMarker + 1][r] == item:
                             comboRows.append(colMarker + 1)
-                            
                         else:
                             break
 
@@ -146,7 +136,6 @@ def itemCollectHorizontal(board, itemTypes):
     # See if there are multiple matches in a row
     for rowKey in rowComboDict:
         rowLen = len(rowComboDict[rowKey][1])
-        
         i = 0
         j = 1
         firstRow = []
@@ -174,7 +163,6 @@ def itemCollectHorizontal(board, itemTypes):
                 rowComboDict[rowKey].append(secondRow)
 
                 splitRow = True
-
             i+=1
             j+=1
 
