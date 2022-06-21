@@ -654,7 +654,7 @@ def redrawGameWindow():
                     if isinstance(item, list):
                         # print(item)
                         for rowNo in item:
-                            drawGridItem(globs.deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
+                            drawGridItem(deleteAnimation[verticalRemoveCount//2], rowNo, key, itemSize, 0)
                             boardChanged = True
 
         previousRemoveVerticalCount = verticalRemoveCount
@@ -668,7 +668,7 @@ def redrawGameWindow():
                 for item in horizontalDict[key]:
                     if isinstance(item, list):
                         for colNo in item:
-                            drawGridItem(globs.deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
+                            drawGridItem(deleteAnimation[horizontalRemoveCount//2], key, colNo, itemSize, 0)
                             boardChanged = True
 
 
