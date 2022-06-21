@@ -8,9 +8,11 @@ from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 clock = pygame.time.Clock()
 FPS = 8
 
+pygame.mixer.pre_init()
+pygame.mixer.init()
 pygame.init()
 SCREEN = pygame.display.set_mode((925, 840))
-pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
+pygame_icon = pygame.image.load(os.path.join("images", "mushroomScaled" + ".png")).convert_alpha()
 pygame.display.set_icon(pygame_icon)
 pygame.display.set_caption('Woodland')
 
@@ -19,6 +21,16 @@ pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN, pygame.KEYDOWN])
 itemTypes = globs.itemTypes
 itemLen = globs.itemLen
 itemsDrawn = False
+
+pygame.mixer.music.load(os.path.join("files", "backgroundMusic.mp3"))
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(loops=-1)  # Loop forever
+
+
+clickSound = pygame.mixer.Sound(os.path.join("files", "click.mp3"))
+itemDisappearSound =  pygame.mixer.Sound(os.path.join("files", "itemDisappear.mp3"))
+dropDownSound = pygame.mixer.Sound(os.path.join("files", "dropDown.mp3"))
+
 
 SQUARESIZE = 8
 width = globs.COLUMN_COUNT * SQUARESIZE
@@ -50,14 +62,17 @@ previousRemoveVerticalCount = -1
 previousRemoveHorizontalCount = -1
 
 # Different screens
+previousScreen = ""
 gameRunning = True
 initiateScreen = True
 firstRound = True
 startLevel = True
 mainMenuRunning = True
 pauseMenuRunning = False
+
 helpMenuRunning = False
 playScreenRunning = False
+
 levelUpScreenRunning = False
 loseScreenRunning = False
 winScreenRunning = False
@@ -101,7 +116,7 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 #-----------------
 #SAMPLE BOARDS
 
-board = {0: ['healPotion', 'mushroom', 'healPotion', 'healPotion', 'healPotion', 'poisonPotion', 'snake', 'tree'], 1: ['poisonPotion', 'healPotion', 'healPotion', 'moon', 'moon', 'moon', 'snake', 'snake'], 2: ['healPotion', 'tree', 'tree', 'tree', 'poisonPotion', 'mushroom', 'snake', 'tree'], 3: ['poisonPotion', 'mushroom', 'moon', 'tree', 'snake', 'mushroom', 'snake', 'healPotion'], 4: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'snake', 'poisonPotion', 'mushroom', 'mushroom'], 5: ['poisonPotion', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['snake', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['poisonPotion', 'tree', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
+board = {0: ['healPotion', 'mushroom', 'healPotion', 'healPotion', 'healPotion', 'poisonPotion', 'snake', 'mushroom'], 1: ['poisonPotion', 'healPotion', 'healPotion', 'moon', 'moon', 'moon', 'snake', 'snake'], 2: ['healPotion', 'tree', 'tree', 'tree', 'poisonPotion', 'mushroom', 'snake', 'mushroom'], 3: ['poisonPotion', 'mushroom', 'moon', 'tree', 'snake', 'mushroom', 'snake', 'mushroom'], 4: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'snake', 'poisonPotion', 'mushroom', 'snake'], 5: ['poisonPotion', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['snake', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['poisonPotion', 'tree', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
 # board = {0: ['moon', 'poisonPotion', 'healPotion', 'moon', 'tree', 'healPotion', 'tree', 'poisonPotion'], 1: ['snake', 'snake', 'healPotion', 'moon', 'poisonPotion', 'healPotion', 'moon', 'mushroom'], 2: ['snake', 'poisonPotion', 'mushroom', 'snake', 'healPotion', 'healPotion', 'mushroom', 'healPotion'], 3: ['tree', 'poisonPotion', 'healPotion', 'snake', 'tree', 'healPotion', 'moon', 'healPotion'], 4: ['tree', 'snake', 'healPotion', 'moon', 'mushroom', 'poisonPotion', 'tree', 'poisonPotion'], 5: ['mushroom', 'poisonPotion', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'moon', 'mushroom'], 6: ['snake', 'tree', 'snake', 'poisonPotion', 'tree', 'healPotion', 'moon', 'moon'], 7: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'moon', 'healPotion', 'snake', 'mushroom']}
 
 # board = {0: ['poisonPotion', 'healPotion', 'moon', 'snake', 'snake', 'snake', 'snake', 'moon'], 1: ['healPotion', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'healPotion'], 2: ['snake', 'snake', 'snake', 'healPotion', 'snake', 'poisonPotion', 'snake', 'mushroom'], 3: ['snake', 'poisonPotion', 'mushroom', 'healPotion', 'snake', 'moon', 'mushroom', 'mushroom'], 4: ['mushroom', 'healPotion', 'snake', 'snake', 'moon', 'poisonPotion', 'mushroom', 'tree'], 5: ['snake', 'healPotion', 'moon', 'snake', 'snake', 'snake', 'tree', 'tree'], 6: ['snake', 'moon', 'healPotion', 'poisonPotion', 'tree', 'snake', 'moon', 'moon'], 7: ['tree', 'tree', 'snake', 'tree', 'mushroom', 'tree', 'poisonPotion', 'mushroom']}
@@ -164,6 +179,8 @@ class Item(pygame.sprite.Sprite):
         self.blank = pygame.image.load(os.path.join("images", "BLANK.png")).convert()
         self.blankSidebar = pygame.image.load(os.path.join("images", "BLANKSidebar.png")).convert()
         self.blankDynamic = pygame.image.load(os.path.join("images", "BLANKDynamic.png")).convert_alpha()
+
+        self.matchPreview = pygame.image.load(os.path.join("images", "matchPreview.png")).convert()
         
         global itemDict
         global mushroomSimpleColor, treeSimpleColor
@@ -205,7 +222,9 @@ class Item(pygame.sprite.Sprite):
         
         "BLANK": self.blank,
         "BLANKSidebar": self.blankSidebar,
-        "BLANKDynamic": self.blankDynamic
+        "BLANKDynamic": self.blankDynamic,
+
+        "matchPreview": self.matchPreview
         }
         
         playerStats = {
@@ -302,13 +321,13 @@ else:
 
 
 def drawCenterText(displayText, textSize, textColor, xBackgroundWidth, yLocation):
-    font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
+    font = pygame.font.Font(os.path.join("files","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
     textRect = textSurface.get_rect(center = (xBackgroundWidth, yLocation))
     SCREEN.blit(textSurface, textRect)
 
 def drawText(displayText, textSize, textColor, xLocation, yLocation):
-    font = pygame.font.Font(os.path.join("fonts","prstartk.ttf"), textSize)
+    font = pygame.font.Font(os.path.join("files","prstartk.ttf"), textSize)
     textSurface = font.render(displayText, False, textColor)
     SCREEN.blit(textSurface, (xLocation, yLocation))
 
@@ -553,37 +572,75 @@ def loseScreen():
 
 def helpMenu():
     allSprites.empty()
+    SCREEN.fill(whiteColor)
+
     rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
     pygame.draw.rect(SCREEN, lighterOrangeColor, rectObject)
-    rectObject = pygame.Rect(30, 30, screenDimensions[0]-60, screenDimensions[1]-60)
+    rectObject = pygame.Rect(20, 20, screenDimensions[0]-40, screenDimensions[1]-40)
     pygame.draw.rect(SCREEN, whiteColor, rectObject)
-    marginLeft = 50
-    topMargin = 100
-    drawCenterText("Help", 50, orangeRedColor, screenDimensions[0]//2, 1*screenDimensions[1]/10)
+    marginLeft = 55
+    imageMarginLeft = 100
+    topMargin = 77
+    drawCenterText("Help", 55, orangeRedColor, screenDimensions[0]//2, 1*screenDimensions[1]/10)
 
-    line1 = "You have wondered into a magical woodland!"
+    line1 = "To swap/collect items, click two adjacent items."
+    line2 = "They must create a 3+ in a row/column when swapped."
 
-    line2 = "To swap/collect items, click two adjacent items."
-    line3 = "They must create a 3+ in a row/column when swapped."
+    line3 = "Fill the collections with friendly items to level up!"
+    line4 = "Collecting friendly items also restores health/energy: "
+    line5 = "Mushrooms, trees, moons, healing potions"
 
-    line4 = "Fill the collections with friendly items to level up!"
-    line5 = "Collecting friendly items also restores health/energy: "
-    line6 = "Mushrooms, trees, moons, healing potions"
+    line6 = "Beware of enemies! Snakes will drain your health."
+    line7 = "Poison potions will deplete both energy and health."
 
-    line7 = "Beware of enemies! Snakes will drain your health."
-    line8 = "Poison potions will deplete both energy and health."
+    line8 = "The item board shuffles before each round."
+    line9 = "Pass five levels to win!"
 
-    line9 = "The item board shuffles before each round."
-    line10 = "Pass five levels to win"
+    textDict = {0: [line1, line2], 1: [line3, line4, line5], 2: [line6, line7], 3:[line8, line9]}
 
-    textDict = {0: [line1], 1: [line2, line3], 2: [line4, line5, line6], 3: [line7, line8], 4: [line9, line10]}
+    imagePadding = 0
+
+    goodItems = ["mushroom", "tree", "healPotion", "moon"]
+    badItems = ["snake", "poisonPotion"]
+    textColor = orangeRedColor
 
     spaceCount = 0
     for key in textDict: # Each paragraph
         spaceCount += 0.5
-        for line in textDict[key]: 
+        for line in textDict[key]:
             spaceCount += 0.3
-            drawText(line, 15, orangeRedColor, marginLeft, spaceCount*screenDimensions[1]/10 + topMargin)
+            drawCenterText(line, 15, textColor, screenDimensions[0]//2, spaceCount*screenDimensions[1]/10 + topMargin + imagePadding)
+
+        if key == 0:
+            textColor = pinkColor
+            scene = Item()
+            scene.drawItem("matchPreview", screenDimensions[0]//2 - 336/2, spaceCount*screenDimensions[1]/10 + topMargin + 15, 336, 84)
+            imagePadding += 84 - 22
+
+        if key == 1:
+            textColor = blueColor
+            itemCount = 0
+            for item in goodItems:
+                
+                scene = Item()
+                scene.drawItem(item, screenDimensions[0]//2 - 80*(len(goodItems))//2 + (itemCount)*80, spaceCount*screenDimensions[1]/10 + topMargin + imagePadding + 15, 80, 80)
+                itemCount += 1
+            imagePadding += 80 - 22
+        
+        if key == 2:
+            textColor = orangeRedColor
+            itemCount = 0
+            for item in badItems:
+                itemCount += 1
+                scene = Item()
+                scene.drawItem(item, screenDimensions[0]//2 - 80*len(badItems) + (itemCount)*80, spaceCount*screenDimensions[1]/10 + topMargin + imagePadding + 15, 80, 80)
+            imagePadding += 80 - 22
+
+    button("Back", (screenDimensions[0]- 250)//2, 8.2*screenDimensions[1]/10, 250, 70, redColor, whiteColor, 25)
+
+    pygame.display.update()
+    allSprites.draw(SCREEN)
+    
 
 def mainMenu():
     allSprites.empty()
@@ -840,6 +897,7 @@ while gameRunning:
                 if len(verticalDict) > 0:
                     removeVerticalCurrent = True
                     removalAction = True
+                    pygame.mixer.Channel(1).play(itemDisappearSound)
                 
                     for key in verticalDict:
                         for item in verticalDict[key]:
@@ -861,6 +919,7 @@ while gameRunning:
                 if len(horizontalDict) > 0:
                     removeHorizontalCurrent = True
                     removalAction = True
+                    pygame.mixer.Channel(1).play(itemDisappearSound)
 
                     for key in horizontalDict:
                         for item in horizontalDict[key]:
@@ -886,6 +945,7 @@ while gameRunning:
             for key in board:
                 if "BLANK" in board[key]:
                     shiftItemsDown = True
+                    pygame.mixer.Channel(2).play(dropDownSound)
                     modifiedItems, unchangedCol, shiftedCol = shiftDown(board[key])
                     movedItemsBoard[key] = modifiedItems
                     board[key] = shiftedCol
@@ -955,28 +1015,41 @@ while gameRunning:
                 if mainMenuRunning:
                     #Play
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
+                        pygame.mixer.Channel(0).play(clickSound)
                         mainMenuRunning = False
                         playScreenRunning = True
                         initiateScreen = True
+                        
                     
                     #Help
                     elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
-                    
+                        pygame.mixer.music.pause()
+                        pygame.mixer.Channel(0).play(clickSound)
+                        initiateScreen = True
+                        previousScreen = "mainMenu"
+                        mainMenuRunning = False
+                        helpMenuRunning = True
+
                     #Quit
-                    if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
+                    elif (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
 
                 elif pauseMenuRunning:
                     #Resume
                     if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                        pygame.mixer.music.unpause()
+                        pygame.mixer.Channel(0).play(clickSound)
                         pauseMenuRunning = False
                         playScreenRunning = True
                         initiateScreen = True
 
-                    
                     #Help
                     elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
-                        print("HELP")
+                        pygame.mixer.Channel(0).play(clickSound)
+                        initiateScreen = True
+                        previousScreen = "pauseMenu"
+                        pauseMenuRunning = False
+                        helpMenuRunning = True
                     
                     #Quit
                     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
@@ -985,6 +1058,7 @@ while gameRunning:
                 elif levelUpScreenRunning:
                     # Continue
                     if outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing > mouse_x > outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing and 4*itemSize[0] + innerSpacing*3 + outerTopMargin + 90 > mouse_y > 4*itemSize[0] + innerSpacing*3 + outerTopMargin:
+                        pygame.mixer.Channel(0).play(clickSound)
                         allSprites.empty()
                         boardChanged = True
                         rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
@@ -1005,16 +1079,21 @@ while gameRunning:
                 elif winScreenRunning:
                     # Main menu
                     if (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                        pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
                         winScreenRunning = False
                         mainMenuRunning = True
                     
                     # Help
                     elif (screenDimensions[0]- 350)//2 + 350 > mouse_x > (screenDimensions[0]- 350)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                        pygame.mixer.music.pause()
+                        pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
-                        winScreenRunning = False
+                        previousScreen = "winScreen"
+                        mainMenuRunning = False
                         helpMenuRunning = True
                     
+                    # Quit
                     elif (screenDimensions[0]- 325)//2 + 325 > mouse_x > (screenDimensions[0]- 325)//2 and 6.5*screenDimensions[1]/10 + 90 > mouse_y > 6.5*screenDimensions[1]/10:
                         winScreenRunning = False
                         quitGame()
@@ -1022,35 +1101,51 @@ while gameRunning:
                 elif loseScreenRunning:
                     # Main menu
                     if (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
+                        pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
                         loseScreenRunning = False
                         mainMenuRunning = True
                     
                     # Help
                     elif (screenDimensions[0]- 350)//2 + 350 > mouse_x > (screenDimensions[0]- 350)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
+                        pygame.mixer.music.pause()
+                        pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
+                        previousScreen = "loseScreen"
                         loseScreenRunning = False
                         helpMenuRunning = True
                     
+                    # Quit
                     elif (screenDimensions[0]- 325)//2 + 325 > mouse_x > (screenDimensions[0]- 325)//2 and 6.5*screenDimensions[1]/10 + 90 > mouse_y > 6.5*screenDimensions[1]/10:
                         winScreenRunning = False
                         quitGame()
                 
-                # elif helpMenuRunning:
-                #     #Resume
-                #     if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
-                #         play()
-                    
-                #     #Help
-                #     elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
-                #         print("HELP")
-                    
-                #     #Quit
-                #     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
-                #         quitGame()
+                elif helpMenuRunning:
+                    # Back to previous screen
+                    if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 8.2*screenDimensions[1]/10 + 70 > mouse_y > 8.2*screenDimensions[1]/10:
+                        pygame.mixer.music.unpause()
+                        pygame.mixer.Channel(0).play(clickSound)
+                        initiateScreen = True
+                        helpMenuRunning = False
+
+                        if previousScreen == "mainMenu":
+                            mainMenuRunning = True
+
+                        elif previousScreen == "pauseMenu":
+                            pauseMenuRunning = True
+
+                        elif previousScreen == "winScreen":
+                            winScreenRunning = True
+
+                        elif previousScreen == "loseScreen":
+                            loseScreenRunning = True
+
+                        previousScreen = ""
 
                 elif playScreenRunning:
+                    # Pause the game
                     if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
+                        pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
                         playScreenRunning = False
                         pauseMenuRunning = True
@@ -1071,16 +1166,14 @@ while gameRunning:
                                 itemSelected = False
 
                             if itemSelected != False:
+                                pygame.mixer.Channel(0).play(clickSound)
                                 verticalDict = itemCollectVertical(board, itemTypes)
                                 horizontalDict = itemCollectHorizontal(board, itemTypes)
                             
                                 if len(displayedArray) == 0:                 
                                     selectedArray.append([columnLocation, rowLocation])
-                                    #Selected array and displayedArray -> moves from selected to displayed
-
                                     selectedItem = True
                                     addItemBorder = True
-
 
                                 elif len(displayedArray) == 1:
                                     # There is 1 item currently selected
@@ -1121,7 +1214,6 @@ while gameRunning:
                                         horizontalCollectedSwapped = itemCollectHorizontal(swappedBoard, itemTypes)
                                         if len(verticalCollectedSwapped) > 0 or len(horizontalCollectedSwapped) > 0:
                                             gameChanged = True
-
                                             drawGridItem(board[displayedArray[0][0]][displayedArray[0][1]], rowLocation, columnLocation, itemSize, 0)
                                             drawGridItem(board[columnLocation][rowLocation], displayedArray[0][1], displayedArray[0][0], itemSize, 0)
                                             boardChanged = True
