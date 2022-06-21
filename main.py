@@ -969,6 +969,23 @@ while gameRunning:
         if initiateScreen:
             board = {}
             levelUp()
+
+            playerStats = {
+            "heart": [0, 3, 3],
+            "energy": [1, 3, 3],
+            "tree": [0, 0],
+            "mushroom": [0, 0]
+            }
+
+            itemCountDict = {
+            "mushroomSimple": [0, 0, 0, 0, mushroomSimpleColor],
+            "treeSimple": [1, 0, 0, 0, treeSimpleColor],
+            "moonSimple": [2, 0, 0, 0, (175, 72, 238)],
+            "healPotionSimple": [3, 0, 0, 0, (202, 18, 81)],
+            "snakeSimple": [4, 0, 0, 0, (88, 102, 229)],
+            "poisonPotionSimple": [5, 0, 0, 0, (15, 130, 85)]
+            }
+
             pygame.display.update()
             initiateScreen = False
 
@@ -1066,7 +1083,7 @@ while gameRunning:
                         levelNumber += 1
 
                         if levelNumber == 6:
-                            initiateScreen = False
+                            initiateScreen = True
                             levelUpScreenRunning = False
                             winScreenRunning = True
                         else:
@@ -1145,6 +1162,7 @@ while gameRunning:
                 elif playScreenRunning:
                     # Pause the game
                     if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
+                        pygame.mixer.music.pause()
                         pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
                         playScreenRunning = False
