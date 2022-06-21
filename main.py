@@ -9,6 +9,7 @@ clock = pygame.time.Clock()
 FPS = 8
 
 pygame.init()
+SCREEN = pygame.display.set_mode((925, 840))
 pygame_icon = pygame.image.load(os.path.join("images", (str("mushroomScaled") + ".png"))).convert_alpha()
 pygame.display.set_icon(pygame_icon)
 pygame.display.set_caption('Woodland')
@@ -75,6 +76,7 @@ outerTopMargin = 155
 outerLeftMargin = 50
 itemCount = 0
 
+deleteAnimation = ["BLANKDynamic", "BLANK"]
 spacingArray = [0, 0.33333333, 0.66666666, 1]
 
 sidebarLeftSpacing = 30
