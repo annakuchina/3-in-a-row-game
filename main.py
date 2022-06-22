@@ -24,7 +24,7 @@ itemsDrawn = False
 
 pygame.mixer.music.load(os.path.join("files", "backgroundMusic.mp3"))
 pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play(loops=-1)  # Loop forever
+pygame.mixer.music.play(loops=-1)  # Loop music forever
 
 
 clickSound = pygame.mixer.Sound(os.path.join("files", "click.mp3"))
@@ -992,6 +992,9 @@ while gameRunning:
 
     elif levelUpScreenRunning:
         if initiateScreen:
+            modifyEnergy = 0
+            modifyHearts = 0
+
             board = {}
             levelUp()
 
@@ -1016,7 +1019,27 @@ while gameRunning:
 
     elif winScreenRunning:
         if initiateScreen:
+            modifyEnergy = 0
+            modifyHearts = 0
+
+            board = {}
             levelNumber = 1
+            playerStats = {
+            "heart": [0, 3, 3],
+            "energy": [1, 3, 3],
+            "tree": [0, 0],
+            "mushroom": [0, 0]
+            }
+
+            itemCountDict = {
+            "mushroomSimple": [0, 0, 0, 0, mushroomSimpleColor],
+            "treeSimple": [1, 0, 0, 0, treeSimpleColor],
+            "moonSimple": [2, 0, 0, 0, (175, 72, 238)],
+            "healPotionSimple": [3, 0, 0, 0, (202, 18, 81)],
+            "snakeSimple": [4, 0, 0, 0, (88, 102, 229)],
+            "poisonPotionSimple": [5, 0, 0, 0, (15, 130, 85)]
+            }
+
             randomBoard()
             winScreen()
             pygame.display.update()
@@ -1024,7 +1047,27 @@ while gameRunning:
     
     elif loseScreenRunning:
         if initiateScreen:
+            modifyEnergy = 0
+            modifyHearts = 0
+
+            board = {}
             levelNumber = 1
+            playerStats = {
+            "heart": [0, 3, 3],
+            "energy": [1, 3, 3],
+            "tree": [0, 0],
+            "mushroom": [0, 0]
+            }
+
+            itemCountDict = {
+            "mushroomSimple": [0, 0, 0, 0, mushroomSimpleColor],
+            "treeSimple": [1, 0, 0, 0, treeSimpleColor],
+            "moonSimple": [2, 0, 0, 0, (175, 72, 238)],
+            "healPotionSimple": [3, 0, 0, 0, (202, 18, 81)],
+            "snakeSimple": [4, 0, 0, 0, (88, 102, 229)],
+            "poisonPotionSimple": [5, 0, 0, 0, (15, 130, 85)]
+            }
+
             randomBoard()
             loseScreen()
             pygame.display.update()
@@ -1061,7 +1104,6 @@ while gameRunning:
                         mainMenuRunning = False
                         playScreenRunning = True
                         initiateScreen = True
-                        
                     
                     #Help
                     elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
@@ -1168,27 +1210,29 @@ while gameRunning:
                     
                     # Quit
                     elif (screenDimensions[0]- 325)//2 + 325 > mouse_x > (screenDimensions[0]- 325)//2 and 6.5*screenDimensions[1]/10 + 90 > mouse_y > 6.5*screenDimensions[1]/10:
-                        winScreenRunning = False
+                        loseScreenRunning = False
                         quitGame()
                 
                 elif helpMenuRunning:
                     # Back to previous screen
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 8.2*screenDimensions[1]/10 + 70 > mouse_y > 8.2*screenDimensions[1]/10:
-                        pygame.mixer.music.unpause()
                         pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
                         helpMenuRunning = False
 
                         if previousScreen == "mainMenu":
+                            pygame.mixer.music.unpause()
                             mainMenuRunning = True
 
                         elif previousScreen == "pauseMenu":
                             pauseMenuRunning = True
 
                         elif previousScreen == "winScreen":
+                            pygame.mixer.music.unpause()
                             winScreenRunning = True
 
                         elif previousScreen == "loseScreen":
+                            pygame.mixer.music.unpause()
                             loseScreenRunning = True
 
                         previousScreen = ""
