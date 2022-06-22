@@ -797,11 +797,13 @@ def redrawGameWindow():
             # Friendly items
             if item == "mushroomSimple":
                 modifyHearts = 0.5
-                playerStats["mushroom"][1] += 3
+                # playerStats["mushroom"][1] += 3
+                playerStats["mushroom"][1] += 12
 
             elif item == "treeSimple":
                 modifyEnergy = 0.5
-                playerStats["tree"][1] += 3
+                # playerStats["tree"][1] += 3
+                playerStats["tree"][1] += 12
 
             elif item == "healPotionSimple":
                 modifyEnergy = 2
@@ -901,7 +903,6 @@ while gameRunning:
         last_pos = mouse_pos
 
     if playScreenRunning:
-
         if initiateScreen:
             play()
             pygame.display.update()
@@ -1014,6 +1015,7 @@ while gameRunning:
             "poisonPotionSimple": [5, 0, 0, 0, (15, 130, 85)]
             }
 
+            randomBoard()
             pygame.display.update()
             initiateScreen = False
 
@@ -1096,7 +1098,6 @@ while gameRunning:
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-
                 if mainMenuRunning:
                     #Play
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
@@ -1162,8 +1163,6 @@ while gameRunning:
                             levelUpScreenRunning = False
                             winScreenRunning = True
                         else:
-                            # board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
-                            randomBoard()
                             initiateScreen = True
                             levelUpScreenRunning = False
                             playScreenRunning = True
