@@ -116,7 +116,15 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 #-----------------
 #SAMPLE BOARDS
 
-board = {0: ['healPotion', 'mushroom', 'healPotion', 'healPotion', 'healPotion', 'poisonPotion', 'snake', 'mushroom'], 1: ['poisonPotion', 'healPotion', 'healPotion', 'moon', 'moon', 'moon', 'snake', 'snake'], 2: ['healPotion', 'tree', 'tree', 'tree', 'poisonPotion', 'mushroom', 'snake', 'mushroom'], 3: ['poisonPotion', 'mushroom', 'moon', 'tree', 'snake', 'mushroom', 'snake', 'mushroom'], 4: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'snake', 'poisonPotion', 'mushroom', 'snake'], 5: ['poisonPotion', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['snake', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['poisonPotion', 'tree', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
+#Friendlies
+# board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
+
+#Enemies
+# board = {0: ['poisonPotion', 'poisonPotion', 'snake', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['poisonPotion', 'poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['snake', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
+
+# board = {0: ['healPotion', 'healPotion', 'mushroom', 'healPotion', 'healPotion', 'poisonPotion', 'snake', 'mushroom'], 1: ['mushroom', 'mushroom', 'healPotion', 'moon', 'moon', 'moon', 'snake', 'snake'], 2: ['healPotion', 'tree', 'tree', 'tree', 'poisonPotion', 'mushroom', 'snake', 'mushroom'], 3: ['poisonPotion', 'mushroom', 'moon', 'tree', 'snake', 'mushroom', 'snake', 'mushroom'], 4: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'snake', 'poisonPotion', 'mushroom', 'snake'], 5: ['poisonPotion', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['snake', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['poisonPotion', 'tree', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
+
+# board = {0: ['healPotion', 'mushroom', 'healPotion', 'healPotion', 'healPotion', 'poisonPotion', 'snake', 'mushroom'], 1: ['poisonPotion', 'healPotion', 'healPotion', 'moon', 'moon', 'moon', 'snake', 'snake'], 2: ['healPotion', 'tree', 'tree', 'tree', 'poisonPotion', 'mushroom', 'snake', 'mushroom'], 3: ['poisonPotion', 'mushroom', 'moon', 'tree', 'snake', 'mushroom', 'snake', 'mushroom'], 4: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'snake', 'poisonPotion', 'mushroom', 'snake'], 5: ['poisonPotion', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['snake', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['poisonPotion', 'tree', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
 # board = {0: ['moon', 'poisonPotion', 'healPotion', 'moon', 'tree', 'healPotion', 'tree', 'poisonPotion'], 1: ['snake', 'snake', 'healPotion', 'moon', 'poisonPotion', 'healPotion', 'moon', 'mushroom'], 2: ['snake', 'poisonPotion', 'mushroom', 'snake', 'healPotion', 'healPotion', 'mushroom', 'healPotion'], 3: ['tree', 'poisonPotion', 'healPotion', 'snake', 'tree', 'healPotion', 'moon', 'healPotion'], 4: ['tree', 'snake', 'healPotion', 'moon', 'mushroom', 'poisonPotion', 'tree', 'poisonPotion'], 5: ['mushroom', 'poisonPotion', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'moon', 'mushroom'], 6: ['snake', 'tree', 'snake', 'poisonPotion', 'tree', 'healPotion', 'moon', 'moon'], 7: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'moon', 'healPotion', 'snake', 'mushroom']}
 
 # board = {0: ['poisonPotion', 'healPotion', 'moon', 'snake', 'snake', 'snake', 'snake', 'moon'], 1: ['healPotion', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'healPotion'], 2: ['snake', 'snake', 'snake', 'healPotion', 'snake', 'poisonPotion', 'snake', 'mushroom'], 3: ['snake', 'poisonPotion', 'mushroom', 'healPotion', 'snake', 'moon', 'mushroom', 'mushroom'], 4: ['mushroom', 'healPotion', 'snake', 'snake', 'moon', 'poisonPotion', 'mushroom', 'tree'], 5: ['snake', 'healPotion', 'moon', 'snake', 'snake', 'snake', 'tree', 'tree'], 6: ['snake', 'moon', 'healPotion', 'poisonPotion', 'tree', 'snake', 'moon', 'moon'], 7: ['tree', 'tree', 'snake', 'tree', 'mushroom', 'tree', 'poisonPotion', 'mushroom']}
@@ -256,6 +264,16 @@ class Item(pygame.sprite.Sprite):
             "snakeSimple": [7, 6, 5, 4, 4],
             "poisonPotionSimple": [8, 7, 6, 5, 4]
         }
+
+        #TESTING
+        # levelInfoDict = {
+        #     "mushroomSimple": [4, 4, 4, 4, 4],
+        #     "treeSimple": [5, 5, 5, 5, 5],
+        #     "moonSimple": [3, 3, 3, 3, 3],
+        #     "healPotionSimple": [4, 4, 4, 4, 4],
+        #     "snakeSimple": [6, 6, 5, 4, 4],
+        #     "poisonPotionSimple": [6, 7, 6, 5, 4]
+        # }
         
     def drawItem(self, item, xLocation, yLocation, width, height):
         self.image = itemDict[item]
@@ -312,12 +330,14 @@ def randomBoard():
     return board
 
 
+
 if len(board) > 0:
     makeBoard(board)
 
 else:
     #Generate the board randomly
     randomBoard()
+
 
 
 def drawCenterText(displayText, textSize, textColor, xBackgroundWidth, yLocation):
@@ -458,6 +478,11 @@ def fillCollection(item):
     if playerStats[item][0] + playerStats[item][1] >= 12:
         playerStats[item][1] = 12 - playerStats[item][0]
 
+    # There were items in the collection that were not displayed
+    if playerStats[item][0] > 0 and playerStats[item][1] == 0:
+        playerStats[item][1] = playerStats[item][0]
+        playerStats[item][0] = 0
+
     currentFillStatus = playerStats[item][1] * 3
     previousFillStatus = playerStats[item][0] * 3
 
@@ -469,7 +494,7 @@ def fillCollection(item):
         xLocation = xLocation + sideBarWidth - 45 - 50
 
     # If it previously wasn't filled at all, fill in the first one
-    if playerStats[item][0] == 0 and playerStats[item][1] > 0:
+    if playerStats[item][0] == 0 and playerStats[item][1] > 0 or playerStats[item][0] > 1 and initiateScreen == True:
         collectionBg = pygame.Rect(xLocation + 3, yLocation - 3, 45 - 12 - 6, 3)
         pygame.draw.rect(SCREEN, selectedColor, collectionBg)
 
@@ -540,6 +565,8 @@ def play():
     drawPlayerStats("heart", 0)
     drawPlayerStats("energy", 0)
     drawSidebarIcons()
+    fillCollection("mushroom")
+    fillCollection("tree")
 
 def quitGame():
     pygame.quit()
@@ -578,8 +605,6 @@ def helpMenu():
     pygame.draw.rect(SCREEN, lighterOrangeColor, rectObject)
     rectObject = pygame.Rect(20, 20, screenDimensions[0]-40, screenDimensions[1]-40)
     pygame.draw.rect(SCREEN, whiteColor, rectObject)
-    marginLeft = 55
-    imageMarginLeft = 100
     topMargin = 77
     drawCenterText("Help", 55, orangeRedColor, screenDimensions[0]//2, 1*screenDimensions[1]/10)
 
@@ -879,8 +904,8 @@ while gameRunning:
 
         if initiateScreen:
             play()
-            initiateScreen = False
             pygame.display.update()
+            initiateScreen = False
             firstRound = True
             initiatePlayScreen = True
 
@@ -1073,6 +1098,14 @@ while gameRunning:
                         quitGame()
                 
                 elif levelUpScreenRunning:
+                    # Pause the game
+                    if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
+                        pygame.mixer.music.pause()
+                        pygame.mixer.Channel(0).play(clickSound)
+                        initiateScreen = True
+                        levelUpScreenRunning = False
+                        pauseMenuRunning = True
+
                     # Continue
                     if outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing + 3*itemSize[0] + 3*innerSpacing > mouse_x > outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing and 4*itemSize[0] + innerSpacing*3 + outerTopMargin + 90 > mouse_y > 4*itemSize[0] + innerSpacing*3 + outerTopMargin:
                         pygame.mixer.Channel(0).play(clickSound)
@@ -1087,6 +1120,7 @@ while gameRunning:
                             levelUpScreenRunning = False
                             winScreenRunning = True
                         else:
+                            # board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
                             randomBoard()
                             initiateScreen = True
                             levelUpScreenRunning = False
@@ -1107,7 +1141,7 @@ while gameRunning:
                         pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
                         previousScreen = "winScreen"
-                        mainMenuRunning = False
+                        winScreenRunning = False
                         helpMenuRunning = True
                     
                     # Quit
