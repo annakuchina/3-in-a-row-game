@@ -138,7 +138,6 @@ class Item(pygame.sprite.Sprite):
         self.selectedOutline = pygame.image.load(os.path.join("images", "selectedOutline.png")).convert_alpha()
         self.deselectedOutline = pygame.image.load(os.path.join("images", "deselectedOutline.png")).convert_alpha()
 
-        self.collectionBorder = pygame.image.load(os.path.join("images", "collectionBorder.png")).convert_alpha()
         self.collectionBorderRed = pygame.image.load(os.path.join("images", "collectionBorderRed.png")).convert_alpha()
         self.collectionBorderOrange = pygame.image.load(os.path.join("images", "collectionBorderOrange.png")).convert_alpha()
 
@@ -182,7 +181,6 @@ class Item(pygame.sprite.Sprite):
         "selectedOutline": self.selectedOutline,
         "deselectedOutline": self.deselectedOutline,
 
-        "collectionBorder": self.collectionBorder,
         "collectionBorderRed": self.collectionBorderRed,
         "collectionBorderOrange": self.collectionBorderOrange,
         
@@ -591,7 +589,6 @@ def helpMenu():
 
     pygame.display.update()
     allSprites.draw(SCREEN)
-    
 
 def mainMenu():
     allSprites.empty()
