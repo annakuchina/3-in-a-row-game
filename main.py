@@ -113,43 +113,6 @@ sideBarWidth = 155
 deleteAnimation = ["BLANKDynamic", "BLANK"]
 spacingArray = [0, 0.33333333, 0.66666666, 1]
 
-#-----------------
-#SAMPLE BOARDS
-
-#Friendlies
-# board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
-
-#Enemies
-# board = {0: ['poisonPotion', 'poisonPotion', 'snake', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['poisonPotion', 'poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['snake', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
-
-# board = {0: ['healPotion', 'healPotion', 'mushroom', 'healPotion', 'healPotion', 'poisonPotion', 'snake', 'mushroom'], 1: ['mushroom', 'mushroom', 'healPotion', 'moon', 'moon', 'moon', 'snake', 'snake'], 2: ['healPotion', 'tree', 'tree', 'tree', 'poisonPotion', 'mushroom', 'snake', 'mushroom'], 3: ['poisonPotion', 'mushroom', 'moon', 'tree', 'snake', 'mushroom', 'snake', 'mushroom'], 4: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'snake', 'poisonPotion', 'mushroom', 'snake'], 5: ['poisonPotion', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['snake', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['poisonPotion', 'tree', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
-
-# board = {0: ['healPotion', 'mushroom', 'healPotion', 'healPotion', 'healPotion', 'poisonPotion', 'snake', 'mushroom'], 1: ['poisonPotion', 'healPotion', 'healPotion', 'moon', 'moon', 'moon', 'snake', 'snake'], 2: ['healPotion', 'tree', 'tree', 'tree', 'poisonPotion', 'mushroom', 'snake', 'mushroom'], 3: ['poisonPotion', 'mushroom', 'moon', 'tree', 'snake', 'mushroom', 'snake', 'mushroom'], 4: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'snake', 'poisonPotion', 'mushroom', 'snake'], 5: ['poisonPotion', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['snake', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['poisonPotion', 'tree', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
-# board = {0: ['moon', 'poisonPotion', 'healPotion', 'moon', 'tree', 'healPotion', 'tree', 'poisonPotion'], 1: ['snake', 'snake', 'healPotion', 'moon', 'poisonPotion', 'healPotion', 'moon', 'mushroom'], 2: ['snake', 'poisonPotion', 'mushroom', 'snake', 'healPotion', 'healPotion', 'mushroom', 'healPotion'], 3: ['tree', 'poisonPotion', 'healPotion', 'snake', 'tree', 'healPotion', 'moon', 'healPotion'], 4: ['tree', 'snake', 'healPotion', 'moon', 'mushroom', 'poisonPotion', 'tree', 'poisonPotion'], 5: ['mushroom', 'poisonPotion', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'moon', 'mushroom'], 6: ['snake', 'tree', 'snake', 'poisonPotion', 'tree', 'healPotion', 'moon', 'moon'], 7: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'moon', 'healPotion', 'snake', 'mushroom']}
-
-# board = {0: ['poisonPotion', 'healPotion', 'moon', 'snake', 'snake', 'snake', 'snake', 'moon'], 1: ['healPotion', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'healPotion'], 2: ['snake', 'snake', 'snake', 'healPotion', 'snake', 'poisonPotion', 'snake', 'mushroom'], 3: ['snake', 'poisonPotion', 'mushroom', 'healPotion', 'snake', 'moon', 'mushroom', 'mushroom'], 4: ['mushroom', 'healPotion', 'snake', 'snake', 'moon', 'poisonPotion', 'mushroom', 'tree'], 5: ['snake', 'healPotion', 'moon', 'snake', 'snake', 'snake', 'tree', 'tree'], 6: ['snake', 'moon', 'healPotion', 'poisonPotion', 'tree', 'snake', 'moon', 'moon'], 7: ['tree', 'tree', 'snake', 'tree', 'mushroom', 'tree', 'poisonPotion', 'mushroom']}
-
-# board = {0: ['mushroom', 'mushroom', 'mushroom', 'moon', 'healPotion', 'mushroom', 'mushroom', 'mushroom'], 1: ['snake', 'tree', 'snake', 'tree', 'snake', 'poisonPotion', 'moon', 'healPotion'], 2: ['mushroom', 'tree', 'moon', 'mushroom', 'healPotion', 'poisonPotion', 'mushroom', 'moon'], 3: ['poisonPotion', 'moon', 'mushroom', 'healPotion', 'moon', 'tree', 'healPotion', 'snake'], 4: ['poisonPotion', 'snake', 'snake', 'poisonPotion', 'healPotion', 'mushroom', 'healPotion', 'snake'], 5: ['moon', 'snake', 'moon', 'tree', 'poisonPotion', 'mushroom', 'tree', 'mushroom'], 6: ['mushroom', 'moon', 'poisonPotion', 'snake', 'healPotion', 'snake', 'tree', 'moon'], 7: ['poisonPotion', 'tree', 'poisonPotion', 'tree', 'tree', 'moon', 'poisonPotion', 'moon']}
-
-# board = {0: ['healPotion', 'snake', 'snake', 'moon', 'mushroom', 'mushroom', 'snake', 'mushroom'], 1: ['healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'snake', 'snake', 'mushroom', 'tree'], 2: ['mushroom', 'healPotion', 'poisonPotion', 'tree', 'poisonPotion', 'healPotion', 'snake', 'snake'], 3: ['mushroom', 'tree', 'moon', 'tree', 'healPotion', 'moon', 'mushroom', 'moon'], 4: ['healPotion', 'snake', 'healPotion', 'mushroom', 'moon', 'mushroom', 'mushroom', 'tree'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'tree', 'healPotion', 'mushroom', 'mushroom', 'tree', 'poisonPotion', 'moon'], 7: ['mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'healPotion', 'tree']}
-
-# board = {0: ['moon', 'tree', 'moon', 'moon', 'moon', 'moon', 'healPotion', 'poisonPotion'], 1: ['tree', 'snake', 'healPotion', 'healPotion', 'moon', 'snake', 'poisonPotion', 'healPotion'], 2: ['healPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'poisonPotion', 'snake'], 3: ['snake', 'tree', 'moon', 'tree', 'poisonPotion', 'tree', 'mushroom', 'poisonPotion'], 4: ['mushroom', 'tree', 'mushroom', 'snake', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion'], 5: ['healPotion', 'tree', 'moon', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'moon'], 6: ['tree', 'healPotion', 'mushroom', 'healPotion', 'snake', 'mushroom', 'poisonPotion', 'snake'], 7: ['healPotion', 'poisonPotion', 'snake', 'healPotion', 'healPotion', 'moon', 'moon', 'mushroom']}
-
-# board = {0: ['mushroom', 'poisonPotion', 'moon', 'mushroom', 'poisonPotion', 'mushroom', 'snake', 'tree'], 1: ['tree', 'healPotion', 'moon', 'healPotion', 'mushroom', 'mushroom', 'tree', 'healPotion'], 2: ['healPotion', 'healPotion', 'snake', 'moon', 'poisonPotion', 'mushroom', 'poisonPotion', 'healPotion'], 3: ['healPotion', 'tree', 'tree', 'snake', 'mushroom', 'mushroom', 'healPotion', 'mushroom'], 4: ['tree', 'mushroom', 'mushroom', 'poisonPotion', 'snake', 'mushroom', 'poisonPotion', 'mushroom'], 5: ['mushroom', 'poisonPotion', 'mushroom', 'healPotion', 'tree', 'healPotion', 'tree', 'mushroom'], 6: ['moon', 'mushroom', 'mushroom', 'snake', 'moon', 'healPotion', 'tree', 'mushroom'], 7: ['tree', 'healPotion', 'tree', 'snake', 'moon', 'snake', 'healPotion', 'tree']}
-
-# board = {0: ['mushroom', 'tree', 'tree', 'snake', 'tree', 'poisonPotion', 'poisonPotion', 'healPotion'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'snake', 'moon', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
-# board = {0: ['mushroom', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree', 'tree'], 1: ['mushroom', 'tree', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'tree', 'mushroom'], 2: ['moon', 'moon', 'tree', 'healPotion', 'tree', 'tree', 'tree', 'healPotion'], 3: ['tree', 'mushroom', 'snake', 'poisonPotion', 'poisonPotion', 'mushroom', 'moon', 'healPotion'], 4: ['tree', 'poisonPotion', 'moon', 'snake', 'tree', 'tree', 'mushroom', 'moon'], 5: ['snake', 'moon', 'mushroom', 'poisonPotion', 'snake', 'healPotion', 'mushroom', 'poisonPotion'], 6: ['mushroom', 'mushroom', 'snake', 'poisonPotion', 'mushroom', 'snake', 'tree', 'poisonPotion'], 7: ['healPotion', 'tree', 'poisonPotion', 'mushroom', 'tree', 'healPotion', 'tree', 'moon']}
-
-# board = {0: ['snake', 'snake', 'snake', 'poisonPotion', 'poisonPotion', 'snake', 'mushroom', 'mushroom'], 1: ['mushroom', 'mushroom', 'moon', 'moon', 'poisonPotion', 'snake', 'tree', 'mushroom'], 2: ['tree', 'snake', 'snake', 'mushroom', 'poisonPotion', 'moon', 'poisonPotion', 'tree'], 3: ['tree', 'snake', 'moon', 'snake', 'moon', 'mushroom', 'poisonPotion', 'snake'], 4: ['tree', 'poisonPotion', 'snake', 'healPotion', 'snake', 'moon', 'mushroom', 'moon'], 5: ['snake', 'healPotion', 'poisonPotion', 'snake', 'tree', 'tree', 'poisonPotion', 'mushroom'], 6: ['mushroom', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion', 'mushroom', 'tree', 'poisonPotion'], 7: ['healPotion', 'healPotion', 'mushroom', 'mushroom', 'snake', 'moon', 'tree', 'moon']}
-
-# board = {0: ['snake', 'snake', 'tree', 'mushroom', 'mushroom', 'moon', 'mushroom', 'snake'], 1: ['snake', 'poisonPotion', 'healPotion', 'moon', 'healPotion', 'mushroom', 'poisonPotion', 'poisonPotion'], 2: ['healPotion', 'snake', 'mushroom', 'moon', 'tree', 'healPotion', 'healPotion', 'poisonPotion'], 3: ['mushroom', 'tree', 'tree', 'poisonPotion', 'mushroom', 'moon', 'snake', 'healPotion'], 4: ['moon', 'healPotion', 'moon', 'moon', 'moon', 'poisonPotion', 'mushroom', 'healPotion'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion'], 6: ['healPotion', 'poisonPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'moon'], 7: ['snake', 'mushroom', 'snake', 'poisonPotion', 'snake', 'snake', 'poisonPotion', 'moon']}
-
-
-# board = {0: ['healPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'tree'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'poisonPotion', 'healPotion', 'healPotion', 'snake'], 2: ['mushroom', 'snake', 'snake', 'healPotion', 'healPotion', 'poisonPotion', 'mushroom', 'tree'], 3: ['tree', 'healPotion', 'poisonPotion', 'mushroom', 'moon', 'snake', 'mushroom', 'healPotion'], 4: ['healPotion', 'mushroom', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion', 'mushroom', 'mushroom'], 5: ['poisonPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['moon', 'poisonPotion', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
-
-
-#END SAMPLE BOARDS
-#-----------------
 
 class Item(pygame.sprite.Sprite):
     def __init__(self):
@@ -268,16 +231,6 @@ class Item(pygame.sprite.Sprite):
             "snakeSimple": [7, 6, 5, 4, 4],
             "poisonPotionSimple": [8, 7, 6, 5, 4]
         }
-
-        #TESTING
-        # levelInfoDict = {
-        #     "mushroomSimple": [4, 4, 4, 4, 4],
-        #     "treeSimple": [5, 5, 5, 5, 5],
-        #     "moonSimple": [3, 3, 3, 3, 3],
-        #     "healPotionSimple": [4, 4, 4, 4, 4],
-        #     "snakeSimple": [6, 6, 5, 4, 4],
-        #     "poisonPotionSimple": [6, 7, 6, 5, 4]
-        # }
         
     def drawItem(self, item, xLocation, yLocation, width, height):
         self.image = itemDict[item]
@@ -304,17 +257,6 @@ def drawGridItem(chosenItem, rowNo, colNo, givenItemSize, rowMultiplier):
 
 def makeBoard(givenBoard):
 
-    # for c in range(globs.COLUMN_COUNT):
-    #     colArray = []
-    #     for r in range(globs.ROW_COUNT):
-    #         chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
-    #         colArray.append(chosenItem)
-    #         drawGridItem(chosenItem, r, c, itemSize, 0)
-        
-    #     board[c] = colArray
-
-    # return board
-
     for c, colArray in givenBoard.items():
         r = 0
         for chosenItem in colArray:
@@ -333,14 +275,8 @@ def randomBoard():
 
     return board
 
-
-
-if len(board) > 0:
-    makeBoard(board)
-
-else:
-    #Generate the board randomly
-    randomBoard()
+# Generate the board randomly
+randomBoard()
 
 
 
