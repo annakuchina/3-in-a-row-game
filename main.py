@@ -117,7 +117,7 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 #SAMPLE BOARDS
 
 #Friendlies
-# board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
+board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
 
 #Enemies
 # board = {0: ['poisonPotion', 'poisonPotion', 'snake', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['poisonPotion', 'poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['snake', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
@@ -143,6 +143,10 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 # board = {0: ['snake', 'snake', 'snake', 'poisonPotion', 'poisonPotion', 'snake', 'mushroom', 'mushroom'], 1: ['mushroom', 'mushroom', 'moon', 'moon', 'poisonPotion', 'snake', 'tree', 'mushroom'], 2: ['tree', 'snake', 'snake', 'mushroom', 'poisonPotion', 'moon', 'poisonPotion', 'tree'], 3: ['tree', 'snake', 'moon', 'snake', 'moon', 'mushroom', 'poisonPotion', 'snake'], 4: ['tree', 'poisonPotion', 'snake', 'healPotion', 'snake', 'moon', 'mushroom', 'moon'], 5: ['snake', 'healPotion', 'poisonPotion', 'snake', 'tree', 'tree', 'poisonPotion', 'mushroom'], 6: ['mushroom', 'mushroom', 'healPotion', 'mushroom', 'poisonPotion', 'mushroom', 'tree', 'poisonPotion'], 7: ['healPotion', 'healPotion', 'mushroom', 'mushroom', 'snake', 'moon', 'tree', 'moon']}
 
 # board = {0: ['snake', 'snake', 'tree', 'mushroom', 'mushroom', 'moon', 'mushroom', 'snake'], 1: ['snake', 'poisonPotion', 'healPotion', 'moon', 'healPotion', 'mushroom', 'poisonPotion', 'poisonPotion'], 2: ['healPotion', 'snake', 'mushroom', 'moon', 'tree', 'healPotion', 'healPotion', 'poisonPotion'], 3: ['mushroom', 'tree', 'tree', 'poisonPotion', 'mushroom', 'moon', 'snake', 'healPotion'], 4: ['moon', 'healPotion', 'moon', 'moon', 'moon', 'poisonPotion', 'mushroom', 'healPotion'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion'], 6: ['healPotion', 'poisonPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'moon'], 7: ['snake', 'mushroom', 'snake', 'poisonPotion', 'snake', 'snake', 'poisonPotion', 'moon']}
+
+
+board = {0: ['healPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'tree'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'poisonPotion', 'healPotion', 'healPotion', 'snake'], 2: ['mushroom', 'snake', 'snake', 'healPotion', 'healPotion', 'poisonPotion', 'mushroom', 'tree'], 3: ['tree', 'healPotion', 'poisonPotion', 'mushroom', 'moon', 'snake', 'mushroom', 'healPotion'], 4: ['healPotion', 'mushroom', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion', 'mushroom', 'mushroom'], 5: ['poisonPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['moon', 'poisonPotion', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
+
 
 #END SAMPLE BOARDS
 #-----------------
@@ -799,10 +803,12 @@ def redrawGameWindow():
                 modifyHearts = 0.5
                 # playerStats["mushroom"][1] += 3
                 playerStats["mushroom"][1] += 12
+                playerStats["tree"][1] += 12
 
             elif item == "treeSimple":
                 modifyEnergy = 0.5
                 # playerStats["tree"][1] += 3
+                playerStats["mushroom"][1] += 12
                 playerStats["tree"][1] += 12
 
             elif item == "healPotionSimple":
@@ -845,11 +851,10 @@ def redrawGameWindow():
                 else:
                     fillCollection("mushroom")
 
-            if playerStats["mushroom"][0] == 12 and playerStats["tree"][0] == 12:
-                levelUpScreenRunning = True
-                playScreenRunning = False
-                initiateScreen = True
-
+            # if playerStats["mushroom"][0] == 12 and playerStats["tree"][0] == 12:
+            #     levelUpScreenRunning = True
+            #     playScreenRunning = False
+            #     initiateScreen = True
 
             if modifyEnergy > 0:
                 if modifyEnergy + playerStats["energy"][2] >= 3:
@@ -908,62 +913,59 @@ while gameRunning:
             pygame.display.update()
             initiateScreen = False
             firstRound = True
-            initiatePlayScreen = True
-
-        if initiatePlayScreen == True:
             gameChanged = True
-            initiatePlayScreen = False
 
-        else:
-            # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
-            if gameChanged == True and shiftItemsDown == False:
-                verticalDict = itemCollectVertical(board, itemTypes)
-                horizontalDict = itemCollectHorizontal(board, itemTypes)
+        # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
+        if gameChanged == True and shiftItemsDown == False:
+            verticalDict = itemCollectVertical(board, itemTypes)
+            horizontalDict = itemCollectHorizontal(board, itemTypes)
 
-                if len(verticalDict) > 0:
-                    removeVerticalCurrent = True
-                    removalAction = True
-                    pygame.mixer.Channel(1).play(itemDisappearSound)
-                
-                    for key in verticalDict:
-                        for item in verticalDict[key]:
-                            if isinstance(item, list):
-                                # Check that it's not 3 blank's in a row
-                                    matchItem = board[key][item[0]]
-                                    matchLength = len(item)
-                                    if startLevel == False:
-                                        if matchItem != "BLANK" and firstRound == False:
-                                            calculatePlayerStats(matchItem + "Simple", matchLength)
-                                    for rowNo in item:
-                                        board[key][rowNo] = "BLANK"
-
-                else:
-                    removeVerticalCurrent = False
-                    removeCount = 0
-                    verticalRemoveCount = 0
-
-                if len(horizontalDict) > 0:
-                    removeHorizontalCurrent = True
-                    removalAction = True
-                    pygame.mixer.Channel(1).play(itemDisappearSound)
-
-                    for key in horizontalDict:
-                        for item in horizontalDict[key]:
-                            if isinstance(item, list):
-                                    matchItem = board[item[0]][key]
-                                    matchLength = len(item)
-                                    if startLevel == False:
-                                        if matchItem != "BLANK" and firstRound == False:
-                                            calculatePlayerStats(matchItem + "Simple", matchLength)
-                                    for colNo in item:
-                                        board[colNo][key] = "BLANK"
-                else:
-                    removeHorizontalCurrent = False
-                    removeCount = 0
-                    horizontalRemoveCount = 0
-
-                gameChanged = False
+            if len(verticalDict) > 0:
+                removeVerticalCurrent = True
+                removalAction = True
+                pygame.mixer.Channel(1).play(itemDisappearSound)
             
+                for key in verticalDict:
+                    for item in verticalDict[key]:
+                        if isinstance(item, list):
+                            # Check that it's not 3 blank's in a row
+                                matchItem = board[key][item[0]]
+                                matchLength = len(item)
+                                if startLevel == False:
+                                    if matchItem != "BLANK" and firstRound == False:
+                                        calculatePlayerStats(matchItem + "Simple", matchLength)
+                                for rowNo in item:
+                                    board[key][rowNo] = "BLANK"
+
+            else:
+                removeVerticalCurrent = False
+                removeCount = 0
+                verticalRemoveCount = 0
+
+            if len(horizontalDict) > 0:
+                removeHorizontalCurrent = True
+                removalAction = True
+                pygame.mixer.Channel(1).play(itemDisappearSound)
+
+                for key in horizontalDict:
+                    for item in horizontalDict[key]:
+                        if isinstance(item, list):
+                                matchItem = board[item[0]][key]
+                                matchLength = len(item)
+                                if startLevel == False:
+                                    if matchItem != "BLANK" and firstRound == False:
+                                        calculatePlayerStats(matchItem + "Simple", matchLength)
+                                for colNo in item:
+                                    board[colNo][key] = "BLANK"
+
+            else:
+                removeHorizontalCurrent = False
+                removeCount = 0
+                horizontalRemoveCount = 0
+
+            gameChanged = False
+        
+        # Move columns down if items have been removed
         if removeVerticalCurrent == False and removeHorizontalCurrent == False and shiftItemsDown == False and removalAction == True:
             unmovedBoard = {}
             movedItemsBoard = {}
@@ -980,6 +982,11 @@ while gameRunning:
             if shiftItemsDown == False:
                 removalAction = False
 
+        if playerStats["tree"][0] == 12 and playerStats["mushroom"][0] == 12:
+            playScreenRunning = False
+            levelUpScreenRunning = True
+            initiateScreen = True
+
         if itemsModified == True and shiftItemsDown == False:
             gameChanged = True
             itemsModified = False
@@ -993,29 +1000,8 @@ while gameRunning:
 
     elif levelUpScreenRunning:
         if initiateScreen:
-            modifyEnergy = 0
-            modifyHearts = 0
-
-            board = {}
             levelUp()
 
-            playerStats = {
-            "heart": [0, 3, 3],
-            "energy": [1, 3, 3],
-            "tree": [0, 0],
-            "mushroom": [0, 0]
-            }
-
-            itemCountDict = {
-            "mushroomSimple": [0, 0, 0, 0, mushroomSimpleColor],
-            "treeSimple": [1, 0, 0, 0, treeSimpleColor],
-            "moonSimple": [2, 0, 0, 0, (175, 72, 238)],
-            "healPotionSimple": [3, 0, 0, 0, (202, 18, 81)],
-            "snakeSimple": [4, 0, 0, 0, (88, 102, 229)],
-            "poisonPotionSimple": [5, 0, 0, 0, (15, 130, 85)]
-            }
-
-            randomBoard()
             pygame.display.update()
             initiateScreen = False
 
@@ -1163,6 +1149,27 @@ while gameRunning:
                             levelUpScreenRunning = False
                             winScreenRunning = True
                         else:
+                            board = {}
+                            modifyEnergy = 0
+                            modifyHearts = 0
+
+                            playerStats = {
+                            "heart": [0, 3, 3],
+                            "energy": [1, 3, 3],
+                            "tree": [0, 0],
+                            "mushroom": [0, 0]
+                            }
+
+                            itemCountDict = {
+                            "mushroomSimple": [0, 0, 0, 0, mushroomSimpleColor],
+                            "treeSimple": [1, 0, 0, 0, treeSimpleColor],
+                            "moonSimple": [2, 0, 0, 0, (175, 72, 238)],
+                            "healPotionSimple": [3, 0, 0, 0, (202, 18, 81)],
+                            "snakeSimple": [4, 0, 0, 0, (88, 102, 229)],
+                            "poisonPotionSimple": [5, 0, 0, 0, (15, 130, 85)]
+                            }
+
+                            randomBoard()
                             initiateScreen = True
                             levelUpScreenRunning = False
                             playScreenRunning = True
