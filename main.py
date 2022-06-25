@@ -801,15 +801,15 @@ def redrawGameWindow():
             # Friendly items
             if item == "mushroomSimple":
                 modifyHearts = 0.5
-                # playerStats["mushroom"][1] += 3
-                playerStats["mushroom"][1] += 12
-                playerStats["tree"][1] += 12
+                playerStats["mushroom"][1] += 3
+                # playerStats["mushroom"][1] += 12
+                # playerStats["tree"][1] += 12
 
             elif item == "treeSimple":
                 modifyEnergy = 0.5
-                # playerStats["tree"][1] += 3
-                playerStats["mushroom"][1] += 12
-                playerStats["tree"][1] += 12
+                playerStats["tree"][1] += 3
+                # playerStats["mushroom"][1] += 12
+                # playerStats["tree"][1] += 12
 
             elif item == "healPotionSimple":
                 modifyEnergy = 2
