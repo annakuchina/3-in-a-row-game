@@ -1,5 +1,5 @@
-ROW_COUNT = 8
-COLUMN_COUNT = 8
+rowCount = 8
+columnCount = 8
 
 itemTypes = [
     "mushroom",

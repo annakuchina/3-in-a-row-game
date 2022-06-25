@@ -9,8 +9,8 @@ pygame.mixer.pre_init()
 pygame.mixer.init()
 pygame.init()
 SCREEN = pygame.display.set_mode((925, 840))
-pygame_icon = pygame.image.load(os.path.join("images", "mushroomScaled" + ".png")).convert_alpha()
-pygame.display.set_icon(pygame_icon)
+pygameIcon = pygame.image.load(os.path.join("images", "mushroomScaled" + ".png")).convert_alpha()
+pygame.display.set_icon(pygameIcon)
 pygame.display.set_caption('Woodland')
 
 pygame.event.set_allowed([pygame.QUIT, pygame.MOUSEBUTTONDOWN, pygame.KEYDOWN])
@@ -29,9 +29,9 @@ itemDisappearSound =  pygame.mixer.Sound(os.path.join("files", "itemDisappear.mp
 dropDownSound = pygame.mixer.Sound(os.path.join("files", "dropDown.mp3"))
 
 
-SQUARESIZE = 8
-width = globs.COLUMN_COUNT * SQUARESIZE
-height = (globs.ROW_COUNT+1) * SQUARESIZE
+squareSize = 8
+width = globs.columnCount * squareSize
+height = (globs.rowCount+1) * squareSize
 size = (width, height)
 board = {}
 unmovedBoard = {}
@@ -256,9 +256,9 @@ def makeBoard(givenBoard):
             r+=1
 
 def randomBoard():
-    for c in range(globs.COLUMN_COUNT):
+    for c in range(globs.columnCount):
         colArray = []
-        for r in range(globs.ROW_COUNT):
+        for r in range(globs.rowCount):
             chosenItem = itemTypes[random.randint(0, globs.itemLen-1)]
             colArray.append(chosenItem)
             drawGridItem(chosenItem, r, c, itemSize, 0)
@@ -290,7 +290,7 @@ def button(textContent, xLocation, yLocation, width, height, backgroundColor, te
 def drawItemCount(item):
     global itemsDrawn
     itemCountMessage = str(itemCountDict[item][1]) + "/" + str(itemCountDict[item][3])
-    xTextLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 67
+    xTextLocation = outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 67
     yTextLocation = itemCountDict[item][0]*55 + 2.5*itemSize[1] + outerTopMargin - 16 + 25
     
     textColor = ""
@@ -328,7 +328,7 @@ def calculatePlayerStats(item, itemNumber):
         fullPlayerStatsList.append(item)
         drawItemCount(item)
     
-     # User has not reached the required amount of items yet
+    # User has not reached the required amount of items yet
     elif itemCountDict[item][2] != itemCountDict[item][3]:
         itemCountDict[item][1] = itemCountDict[item][2]
         itemCountDict[item][2] += itemNumber
@@ -340,7 +340,7 @@ def drawSidebarIcons():
     height = 30
     for item in itemCountDict:
         count = itemCountDict[item][0]
-        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 23
+        xLocation = outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 23
         yLocation = count*55 + 2.5*itemSize[1] + outerTopMargin
         scene = Item()
 
@@ -350,12 +350,12 @@ def drawSidebarIcons():
         if count > 3:
             yLocation += 35
 
-        #Friendlies
+        # Friendlies
         if count == 0:
             drawText("+", 60, darkerOrangeColor, xLocation + 22, yLocation - 50)
             drawText("+", 40, whiteColor, xLocation + 32, yLocation - 41)
         
-        #Enemies
+        # Enemies
         elif count == 4:
             drawText("x", 56, darkerOrangeColor, xLocation + 22 + 3 + 4, yLocation - 49 - 3)
             drawText("x", 40, blackColor, xLocation + 32 + 4, yLocation - 41 - 3 + 1)
@@ -363,9 +363,9 @@ def drawSidebarIcons():
         scene.drawItem(item, xLocation, yLocation, width, height)
         drawItemCount(item)
     scene = Item()
-    scene.drawItem("collectionBorderRed", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing +25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+    scene.drawItem("collectionBorderRed", outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing +25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
     scene = Item()
-    scene.drawItem("collectionBorderOrange", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
+    scene.drawItem("collectionBorderOrange", outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + (sideBarWidth - 45) - 25, 2*55 + 2.5*itemSize[1] + outerTopMargin - 7, 45, 45)
     allSprites.draw(SCREEN)
 
 # Draw the energy and heart icons
@@ -377,7 +377,7 @@ def drawPlayerStats(item, itemNumber):
 
     # There are less items there than there were previously, clear the player statistics
     if playerStats[item][2] < playerStats[item][1]:
-        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
+        xLocation = outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing
         yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
         width = 3*30 + 2*10
         height = 30
@@ -389,7 +389,7 @@ def drawPlayerStats(item, itemNumber):
     height = 30
     while i < playerStats[item][2]:
         scene = Item()
-        xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(i)*40
+        xLocation = outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + 20 + sidebarLeftSpacing + math.floor(i)*40
         yLocation = 2*itemSize[0]/3 + outerTopMargin + playerStats[item][0]*40
         if i + 0.5 == playerStats[item][2]:
             selectedItem = selectedItem + "Half"
@@ -402,7 +402,7 @@ def drawPlayerStats(item, itemNumber):
 
 # Filling the tree and mushroom collection meters
 def fillCollection(item):
-    xLocation = outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 6 + 25
+    xLocation = outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + 6 + 25
     yLocation = 42 + 2*55 + 2.5*itemSize[1] + outerTopMargin - 7
 
     if playerStats[item][0] + playerStats[item][1] >= 12:
@@ -449,20 +449,20 @@ def drawLevel():
     drawText("L" + str(levelNumber), 40, whiteColor, outerLeftMargin+50, 62)
 
 def drawSidebar():
-    #Draw the orange background
-    rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(SCREEN, backgroundPeachColor, rect_object)
+    # Draw the orange background
+    bgObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+    pygame.draw.rect(SCREEN, backgroundPeachColor, bgObject)
 
-    #Draw the top bar
-    topBarBg = pygame.Rect(outerLeftMargin, 35, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 90)
+    # Draw the top bar
+    topBarBg = pygame.Rect(outerLeftMargin, 35, globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth, 90)
     pygame.draw.rect(SCREEN, whiteColor, topBarBg)
-    topBar = pygame.Rect(outerLeftMargin+5, 40, globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 10, 80)
+    topBar = pygame.Rect(outerLeftMargin+5, 40, globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 10, 80)
     pygame.draw.rect(SCREEN, darkerOrangeColor, topBar)
 
-    #Draw the right side bar
-    sideBarBg = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1))
+    # Draw the right side bar
+    sideBarBg = pygame.Rect(outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing)+ sidebarLeftSpacing, outerTopMargin, sideBarWidth, (itemSize[1])*globs.columnCount + innerSpacing*(globs.columnCount-1))
     pygame.draw.rect(SCREEN, whiteColor, sideBarBg)
-    sideBar = pygame.Rect(outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.COLUMN_COUNT + innerSpacing*(globs.COLUMN_COUNT-1)-10)
+    sideBar = pygame.Rect(outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing)+sidebarLeftSpacing+5, outerTopMargin+5, sideBarWidth-10, (itemSize[1])*globs.columnCount + innerSpacing*(globs.columnCount-1)-10)
     pygame.draw.rect(SCREEN, lighterOrangeColor, sideBar)
 
     textMessage = "Woodland"
@@ -472,7 +472,7 @@ def drawSidebar():
     drawLevel()
 
     scene = Item()
-    scene.drawItem("pauseButton", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
+    scene.drawItem("pauseButton", outerLeftMargin + globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
 
 def levelUp():
     allSprites.empty()
@@ -530,10 +530,10 @@ def helpMenu():
     allSprites.empty()
     SCREEN.fill(whiteColor)
 
-    rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(SCREEN, lighterOrangeColor, rectObject)
-    rectObject = pygame.Rect(20, 20, screenDimensions[0]-40, screenDimensions[1]-40)
-    pygame.draw.rect(SCREEN, whiteColor, rectObject)
+    outlineOrangeObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+    pygame.draw.rect(SCREEN, lighterOrangeColor, outlineOrangeObject)
+    whiteBgObject = pygame.Rect(20, 20, screenDimensions[0]-40, screenDimensions[1]-40)
+    pygame.draw.rect(SCREEN, whiteColor, whiteBgObject)
     topMargin = 77
     drawCenterText("Help", 55, orangeRedColor, screenDimensions[0]//2, 1*screenDimensions[1]/10)
 
@@ -598,10 +598,10 @@ def helpMenu():
 
 def mainMenu():
     allSprites.empty()
-    rectObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-    pygame.draw.rect(SCREEN, darkerOrangeColor, rectObject)
-    rectObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
-    pygame.draw.rect(SCREEN, whiteColor, rectObject)
+    outlineOrangeObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+    pygame.draw.rect(SCREEN, darkerOrangeColor, outlineOrangeObject)
+    whiteBgObject = pygame.Rect(40, 40, screenDimensions[0]-80, screenDimensions[1]-80)
+    pygame.draw.rect(SCREEN, whiteColor, whiteBgObject)
     drawCenterText("Woodland", 80, redColor, screenDimensions[0]//2, 3.5*screenDimensions[1]/10)
     scene = Item()
     scene.drawItem("mushroomTransparent", 2*screenDimensions[0]/10, 1.4*screenDimensions[1]/10, 150, 150)
@@ -1020,14 +1020,14 @@ while gameRunning:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 if mainMenuRunning:
-                    #Play
+                    # Play
                     if (screenDimensions[0]- 250)//2 + 250 > mouse_x > (screenDimensions[0]- 250)//2 and 4.5*screenDimensions[1]/10 + 70 > mouse_y > 4.5*screenDimensions[1]/10:
                         pygame.mixer.Channel(0).play(clickSound)
                         mainMenuRunning = False
                         playScreenRunning = True
                         initiateScreen = True
                     
-                    #Help
+                    # Help
                     elif (screenDimensions[0]- 225)//2 + 225 > mouse_x > (screenDimensions[0]- 225)//2 and 5.7*screenDimensions[1]/10 + 70 > mouse_y > 5.7*screenDimensions[1]/10:
                         pygame.mixer.music.pause()
                         pygame.mixer.Channel(0).play(clickSound)
@@ -1036,12 +1036,12 @@ while gameRunning:
                         mainMenuRunning = False
                         helpMenuRunning = True
 
-                    #Quit
+                    # Quit
                     elif (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
 
                 elif pauseMenuRunning:
-                    #Resume
+                    # Resume
                     if (screenDimensions[0]- 400)//2 + 400 > mouse_x > (screenDimensions[0]- 400)//2 and 3.5*screenDimensions[1]/10 + 90 > mouse_y > 3.5*screenDimensions[1]/10:
                         pygame.mixer.music.unpause()
                         pygame.mixer.Channel(0).play(clickSound)
@@ -1049,7 +1049,7 @@ while gameRunning:
                         playScreenRunning = True
                         initiateScreen = True
 
-                    #Help
+                    # Help
                     elif (screenDimensions[0]- 375)//2 + 375 > mouse_x > (screenDimensions[0]- 375)//2 and 5*screenDimensions[1]/10 + 90 > mouse_y > 5*screenDimensions[1]/10:
                         pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
@@ -1057,13 +1057,13 @@ while gameRunning:
                         pauseMenuRunning = False
                         helpMenuRunning = True
                     
-                    #Quit
+                    # Quit
                     if (screenDimensions[0]- 330)//2 + 330 > mouse_x > (screenDimensions[0]- 330)//2 and 6.6*screenDimensions[1]/10 + 90 > mouse_y > 6.6*screenDimensions[1]/10:
                         quitGame()
                 
                 elif levelUpScreenRunning:
                     # Pause the game
-                    if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
+                    if  globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
                         pygame.mixer.music.pause()
                         pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
@@ -1075,8 +1075,8 @@ while gameRunning:
                         pygame.mixer.Channel(0).play(clickSound)
                         allSprites.empty()
                         boardChanged = True
-                        rect_object = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
-                        pygame.draw.rect(SCREEN, backgroundPeachColor, rect_object)
+                        whiteBgObject = pygame.Rect(0, 0, screenDimensions[0], screenDimensions[1])
+                        pygame.draw.rect(SCREEN, backgroundPeachColor, whiteBgObject)
                         levelNumber += 1
 
                         # Win the game
@@ -1181,7 +1181,7 @@ while gameRunning:
 
                 elif playScreenRunning:
                     # Pause the game
-                    if  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
+                    if  globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth > mouse_x >  globs.columnCount*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth - 50 and 58+50 > mouse_y > 50:
                         pygame.mixer.music.pause()
                         pygame.mixer.Channel(0).play(clickSound)
                         initiateScreen = True
@@ -1197,10 +1197,10 @@ while gameRunning:
                         columnLocation = xLocation // (itemSize[0]+innerSpacing)
                         rowLocation = yLocation // (itemSize[1]+innerSpacing)
 
-                        if columnLocation >= globs.COLUMN_COUNT or columnLocation < 0:
+                        if columnLocation >= globs.columnCount or columnLocation < 0:
                             itemSelected = False
                         
-                        if rowLocation >= globs.ROW_COUNT or rowLocation < 0:
+                        if rowLocation >= globs.rowCount or rowLocation < 0:
                             itemSelected = False
 
                         if itemSelected != False:
@@ -1222,7 +1222,7 @@ while gameRunning:
                                 if displayedArray[0][0] == columnLocation and displayedArray[0][1] == rowLocation:
                                     removeItemBorder = True
 
-                                #Two items are identical in a column (vertical)
+                                # Two items are identical in a column (vertical)
                                 elif displayedArray[0][0] == columnLocation and displayedArray[0][1] == rowLocation+1:
                                     swappedItems = True
                                     swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation+1] = swappedBoard[columnLocation][rowLocation+1], swappedBoard[columnLocation][rowLocation]
@@ -1231,7 +1231,7 @@ while gameRunning:
                                     swappedItems = True
                                     swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation][rowLocation-1] = swappedBoard[columnLocation][rowLocation-1], swappedBoard[columnLocation][rowLocation]
                                 
-                                #Two items are identical in a row (horizontal)
+                                # Two items are identical in a row (horizontal)
                                 elif displayedArray[0][1] == rowLocation and displayedArray[0][0] == columnLocation+1:
                                     swappedItems = True
                                     swappedBoard[columnLocation][rowLocation], swappedBoard[columnLocation+1][rowLocation] = swappedBoard[columnLocation+1][rowLocation], swappedBoard[columnLocation][rowLocation]
@@ -1259,7 +1259,6 @@ while gameRunning:
                                         board = copy.deepcopy(swappedBoard)
                                         selectedArray = []
                                         displayedArray = []
-                                        # modifyEnergy = -0.25
 
                                     # The items are not swapped
                                     elif swappedBoard[displayedArray[0][0]][displayedArray[0][1]] == board[displayedArray[0][0]][displayedArray[0][1]]:

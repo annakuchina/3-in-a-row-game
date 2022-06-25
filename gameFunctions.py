@@ -12,7 +12,7 @@ def shiftDown(col):
             unchangedCol = col[:itemNo]
             unchangedLen = len(unchangedCol)
 
-            while unchangedLen < globs.COLUMN_COUNT:
+            while unchangedLen < globs.columnCount:
                 unchangedCol.append("BLANK")
                 unchangedLen += 1
 
@@ -23,7 +23,7 @@ def shiftDown(col):
             col.reverse()
             unchangedCol.reverse()
 
-            reversedItemNo = globs.COLUMN_COUNT-1 - itemNo
+            reversedItemNo = globs.columnCount-1 - itemNo
             
             i = 0
             while i<= reversedItemNo:
@@ -43,12 +43,12 @@ def itemCollectVertical(board, itemTypes):
     colComboDict = {}
 
     for item in itemTypes:
-        for c in range(globs.COLUMN_COUNT):
-            while rowMarker < globs.ROW_COUNT-2:
+        for c in range(globs.columnCount):
+            while rowMarker < globs.rowCount-2:
                 if board[c][rowMarker] == item and board[c][rowMarker+1] == item and board[c][rowMarker+2] == item:
                     comboCols.extend([rowMarker, rowMarker+1, rowMarker+2])
                     rowMarker += 2
-                    while rowMarker+1 < globs.ROW_COUNT:
+                    while rowMarker+1 < globs.rowCount:
                         # Checking if it is longer than 3 in a row
                         if board[c][rowMarker+1] == item:
                             comboCols.append(rowMarker + 1)
@@ -107,13 +107,13 @@ def itemCollectHorizontal(board, itemTypes):
     rowComboDict = {}
 
     for item in itemTypes:
-        for r in range(globs.ROW_COUNT):
-            while colMarker < globs.COLUMN_COUNT-2:
+        for r in range(globs.rowCount):
+            while colMarker < globs.columnCount-2:
 
                 if board[colMarker][r] == item and board[colMarker + 1][r] == item and board[colMarker + 2][r] == item:
                     comboRows.extend([colMarker, colMarker+1, colMarker+2])
                     colMarker += 2
-                    while colMarker+1 < globs.COLUMN_COUNT:
+                    while colMarker+1 < globs.columnCount:
                         # Checking if it is longer than 3 in a column
                         if board[colMarker + 1][r] == item:
                             comboRows.append(colMarker + 1)
