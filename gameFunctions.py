@@ -8,7 +8,6 @@ def shiftDown(col):
     modifiedItems = []
     
     for item in col:
-        
         if item == "BLANK":
             unchangedCol = col[:itemNo]
             unchangedLen = len(unchangedCol)
@@ -38,8 +37,8 @@ def shiftDown(col):
 
 
 def itemCollectVertical(board, itemTypes):
-    # Check vertical locations for 3-in-a-row items
-    comboCols1 = []
+    # Check vertical locations for 3-in-a-column items
+    comboCols = []
     rowMarker = 0
     colComboDict = {}
 
@@ -47,13 +46,12 @@ def itemCollectVertical(board, itemTypes):
         for c in range(globs.COLUMN_COUNT):
             while rowMarker < globs.ROW_COUNT-2:
                 if board[c][rowMarker] == item and board[c][rowMarker+1] == item and board[c][rowMarker+2] == item:
-                    comboCols1.extend([rowMarker, rowMarker+1, rowMarker+2])
+                    comboCols.extend([rowMarker, rowMarker+1, rowMarker+2])
                     rowMarker += 2
-
                     while rowMarker+1 < globs.ROW_COUNT:
                         # Checking if it is longer than 3 in a row
                         if board[c][rowMarker+1] == item:
-                            comboCols1.append(rowMarker + 1)
+                            comboCols.append(rowMarker + 1)
                         else:
                             break
 
@@ -61,15 +59,15 @@ def itemCollectVertical(board, itemTypes):
                 else:
                     rowMarker += 1
 
-            if len(comboCols1) > 0:
-                colComboDict[c] = [item, comboCols1]
+            if len(comboCols) > 0:
+                colComboDict[c] = [item, comboCols]
 
-            comboCols1 = []
+            comboCols = []
             rowMarker = 0
-            
+    
+    # See if there are multiple matches in a column
     for colKey in colComboDict:
         colLen = len(colComboDict[colKey][1])
-        
         i = 0
         j = 1
         firstCol = []
@@ -115,7 +113,6 @@ def itemCollectHorizontal(board, itemTypes):
                 if board[colMarker][r] == item and board[colMarker + 1][r] == item and board[colMarker + 2][r] == item:
                     comboRows.extend([colMarker, colMarker+1, colMarker+2])
                     colMarker += 2
-
                     while colMarker+1 < globs.COLUMN_COUNT:
                         # Checking if it is longer than 3 in a column
                         if board[colMarker + 1][r] == item:

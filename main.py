@@ -208,7 +208,7 @@ class Item(pygame.sprite.Sprite):
             "mushroom": [0, 0]
         }
         
-        # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items, 4: the colour corresponding to the item
+        # 0 index: order in which the item is display, 1: the previous count of items, 2: the current count of items, 3: the required tally of items, 4: the color corresponding to the item
         itemCountDict = {
             "mushroomSimple": [0, 0, 0, 0, mushroomSimpleColor],
             "treeSimple": [1, 0, 0, 0, treeSimpleColor],
@@ -476,7 +476,6 @@ def drawSidebar():
 
     scene = Item()
     scene.drawItem("pauseButton", outerLeftMargin + globs.COLUMN_COUNT*(itemSize[1]+innerSpacing) + sidebarLeftSpacing + sideBarWidth/3 + 5, 58, 50, 50)
-
 
 def levelUp():
     allSprites.empty()
