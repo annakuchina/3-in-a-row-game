@@ -117,7 +117,7 @@ spacingArray = [0, 0.33333333, 0.66666666, 1]
 #SAMPLE BOARDS
 
 #Friendlies
-board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
+# board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['tree', 'tree', 'mushroom', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['mushroom', 'mushroom', 'tree', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['tree', 'tree', 'mushroom', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
 
 #Enemies
 # board = {0: ['poisonPotion', 'poisonPotion', 'snake', 'tree', 'healPotion', 'mushroom', 'healPotion', 'poisonPotion'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'tree', 'mushroom', 'tree', 'mushroom'], 2: ['poisonPotion', 'poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'snake', 'moon'], 3: ['snake', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion', 'healPotion', 'poisonPotion'], 4: ['moon', 'tree', 'mushroom', 'moon', 'moon', 'tree', 'healPotion', 'snake'], 5: ['tree', 'snake', 'snake', 'moon', 'tree', 'healPotion', 'moon', 'moon'], 6: ['mushroom', 'healPotion', 'snake', 'poisonPotion', 'tree', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['tree', 'healPotion', 'mushroom', 'moon', 'moon', 'snake', 'tree', 'tree']}
@@ -145,7 +145,7 @@ board = {0: ['mushroom', 'mushroom', 'tree', 'tree', 'healPotion', 'mushroom', '
 # board = {0: ['snake', 'snake', 'tree', 'mushroom', 'mushroom', 'moon', 'mushroom', 'snake'], 1: ['snake', 'poisonPotion', 'healPotion', 'moon', 'healPotion', 'mushroom', 'poisonPotion', 'poisonPotion'], 2: ['healPotion', 'snake', 'mushroom', 'moon', 'tree', 'healPotion', 'healPotion', 'poisonPotion'], 3: ['mushroom', 'tree', 'tree', 'poisonPotion', 'mushroom', 'moon', 'snake', 'healPotion'], 4: ['moon', 'healPotion', 'moon', 'moon', 'moon', 'poisonPotion', 'mushroom', 'healPotion'], 5: ['poisonPotion', 'snake', 'poisonPotion', 'snake', 'poisonPotion', 'healPotion', 'snake', 'poisonPotion'], 6: ['healPotion', 'poisonPotion', 'moon', 'healPotion', 'moon', 'tree', 'moon', 'moon'], 7: ['snake', 'mushroom', 'snake', 'poisonPotion', 'snake', 'snake', 'poisonPotion', 'moon']}
 
 
-board = {0: ['healPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'tree'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'poisonPotion', 'healPotion', 'healPotion', 'snake'], 2: ['mushroom', 'snake', 'snake', 'healPotion', 'healPotion', 'poisonPotion', 'mushroom', 'tree'], 3: ['tree', 'healPotion', 'poisonPotion', 'mushroom', 'moon', 'snake', 'mushroom', 'healPotion'], 4: ['healPotion', 'mushroom', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion', 'mushroom', 'mushroom'], 5: ['poisonPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['moon', 'poisonPotion', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
+# board = {0: ['healPotion', 'healPotion', 'mushroom', 'poisonPotion', 'healPotion', 'mushroom', 'poisonPotion', 'tree'], 1: ['snake', 'snake', 'poisonPotion', 'moon', 'poisonPotion', 'healPotion', 'healPotion', 'snake'], 2: ['mushroom', 'snake', 'snake', 'healPotion', 'healPotion', 'poisonPotion', 'mushroom', 'tree'], 3: ['tree', 'healPotion', 'poisonPotion', 'mushroom', 'moon', 'snake', 'mushroom', 'healPotion'], 4: ['healPotion', 'mushroom', 'healPotion', 'poisonPotion', 'snake', 'poisonPotion', 'mushroom', 'mushroom'], 5: ['poisonPotion', 'poisonPotion', 'poisonPotion', 'poisonPotion', 'healPotion', 'mushroom', 'mushroom', 'tree'], 6: ['poisonPotion', 'snake', 'healPotion', 'poisonPotion', 'poisonPotion', 'tree', 'poisonPotion', 'poisonPotion'], 7: ['moon', 'poisonPotion', 'moon', 'snake', 'moon', 'poisonPotion', 'tree', 'poisonPotion']}
 
 
 #END SAMPLE BOARDS
@@ -801,15 +801,15 @@ def redrawGameWindow():
             # Friendly items
             if item == "mushroomSimple":
                 modifyHearts = 0.5
-                playerStats["mushroom"][1] += 3
-                # playerStats["mushroom"][1] += 12
-                # playerStats["tree"][1] += 12
+                # playerStats["mushroom"][1] += 3
+                playerStats["mushroom"][1] += 12
+                playerStats["tree"][1] += 12
 
             elif item == "treeSimple":
                 modifyEnergy = 0.5
-                playerStats["tree"][1] += 3
-                # playerStats["mushroom"][1] += 12
-                # playerStats["tree"][1] += 12
+                # playerStats["tree"][1] += 3
+                playerStats["mushroom"][1] += 12
+                playerStats["tree"][1] += 12
 
             elif item == "healPotionSimple":
                 modifyEnergy = 2
@@ -851,10 +851,10 @@ def redrawGameWindow():
                 else:
                     fillCollection("mushroom")
 
-            # if playerStats["mushroom"][0] == 12 and playerStats["tree"][0] == 12:
-            #     levelUpScreenRunning = True
-            #     playScreenRunning = False
-            #     initiateScreen = True
+            if playerStats["mushroom"][0] == 12 and playerStats["tree"][0] == 12:
+                levelUpScreenRunning = True
+                playScreenRunning = False
+                initiateScreen = True
 
             if modifyEnergy > 0:
                 if modifyEnergy + playerStats["energy"][2] >= 3:
@@ -910,10 +910,18 @@ while gameRunning:
     if playScreenRunning:
         if initiateScreen:
             play()
-            pygame.display.update()
-            initiateScreen = False
-            firstRound = True
-            gameChanged = True
+            # Checking if player statistics are full
+            if playerStats["tree"][0] == 12 and playerStats["mushroom"][0] == 12:
+                playScreenRunning = False
+                levelUpScreenRunning = True
+                initiateScreen = True
+
+            else:
+                play()
+                pygame.display.update()
+                initiateScreen = False
+                firstRound = True
+                gameChanged = True
 
         # If the game is changed, check if there are vertical and horizontal matches, and then update them to disappear
         if gameChanged == True and shiftItemsDown == False:
@@ -981,11 +989,6 @@ while gameRunning:
                     
             if shiftItemsDown == False:
                 removalAction = False
-
-        if playerStats["tree"][0] == 12 and playerStats["mushroom"][0] == 12:
-            playScreenRunning = False
-            levelUpScreenRunning = True
-            initiateScreen = True
 
         if itemsModified == True and shiftItemsDown == False:
             gameChanged = True
