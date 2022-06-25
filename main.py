@@ -1,8 +1,5 @@
-import os, pygame, random, sys, math
-from re import T
-
+import os, pygame, random, sys, math, copy
 import globs
-import copy
 from gameFunctions import itemCollectHorizontal, itemCollectVertical, shiftDown
 
 clock = pygame.time.Clock()
@@ -845,6 +842,12 @@ while gameRunning:
                 initiateScreen = True
 
             else:
+                # Checking if player had previously selected something
+                if displayedArray != []:
+                    selectedArray = displayedArray
+                    displayedArray = []
+                    addItemBorder = True
+
                 play()
                 pygame.display.update()
                 initiateScreen = False
