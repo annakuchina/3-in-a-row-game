@@ -10,7 +10,9 @@ globs.py - contains global variables used both in gameFunctions.py and main.py
 
 ---
 
-Start the game by running __main.py__ in the terminal or a code editing software such as Visual Studio Code. Pygame is required.
+Start the game by running __main.py__ in the terminal or a code editing software such as Visual Studio Code. Pygame is required. 
+
+If the game doesn't work, please try downloading the game files again to ensure all needed files are present in the game.
 
 ---
 
