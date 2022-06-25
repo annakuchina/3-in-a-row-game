@@ -23,11 +23,9 @@ pygame.mixer.music.load(os.path.join("files", "backgroundMusic.mp3"))
 pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(loops=-1)  # Loop music forever
 
-
 clickSound = pygame.mixer.Sound(os.path.join("files", "click.mp3"))
-itemDisappearSound =  pygame.mixer.Sound(os.path.join("files", "itemDisappear.mp3"))
+itemDisappearSound = pygame.mixer.Sound(os.path.join("files", "itemDisappear.mp3"))
 dropDownSound = pygame.mixer.Sound(os.path.join("files", "dropDown.mp3"))
-
 
 squareSize = 8
 width = globs.columnCount * squareSize
@@ -481,7 +479,6 @@ def levelUp():
     pygame.draw.rect(SCREEN, whiteColor, levelUpBg)
 
     drawCenterText("Level Up!", 40, treeSimpleColor, (itemSize[0] + innerSpacing + outerLeftMargin) + (itemSize[0]*6 + innerSpacing*5)/2, 3.3*itemSize[0] + innerSpacing*3 + outerTopMargin)
-    
     button("Continue", outerLeftMargin + 2.5*itemSize[0] + 2*innerSpacing, 4*itemSize[0] + innerSpacing*3 + outerTopMargin, 3*itemSize[0] + 3*innerSpacing, 90, mushroomSimpleColor, whiteColor, 20)
 # END of screen drawing functions
 
